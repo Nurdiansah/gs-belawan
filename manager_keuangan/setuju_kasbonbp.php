@@ -13,7 +13,7 @@ if (isset($_POST['setuju'])) {
 
     if ($vrf_pajak == 'bp') {
         // jika kasbon verifikasi sebelum pembayaran
-        $query = "UPDATE kasbon SET  status_kasbon = '2', app_manager = '$tanggal'
+        $query = "UPDATE kasbon SET  status_kasbon = '3', app_manager = '$tanggal'
                 WHERE id_kasbon ='$id_kasbon' ";
         $hasil = mysqli_query($koneksi, $query);
     } else if ($vrf_pajak == 'as') {

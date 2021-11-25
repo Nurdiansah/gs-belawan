@@ -146,7 +146,7 @@ $query = mysqli_query($koneksi, "SELECT *
 
 <!-- Modal Lihat  -->
 <div id="lihatKasbon" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <!-- konten modal-->
         <div class="modal-content">
             <!-- heading modal -->
@@ -226,7 +226,7 @@ $query = mysqli_query($koneksi, "SELECT *
             <!-- body modal -->
             <div class="modal-body">
                 <div class="perhitungan">
-                    <form method="post" name="form" enctype="multipart/form-data" action="setuju_kasbon.php" class="form-horizontal">
+                    <form method="post" name="form" enctype="multipart/form-data" action="setuju_kasbon_divisi.php" class="form-horizontal">
                         <div class="box-body">
                             <input type="hidden" name="id" value="" id="ma_id_kasbon">
                             <input type="hidden" name="vrf_pajak" value="" id="ma_vrf_pajak">

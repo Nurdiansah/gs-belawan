@@ -100,6 +100,10 @@ $jkv = $dataKV1['jumlah'] + $dataKV2['jumlah'] + $dataKV3['jumlah'];
 $queryPV = mysqli_query($koneksi, "SELECT COUNT(id_po) AS jumlah  FROM po WHERE status_po = '2'  ");
 $dataPV = mysqli_fetch_assoc($queryPV);
 
+// query kasbon APPROVE
+$queryKasbonDivisi = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '1' AND id_manager = '$idUser'  AND from_user = '1'");
+$dataKasbonDivisi = mysqli_fetch_assoc($queryKasbonDivisi);
+
 // query kasbon ditolak
 $queryKasbonTolak = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '303' AND id_manager = '$idUser'  AND from_user = '1'");
 $dataKasbonTolak = mysqli_fetch_assoc($queryKasbonTolak);

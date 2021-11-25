@@ -217,7 +217,7 @@ include "../fungsi/koneksi.php";
         <td><b>Direktur 2</b></td>
         <td>:</td>
         <td>APPROVED by <?= strtoupper(cekUsername($data['id_direktur2'])) ?> (<?= formatTanggalWaktu($data['app_direktur2']); ?>)</td>
-        <td>Jakarta, <?= date('d', strtotime($tgl_sekarang)) . ' ' . ($bln_tgl[date('m', strtotime($tgl_sekarang))]) . ' ' . date('Y', strtotime($tgl_sekarang)); ?></td>
+        <td>Medan, <?= date('d', strtotime($tgl_sekarang)) . ' ' . ($bln_tgl[date('m', strtotime($tgl_sekarang))]) . ' ' . date('Y', strtotime($tgl_sekarang)); ?></td>
     </tr>
 </table>
 <!-- </td> -->

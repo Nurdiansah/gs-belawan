@@ -89,9 +89,7 @@
          <a href="index.php?p=ditolak_kasbon&sp=tolak_purchasing" class="list-group-item"> <i class="fa fa-close"></i> Ditolak <span class="badge label-danger"><?php if ($totalTolakKasbon > 0) {
                                                                                                                                                                   echo $totalTolakKasbon;
                                                                                                                                                                 } ?></span></span></a>
-         <a href="index.php?p=kasbon_transaksi" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi <span class="badge label-success"><?php if ($dataKT['jumlah'] >= 1) {
-                                                                                                                                                          echo $dataKT['jumlah'];
-                                                                                                                                                        } ?></span></a>
+         <a href="index.php?p=kasbon_transaksi" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi <span class="badge label-success"></span></a>
        </div>
      </div>
      <div class="col-lg-4 col-xs-6">

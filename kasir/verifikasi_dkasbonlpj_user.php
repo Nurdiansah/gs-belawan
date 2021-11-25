@@ -126,6 +126,21 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
                                     <h3 class="text-center">Rincian Harga</h3>
                                     <div class="table-responsive">
                                         <table class="table" border="2px">
+                                            <tr>
+                                                <td colspan="5"><b>Nominal Pengajuan</b></td>
+                                                <td><b><?= formatRupiah($data['nilai_pengajuan']); ?></b></td>
+                                            </tr>
+                                            <tr style="background-color :#B0C4DE;">
+                                                <td colspan="5"><b>Pengembalian</b></td>
+                                                <td><b><?= formatRupiah($data['pengembalian']); ?></b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5"><b>Penambahan</b></td>
+                                                <td><b><?= formatRupiah($data['penambahan']); ?></b></td>
+                                            </tr>
+                                            <tr style="background-color : grey;">
+                                                <td colspan="6"><b></b></td>
+                                            </tr>
                                             <tr style="background-color :#B0C4DE;">
                                                 <td colspan="5"><b>Nilai Barang</b></td>
                                                 <td><b><?= formatRupiah($data['nilai_barang']); ?></b></td>
@@ -141,14 +156,6 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
                                             <tr>
                                                 <td colspan="5"><b>PPh</b></td>
                                                 <td><b>(<?= formatRupiah($data['nilai_pph']); ?>)</b></td>
-                                            </tr>
-                                            <tr style="background-color :#B0C4DE;">
-                                                <td colspan="5"><b>Pengembalian</b></td>
-                                                <td><b><?= formatRupiah($data['pengembalian']); ?></b></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5"><b>Penambahan</b></td>
-                                                <td><b><?= formatRupiah($data['penambahan']); ?></b></td>
                                             </tr>
                                             <tr style="background-color :#B0C4DE;">
                                                 <td colspan="5"><b>Grand Total</b></td>
@@ -195,7 +202,7 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
                                 <input type="hidden" value="<?= $data['id_manager']; ?>" class="form-control" name="id_manager" readonly>
                                 <input type="hidden" value="<?= $data['doc_lpj']; ?>" class="form-control" name="doc_lpj" readonly>
                                 <input type="hidden" value="<?= $data['id_kasbon']; ?>" class="form-control" name="id_kasbon" readonly>
-                                <input type="hidden" value="<?= $totalPengajuan; ?>" class="form-control" name="total" readonly>
+                                <input type="hidden" value="<?= round($totalPengajuan); ?>" class="form-control" name="total" readonly>
                                 <input type="hidden" value="<?= $data['id_anggaran']; ?>" class="form-control" name="id_anggaran" readonly>
                                 <input type="hidden" value="<?= $data['id_supplier']; ?>" class="form-control" name="id_supplier" readonly>
                                 <input type="hidden" value="<?= $data['nilai_barang']; ?>" class="form-control" name="nilai_barang" readonly>

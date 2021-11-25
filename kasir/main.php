@@ -16,7 +16,7 @@
   <!-- <div id="chartdiv"></div> -->
   <!-- row -->
   <div class="row">
-    <div class="col-lg-3 col-xs-6">
+    <div class="col-lg-4 col-xs-6">
       <div class="list-group">
         <a href="#" class="list-group-item active">
           Biaya Umum
@@ -27,20 +27,7 @@
         <a href="#" class="list-group-item"><i class="fa fa-minimize"></i> <span class="badge label-info"></span> </a>
       </div>
     </div>
-    <div class="col-lg-3 col-xs-6">
-      <div class="list-group">
-        <a href="#" class="list-group-item label-warning">
-          Biaya Operasional
-        </a>
-        <a href="index.php?p=biaya_khusus" class="list-group-item"><i class="fa fa-edit"></i> Create<span class="badge label-warning"><?php echo $dataBKP['jumlah'] >= 1 ? $dataBKP['jumlah'] : ''; ?></span></a>
-        <a href="index.php?p=ditolak_biayakhusus" class="list-group-item"><i class="fa fa-close"></i> Ditolak<span class="badge label-info"><?php if ($dataTolakPK['jumlah'] >= 1) {
-                                                                                                                                              echo $dataTolakPK['jumlah'];
-                                                                                                                                            } ?></span> </a>
-        <a href="index.php?p=transaksi_biayakhusus" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi<span class="badge label-success"></span></a>
-        <a href="#" class="list-group-item"><i class="fa fa-minimize"></i> <span class="badge label-info"></span> </a>
-      </div>
-    </div>
-    <div class="col-lg-3 col-xs-6">
+    <div class="col-lg-4 col-xs-6">
       <div class="list-group">
         <a href="#" class="list-group-item label-success">
           BKK
@@ -57,7 +44,7 @@
         <a href="index.php?p=transaksi_bkk" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi<span class="badge label-success"></span></a>
       </div>
     </div>
-    <div class="col-lg-3 col-xs-6">
+    <div class="col-lg-4 col-xs-6">
       <div class="list-group">
         <a href="#" class="list-group-item label-default">
           Service Order

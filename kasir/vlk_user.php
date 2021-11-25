@@ -7,7 +7,12 @@ $queryKu = mysqli_query($koneksi, "SELECT *
                                     ON d.id_divisi = dbo.id_divisi                                            
                                     WHERE k.status_kasbon = '9' AND from_user = '1'
                                     ORDER BY k.tgl_kasbon ASC   ");
+
+if (isset($_COOKIE['pesan'])) {
+    echo "<div class='alert " . $_COOKIE['warna'] . "' role='alert'><b>" . $_COOKIE['pesan'] . "</b></div>";
+}
 ?>
+
 <div class="table-responsive">
     <table class="table text-center table table-striped table-hover" id=" ">
         <thead>

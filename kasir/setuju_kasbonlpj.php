@@ -55,7 +55,7 @@ if (isset($_POST['submit'])) {
 
 	mysqli_query($koneksi, $queryLog);
 
-	if ($total <= 1000000) {
+	if ($total <= 100000) {
 		# pettycash		
 		// KODE OTOMATIS
 		$query = mysqli_query($koneksi, "SELECT MAX(kd_pettycash) FROM transaksi_pettycash ");

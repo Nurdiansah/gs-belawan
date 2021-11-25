@@ -24,7 +24,6 @@
         <a href="index.php?p=approval_bno" class="list-group-item"> <i class="fa fa-calendar-check-o"></i> Biaya Umum<span class="badge label-danger"><?php if ($dataBno['jumlah'] >= 1) {
                                                                                                                                                         echo $dataBno['jumlah'];
                                                                                                                                                       } ?></span></a>
-        <a href="index.php?p=verifikasi_biayaops" class="list-group-item"> <i class="fa fa-dollar"></i> Biaya Operasional <span class="badge label-info"><?php echo $dataBK['jumlah'] >= 1 ? $dataBK['jumlah'] : ''; ?></span> </a>
         <a href="index.php?p=verifikasi_kasbon&sp=vk_purchasing" class="list-group-item"> <i class="fa fa-money"></i> Kasbon <span class="badge label-info"><?php echo $jkv >= 1 ? $jkv : ''; ?></span> </a>
         <a href="index.php?p=verifikasi_po" class="list-group-item"> <i class="fa fa-list"></i> PO <span class="badge label-success"><?php if ($dataPV['jumlah'] >= 1) {
                                                                                                                                         echo $dataPV['jumlah'];
@@ -51,7 +50,6 @@
         <a href="index.php?p=lihat_bno" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi <span class="badge label-success"><?php if ($dataSelesai['jumlah_Selesai'] >= 1) {
                                                                                                                                                   echo $dataSelesai['jumlah_Selesai'];
                                                                                                                                                 } ?></span></a>
-        <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
       </div>
     </div>
     <div class="col-lg-3 col-xs-6">
@@ -67,7 +65,6 @@
                                                                                                                                       } ?></span> </a>
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
-        <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
       </div>
     </div>
     <div class="col-lg-3 col-xs-6">
@@ -82,7 +79,6 @@
         <a href="index.php?p=ditolak_so" class="list-group-item"> <i class="fa fa-close"></i> Ditolak <span class="badge label-danger"><?php if ($dataTolakSO['jumlah'] > 0) {
                                                                                                                                           echo $dataTolakSO['jumlah'];
                                                                                                                                         } ?></span></a>
-        <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
       </div>
     </div>

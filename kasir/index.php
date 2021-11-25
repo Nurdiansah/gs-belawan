@@ -314,28 +314,6 @@ $dataOutstanding = mysqli_fetch_assoc($queryOutstanding);
           </li>
 
           <li class="treeview">
-            <a href="#">
-              <i class="fa fa-envelope-o"></i>
-              <span>Biaya Operasional</span> <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="treeview-menu">
-              <?php if ($dataBKP['jumlah'] > 0) { ?>
-                <span class="pull-right-container">
-                  <span class="label label-warning pull-right"><?= $dataBKP['jumlah']; ?></span>
-                </span>
-              <?php } ?>
-              <li><a href="index.php?p=biaya_khusus"><i class="fa fa-edit"></i> Create</a></li>
-              <?php if ($dataTolakPK['jumlah'] > 0) { ?>
-                <span class="pull-right-container">
-                  <span class="label label-info pull-right"><?= $dataTolakPK['jumlah']; ?></span>
-                </span>
-              <?php } ?>
-              <li><a href="index.php?p=ditolak_biayakhusus"><i class="fa fa-close"></i> Ditolak</a></li>
-              <li><a href="index.php?p=transaksi_biayakhusus"><i class="fa fa-bar-chart-o"></i> Transaksi</a></li>
-            </ul>
-          </li>
-
-          <li class="treeview">
             <a href="">
               <i class="fa fa-print"></i>
               <span>BKK</span> <i class="fa fa-angle-left pull-right"></i>

@@ -94,7 +94,7 @@ $queryKP1 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbo
                                                                       JOIN detail_biayaops dbo 
                                                                       ON k.id_dbo = dbo.id  
                                                                       WHERE dbo.id_divisi = '$idDivisi'
-                                                                      AND (k.status_kasbon BETWEEN 1 AND 7 OR k.status_kasbon IS NULL)
+                                                                      AND (k.status_kasbon BETWEEN 1 AND 9 OR k.status_kasbon IS NULL)
                                                                       AND k.from_user = '0'
                                                                       AND sr_id IS NULL");
 $dataKP1 = mysqli_fetch_assoc($queryKP1);
@@ -103,7 +103,7 @@ $dataKP1 = mysqli_fetch_assoc($queryKP1);
 $queryKP2 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon k
                                                                       JOIN detail_biayaops dbo 
                                                                       ON k.id_dbo = dbo.id  
-                                                                      WHERE dbo.id_divisi = '$idDivisi' AND k.status_kasbon  BETWEEN 1 AND 7 AND k.from_user = '1'");
+                                                                      WHERE dbo.id_divisi = '$idDivisi' AND k.status_kasbon  BETWEEN 1 AND 9 AND k.from_user = '1'");
 $dataKP2 = mysqli_fetch_assoc($queryKP2);
 
 $dataKP = $dataKP1['jumlah'] + $dataKP2['jumlah'];
@@ -118,7 +118,7 @@ $queryKT = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah
                                     JOIN detail_biayaops
                                         ON id = id_dbo
                                     WHERE id_divisi = '$idDivisi'
-                                    AND status_kasbon = '8'");
+                                    AND status_kasbon = '10'");
 
 $dataKT = mysqli_fetch_assoc($queryKT);
 

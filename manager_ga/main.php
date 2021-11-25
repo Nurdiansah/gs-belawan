@@ -70,8 +70,8 @@
         <a href="#" class="list-group-item label-success">
           Kasbon
         </a>
-        <a href="index.php?p=approval_kasbon" class="list-group-item"> <i class="fa fa-check-square-o"></i> Approval <span class="badge label-danger"><?php if ($dataAM['jumlah'] > 0) {
-                                                                                                                                                        echo $dataAM['jumlah'];
+        <a href="index.php?p=approval_kasbon" class="list-group-item"> <i class="fa fa-check-square-o"></i> Approval <span class="badge label-danger"><?php if ($dataKasbonDivisi['jumlah'] > 0) {
+                                                                                                                                                        echo $dataKasbonDivisi['jumlah'];
                                                                                                                                                       } ?></span></a>
         <a href="#" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"></span> </a>
         <a href="index.php?p=ditolak_kasbon&sp=tolak_purchasing" class="list-group-item"> <i class="fa fa-close"></i> Ditolak <span class="badge label-danger"><?php if ($totalTolakKasbon > 0) {

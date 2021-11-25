@@ -36,7 +36,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM kasbon
                                     JOIN detail_biayaops
                                         ON id = id_dbo
                                     WHERE id_divisi = '$idDivisi'
-                                    AND status_kasbon = '8'
+                                    AND status_kasbon = '10'
                                     -- AND from_user = '1'
                                     -- AND sr_id IS NULL
                     ");
