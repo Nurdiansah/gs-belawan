@@ -191,6 +191,9 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
                     <div class="box-body">
                         <div class="form-group ">
                             <div class="col-sm-4">
+                                <input type="hidden" value="<?= $data['id_divisi']; ?>" class="form-control" name="id_divisi" readonly>
+                                <input type="hidden" value="<?= $data['id_manager']; ?>" class="form-control" name="id_manager" readonly>
+                                <input type="hidden" value="<?= $data['doc_lpj']; ?>" class="form-control" name="doc_lpj" readonly>
                                 <input type="hidden" value="<?= $data['id_kasbon']; ?>" class="form-control" name="id_kasbon" readonly>
                                 <input type="hidden" value="<?= $totalPengajuan; ?>" class="form-control" name="total" readonly>
                                 <input type="hidden" value="<?= $data['id_anggaran']; ?>" class="form-control" name="id_anggaran" readonly>
