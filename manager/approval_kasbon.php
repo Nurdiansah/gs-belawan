@@ -146,7 +146,7 @@ $query = mysqli_query($koneksi, "SELECT *
 
 <!-- Modal Lihat  -->
 <div id="lihatKasbon" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <!-- konten modal-->
         <div class="modal-content">
             <!-- heading modal -->
