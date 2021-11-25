@@ -1,0 +1,51 @@
+.login-box {
+  margin: 5% auto;
+}
+
+.body {
+  background-image: url("../../../gambar/gs.jpg");
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+
+.logo,
+.navbar {
+  background: #022eb1 !important;
+}
+
+.login-box-body {
+  padding: 10px 20px 20px 20px !important;
+  /* color: black;  */
+  color: transparent;
+}
+
+.login-logo {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.login-box-body h3 {
+  font-weight: bold;
+}
+
+.login-box-body img {
+  display: block;
+  margin: 15px auto;
+}
+.login-box {
+  background: black;
+}
+
+#inline {
+  margin: 15px auto;
+  padding: 0;
+}
+
+#inline li {
+  display: inline;
+  margin-left: 15px;
+  margin-right: 15px;
+}

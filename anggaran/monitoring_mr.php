@@ -1,0 +1,100 @@
+<?php
+include "../fungsi/koneksi.php";
+include "../fungsi/fungsi.php";
+
+
+if (isset($_GET['aksi']) && isset($_GET['id'])) {
+    //die($id = $_GET['id']);
+    $id = $_GET['id'];
+    echo $id;
+
+    if ($_GET['aksi'] == 'lihat') {
+        header("location:?p=detail_mr&id=$id");
+    } else if ($_GET['aksi'] == 'hapus') {
+        header("#");
+    }
+}
+
+$query = mysqli_query($koneksi, "SELECT * 
+                                        FROM biaya_ops b     
+                                        JOIN detail_biayaops dbo                                                                       
+                                         ON b.kd_transaksi = dbo.kd_transaksi
+                                         JOIN divisi d
+                                         ON d.id_divisi = b.id_divisi
+                                        WHERE b.status_biayaops <= '2'AND b.status_biayaops != '0' AND dbo.status <= '2' GROUP BY b.kd_transaksi ORDER BY b.kd_transaksi DESC ");
+
+
+?>
+<!-- Main content -->
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="text-center">Transaksi Material Request</h3>
+                </div>
+                <div class="box-body">
+                    <br>
+                </div>
+                <div id="my-timeline"></div>
+                <div class="table-responsive">
+                    <table class="table text-center table table-striped table-hover" id=" ">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Kode Transaksi</th>
+                                <th>Tanggal Pengajuan</th>
+                                <th>Divisi</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <?php
+                                $no = 1;
+                                if (mysqli_num_rows($query)) {
+                                    while ($row = mysqli_fetch_assoc($query)) :
+
+                                ?>
+                                        <td> <?= $no; ?> </td>
+                                        <td> <?= $row['kd_transaksi']; ?> </td>
+                                        <td> <?= formatTanggal($row['created_on']); ?> </td>
+                                        <td> <?= $row['nm_divisi']; ?> </td>
+                                        <td> <?php if ($row['status_biayaops'] == 1) { ?>
+                                                <span class="label label-success">Menunggu Approve Manager </span>
+                                            <?php  } else if ($row['status_biayaops'] == 2) { ?>
+                                                <span class="label label-success">Bidding Process Purchasing</span>
+                                            <?php  } else if ($row['status_biayaops'] == 3) { ?>
+                                                <span class="label label-warning">Verifikasi Tax</span>
+                                            <?php  } else if ($row['status_biayaops'] == 4) { ?>
+                                                <span class="label label-warning">Verifikasi Manager GA</span>
+                                            <?php  } else if ($row['status_biayaops'] == 5) { ?>
+                                                <span class="label label-primary">Approval Manager Finance</span>
+                                            <?php  } ?>
+
+                                        </td>
+                            </tr>
+                    <?php
+
+                                        $no++;
+                                    endwhile;
+                                } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<script>
+    $(function() {
+        $("#material").DataTable({
+            "language": {
+                "url": "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
+                "sEmptyTable": "Tidak ada data di database"
+            }
+        });
+    });
+</script>

@@ -1,0 +1,132 @@
+<?php  
+	session_start();
+	include "../fungsi/koneksi.php";
+
+	if(isset($_POST['submit'])) {		
+		$id_divisi = $_POST['id_divisi'];
+		$nm_barang = $_POST['nm_barang'];
+		$nm_barang = $_POST['nm_barang'];
+		$id_anggaran = $_POST['id_anggaran'];		
+		$merk = $_POST['merk'];
+		$type = $_POST['type'];
+		$spesifikasi = $_POST['spesifikasi'];
+		$jumlah = $_POST['jumlah'];
+		$satuan = $_POST['satuan'];
+		$keterangan = $_POST['keterangan'];				
+
+		date_default_timezone_set('Asia/Jakarta');
+		$tanggal= date("Y-m-d H:i:s");
+
+		// cek pengajuan =  budget
+		// buat query anggaran
+		$queryAnggaran =  mysqli_query($koneksi, "SELECT * FROM anggaran
+                                                     WHERE id_anggaran = '$id_anggaran' ");
+		$dataA=mysqli_fetch_assoc($queryAnggaran);		
+
+		$realisasi = $dataA['januari_realisasi'] + $dataA['februari_realisasi'] + $dataA['maret_realisasi'] + $dataA['april_realisasi'] + $dataA['mei_realisasi'] + $dataA['juni_realisasi'] + $dataA['juli_realisasi'] + $dataA['agustus_realisasi'] + $dataA['september_realisasi'] + $dataA['oktober_realisasi'] + $dataA['november_realisasi'] + $dataA['desember_realisasi'] ;
+		$budgetBarang = $dataA['jumlah_kuantitas'] - $realisasi;
+		$kd_anggaran = $dataA['kd_anggaran'];
+		$id_divisi = $dataA['id_divisi'];
+		$id_tahun = $dataA['id_tahun'];
+		$no_coa = $dataA['no_coa'];
+		$id_golongan = $dataA['id_golongan'];
+		$id_subgolongan = $dataA['id_subgolongan'];
+		$satuan = $dataA['id_satuan'];
+
+		
+		//baca lokasi file sementara dan nama file dari form (doc_ptw)		
+		$lokasi_foto = ($_FILES['foto']['tmp_name']);
+		$foto=($_FILES['foto']['name']);
+		$namabaru= $tanggal."-foto-barang";		
+		move_uploaded_file($lokasi_foto,"../file/foto/".$namabaru);
+
+		// Pengkondisian jika pengajuan lebih dari budget
+		if ($jumlah > $budgetBarang) {
+			// barang yang masuk non rab			
+			$jumlah_nonrab = $jumlah - $budgetBarang;
+			$jumlah_rab = $budgetBarang; // jika budget lebih dari nol			
+
+				// jika rab lebih dari nol
+				if ($jumlah_rab > 0) {
+					// insert Rab
+						$queryRab = "INSERT INTO detail_biayaops ( id_divisi, nm_barang, id_anggaran,merk, type, spesifikasi, jumlah, satuan, keterangan, foto_item) VALUES 
+						( '$id_divisi', '$nm_barang', '$id_anggaran', '$merk', '$type', '$spesifikasi', '$jumlah_rab', '$satuan', '$keterangan', '$namabaru' );
+						";
+						mysqli_query($koneksi, $queryRab);
+				}
+			
+			
+			$queryCekNonRab = mysqli_query ($koneksi, " SELECT count(id_anggaran) as id_anggaran
+                                                FROM anggaran
+												WHERE kd_anggaran='$kd_anggaran' AND id_divisi = '$id_divisi' AND nm_item = 'Non RAB' ");                                                
+
+			$dataCNR=mysqli_fetch_assoc($queryCekNonRab);												
+			$idNR = $dataCNR['id_anggaran'];						
+
+				if ($idNR='0') {
+					$queryTambahAnggaran = "INSERT INTO anggaran ( id_tahun, id_divisi, no_coa, kd_anggaran, id_golongan, id_subgolongan, nm_item, id_satuan) VALUES 
+						( '$id_tahun', '$id_divisi', '$no_coa', '$kd_anggaran', '$id_golongan', '$id_subgolongan', 'Non RAB', '$satuan';
+						";
+					mysqli_query($koneksi, $queryTambahAnggaran);
+					// 
+					echo print_r($queryTambahAnggaran);
+
+					$queryCekNonRab2 = mysqli_query ($koneksi, " SELECT id_anggaran 
+                                                FROM anggaran
+												WHERE kd_anggaran='$kd_anggaran' AND id_divisi = '$id_divisi' AND nm_item = 'Non RAB' ");                                                
+
+					$dataCNR2=mysqli_fetch_assoc($queryCekNonRab2);												
+					$idNR2 = $dataCNR2['id_anggaran'];
+
+					// insert Non Rab
+					$queryNonRab = "INSERT INTO detail_biayaops ( id_divisi, nm_barang, id_anggaran,merk, type, spesifikasi, jumlah, satuan, keterangan, foto_item) VALUES 
+												( '$id_divisi', '$nm_barang', '$idNR2', '$merk', '$type', '$spesifikasi', '$jumlah_nonrab', '$satuan', '$keterangan', '$namabaru' );
+					";
+					mysqli_query($koneksi, $queryNonRab);
+
+				} else {
+					$queryCekNonRab3 = mysqli_query ($koneksi, " SELECT id_anggaran 
+                                                FROM anggaran
+												WHERE kd_anggaran='$kd_anggaran' AND id_divisi = '$id_divisi' AND nm_item = 'Non RAB' ");                                                
+
+					$dataCNR3=mysqli_fetch_assoc($queryCekNonRab3);												
+					$idNR3 = $dataCNR3['id_anggaran'];
+
+					// insert Non Rab
+					$queryNonRab = "INSERT INTO detail_biayaops ( id_divisi, nm_barang, id_anggaran,merk, type, spesifikasi, jumlah, satuan, keterangan, foto_item) VALUES 
+												( '$id_divisi', '$nm_barang', '$idNR3', '$merk', '$type', '$spesifikasi', '$jumlah_nonrab', '$satuan', '$keterangan', '$namabaru' );
+					";
+					mysqli_query($koneksi, $queryNonRab);
+				}
+						
+
+		} else {
+			$query = "INSERT INTO detail_biayaops ( id_divisi, nm_barang, id_anggaran,merk, type, spesifikasi, jumlah, satuan, keterangan, foto_item) VALUES 
+						( '$id_divisi', '$nm_barang', '$id_anggaran', '$merk', '$type', '$spesifikasi', '$jumlah', '$satuan', '$keterangan', '$namabaru' );
+						";
+						mysqli_query($koneksi, $query);
+		}
+								
+		// 		
+		$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]'");
+	    $rowUser=mysqli_fetch_assoc($queryUser);
+        $nama=$rowUser['nama'];
+		
+		$queryLog = "INSERT INTO log_system (waktu, nama_user, keterangan) VALUES
+									('$tanggal', '$nama', 'Tambah Item MR' );
+
+									";
+		$hasil = mysqli_query($koneksi, $queryLog);
+		
+		// $hasil = mysqli_query($koneksi, $query);
+		if ($hasil) {
+			header("location:index.php?p=buat_mr");
+		} else {
+			die("ada kesalahan : " . mysqli_error($koneksi));
+		}
+
+	}
+
+?>
+<!-- pindah -->
+<!--  -->

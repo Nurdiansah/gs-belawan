@@ -1,0 +1,27 @@
+<?php
+	$db_names = array(
+		"ekanuri", 
+	);
+	
+	if(date("H") %6 == 0 )
+	{
+		echo date("[d/m/Y H:i]") . " Starting database back up...\n"; 
+
+		foreach ($db_names as $name)
+		{
+			$file_directory = "D:/backup/".$name."/";
+			$file_name = $name.date("_Y_m_d_H_i_s").".sql";
+			$file_path = $file_directory.$file_name;
+			if (!file_exists($file_directory)) {
+				mkdir($file_directory, 0777, true);
+			}
+			echo " | Backing up database: $name to $file_directory\n"; 
+			system('mysqldump --user=root --password= '.$name.' > "'.$file_path.'"');
+		}
+		
+		echo "\n"; 
+
+		
+	}
+
+?>

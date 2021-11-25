@@ -1,0 +1,52 @@
+<!-- Meeting 06 Maret 2020  -->
+
+User :
+<!-- - Pada saat tambah item ada menu rincian barang (selesai) -->
+
+manager :
+- Pembuatan note untuk pengajuan yang non rab
+
+purchasing :
+- Pada saat submit quatation , ada inputan diskon , note(keterangan term) : 1-7 hari, 1-14, 1-30.
+- Menu Outstanding PO yang belum di bayarkan 
+
+kasir :
+- List Verifikasi PO : kasir menentukan term payment pada pengajuan .
+- Pengajuan yang sudah di verifikasi, masuk dalam list Create BKK PO. berdasarkan tanggal termpayment
+- sisa pembayaran po di tampilkan di purcasing 
+- untuk pelunasan po masuk dalam outstanding kasir , dan ketika di lakukan pelunasan purchasing langsung submit dan masuk langsung ke kasir
+
+Anggaran 
+- Pengajuan yang sudah di veirifikasi masuk ke list berbeda
+
+cetak po
+- di tambah manager ga 
+<!-- -deskripsi di margin top ke atas (selesai) -->
+
+
+Meeting 13 Maret 2020
+- Penambahan field dalam rincian barang 
+- Penambahan menu rincian barang kasbon di manager finance ,  direktur
+<!-- - Penambahan warna tombol update jika sudah di lakukan bidding (selesai) -->
+- verifikasi permohonan baranng dari user oleh spv purcasing (hold menunggu keputusan pak andi)
+- verifikasi biding harga dari purchasing ke spv purchasing (hold menunggu keputusan pak andi)
+- Pending LPJ di kasir
+- Penambahan Filter Supplier berdasarkan kategori (Opsional)
+- Penamabahan anggaran setelah pembelian (hold menunggu keputusan pak andi)
+<!-- - Cetak Po TO di rubah nama vendor (Selesai) -->
+
+
+//baru sampe setuju_bkk2.php
+
+
+
+-- di manager / direktur di tampilkan ppn dan potongna 
+
+
+
+-- 2020/06/18
+    -   Regulasi di tambah barang pada MR , jika jumlah kuantitas kode anggaran 0 maka kuantitas harus di isi 0
+
+
+--  2020/06/23
+        -   Setuju_kasbonlpj pada kasir belum berjalan untuk insert bkk final 
