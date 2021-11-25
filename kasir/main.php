@@ -96,8 +96,8 @@
         <a href="index.php?p=pending_kasbon&sp=pnk_purchasing" class="list-group-item"> <i class="fa fa-hourglass-2"></i> Pending LPJ <span class="badge label-danger"><?php if ($dataKPL['jumlah'] >= 1) {
                                                                                                                                                                           echo $dataKPL['jumlah'];
                                                                                                                                                                         } ?></span> </a>
-        <a href="index.php?p=verifikasi_kasbonlpj&sp=vlk_purchasing" class="list-group-item"> <i class="fa fa-tags"></i> Verifikasi LPJ <span class="badge label-info"><?php if ($dataKL['jumlah'] >= 1) {
-                                                                                                                                                                          echo $dataKL['jumlah'];
+        <a href="index.php?p=verifikasi_kasbonlpj&sp=vlk_purchasing" class="list-group-item"> <i class="fa fa-tags"></i> Verifikasi LPJ <span class="badge label-info"><?php if ($jumlahKL >= 1) {
+                                                                                                                                                                          echo $jumlahKL;
                                                                                                                                                                         } ?></span> </a>
         <a href="index.php?p=transaksi_kasbon" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi <span class="badge label-success"><?php if ($dataKT['jumlah'] >= 1) {
                                                                                                                                                         echo $dataKT['jumlah'];

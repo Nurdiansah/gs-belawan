@@ -89,7 +89,7 @@ if (isset($_POST['submit'])) {
 	// print_r($queryRealisasi);
 	// die;
 
-	$query = "UPDATE kasbon SET status_kasbon = '8'
+	$query = "UPDATE kasbon SET status_kasbon = '10'
 							WHERE id_kasbon ='$id_kasbon' ";
 
 	mysqli_query($koneksi, $query);

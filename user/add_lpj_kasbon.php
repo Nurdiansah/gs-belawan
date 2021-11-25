@@ -58,7 +58,7 @@ if (isset($_POST['submit'])) {
 
         if ($vrf_pajak == 'bp') {
             $query = "UPDATE kasbon SET doc_lpj = '$nama_doc', $field   -- antara nominal pengembalian atau penambahan
-                                status_kasbon = '7', waktu_lpj = '$tanggal' , harga_akhir = '$hargaAkhir'
+                                status_kasbon = '9', waktu_lpj = '$tanggal' , harga_akhir = '$hargaAkhir'
                                 , nilai_barang = '$nilai_barang', nilai_jasa = '$nilai_jasa'
                                 WHERE id_kasbon ='$id_kasbon' ";
 

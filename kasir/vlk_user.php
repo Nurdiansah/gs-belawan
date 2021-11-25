@@ -5,7 +5,7 @@ $queryKu = mysqli_query($koneksi, "SELECT *
                                     ON k.id_dbo = dbo.id
                                     JOIN divisi d
                                     ON d.id_divisi = dbo.id_divisi                                            
-                                    WHERE k.status_kasbon = '7' AND from_user = '1'
+                                    WHERE k.status_kasbon = '9' AND from_user = '1'
                                     ORDER BY k.tgl_kasbon ASC   ");
 ?>
 <div class="table-responsive">

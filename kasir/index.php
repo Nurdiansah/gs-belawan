@@ -75,7 +75,7 @@ $queryKP1 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasb
 $dataKP1 = mysqli_fetch_assoc($queryKP1);
 
 // kasbon payment 2
-$queryKP2 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon WHERE status_kasbon = '5' AND from_user ='1' ");
+$queryKP2 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon WHERE status_kasbon = '7' AND from_user ='1' ");
 $dataKP2 = mysqli_fetch_assoc($queryKP2);
 
 // kasbon payment 3 INI KASBON SR YA
@@ -93,7 +93,7 @@ $queryKPL1 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kas
 $dataKPL1 = mysqli_fetch_assoc($queryKPL1);
 
 // kasbon pending lpj 2
-$queryKPL2 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon WHERE status_kasbon = '6' AND from_user = '1' ");
+$queryKPL2 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon WHERE status_kasbon = '8' AND from_user = '1' ");
 $dataKPL2 = mysqli_fetch_assoc($queryKPL2);
 
 // kasbon pending lpj 3
@@ -109,12 +109,14 @@ $queryKL1 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasb
 $dataKL1 = mysqli_fetch_assoc($queryKL1);
 
 // kasbon ver lpj 2
-$queryKL2 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon WHERE status_kasbon = '7' AND from_user='1'  ");
+$queryKL2 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon WHERE status_kasbon = '9' AND from_user='1'  ");
 $dataKL2 = mysqli_fetch_assoc($queryKL2);
 
 // kasbon vNOT er lpj 3 Untuk lpj kasbon sr
 $queryKL3 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon WHERE status_kasbon = '7' AND from_user='0' AND sr_id IS NOT NULL ");
 $dataKL3 = mysqli_fetch_assoc($queryKL3);
+
+$jumlahKL = $dataKL1['jumlah'] + $dataKL2['jumlah'] + $dataKL3['jumlah'];
 
 // kasbon transaksi
 $queryKT = mysqli_query($koneksi, "SELECT COUNT(kd_transaksi) AS jumlah  FROM biaya_ops WHERE status_biayaops = '11'  ");
