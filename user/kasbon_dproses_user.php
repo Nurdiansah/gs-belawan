@@ -315,21 +315,36 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
         var vrf_pajak = "<?php print($data['vrf_pajak']); ?>";
         var created_on = "<?php print(date("d M Y H:i", strtotime($data['tgl_kasbon']))); ?>";
 
-        console.log(created_on);
+        var jamDefault = "01 Jan 1970 07:00";
+        var waiting = "<b>Manager </b><small>Waiting....</small>";
 
         // app mgr
-        var app_mgr = "<?php print(date("d M Y H:i", strtotime($data['app_manager']))); ?>";
-        var content_mgr = '<b>Manager</b><small>sudah memverifikasi</small>';
-        if (app_mgr == "01 Jan 1970 01:00") {
-            app_mgr = "";
-            var content_mgr = "<b>Manager </b><small>Waiting....</small>";
+        var app_spv = "<?php print(date("d M Y H:i", strtotime($data['app_supervisor']))); ?>";
+        var content_spv = '<b>Supervisor</b><small>sudah memverifikasi</small>';
+        if (app_spv == jamDefault) {
+            app_spv = "";
+            var content_spv = "<b>Supervisor </b><small>Waiting....</small>";
+        }
+
+        var app_cc = "<?php print(date("d M Y H:i", strtotime($data['app_costcontrol']))); ?>";
+        var content_cc = '<b>Cost Control</b><small>sudah memverifikasi</small>';
+        if (app_cc == jamDefault) {
+            app_cc = "";
+            var content_cc = "<b>Cost Control </b><small>Waiting....</small>";
+        }
+
+        var app_mgr_ga = "<?php print(date("d M Y H:i", strtotime($data['app_mgr_ga']))); ?>";
+        var content_mgr_ga = '<b>Manager GA</b><small>sudah memverifikasi</small>';
+        if (app_mgr_ga == jamDefault) {
+            app_mgr_ga = "";
+            var content_mgr_ga = "<b>Manager GA </b><small>Waiting....</small>";
         }
 
 
         // pajak
         var app_pajak = "<?php print(date("d M Y H:i", strtotime($data['app_pajak']))); ?>";
         var content_pajak = '<b>Pajak</b><small> sudah memverifikasi</small>'
-        if (app_pajak == "01 Jan 1970 01:00") {
+        if (app_pajak == jamDefault) {
             app_pajak = " ";
             content_pajak = "<b>Pajak </b><small>Waiting....</small>";
         }
@@ -337,7 +352,7 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
         // manager finance
         var app_manager_finance = "<?php print(date("d M Y H:i", strtotime($data['app_mgr_finance']))); ?>";
         var content_manager_finance = '<b>Manager Finance</b><small>sudah memverifikasi</small>'
-        if (app_manager_finance == "01 Jan 1970 01:00") {
+        if (app_manager_finance == jamDefault) {
             app_manager_finance = " ";
             content_manager_finance = "<b>Manager Finance</b><small>Waiting....</small>";
         }
@@ -345,34 +360,11 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
         // direktur
         var app_direktur = "<?php print(date("d M Y H:i", strtotime($data['app_direktur']))); ?>";
         var content_direktur = '<b>Direktur</b><small> sudah memverifikasi</small>'
-        if (app_direktur == "01 Jan 1970 01:00") {
+        if (app_direktur == jamDefault) {
             app_direktur = " ";
             content_direktur = "<b>Direktur </b><small>Waiting....</small>";
         }
 
-        // direktur2
-        var app_direktur2 = "<?php print(date("d M Y H:i", strtotime($data['app_direktur2']))); ?>";
-        var content_direktur2 = '<b>Direktur </b><small> sudah memverifikasi</small>'
-        if (app_direktur2 == "01 Jan 1970 01:00") {
-            app_direktur2 = " ";
-            content_direktur = "<b>Direktur </b><small>Waiting....</small>";
-        }
-
-        // kasir
-        var app_kasir = "<?php print(date("d M Y H:i", strtotime($data['waktu_penerima_dana']))); ?>";
-        var content_kasir = '<b>Kasir </b><small> sudah melakukan penyerahan dana</small>'
-        if (app_kasir == "01 Jan 1970 01:00") {
-            app_kasir = " ";
-            content_kasir = "<b>Kasir </b><small>Waiting....</small>";
-        }
-
-        // User
-        var app_pembelian = "<?php print(date("d M Y H:i", strtotime($data['waktu_lpj']))); ?>";
-        var content_pembelian = '<b>User </b><small> sudah melakukan LPJ</small>'
-        if (app_pembelian == "01 Jan 1970 01:00") {
-            app_pembelian = " ";
-            content_pembelian = "<b>User </b><small>Waiting....</small>";
-        }
 
         // Kasir    
         if (status != '7') {
@@ -381,95 +373,53 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
         }
 
         if (status == '1') {
-            var content_mgr = "<b>Manager </b><font color= blue ><small>Verifikasi Manager </small></font> ";
+            var content_spv = "<b>Supervisor </b><font color= blue ><small>Verifikasi Supervisor </small></font> ";
         } else if (status == '2') {
             var content_pajak = "<b>Pajak </b><font color= blue ><small>Verifikasi Pajak </small></font> ";
         } else if (status == '3') {
-            var content_manager_finance = "<b>Manager Finance</b><font color= blue ><small>Verifikasi Manager Finance </small></font> ";
+            var content_cc = "<b>Cost Control</b><font color= blue ><small>Verifikasi Cost Control </small></font> ";
         } else if (status == '4') {
-            var content_direktur = "<b>Direktur</b><font color= blue ><small>Verifikasi Direktur </small></font> ";
-            var content_direktur2 = "<b>Direktur</b><font color= blue ><small>Verifikasi Direktur </small></font> ";
+            var content_direktur = "<b>Manager GA</b><font color= blue ><small>Verifikasi Manager GA </small></font> ";
         } else if (status == '5') {
-            var content_kasir = "<b>Kasir</b><font color= blue ><small>Dana Sudah Bisa di ambil </small></font> ";
+            var content_kasir = "<b>General Manager</b><font color= blue ><small>Verifikasi General Manager </small></font> ";
         } else if (status = '6') {
-            var content_pembelian = "<b>User</b><font color= blue ><small>Setelah pembelian silahkan di lakukan LPJ </small></font> ";
+            var content_pembelian = "<b>Direksi</b><font color= blue ><small>Verifikasi Direksi </small></font> ";
         } else if (status = '7') {
             var content_v_lpj = "<b>Kasir</b><font color= blue ><small>Verifikasi LPJ </small></font> ";
         }
 
-        if (vrf_pajak == 'bp') {
-            var events = [{
-                    date: created_on,
-                    content: '<b>User</b><small>membuat pengajuan</small>'
-                },
-                {
-                    date: app_mgr,
-                    content: content_mgr
-                },
-                {
-                    date: app_pajak,
-                    content: content_pajak
-                },
-                {
-                    date: app_manager_finance,
-                    content: content_manager_finance
-                },
-                {
-                    date: app_direktur,
-                    content: content_direktur
-                }, {
-                    date: app_direktur,
-                    content: content_direktur
-                }, {
-                    date: app_kasir,
-                    content: content_kasir
-                }, {
-                    date: app_pembelian,
-                    content: content_pembelian
-                }, {
-                    date: app_v_lpj,
-                    content: content_v_lpj
-                }
-            ];
-        } else {
-            var events = [{
-                    date: created_on,
-                    content: '<b>User</b><small>membuat pengajuan</small>'
-                },
-                {
-                    date: app_mgr,
-                    content: content_mgr
-                },
-                {
-                    date: app_manager_finance,
-                    content: content_manager_finance
-                },
-                {
-                    date: app_direktur,
-                    content: content_direktur
-                }, {
-                    date: app_direktur,
-                    content: content_direktur
-                }, {
-                    date: app_kasir,
-                    content: content_kasir
-                }, {
-                    date: app_pembelian,
-                    content: content_pembelian
-                },
-                {
-                    date: app_pajak,
-                    content: content_pajak
-                }, {
-                    date: app_v_lpj,
-                    content: content_v_lpj
-                }
-            ];
-        }
+        var events = [{
+                date: created_on,
+                content: '<b>User</b><small>membuat pengajuan</small>'
+            },
+            {
+                date: app_spv,
+                content: content_spv
+            }, {
+                date: app_cc,
+                content: content_cc
+            },
+            {
+                date: app_mgr_ga,
+                content: content_mgr_ga
+            }, {
+                date: app_pajak,
+                content: content_pajak
+            },
+            {
+                date: app_manager_finance,
+                content: content_manager_finance
+            },
+            {
+                date: app_direktur,
+                content: content_direktur
+            }
+        ];
+
 
 
         $('#my-timeline').roadmap(events, {
-            eventsPerSlide: 9,
+            eventsPerSlide: 7,
             slide: 1,
             prevArrow: '<i class="material-icons">keyboard_arrow_left</i>',
             nextArrow: '<i class="material-icons">keyboard_arrow_right</i>'
