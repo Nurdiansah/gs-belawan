@@ -105,7 +105,7 @@ if (isset($_POST['simpan'])) {
 
 	// query update bkk
 	$query = "UPDATE bkk SET tgl_bkk = '$tgl_bkk', nocek_bkk = '$nocek_bkk' , dari_bank = '$dari_bank' , 
-					dari_rekening = '$dari_rekening', keterangan = '$keterangan',  doc_lpj = '$namabaru', status_bkk = '9' 
+					dari_rekening = '$dari_rekening', keterangan = '$keterangan',  doc_lpj = '$namabaru', status_bkk = '10' 
 					WHERE id_bkk ='$id' ";
 
 

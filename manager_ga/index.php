@@ -36,6 +36,10 @@ $data = mysqli_fetch_assoc($query);
 $queryProsesbno = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah_proses FROM bkk WHERE id_manager='$idUser' AND status_bkk >='2' AND status_bkk <='8' ORDER BY tgl_bkk DESC  ");
 $dataProsesbno = mysqli_fetch_assoc($queryProsesbno);
 
+// query data biaya umum approve all
+$queryVBU = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk='6' ");
+$dataVBU = mysqli_fetch_assoc($queryVBU);
+
 // query data lihat
 $querySelesai = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah_Selesai FROM bkk WHERE status_bkk='9' AND id_manager='$idUser' ");
 $dataSelesai = mysqli_fetch_assoc($querySelesai);

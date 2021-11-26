@@ -24,7 +24,8 @@ if (isset($_GET['id'])) {
 									";
 	mysqli_query($koneksi, $queryLog);
 
-	$query1 = mysqli_query($koneksi, "UPDATE bkk SET status_bkk = 6, tgl_verifikasimanagerkeuangan = '$tanggal' WHERE id_bkk='$id' ");
+	$query1 = mysqli_query($koneksi, "UPDATE bkk SET status_bkk = 6, app_cc = '$tanggal' WHERE id_bkk='$id' ");
+
 
 	// query data BU
 	$queryEmail = mysqli_query($koneksi, "SELECT *, mgr.nama as nm_mgr, usr.nama as nm_pemohon, mgr.email as email_mgr
@@ -39,15 +40,12 @@ if (isset($_GET['id'])) {
 	$dataEmail = mysqli_fetch_assoc($queryEmail);
 
 	// query buat ngirim email
-	$queryMgr = mysqli_query($koneksi, "SELECT * FROM user u
-										INNER JOIN divisi d
-											ON u.id_divisi = d.id_divisi
-										WHERE nm_divisi = 'bod'
-										AND level = 'direktur'");
+	$queryMgr = mysqli_query($koneksi, "SELECT * FROM user 
+										WHERE level = 'manager_ga'");
 
 	// data email
 	while ($dataMgr = mysqli_fetch_assoc($queryMgr)) {
-		$link = "url=index.php?p=verifikasi_bno&lvl=direktur";
+		$link = "url=index.php?p=verifikasi_bno&lvl=manager_ga";
 		$name = $dataMgr['nama'];
 		$email = $dataMgr['email'];
 		$subject = "Approval Biaya Umum " . $dataEmail['kd_transaksi'];
@@ -116,6 +114,8 @@ if (isset($_GET['id'])) {
 
 		$queue = createQueueEmail($name, $email, $subject, $body);
 	}
+
+
 
 	if ($query1 && $queue) {
 		# jika semua query berhasil di jalankan

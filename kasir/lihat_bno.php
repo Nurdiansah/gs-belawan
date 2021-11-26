@@ -27,7 +27,7 @@ if (isset($_POST['cari'])) {
                                         FROM bkk b
                                         JOIN divisi d
                                             ON d.id_divisi = b.id_divisi
-                                        WHERE b.status_bkk='9'
+                                        WHERE b.status_bkk='10'
                                         AND MONTH(tgl_pengajuan) = '$bulan'
                                         AND YEAR(tgl_pengajuan) = '$tahun'
                                         ORDER BY b.kd_transaksi DESC
@@ -37,7 +37,7 @@ if (isset($_POST['cari'])) {
                                         FROM bkk b
                                         JOIN divisi d
                                             ON d.id_divisi = b.id_divisi
-                                        WHERE b.status_bkk='9'
+                                        WHERE b.status_bkk='10'
                                         AND MONTH(tgl_pengajuan) = '$bulanSekarang'
                                         AND YEAR(tgl_pengajuan) = '$tahunSekarang'
                                         ORDER BY b.kd_transaksi DESC

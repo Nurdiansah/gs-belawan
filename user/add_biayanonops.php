@@ -34,7 +34,6 @@ if (isset($_POST['simpan'])) {
 	// 		return "Maaf Tidak Dapat di Prose Karena Jumlah nilai Terlalu Besar ";
 	// 	}
 	// }
-
 	$query = mysqli_query($koneksi, "SELECT MAX(kd_transaksi) from bkk ");
 
 	$id_joborder = mysqli_fetch_array($query);
@@ -73,6 +72,16 @@ if (isset($_POST['simpan'])) {
 	$tgl_tempo = $_POST['tgl_tempo'];
 	$tgl_payment = $_POST['tgl_payment'];
 
+	if ($tgl_tempo == '') {
+		$tgl_tempo = "NULL";
+		$tgl_payment = "NULL";
+	} else {
+		$tgl_tempo = "'" . $tgl_tempo . "'";
+		$tgl_payment = "'" . $tgl_payment . "'";
+	}
+
+
+
 	//baca lokasi file sementara dan nama file dari form (doc_ptw)\
 
 	$lokasi_invoice = ($_FILES['invoice']['tmp_name']);
@@ -106,11 +115,12 @@ if (isset($_POST['simpan'])) {
 	mysqli_query($koneksi, $queryLog);
 
 	$query = "INSERT INTO bkk (nm_vendor, kd_transaksi, tgl_pengajuan, terbilang_bkk, id_anggaran, keterangan, nilai_barang, nilai_jasa, ppn_persen, ppn_nilai, pph_persen, pph_nilai, jml_bkk, jenis, metode_pembayaran, tgl_tempo, tgl_payment,bank_tujuan, norek_tujuan, penerima_tujuan, id_pemohon, id_divisi, id_manager,invoice, status_bkk) VALUES 
-							('$nm_vendor', '$kode_otomatis', '$tgl_bkk',  '$terbilang_bkk', '$id_anggaran', '$keterangan', '$nilai_barang', '$nilai_jasa', '$ppn_persen',' $ppn_nilai', '$pph_persen','$pph_nilai','$jml_bkk', '$jenis', '$metode_pembayaran', '$tgl_tempo', '$tgl_payment', '$bank_tujuan', '$norek_tujuan', '$penerima_tujuan','$id_user', '$id_divisi', '$id_manager','$namabaru', '0');
+							('$nm_vendor', '$kode_otomatis', '$tgl_bkk',  '$terbilang_bkk', '$id_anggaran', '$keterangan', '$nilai_barang', '$nilai_jasa', '$ppn_persen',' $ppn_nilai', '$pph_persen','$pph_nilai','$jml_bkk', '$jenis', '$metode_pembayaran', $tgl_tempo, $tgl_payment, '$bank_tujuan', '$norek_tujuan', '$penerima_tujuan','$id_user', '$id_divisi', '$id_manager','$namabaru', '0');
 			";
 
 	// move_uploaded_file($tmp,"file/pjsm/$Doc_pjsm");
 	$hasil = mysqli_query($koneksi, $query);
+
 
 	if ($hasil) {
 		# jika semua query berhasil di jalankan

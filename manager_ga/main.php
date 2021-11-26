@@ -21,13 +21,15 @@
         <a href="#" class="list-group-item active">
           Verifikasi
         </a>
+        <a href="index.php?p=approval_bno" class="list-group-item"> <i class="fa fa-calendar-check-o"></i> Biaya Umum<span class="badge label-warning"><?php if ($dataVBU['jumlah'] >= 1) {
+                                                                                                                                                          echo $dataVBU['jumlah'];
+                                                                                                                                                        } ?></span></a>
         <a href="index.php?p=verifikasi_kasbon&sp=vk_purchasing" class="list-group-item"> <i class="fa fa-money"></i> Kasbon <span class="badge label-info"><?php if ($jkv >= 1) {
                                                                                                                                                               echo $jkv;
                                                                                                                                                             } ?></span> </a>
         <a href="index.php?p=verifikasi_po" class="list-group-item"> <i class="fa fa-list"></i> PO <span class="badge label-success"><?php if ($dataPV['jumlah'] >= 1) {
                                                                                                                                         echo $dataPV['jumlah'];
                                                                                                                                       } ?></span></a>
-        <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
       </div>
     </div>

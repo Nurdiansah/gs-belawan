@@ -22,7 +22,7 @@ $query = mysqli_query($koneksi,  "SELECT *
                                 FROM bkk b
                                 JOIN divisi d
                                 ON d.id_divisi = b.id_divisi
-                                WHERE b.status_bkk='7' AND b.jenis = 'umum' ORDER BY b.kd_transaksi DESC  ");
+                                WHERE b.status_bkk='9' AND b.jenis = 'umum' ORDER BY b.kd_transaksi DESC  ");
 
 
 $jumlahData  = mysqli_num_rows($query);

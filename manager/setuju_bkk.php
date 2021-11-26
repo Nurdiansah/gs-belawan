@@ -39,11 +39,8 @@ if (isset($_GET['id'])) {
 	$dataEmail = mysqli_fetch_assoc($queryEmail);
 
 	// query buat ngirim ke pajak
-	$queryPajak = mysqli_query($koneksi, "SELECT * FROM user u
-											INNER JOIN divisi d
-												ON u.id_divisi = d.id_divisi
-											WHERE nm_divisi = 'pajak'
-											AND level = 'kordinator_pajak'");
+	$queryPajak = mysqli_query($koneksi, "SELECT * FROM user 
+											WHERE level = 'kordinator_pajak'");
 
 	// data email
 	while ($dataPajak = mysqli_fetch_assoc($queryPajak)) {

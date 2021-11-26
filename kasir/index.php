@@ -41,11 +41,11 @@ $rowNama = mysqli_fetch_assoc($queryNama);
 $Nama = $rowNama['nama'];
 
 // biaya umum tempo
-$queryBUT = mysqli_query($koneksi,  "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk='7' AND jenis='kontrak'  ");
+$queryBUT = mysqli_query($koneksi,  "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk='9' AND jenis='kontrak'  ");
 $dataBUT = mysqli_fetch_assoc($queryBUT);
 
 // biaya umum payment umum
-$queryUmum = mysqli_query($koneksi,  "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk='7' AND jenis = 'umum'  ");
+$queryUmum = mysqli_query($koneksi,  "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk='9' AND jenis = 'umum'  ");
 $dataBUPU = mysqli_fetch_assoc($queryUmum);
 
 $dataBUP = $dataBUPU['jumlah'];

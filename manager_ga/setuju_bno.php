@@ -1,35 +1,32 @@
-<?php  
+<?php
 
 session_start();
-	include "../fungsi/koneksi.php";
+include "../fungsi/koneksi.php";
 
-	if(isset($_GET['id'])) {
-		$id = $_GET['id'];
-		$tanggal = date('Y-m-d');
-		
-		$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]' ");
-		$rowUser=mysqli_fetch_assoc($queryUser);	
-		$nama=$rowUser['nama'];
+if (isset($_GET['id'])) {
+	$id = $_GET['id'];
+	$tanggal = date('Y-m-d');
 
-		date_default_timezone_set('Asia/Jakarta');
-		$tanggal= date("Y-m-d H:i:s");
+	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]' ");
+	$rowUser = mysqli_fetch_assoc($queryUser);
+	$nama = $rowUser['nama'];
 
-		$queryLog = "INSERT INTO log_system (waktu, nama_user, keterangan) VALUES
+	date_default_timezone_set('Asia/Jakarta');
+	$tanggal = date("Y-m-d H:i:s");
+
+	$queryLog = "INSERT INTO log_system (waktu, nama_user, keterangan) VALUES
 									('$tanggal', '$nama', 'Menyetujui Pengajuan Biaya Non OPS id: $id');
 
 									";
-		mysqli_query($koneksi, $queryLog);
+	mysqli_query($koneksi, $queryLog);
 
-		$query1 = mysqli_query($koneksi, "UPDATE bkk SET status_bkk=6 WHERE id_bkk='$id' ");		
+	$query1 = mysqli_query($koneksi, "UPDATE bkk SET status_bkk=7, app_managerga = '$tanggal' WHERE id_bkk='$id' ");
 
-		
 
-		if($query1) {
-			header("location:index.php?p=approval_bno");
-		} else {
-			echo "ada yang salah" . mysqli_error($koneksi);
-		}
+
+	if ($query1) {
+		header("location:index.php?p=approval_bno");
+	} else {
+		echo "ada yang salah" . mysqli_error($koneksi);
 	}
-
-
-?>
+}
