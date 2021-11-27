@@ -77,7 +77,7 @@ $dataKV3 = mysqli_fetch_assoc($queryKV3);
 $jkv = $dataKV1['jumlah'] + $dataKV2['jumlah'] + $dataKV3['jumlah'];
 
 // po verifikasi
-$queryPV = mysqli_query($koneksi, "SELECT COUNT(id_po) AS jumlah  FROM po WHERE status_po = '4'  ");
+$queryPV = mysqli_query($koneksi, "SELECT COUNT(id_po) AS jumlah  FROM po WHERE status_po = '2'  ");
 $dataPV = mysqli_fetch_assoc($queryPV);
 
 // bkk verifikasi

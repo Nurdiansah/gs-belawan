@@ -44,11 +44,8 @@ if (isset($_POST['submit'])) {
 											");
 		$dataEmail = mysqli_fetch_assoc($queryEmail);
 
-		$queryUser = mysqli_query($koneksi, "SELECT * FROM user u
-                                        INNER JOIN divisi d
-                                            ON u.id_divisi = d.id_divisi
-                                        WHERE nm_divisi = 'purchasing'
-                                        AND level = 'purchasing'");
+		$queryUser = mysqli_query($koneksi, "SELECT * FROM user 
+                                        WHERE level = 'purchasing'");
 
 		// data email
 		while ($dataUser = mysqli_fetch_assoc($queryUser)) {

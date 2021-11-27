@@ -28,7 +28,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                                 ON p.id_dbo = dbo.id
                                                 JOIN divisi d
                                                 ON d.id_divisi = bo.id_divisi                                            
-                                                WHERE status_po = '4'
+                                                WHERE status_po = '2'
                                                 ORDER BY p.kd_transaksi DESC   ");
 
 $jumlahData  = mysqli_num_rows($query);

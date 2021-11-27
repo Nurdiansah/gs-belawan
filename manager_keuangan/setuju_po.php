@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
     mysqli_begin_transaction($koneksi);
 
     $query1 = mysqli_query($koneksi, "UPDATE po 
-										  SET status_po= '5' , app_mgr_finance = NOW()
+										  SET status_po= '3' , app_cc = NOW()
 										  WHERE id_po = '$id_po' ");
 
     $queryLog = "INSERT INTO log_system (waktu, nama_user, keterangan) VALUES
@@ -40,11 +40,8 @@ if (isset($_POST['submit'])) {
     $dataEmail = mysqli_fetch_assoc($queryEmail);
 
     // query buat ngirim keorang email
-    $queryUser = mysqli_query($koneksi, "SELECT * FROM user u
-											INNER JOIN divisi d
-											ON u.id_divisi = d.id_divisi
-											WHERE nm_divisi = 'bod'
-											AND level = 'direktur'");
+    $queryUser = mysqli_query($koneksi, "SELECT * FROM user 
+											WHERE level = 'manager_ga'");
 
     // data email
     while ($dataUser = mysqli_fetch_assoc($queryUser)) {

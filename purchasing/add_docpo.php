@@ -56,11 +56,8 @@ if (isset($_POST['submit'])) {
     $dataEmail = mysqli_fetch_assoc($queryEmail);
 
     // query buat ngirim keorang email
-    $queryUser = mysqli_query($koneksi, "SELECT * FROM user u
-                                                INNER JOIN divisi d
-                                                ON u.id_divisi = d.id_divisi
-                                                WHERE nm_divisi = 'ga umum'
-                                                AND level = 'manager_ga'");
+    $queryUser = mysqli_query($koneksi, "SELECT * FROM user 
+                                                WHERE level = 'manager_keuangan'");
 
     // data email
     while ($dataUser = mysqli_fetch_assoc($queryUser)) {
@@ -116,17 +113,18 @@ if (isset($_POST['submit'])) {
 
 
 
+
     if ($queue && $hasil) {
         // mysql commit transaction
         mysqli_commit($koneksi);
 
-        setcookie('pesan', 'Kasbon berhasil di Approve!', time() + (3), '/');
+        setcookie('pesan', 'PO berhasil di Verifikasi!', time() + (3), '/');
         setcookie('warna', 'alert-success', time() + (3), '/');
     } else {
         // mysql rollback transaction
         mysqli_rollback($koneksi);
 
-        setcookie('pesan', 'Kasbon gagal di Approve!<br>' . mysqli_error($koneksi) . '', time() + (3), '/');
+        setcookie('pesan', 'PO gagal di Verifikasi!<br>' . mysqli_error($koneksi) . '', time() + (3), '/');
         setcookie('warna', 'alert-danger', time() + (3), '/');
     }
     header("location:index.php?p=submit_po");

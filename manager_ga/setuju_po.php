@@ -116,11 +116,8 @@ if (isset($_GET['id'])) {
 	$dataEmail = mysqli_fetch_assoc($queryEmail);
 
 	// query buat ngirim keorang email
-	$queryUser = mysqli_query($koneksi, "SELECT * FROM user u
-                                                INNER JOIN divisi d
-                                                ON u.id_divisi = d.id_divisi
-                                                WHERE nm_divisi = 'finance'
-                                                AND level = 'manager_keuangan'
+	$queryUser = mysqli_query($koneksi, "SELECT * FROM user 
+                                                WHERE level = 'gm'
 						");
 
 	// data email
@@ -187,13 +184,13 @@ if (isset($_GET['id'])) {
 		// mysql commit transaction
 		mysqli_commit($koneksi);
 
-		setcookie('pesan', 'Kasbon berhasil di Approve!', time() + (3), '/');
+		setcookie('pesan', 'PO berhasil di Approve!', time() + (3), '/');
 		setcookie('warna', 'alert-success', time() + (3), '/');
 	} else {
 		// mysql rollback transaction
 		mysqli_rollback($koneksi);
 
-		setcookie('pesan', 'Kasbon gagal di Approve!<br>' . mysqli_error($koneksi) . '', time() + (3), '/');
+		setcookie('pesan', 'PO gagal di Approve!<br>' . mysqli_error($koneksi) . '', time() + (3), '/');
 		setcookie('warna', 'alert-danger', time() + (3), '/');
 	}
 	header("location:index.php?p=verifikasi_po");
