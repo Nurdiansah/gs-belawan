@@ -69,7 +69,7 @@ $queryKV1 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah
                                     ON k.id_dbo = dbo.id
                                     JOIN divisi d
                                     ON d.id_divisi = bo.id_divisi
-                                    WHERE k.status_kasbon = '2'
+                                    WHERE k.status_kasbon = '4'
                                     AND sr_id IS NULL
                                     AND from_user='0' ");
 $dataKV1 = mysqli_fetch_assoc($queryKV1);

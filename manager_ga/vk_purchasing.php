@@ -7,7 +7,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                         ON k.id_dbo = dbo.id
                                         JOIN divisi d
                                         ON d.id_divisi = bo.id_divisi
-                                        WHERE k.status_kasbon = '2'
+                                        WHERE k.status_kasbon = '4'
                                         ORDER BY k.id_kasbon DESC");
 ?>
 <form method="post" enctype="multipart/form-data" action="setuju_kasbon2.php" class="form-horizontal">

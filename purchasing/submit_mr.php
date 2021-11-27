@@ -79,8 +79,8 @@ if (isset($_GET['id'])) {
 
 
 		//query kasbon
-		$queryKasbon = "INSERT kasbon ( id_kasbon , id_dbo, kd_transaksi, harga_akhir, tgl_kasbon) VALUES
-		                            ('$kode_otomatis', '$id', '$kd_transaksi', '$totalPengajuan', '$tanggal');
+		$queryKasbon = "INSERT kasbon ( id_kasbon , id_dbo, kd_transaksi, harga_akhir, tgl_kasbon, status_kasbon ) VALUES
+		                            ('$kode_otomatis', '$id', '$kd_transaksi', '$totalPengajuan', '$tanggal', '3');
 		                            ";
 		$hasil = mysqli_query($koneksi, $queryKasbon);
 
@@ -98,11 +98,8 @@ if (isset($_GET['id'])) {
 		$dataEmail = mysqli_fetch_assoc($queryEmail);
 
 		// query buat ngirim keorang email
-		$queryUser = mysqli_query($koneksi, "SELECT * FROM user u
-                                                INNER JOIN divisi d
-                                                ON u.id_divisi = d.id_divisi
-                                                WHERE nm_divisi = 'pajak'
-                                                AND level = 'kordinator_pajak'");
+		$queryUser = mysqli_query($koneksi, "SELECT * FROM user 
+                                                WHERE  level = 'manager_finance'");
 
 		// data email
 		while ($dataUser = mysqli_fetch_assoc($queryUser)) {
@@ -190,11 +187,8 @@ if (isset($_GET['id'])) {
 		$dataEmail = mysqli_fetch_assoc($queryEmail);
 
 		// query buat ngirim keorang email
-		$queryUser = mysqli_query($koneksi, "SELECT * FROM user u
-												INNER JOIN divisi d
-													ON u.id_divisi = d.id_divisi
-												WHERE nm_divisi = 'ga umum'
-												AND level = 'manager_ga'
+		$queryUser = mysqli_query($koneksi, "SELECT * FROM user 
+												WHERE  level = 'manager_ga'
 					");
 
 		// data email

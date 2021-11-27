@@ -78,7 +78,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                     </div>
                 <?php } else { ?>
                     <br>
-                    <div id="my-timeline"></div>
+                    <!-- <div id="my-timeline"></div> -->
                     <br>
                 <?php } ?>
                 <!-- Detail Job Order -->
@@ -104,7 +104,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                                 <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= $data2['id_kasbon']; ?>">
                             </div>
                             <div class="col-sm-offset-5 col-sm-3">
-                                <?php if ($data2['status_kasbon'] >= 5) { ?>
+                                <?php if ($data2['status_kasbon'] >= 7) { ?>
                                     <a target="_blank" onclick="window.open('cetak_pengambilandana.php?id=<?= enkripRambo($id); ?>','name','width=800,height=600')" class="btn btn-success"><i class="fa fa-print"></i> Laporan Pengambilan Dana </a>
                                 <?php } ?>
                                 <!-- <a target="_blank" href="cetak_kasbon.php?id=<?= $id; ?>" class="btn btn-success"><i class="fa fa-print"></i> Kasbon </a> -->

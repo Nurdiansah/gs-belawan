@@ -27,15 +27,17 @@
                         <td> <?= $row['nm_barang']; ?> </td>
                         <td> <?= formatRupiah($row['harga_akhir']) ?> </td>
                         <td>
-                            <?php if ($row['status_kasbon'] == 1) { ?>
+                            <?php if ($row['status_kasbon'] == 2) { ?>
                                 <span class="label label-primary">Verifikasi Pajak</span>
-                            <?php  } else if ($row['status_kasbon'] == 2) { ?>
+                            <?php  } else if ($row['status_kasbon'] == 4) { ?>
                                 <span class="label label-primary">Verifikasi Manager GA </span>
                             <?php  } else if ($row['status_kasbon'] == 3) { ?>
-                                <span class="label label-warning">Approval Manager Finance </span>
-                            <?php  } else if ($row['status_kasbon'] == 4) { ?>
-                                <span class="label label-warning">Approval Direktur </span>
+                                <span class="label label-warning">Approval Cost Control </span>
                             <?php  } else if ($row['status_kasbon'] == 5) { ?>
+                                <span class="label label-warning">Approval Manager Finance </span>
+                            <?php  } else if ($row['status_kasbon'] == 6) { ?>
+                                <span class="label label-warning">Approval Direktur </span>
+                            <?php  } else if ($row['status_kasbon'] == 7) { ?>
                                 <span class="label label-success">Dana sudah bisa diambil </span>
                             <?php  } else if ($row['status_kasbon'] == 101) { ?>
                                 <span class="label label-danger">Ditolak Pajak</span>

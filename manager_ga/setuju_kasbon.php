@@ -28,11 +28,8 @@ if (isset($_GET['id'])) {
 	$dataEmail = mysqli_fetch_assoc($queryEmail);
 
 	// query buat ngirim keorang email
-	$queryUser = mysqli_query($koneksi, "SELECT * FROM user u
-											INNER JOIN divisi d
-											ON u.id_divisi = d.id_divisi
-											WHERE nm_divisi = 'finance'
-											AND level = 'kordinator_pajak'");
+	$queryUser = mysqli_query($koneksi, "SELECT * FROM user 
+											WHERE  level = 'kordinator_pajak'");
 
 	// data email
 	while ($dataUser = mysqli_fetch_assoc($queryUser)) {

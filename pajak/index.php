@@ -39,7 +39,7 @@ $dataProsesbno = mysqli_fetch_assoc($queryProsesbno);
 $query = mysqli_query($koneksi, "SELECT * FROM kasbon k WHERE k.status_kasbon = '1' ORDER BY k.id_kasbon DESC   ");
 
 // query verifikasi kasbon 1
-$queryVK1 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon WHERE from_user = '0' AND  status_kasbon = '1' AND sr_id IS NULL ");
+$queryVK1 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon WHERE from_user = '0' AND  status_kasbon = '2' AND sr_id IS NULL ");
 $dataVK1 = mysqli_fetch_assoc($queryVK1);
 
 // query verifikasi kasbon 2

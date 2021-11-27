@@ -148,7 +148,7 @@ if (isset($_POST['submit'])) {
         # Jika kasbon dari purchasing
         $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
                                             nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
-                                            id_pph = '$id_pph', harga_akhir = '$harga', status_kasbon = '2', app_pajak = '$tanggal'                                              
+                                            id_pph = '$id_pph', harga_akhir = '$harga', status_kasbon = '5', app_pajak = '$tanggal'                                              
                                             WHERE id_kasbon ='$id_kasbon' ";
 
         $hasil = mysqli_query($koneksi, $query);
@@ -167,15 +167,12 @@ if (isset($_POST['submit'])) {
         $dataEmail = mysqli_fetch_assoc($queryEmail);
 
         // query buat ngirim keorang email
-        $queryUser = mysqli_query($koneksi, "SELECT * FROM user u
-                                                INNER JOIN divisi d
-                                                ON u.id_divisi = d.id_divisi
-                                                WHERE nm_divisi = 'ga umum'
-                                                AND level = 'manager_ga'");
+        $queryUser = mysqli_query($koneksi, "SELECT * FROM user 
+                                                WHERE level = 'gm'");
 
         // data email
         while ($dataUser = mysqli_fetch_assoc($queryUser)) {
-            $linkPurchasing = "url=index.php?p=verifikasi_kasbon&sp=vk_purchasing&lvl=manager_ga";
+            $linkPurchasing = "url=index.php?p=verifikasi_kasbon&sp=vk_purchasing&lvl=manager_keuangan";
             $name = $dataUser['nama'];
             $email = $dataUser['email'];
             $subject = "Approval Kasbon " . $kode_otomatis;
@@ -232,7 +229,6 @@ if (isset($_POST['submit'])) {
 
 									";
     mysqli_query($koneksi, $queryLog);
-
 
     if ($hasil && $queue) {
         # jika semua query berhasil di jalankan
