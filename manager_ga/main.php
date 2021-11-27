@@ -30,6 +30,10 @@
         <a href="index.php?p=verifikasi_po" class="list-group-item"> <i class="fa fa-list"></i> PO <span class="badge label-success"><?php if ($dataPV['jumlah'] >= 1) {
                                                                                                                                         echo $dataPV['jumlah'];
                                                                                                                                       } ?></span></a>
+<<<<<<< HEAD
+=======
+        <a href="index.php?p=verifikasi_bkk" class="list-group-item"> <i class="fa fa-print"> </i> BKK <span class="badge label-success"><?= $dataBKK['jumlah'] > 0 ? $dataBKK['jumlah'] : ''; ?></span></a>
+>>>>>>> c43bcce (bkk)
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
       </div>
     </div>

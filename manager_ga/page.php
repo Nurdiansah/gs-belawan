@@ -97,4 +97,8 @@ else if ($page == "approval_biayanonops") {
     include_once "dtl_ditolakbno.php";
 } else if ($page == "approval_kasbon") {
     include_once "approval_kasbon.php";
+} else if ($page == "verifikasi_bkk") {
+    include_once "verifikasi_bkk.php";
+} else if ($page == "verifikasi_dbkk") {
+    include_once "verifikasi_dbkk.php";
 }

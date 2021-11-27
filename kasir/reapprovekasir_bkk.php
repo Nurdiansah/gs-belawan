@@ -24,8 +24,11 @@ if (isset($_POST['kirim'])) {
                         WHERE id_bkk_final = '$id'";
     }
 
-    $reApprove = mysqli_multi_query($koneksi, "UPDATE bkk_final SET status_bkk = '$status', remarks = '$komentar' WHERE id = '$id';
+    $reApprove = mysqli_multi_query($koneksi, "UPDATE bkk_final SET status_bkk = '$status' -- , remarks = '$komentar'
+                                                WHERE id = '$id';
+
                                                 DELETE FROM tolak_bkk_final WHERE id_bkk_final = '$id';
+
                                                 $aksi_reapp;
     ");
 

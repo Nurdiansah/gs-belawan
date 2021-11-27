@@ -21,7 +21,7 @@ $rowUser = mysqli_fetch_assoc($queryUser);
 $idUser = $rowUser['id_user'];
 
 $query = mysqli_query($koneksi, "SELECT * FROM bkk_final b
-                                    JOIN anggaran a
+                                    LEFT JOIN anggaran a
                                         ON b.id_anggaran = a.id_anggaran                                                
                                     WHERE b.status_bkk <= '3'
                                     AND b.status_bkk NOT IN ('101', '202', '404', '15', '17')
