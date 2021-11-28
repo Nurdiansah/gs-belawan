@@ -44,7 +44,7 @@ if (isset($_POST['submit'])) {
 	mysqli_query($koneksi, $queryLog);
 
 	$query = "UPDATE kasbon SET doc_lpj = '$nama_doc', $field
-									status_kasbon = '7', waktu_lpj = '$tanggal' , harga_akhir = '$hargaAkhir', komentar = NULL
+									status_kasbon = '9', waktu_lpj = '$tanggal' , harga_akhir = '$hargaAkhir', komentar = NULL
                                     WHERE id_kasbon ='$id_kasbon' ";
 
 	$hasil = mysqli_query($koneksi, $query);

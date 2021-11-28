@@ -74,7 +74,7 @@ $queryKp = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon
                                       ON k.kd_transaksi = bo.kd_transaksi
                                     JOIN detail_biayaops dbo
                                       ON k.id_dbo = dbo.id                                  
-                                    WHERE status_kasbon IN (1, 2, 3, 4, 5, 101, 202, 303, 404) ");
+                                    WHERE status_kasbon IN (1, 2, 3, 4, 5, 6, 7, 101, 202, 303, 404) ");
 $dataKp = mysqli_fetch_assoc($queryKp);
 
 $queryKs = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon k
@@ -89,10 +89,10 @@ $totalKpKs = $dataKp['jumlah'] + $dataKs['jumlah'];
 
 // Lpj kasbon
 // query MT
-$queryKl = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon WHERE status_kasbon IN ('6', '505') AND from_user = '0' AND sr_id IS NULL ");
+$queryKl = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon WHERE status_kasbon IN ('8', '505') AND from_user = '0' AND sr_id IS NULL ");
 $dataKl = mysqli_fetch_assoc($queryKl);
 
-$queryKl2 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon  WHERE status_kasbon = '6' AND sr_id IS NOT NULL ");
+$queryKl2 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon  WHERE status_kasbon = '8' AND sr_id IS NOT NULL ");
 $dataKl2 = mysqli_fetch_assoc($queryKl2);
 
 $jumlahKl = $dataKl['jumlah'] + $dataKl2['jumlah'];
