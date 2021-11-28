@@ -98,8 +98,15 @@ if (isset($_GET['id'])) {
 		$dataEmail = mysqli_fetch_assoc($queryEmail);
 
 		// query buat ngirim keorang email
+<<<<<<< HEAD
 		$queryUser = mysqli_query($koneksi, "SELECT * FROM user 
                                                 WHERE  level = 'manager_finance'");
+=======
+		$queryUser = mysqli_query($koneksi, "SELECT * FROM user u
+                                                INNER JOIN divisi d
+                                                ON u.id_divisi = d.id_divisi
+                                                WHERE level = 'kordinator_pajak'");
+>>>>>>> 2e4d5e8 (cek reject reapprove)
 
 		// data email
 		while ($dataUser = mysqli_fetch_assoc($queryUser)) {
@@ -249,7 +256,7 @@ if (isset($_GET['id'])) {
 									";
 	mysqli_query($koneksi, $queryLog);
 
-	if ($queue && $hasil && $query2) {
+	if ($hasil && $query2) {
 		// mysql commit transaction
 		mysqli_commit($koneksi);
 

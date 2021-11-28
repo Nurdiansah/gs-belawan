@@ -89,11 +89,11 @@ $querySbo =  mysqli_query($koneksi, "SELECT *
                         <div class="form-group">
                             <label for="alasan_ditolak" class="col-sm-offset- col-sm-1 control-label">Alasan Ditolak</label>
                             <div class="col-sm-3">
-                                <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "><?= $data2['alasan_tolak_pajak']; ?>, <?= $data2['alasan_tolak_mgrfin']; ?>, <?= $data2['alasan_tolak_direktur']; ?></textarea>
+                                <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "><?= $data2['alasan_tolak_pajak']; ?>&#13;&#10;<?= $data2['alasan_tolak_mgrfin']; ?>&#13;&#10;<?= $data2['alasan_tolak_direktur']; ?></textarea>
                             </div>
                             <label for="waktu_ditolak" class="col-sm-offset-2 col-sm-3 control-label">Waktu Ditolak</label>
                             <div class="col-sm-3">
-                                <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "><?= $data2['waktu_tolak_pajak']; ?>, <?= $data2['waktu_tolak_mgrfin']; ?>, <?= $data2['waktu_tolak_direktur']; ?></textarea>
+                                <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "><?= $data2['waktu_tolak_pajak']; ?>&#13;&#10;<?= $data2['waktu_tolak_mgrfin']; ?>&#13;&#10;<?= $data2['waktu_tolak_direktur']; ?></textarea>
                             </div>
                         </div>
                         <br>

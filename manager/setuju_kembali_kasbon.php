@@ -37,15 +37,15 @@ if (isset($_POST['setuju'])) {
     // end
 
     // REAPPROVE KASBON
-    if ($vrf_pajak == 'bp') {
-        // jika kasbon verifikasi sebelum pembayaran
-        $query = "UPDATE kasbon SET  status_kasbon = '2', app_manager = '$tanggal'
+    // if ($vrf_pajak == 'bp') {
+    // jika kasbon verifikasi sebelum pembayaran
+    //     $query = "UPDATE kasbon SET  status_kasbon = '2', app_manager = '$tanggal'
+    //             WHERE id_kasbon ='$id_kasbon'";
+    // } else if ($vrf_pajak == 'as') {
+    // jika kasbon verifikasi setelah lpj
+    $query = "UPDATE kasbon SET  status_kasbon = '3', app_manager = '$tanggal'
                 WHERE id_kasbon ='$id_kasbon'";
-    } else if ($vrf_pajak == 'as') {
-        // jika kasbon verifikasi setelah lpj
-        $query = "UPDATE kasbon SET  status_kasbon = '3', app_manager = '$tanggal'
-                WHERE id_kasbon ='$id_kasbon'";
-    }
+    // }
 
 
     $hasil = mysqli_multi_query($koneksi, "DELETE FROM tolak_kasbon WHERE kasbon_id = '$id_kasbon';

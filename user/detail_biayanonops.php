@@ -23,7 +23,7 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                     <br><br>
                 </div>
 
-                <div id="my-timeline"></div>
+                <!-- <div id="my-timeline"></div> -->
 
                 <!-- Detail Job Order -->
                 <div class="box-header with-border">

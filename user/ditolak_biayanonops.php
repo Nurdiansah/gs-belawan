@@ -33,7 +33,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM bkk
                                 <th>Kode Transaksi</th>
                                 <th>Tanggal Pengajuan</th>
                                 <th>Keterangan</th>
-                                <th>Alasan Manager</th>
+                                <th>Alasan Ditolak</th>
                                 <th>Alasan Manager Fin</th>
                                 <th>Alasan Direktur</th>
                                 <th>Aksi</th>
