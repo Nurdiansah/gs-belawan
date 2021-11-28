@@ -87,7 +87,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                             <div class="col-sm-3">
                                 <div class="input-group">
                                     <span class="input-group-addon ">Rp.</span>
-                                    <input type="text" class="form-control" value="<?= formatRupiah2($data['total_pettycash']); ?>" name="nominal" autocomplete="off" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" required>
+                                    <input type="text" class="form-control" value="<?= formatRupiah2(round($data['total_pettycash'])); ?>" name="nominal" autocomplete="off" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" required>
                                 </div>
                             </div>
                             <label for="id_anggaran" class="col-sm-offset- col-sm-2 control-label">Kode Anggaran</label>
