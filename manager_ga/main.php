@@ -31,7 +31,7 @@
                                                                                                                                         echo $dataPV['jumlah'];
                                                                                                                                       } ?></span></a>
         <a href="index.php?p=verifikasi_bkk" class="list-group-item"> <i class="fa fa-print"> </i> BKK <span class="badge label-success"><?= $dataBKK['jumlah'] > 0 ? $dataBKK['jumlah'] : ''; ?></span></a>
-        <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
+        <!-- <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a> -->
       </div>
     </div>
     <div class="col-lg-3 col-xs-6">

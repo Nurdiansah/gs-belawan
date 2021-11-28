@@ -189,7 +189,7 @@ include "../fungsi/koneksi.php";
         <?php } else { ?>
             <td>APPROVED (<?= formatTanggalWaktu($data['v_direktur']); ?>)</td>
         <?php } ?>
-        <td style="text-align: right; width=150px; ">Jakarta, <?= formatTanggal($data['release_on_bkk']) ?></td>
+        <td style="text-align: right; width=150px; ">Medan, <?= formatTanggal($data['release_on_bkk']) ?></td>
     </tr>
     <tr>
         <td colspan="3"></td>
