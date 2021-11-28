@@ -122,19 +122,19 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                     <textarea rows="5" type="text" name="keterangan" disabled class="form-control "> <?= $data['keterangan']; ?></textarea>
                                 </div>
                             </div>
-                            <?php if (isset($dataReapp['alasan_reapprove_mgr']) != NULL) { ?>
-                                <div class="form-group">
+                            <!-- <?php if (isset($data['komentar']) != NULL) { ?> -->
+                            <!-- <div class="form-group">
                                     <label for="alasan_reapprove" class="col-sm-offset- col-sm-2 control-label">Alasan Reapprove</label>
                                     <div class="col-sm-3">
-                                        <textarea rows="5" type="text" name="alasan_reapprove" disabled class="form-control "> <?= $dataReapp['alasan_reapprove_mgr']; ?></textarea>
+                                        <textarea rows="5" type="text" name="alasan_reapprove" disabled class="form-control "> <?= $data['komentar']; ?></textarea>
                                     </div>
 
                                     <label for="waktu_reapprove" class="col-sm-offset- col-sm-2 control-label">Waktu Reapprove</label>
                                     <div class="col-sm-3">
-                                        <textarea rows="5" type="text" name="waktu_reapprove" disabled class="form-control "> <?= $dataReapp['waktu_reapprove_mgr']; ?></textarea>
+                                        <textarea rows="5" type="text" name="waktu_reapprove" disabled class="form-control "> <?= $data['waktu_reapprove_mgr']; ?></textarea>
                                     </div>
-                                </div>
-                            <?php } ?>
+                                </div> -->
+                            <!-- <?php } ?> -->
                             <!-- <div class="form-group "> -->
                             <!-- <div class="box-header with-border"> -->
                             <h3 class="text-center">Document Pendukung </h3>

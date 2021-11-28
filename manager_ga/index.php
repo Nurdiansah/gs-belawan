@@ -109,13 +109,14 @@ $queryKasbonDivisi = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah F
 $dataKasbonDivisi = mysqli_fetch_assoc($queryKasbonDivisi);
 
 // query kasbon ditolak
-$queryKasbonTolak = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '303' AND id_manager = '$idUser'  AND from_user = '1'");
+$queryKasbonTolak = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '404' -- AND id_manager = '$idUser' 
+                                      AND from_user = '1'");
 $dataKasbonTolak = mysqli_fetch_assoc($queryKasbonTolak);
 
 $queryTolakKSR = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '505' AND sr_id IS NOT NULL");
 $dataTolakKSR = mysqli_fetch_assoc($queryTolakKSR);
 
-$queryTolakMR = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '303' AND from_user = '0'");
+$queryTolakMR = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '404' AND from_user = '0'");
 $dataTolakMR = mysqli_fetch_assoc($queryTolakMR);
 
 $totalTolakKasbon = $dataKasbonTolak['jumlah'] + $dataTolakKSR['jumlah'] + $dataTolakMR['jumlah'];

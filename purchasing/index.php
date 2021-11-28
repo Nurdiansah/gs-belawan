@@ -128,7 +128,7 @@ $query = mysqli_query($koneksi, "SELECT *
 
 
 // query kasbon ditolak
-$queryKasbonTolak = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon IN ('101', '606') AND from_user = '0'");
+$queryKasbonTolak = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon IN ('202', '606') AND from_user = '0'");
 $dataKasbonTolak = mysqli_fetch_assoc($queryKasbonTolak);
 
 $queryTolakPO = mysqli_query($koneksi, "SELECT COUNT(id_po) as jumlah FROM po WHERE status_po = '101'");

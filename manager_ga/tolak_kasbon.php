@@ -7,8 +7,8 @@ if (isset($_POST['tolak'])) {
     $komentar = "@" . $_POST['Nama'] . " : " . $_POST['komentar'];
 
     // Reject KASBON
-    $query = "UPDATE kasbon SET komentar = '$komentar', status_kasbon = '101'
-                            WHERE id_kasbon ='$id_kasbon' ";
+    $query = "UPDATE kasbon SET komentar_mgr_ga = '$komentar', status_kasbon = '303'
+                            WHERE id_kasbon = '$id_kasbon' ";
     $hasil = mysqli_query($koneksi, $query);
 
 

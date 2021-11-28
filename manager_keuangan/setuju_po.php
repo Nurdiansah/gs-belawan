@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
     mysqli_begin_transaction($koneksi);
 
     $query1 = mysqli_query($koneksi, "UPDATE po 
-										  SET status_po= '3' , app_cc = NOW()
+										  SET status_po= '3', app_cc = NOW()
 										  WHERE id_po = '$id_po' ");
 
     $queryLog = "INSERT INTO log_system (waktu, nama_user, keterangan) VALUES

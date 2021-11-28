@@ -59,7 +59,7 @@ $dataAK = mysqli_fetch_assoc($queryAK);
 $queryKasbonTolak = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '101' AND from_user = '0' AND id_manager = '$idUser'");
 $dataKasbonTolak = mysqli_fetch_assoc($queryKasbonTolak);
 
-$queryKTU = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '303' AND from_user = '1' AND id_manager = '$idUser'");
+$queryKTU = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '202' AND from_user = '1' AND id_manager = '$idUser'");
 $dataKTU = mysqli_fetch_assoc($queryKTU);
 
 $total_tolak = $dataKasbonTolak['jumlah'] + $dataKTU['jumlah'];

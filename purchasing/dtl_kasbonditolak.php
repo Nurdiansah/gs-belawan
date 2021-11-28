@@ -315,13 +315,13 @@ if (isset($_POST['update'])) {
                                 <i style="color:red;">*Kosongkan jika tidak dirubah</i>
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="validationTextarea">Komentar</label>
                             <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required autocomplete>@<?php echo $Nama ?> : </textarea>
                             <div class="invalid-feedback">
                                 Please enter a message in the textarea.
                             </div>
-                        </div>
+                        </div> -->
                         <div class=" modal-footer">
                             <button class="btn btn-success" type="submit" name="kirim">Kirim</button></span></a>
                             &nbsp;

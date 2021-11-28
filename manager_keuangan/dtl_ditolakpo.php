@@ -108,12 +108,9 @@ $totalRealisasi = realisasiCoaDivisi($id_divisi, $no_coa, $tahun);
                         <div class="form-group">
                             <label for="alasan_tolak" class="col-sm-offset- col-sm-1 control-label">Alasan Ditolak</label>
                             <div class="col-sm-3">
-                                <textarea rows="5" type="text" name="alasan_tolak" disabled class="form-control "> <?= $data2['alasan_tolak_direktur']; ?></textarea>
+                                <textarea rows="5" type="text" name="alasan_tolak" disabled class="form-control "> <?= $data2['komentar_pajak']; ?>&#13;&#10;<?= $data2['komentar_mgr_ga']; ?></textarea>
                             </div>
-                            <label for="waktu_tolak" class="col-sm-offset-2 col-sm-3 control-label">PO Number</label>
-                            <div class="col-sm-3">
-                                <textarea rows="5" type="text" name="alasan_tolak" disabled class="form-control "> <?= $data2['waktu_tolak_direktur']; ?></textarea>
-                            </div>
+
                         </div>
                         <br>
                     </div>
@@ -339,14 +336,15 @@ $totalRealisasi = realisasiCoaDivisi($id_divisi, $no_coa, $tahun);
                                     <input type="hidden" value="<?= $data2['id_po']; ?>" class="form-control" name="id_po" readonly>
                                 </div>
                             </div>
-
-                            <div class="mb-3">
+                            <h4>Apakah anda yakin ingin menyetujui kembali PO <b><span id="ma_keterangan"><?= $data2['keterangan']; ?>?</b></span></h4>
+                            <br>
+                            <!-- <div class="mb-3">
                                 <label for="validationTextarea">Komentar</label>
                                 <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required>@<?php echo $Nama ?> : </textarea>
                                 <div class="invalid-feedback">
                                     Please enter a message in the textarea.
                                 </div>
-                            </div>
+                            </div> -->
                             <div class=" modal-footer">
                                 <button class="btn btn-success" type="submit" name="tolak">Kirim</button></span></a>
                                 &nbsp;

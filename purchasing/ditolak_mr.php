@@ -8,7 +8,7 @@ $queryKasbon = mysqli_query($koneksi, "SELECT * FROM kasbon ks
                                             ON ks.kd_transaksi = db.kd_transaksi
                                         LEFT JOIN tolak_kasbon
                                             ON id_kasbon = kasbon_id
-                                        WHERE status_kasbon IN ('101', '606')
+                                        WHERE status_kasbon IN ('202', '606')
                                         AND from_user = '0'
                                         ORDER BY id_kasbon DESC");
 $totalKasbon = mysqli_num_rows($queryKasbon);

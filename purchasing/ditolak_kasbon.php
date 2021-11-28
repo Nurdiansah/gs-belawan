@@ -21,9 +21,9 @@
                     <td><?= $dataKasbon['keterangan']; ?></td>
                     <td><?= $dataKasbon['tgl_kasbon']; ?></td>
                     <td><?= formatRupiah($dataKasbon['harga_akhir']); ?></td>
-                    <td><?= $dataKasbon['komentar']; ?></td>
+                    <td><?= $dataKasbon['komentar_mgr_fin']; ?></td>
                     <td>
-                        <?php if ($dataKasbon['status_kasbon'] == '101') { ?>
+                        <?php if ($dataKasbon['status_kasbon'] == '202') { ?>
                             <a href="index.php?p=dtl_kasbonditolak&id_kasbon=<?= $dataKasbon['id_kasbon']; ?>" class="btn btn-primary " title="Lihat"> Lihat</a>
                         <?php } elseif ($dataKasbon['status_kasbon'] == '606') { ?>
                             <button type="button" class="btn btn-primary modalLPJ" data-toggle="modal" data-target="#LPJ_<?= $dataKasbon['id_kasbon']; ?>" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-send"></i> Ajukan Kembali</button></span>

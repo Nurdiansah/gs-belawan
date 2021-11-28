@@ -123,14 +123,14 @@ $totalRealisasi = $data['jumlah_realisasi'];
 
                             <div class="form-group">
                                 <label for="alasan_ditolak" class="col-sm-offset- col-sm-2 control-label">Alasan Ditolak</label>
-                                <div class="col-sm-3">
-                                    <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "> <?= $data['alasan_tolak_direktur']; ?></textarea>
+                                <div class="col-sm-8">
+                                    <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "> <?= $data['komentar_mgr_ga']; ?>&#13;&#10;<?= $data['komentar_pajak']; ?></textarea>
                                 </div>
 
-                                <label for="waktu_ditolak" class="col-sm-offset- col-sm-2 control-label">Waktu Ditolak</label>
+                                <!-- <label for="waktu_ditolak" class="col-sm-offset- col-sm-2 control-label">Waktu Ditolak</label>
                                 <div class="col-sm-3">
                                     <textarea rows="5" type="text" name="waktu_ditolak" disabled class="form-control "> <?= $data['waktu_tolak_direktur']; ?></textarea>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="form-group ">
@@ -256,13 +256,15 @@ $totalRealisasi = $data['jumlah_realisasi'];
                             </div>
                         </div>
 
-                        <div class="mb-3">
+                        <h4>Apakah anda yakin ingin menyetujui kembali Kasbon <b><span id="ma_keterangan"><?= $data['keterangan']; ?>?</b></span></h4>
+                        <br>
+                        <!-- <div class="mb-3">
                             <label for="validationTextarea">Komentar</label>
                             <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required autocomplete>@ <?php echo $Nama ?> : </textarea>
                             <div class="invalid-feedback">
                                 Please enter a message in the textarea.
                             </div>
-                        </div>
+                        </div> -->
                         <div class=" modal-footer">
                             <button class="btn btn-success" type="submit" name="tolak">Kirim</button></span></a>
                             &nbsp;
@@ -294,12 +296,13 @@ $totalRealisasi = $data['jumlah_realisasi'];
                             <div class="col-sm-4">
                                 <input type="hidden" value="<?= $data['id_kasbon']; ?>" class="form-control" name="id_kasbon">
                                 <input type="hidden" value="ditolak_kasbon&sp=tolak_user" class="form-control" name="url">
+                                <input type="hidden" value="<?= $Nama; ?>" class="form-control" name="Nama">
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="validationTextarea">Komentar</label>
-                            <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required autocomplete>@ <?php echo $Nama ?> : </textarea>
+                            <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required autocomplete></textarea>
                             <div class="invalid-feedback">
                                 Please enter a message in the textarea.
                             </div>

@@ -117,7 +117,7 @@ $dataKTU = mysqli_fetch_assoc($queryKTU);
 $jumlahKT = $dataKTP['jumlah'] + $dataKTU['jumlah'];
 
 // query kasbon ditolak
-$queryKasbonTolak = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '404'");
+$queryKasbonTolak = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '303'");
 $dataKasbonTolak = mysqli_fetch_assoc($queryKasbonTolak);
 
 $queryTolakKSR = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah
@@ -138,7 +138,7 @@ $dataTolakBKK = mysqli_fetch_assoc($queryTolakBKK);
 $queryBP = mysqli_query($koneksi, "SELECT COUNT(id) as jumlah FROM bkk_final WHERE status_bkk = '2'");
 $dataBP = mysqli_fetch_assoc($queryBP);
 
-$queryTolakPO = mysqli_query($koneksi, "SELECT COUNT(id_po) as jumlah FROM po WHERE status_po = '404'");
+$queryTolakPO = mysqli_query($koneksi, "SELECT COUNT(id_po) as jumlah FROM po WHERE status_po = '202'");
 $dataTolakPO = mysqli_fetch_assoc($queryTolakPO);
 
 $querySO = mysqli_query($koneksi, "SELECT COUNT(id_so) as jumlah FROM so WHERE status = '3'");

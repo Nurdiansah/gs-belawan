@@ -118,9 +118,9 @@
           PO
         </a>
         <a href="index.php?p=po_proses" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"></span> </a>
-        <a href="index.php?p=ditolak_po" class="list-group-item"> <i class="fa fa-close"></i> Ditolak <span class="badge label-info"><?php if ($dataTolakPO['jumlah'] > 0) {
-                                                                                                                                        echo $dataTolakPO['jumlah'];
-                                                                                                                                      } ?></span> </a>
+        <a href="index.php?p=ditolak_po" class="list-group-item"> <i class="fa fa-close"></i> Ditolak <span class="badge label-danger"><?php if ($dataTolakPO['jumlah'] > 0) {
+                                                                                                                                          echo $dataTolakPO['jumlah'];
+                                                                                                                                        } ?></span> </a>
         <a href="index.php?p=po_transaksi" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi <span class="badge label-success"></span></a>
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
       </div>

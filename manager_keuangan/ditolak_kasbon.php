@@ -4,9 +4,9 @@ include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
 $queryPurchasing = mysqli_query($koneksi, "SELECT * FROM kasbon
-                                    INNER JOIN tolak_kasbon
+                                    LEFT JOIN tolak_kasbon
                                         ON id_kasbon = kasbon_id
-                                    WHERE status_kasbon = '404'
+                                    WHERE status_kasbon = '303'
                                     AND from_user = '0'
                                     ORDER BY id_kasbon DESC");
 $totalPurchasing = mysqli_num_rows($queryPurchasing);
@@ -22,9 +22,9 @@ $querySR = mysqli_query($koneksi, "SELECT *, id_kasbon, tgl_kasbon,nm_divisi, nm
 $totalSR = mysqli_num_rows($querySR);
 
 $queryUser = mysqli_query($koneksi, "SELECT * FROM kasbon
-                                    INNER JOIN tolak_kasbon
+                                    LEFT JOIN tolak_kasbon
                                         ON id_kasbon = kasbon_id
-                                    WHERE status_kasbon = '404'
+                                    WHERE status_kasbon = '303'
                                     AND from_user = '1'
                                     ORDER BY id_kasbon DESC");
 $totalUser = mysqli_num_rows($queryUser);
