@@ -66,7 +66,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                             <td> <?= $row['keterangan']; ?> </td>
                                             <td> <?= $row['nm_vendor']; ?> </td>
                                             <td> <?= "Rp." . $angka_format; ?> </td>
-                                            <td><?= $row['komentar_direktur']; ?></td>
+                                            <td><?= $row['komentar']; ?></td>
                                             <!-- <td>                
                                             <?php echo '0', ' %';
                                             ?>                                        

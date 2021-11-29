@@ -134,7 +134,7 @@ $querySR = mysqli_query($koneksi, "SELECT COUNT(id_sr) AS jumlah FROM sr WHERE s
 $dataSR = mysqli_fetch_assoc($querySR);
 
 // query bkk ditolak
-$queryTolakBNO = mysqli_query($koneksi, "SELECT COUNT(id_bkk) as jumlah FROM bkk WHERE status_bkk = '303' AND id_manager='$idUser' ");
+$queryTolakBNO = mysqli_query($koneksi, "SELECT COUNT(id_bkk) as jumlah FROM bkk WHERE status_bkk = '505' -- AND id_manager='$idUser' ");
 $dataTolakBNO = mysqli_fetch_assoc($queryTolakBNO);
 
 $queryBKK = mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah  FROM bkk_final WHERE status_bkk = '2'  ");

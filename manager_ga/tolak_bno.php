@@ -31,14 +31,14 @@ if (isset($_POST['tolak'])) {
     // ngapus ditabel reapprove_bkk klo di mgr null
 
     $query = mysqli_query($koneksi, "UPDATE bkk SET komentar = '$komentar', 
-													tgl_verifikasimanager = NULL ,
-													status_bkk = '101'
+													app_cc = NULL ,
+													status_bkk = '404'
                                      WHERE id_bkk ='$id_bkk' ");
     if ($query) {
         setcookie('pesan', 'Berhasil di Reject!', time() + (3), '/');
         setcookie('warna', 'alert-warning', time() + (3), '/');
 
-        header("location:index.php?p=approval_biayanonops");
+        header("location:index.php?p=" . $_POST['url'] . "");
     } else {
         echo 'error' . mysqli_error($koneksi);
     }

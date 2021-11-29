@@ -225,7 +225,7 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                 <!-- heading modal -->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Alasan Setuju Kembali</h4>
+                    <h4 class="modal-title">Setuju Kembali</h4>
                 </div>
                 <!-- body modal -->
                 <div class="modal-body">
@@ -238,13 +238,15 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                                 </div>
                             </div>
 
-                            <div class="mb-3">
+                            <h4>Apakah anda yakin ingin menyetujui kembali pengjauan <b><?= $row2['keterangan']; ?>?</b></h4>
+                            <br>
+                            <!-- <div class="mb-3">
                                 <label for="validationTextarea">Komentar</label>
                                 <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required>@<?php echo $Nama ?> : </textarea>
                                 <div class="invalid-feedback">
                                     Please enter a message in the textarea.
                                 </div>
-                            </div>
+                            </div> -->
                             <div class=" modal-footer">
                                 <button class="btn btn-success" type="submit" name="kirim">Kirim</button></span></a>
                                 <!-- <input type="submit" name="simpan" class="btn btn-primary col-sm-offset-1 " value="kirim" >  -->
@@ -276,6 +278,7 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                                 <div class="col-sm-4">
                                     <input type="hidden" value="<?= $row2['id_bkk']; ?>" class="form-control" name="id_bkk" readonly>
                                     <input type="hidden" value="<?= $Nama; ?>" class="form-control" name="Nama" readonly>
+                                    <input type="hidden" value="ditolak_bno" class="form-control" name="url" readonly>
                                 </div>
                             </div>
 

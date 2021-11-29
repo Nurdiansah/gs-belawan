@@ -218,18 +218,19 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                 </div>
                 <!-- body modal -->
                 <div class="modal-body">
-                    <form method="post" enctype="multipart/form-data" action="tolakuser_bno.php" class="form-horizontal">
+                    <form method="post" enctype="multipart/form-data" action="tolak_bno.php" class="form-horizontal">
                         <div class="box-body">
                             <div class="form-group ">
 
                                 <div class="col-sm-4">
                                     <input type="hidden" value="<?= $row2['id_bkk']; ?>" class="form-control" name="id_bkk" readonly>
+                                    <input type="hidden" value="<?= $Nama; ?>" class="form-control" name="Nama" readonly>
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="validationTextarea">Komentar</label>
-                                <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required>@<?php echo $Nama ?> : </textarea>
+                                <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required></textarea>
                                 <div class="invalid-feedback">
                                     Please enter a message in the textarea.
                                 </div>

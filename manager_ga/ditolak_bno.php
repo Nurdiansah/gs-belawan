@@ -10,8 +10,8 @@ $idUser = $rowUser['id_user'];
 $query = mysqli_query($koneksi, "SELECT * 
                                 FROM bkk b
                                 JOIN divisi d
-                                ON d.id_divisi = b.id_divisi AND b.id_manager='$idUser'
-                                WHERE b.status_bkk='303' ORDER BY b.kd_transaksi DESC");
+                                ON d.id_divisi = b.id_divisi -- AND b.id_manager='$idUser'
+                                WHERE b.status_bkk='505' ORDER BY b.kd_transaksi DESC");
 
 
 

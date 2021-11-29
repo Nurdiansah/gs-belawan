@@ -207,13 +207,14 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                 </div>
                 <!-- body modal -->
                 <div class="modal-body">
-                    <form method="post" enctype="multipart/form-data" action="tolak_biayanonops.php" class="form-horizontal">
+                    <form method="post" enctype="multipart/form-data" action="tolak_bno.php" class="form-horizontal">
                         <div class="box-body">
                             <div class="form-group ">
 
                                 <div class="col-sm-4">
                                     <input type="hidden" value="<?= $row2['id_bkk']; ?>" class="form-control" name="id_bkk" readonly>
                                     <input type="hidden" value="<?= $Nama; ?>" class="form-control" name="Nama" readonly>
+                                    <input type="hidden" value="approval_biayanonops" class="form-control" name="url" readonly>
                                 </div>
                             </div>
 
