@@ -135,12 +135,11 @@ $totalRealisasi = $rowAnggaran['jumlah_realisasi'];
                                 <div class="col-sm-3">
                                     <textarea rows="5" type="text" name="keterangan" disabled class="form-control "> <?= $data['keterangan']; ?></textarea>
                                 </div>
-                                <?php if ($totalTolak > 0) { ?>
-                                    <label for="alasan_tolak" class="col-sm-offset- col-sm-2 control-label">Alasan Tolak</label>
-                                    <div class="col-sm-3">
-                                        <textarea rows="5" type="text" name="alasan_tolak" disabled class="form-control "> <?= $dataTolak['alasan_tolak_direktur']; ?></textarea>
-                                    </div>
-                                <?php } ?>
+
+                                <label for="alasan_tolak" class="col-sm-offset- col-sm-2 control-label">Alasan Ditolak</label>
+                                <div class="col-sm-3">
+                                    <textarea rows="5" type="text" name="alasan_tolak" disabled class="form-control "><?= $data['komentar_pajak']; ?>&#10;&#30;<?= $data['komentar_mgr_ga']; ?></textarea>
+                                </div>
                             </div>
                             <br>
                             <?php
@@ -323,13 +322,15 @@ $totalRealisasi = $rowAnggaran['jumlah_realisasi'];
                             </div>
                         </div>
 
-                        <div class="mb-3">
+                        <h4>Apakah anda yakin ingin menyetujui kembali Kasbon <b><span id="ma_keterangan"><?= $data['keterangan']; ?>?</b></span></h4>
+                        <br>
+                        <!-- <div class="mb-3">
                             <label for="validationTextarea">Komentar</label>
                             <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required autocomplete>@ <?php echo $Nama ?> : </textarea>
                             <div class="invalid-feedback">
                                 Please enter a message in the textarea.
                             </div>
-                        </div>
+                        </div> -->
                         <div class=" modal-footer">
                             <button class="btn btn-success" type="submit" name="tolak">Kirim</button></span></a>
                             &nbsp;

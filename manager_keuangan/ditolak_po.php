@@ -15,7 +15,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                                 ON p.id_dbo = dbo.id
                                                 JOIN divisi d
                                                 ON d.id_divisi = bo.id_divisi                                            
-                                                WHERE status_po = '404'
+                                                WHERE status_po = '202'
                                                 ORDER BY p.kd_transaksi DESC   ");
 
 $jumlahData  = mysqli_num_rows($query);
@@ -40,8 +40,8 @@ $jumlahData  = mysqli_num_rows($query);
                                         <th>Tanggal</th>
                                         <th>Divisi</th>
                                         <th>Deskripsi</th>
+                                        <th>Alasan Ditolak</th>
                                         <th>Total</th>
-                                        <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -58,8 +58,8 @@ $jumlahData  = mysqli_num_rows($query);
                                                 <td> <?= formatTanggal($row['tgl_po']); ?> </td>
                                                 <td> <?= $row['nm_divisi']; ?> </td>
                                                 <td> <?= $row['nm_barang']; ?> </td>
+                                                <td><?= $row['komentar_mgr_ga']; ?></td>
                                                 <td> <span class="label label-success"><?= formatRupiah($row['grand_totalpo']) ?> </span></td>
-                                                <td><span class="label label-danger">Ditolak Direktur</span></td>
                                                 <td>
                                                     <a href="index.php?p=dtl_ditolakpo&id=<?= $row['id_po']; ?>" class="btn btn-info">Lihat</a>
                                                 </td>

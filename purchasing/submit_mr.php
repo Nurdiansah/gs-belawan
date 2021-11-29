@@ -249,7 +249,7 @@ if (isset($_GET['id'])) {
 									";
 	mysqli_query($koneksi, $queryLog);
 
-	if ($queue && $hasil && $query2) {
+	if ($hasil && $query2) {
 		// mysql commit transaction
 		mysqli_commit($koneksi);
 

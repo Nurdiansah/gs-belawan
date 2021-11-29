@@ -169,7 +169,7 @@ if (isset($_POST['submit'])) {
 	}
 
 	$query1 = mysqli_query($koneksi, "UPDATE kasbon
-										  SET status_kasbon=4 , app_costcontrol = '$tanggal'
+										  SET status_kasbon = 4 , app_costcontrol = '$tanggal', komentar_mgr_ga = NULL
 										  WHERE id_kasbon = '$id_kasbon' ");
 
 	$queryLog = "INSERT INTO log_system (waktu, nama_user, keterangan) VALUES

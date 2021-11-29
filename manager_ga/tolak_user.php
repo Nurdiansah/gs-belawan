@@ -7,8 +7,7 @@
                 <th>Tanggal</th>
                 <th>Deskripsi</th>
                 <th>Total</th>
-                <th>Alasan Penolakan</th>
-                <th>Waktu Penolakan</th>
+                <th>Alasan Ditolak</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -25,8 +24,7 @@
                         <td> <?= formatTanggal($row['tgl_kasbon']); ?> </td>
                         <td> <?= $row['keterangan']; ?> </td>
                         <td> <?= formatRupiah($row['harga_akhir']) ?> </td>
-                        <td><?= $row['alasan_tolak_mgrfin']; ?></td>
-                        <td><?= $row['waktu_tolak_mgrfin']; ?></td>
+                        <td><?= $row['komentar_pajak']; ?></td>
                         <td>
                             <button type="button" class="btn btn-warning modalLihat" data-toggle="modal" data-target="#lihatKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-binoculars"></i> Show</button>
                             <button type="button" class="btn btn-primary modalSetuju " data-toggle="modal" data-target="#setujuKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-check-square"></i> Approve </button></span></a>
@@ -176,13 +174,13 @@
 
                             <h4>Apakah anda yakin ingin menyetujui Kasbon <b><span id="ma_keterangan"></b></span></h4>
                             <br>
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                                 <label for="validationTextarea">Alasan Setuju Kembali</label>
                                 <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required>@<?php echo $Nama ?> : </textarea>
                                 <div class="invalid-feedback">
                                     Please enter a message in the textarea.
                                 </div>
-                            </div>
+                            </div> -->
                             <div class=" modal-footer">
                                 <button class="btn btn-success" type="submit" name="setuju">Approve</button></span></a>
                                 &nbsp;

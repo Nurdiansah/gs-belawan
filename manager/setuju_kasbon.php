@@ -27,7 +27,7 @@ if (isset($_POST['setuju'])) {
 
     if ($vrf_pajak == 'bp') {
         // jika kasbon verifikasi sebelum pembayaran
-        $query = "UPDATE kasbon SET  status_kasbon = '3', app_supervisor = '$tanggal'
+        $query = "UPDATE kasbon SET  status_kasbon = '3', app_supervisor = '$tanggal', komentar_mgr_fin = NULL
                 WHERE id_kasbon ='$id_kasbon' ";
         $hasil = mysqli_query($koneksi, $query);
 
@@ -82,7 +82,7 @@ if (isset($_POST['setuju'])) {
         }
     } else if ($vrf_pajak == 'as') {
         // jika kasbon verifikasi setelah lpj
-        $query = "UPDATE kasbon SET  status_kasbon = '3', app_supervisor = '$tanggal'
+        $query = "UPDATE kasbon SET  status_kasbon = '3', app_supervisor = '$tanggal', komentar_mgr_fin = NULL
                 WHERE id_kasbon ='$id_kasbon' ";
         $hasil = mysqli_query($koneksi, $query);
 

@@ -121,6 +121,9 @@ if (isset($_POST['simpan'])) {
 	// move_uploaded_file($tmp,"file/pjsm/$Doc_pjsm");
 	$hasil = mysqli_query($koneksi, $query);
 
+	// echo mysqli_error($koneksi);
+	// print_r($query);
+	// die;
 
 	if ($hasil) {
 		# jika semua query berhasil di jalankan

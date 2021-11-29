@@ -6,7 +6,7 @@ include "../fungsi/fungsi.php";
 $queryPurchasing = mysqli_query($koneksi, "SELECT * FROM kasbon
                                     LEFT JOIN tolak_kasbon
                                         ON id_kasbon = kasbon_id
-                                    WHERE status_kasbon = '303'
+                                    WHERE status_kasbon = '404'
                                     AND from_user = '0'
                                     AND sr_id IS NULL
                                     ORDER BY id_kasbon DESC");
@@ -31,10 +31,11 @@ $queryUser = mysqli_query($koneksi, "SELECT *
                                         ON d.id_divisi = dbo.id_divisi     
                                     LEFT JOIN tolak_kasbon
                                         ON id_kasbon = kasbon_id                                       
-                                    WHERE k.status_kasbon = '303'
+                                    WHERE k.status_kasbon = '404'
                                     AND from_user = '1'
                                     AND sr_id IS NULL
-                                    AND id_manager='$idUser'");
+                                    -- AND id_manager='$idUser'
+                                    ");
 $totalUser = mysqli_num_rows($queryUser);
 
 $sp = $_GET['sp'];

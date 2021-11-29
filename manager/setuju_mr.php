@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
 		// fungsi begin tran mysql
 		mysqli_begin_transaction($koneksi);
 
-		echo "<p> Yang Anda Pilih : </p>";
+		// echo "<p> Yang Anda Pilih : </p>";
 		foreach ($id as $nilai) {
 			$queryD = mysqli_query($koneksi, "UPDATE detail_biayaops 
 										  SET status='2' 
@@ -150,13 +150,10 @@ if (isset($_POST['submit'])) {
 		mysqli_query($koneksi, $queryLog);
 
 
-
-		// 
-
 		mysqli_query($koneksi, $query1);
 
 
-		if ($query1 && $queue && $queryD) {
+		if ($query1  && $queryD) {
 			# jika semua query berhasil di jalankan
 			mysqli_commit($koneksi);
 

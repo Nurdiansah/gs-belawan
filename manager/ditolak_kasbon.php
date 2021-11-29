@@ -20,7 +20,7 @@ $queryUser = mysqli_query($koneksi, "SELECT *
                                                 ON d.id_divisi = dbo.id_divisi     
                                             LEFT JOIN tolak_kasbon
                                                 ON id_kasbon = kasbon_id                                       
-                                            WHERE k.status_kasbon = '303' AND from_user = '1' AND id_manager='$idUser'
+                                            WHERE k.status_kasbon = '202' AND from_user = '1' AND id_manager='$idUser'
                                             ");
 $totalUser = mysqli_num_rows($queryUser);
 

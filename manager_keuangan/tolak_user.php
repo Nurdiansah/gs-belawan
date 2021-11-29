@@ -5,8 +5,7 @@
                 <th>No</th>
                 <th>ID Kasbon</th>
                 <th>Tanggal Pengajuan</th>
-                <th>Alasan Penolakan</th>
-                <th>Waktu Ditolak</th>
+                <th>Alasan Ditolak</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -16,8 +15,7 @@
                     <td><?= $no; ?></td>
                     <td><?= $dataUser['id_kasbon']; ?></td>
                     <td><?= $dataUser['tgl_kasbon']; ?></td>
-                    <td><?= $dataUser['alasan_tolak_direktur']; ?></td>
-                    <td><?= $dataUser['waktu_tolak_direktur']; ?></td>
+                    <td><?= $dataUser['komentar_mgr_ga']; ?></td>
                     <td>
                         <a href="index.php?p=dtl_kasbonditolak_user&aksi=lihat&id=<?= $dataUser['id_kasbon']; ?>" class="btn btn-primary " title="Lihat"> Lihat</a>
                         <!-- <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#approve_<?= $dataUser['id_kasbon']; ?>" title="Setuju"><i class="fa fa-check"></i></button>
