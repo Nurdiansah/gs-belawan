@@ -38,6 +38,6 @@ if (isset($_POST['tolak'])) {
                                             ");
 
     if ($tolak) {
-        header('Location: index.php?p=verifikasi_kasbon&sp=vk_purchasing');
+        header('Location: index.php?p=' . $_POST['url'] . '');
     }
 }

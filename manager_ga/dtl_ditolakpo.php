@@ -64,7 +64,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT *
                             <div class="col-sm-3">
                                 <input type="text" disabled class="form-control is-valid" name="divisi" value="<?= $data2['nm_divisi'];  ?>">
                             </div>
-                            <label for="tgl_pengajuan" class="col-sm-offset-2 col-sm-3 control-label">Tanggal Pengajuan</label>
+                            <label for="tgl_pengajuan" class="col-sm-offset-3 col-sm-1 control-label">Tanggal Pengajuan</label>
                             <div class="col-sm-3">
                                 <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= formatTanggal($data2['tgl_pengajuan']); ?>">
                             </div>
@@ -74,7 +74,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT *
                             <div class="col-sm-3">
                                 <textarea rows="5" type="text" name="keterangan" disabled class="form-control "> <?= $data2['keterangan']; ?></textarea>
                             </div>
-                            <label for="tgl_pengajuan" class="col-sm-offset-2 col-sm-3 control-label">PO Number</label>
+                            <label for="tgl_pengajuan" class="col-sm-offset-3 col-sm-1 control-label">PO Number</label>
                             <div class="col-sm-3">
                                 <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= $data2['po_number']; ?>">
                             </div>
@@ -85,16 +85,16 @@ $querySbo =  mysqli_query($koneksi, "SELECT *
                             <div class="col-sm-3">
                                 <textarea rows="5" type="text" name="keterangan" disabled class="form-control "> <?= $data2['note_po']; ?></textarea>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="alasan_ditolak" class="col-sm-offset- col-sm-1 control-label">Alasan Ditolak</label>
+                            <!-- </div>
+                        <div class="form-group"> -->
+                            <label for="alasan_ditolak" class="col-sm-offset-3 col-sm-1 control-label">Alasan Ditolak</label>
                             <div class="col-sm-3">
-                                <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "><?= $data2['alasan_tolak_pajak']; ?>&#13;&#10;<?= $data2['alasan_tolak_mgrfin']; ?>&#13;&#10;<?= $data2['alasan_tolak_direktur']; ?></textarea>
+                                <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "><?= $data2['komentar_mgr_finjkt']; ?>&#13;&#10;<?= $data2['komentar_direktur']; ?></textarea>
                             </div>
-                            <label for="waktu_ditolak" class="col-sm-offset-2 col-sm-3 control-label">Waktu Ditolak</label>
+                            <!-- <label for="waktu_ditolak" class="col-sm-offset-2 col-sm-3 control-label">Waktu Ditolak</label>
                             <div class="col-sm-3">
                                 <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "><?= $data2['waktu_tolak_pajak']; ?>&#13;&#10;<?= $data2['waktu_tolak_mgrfin']; ?>&#13;&#10;<?= $data2['waktu_tolak_direktur']; ?></textarea>
-                            </div>
+                            </div> -->
                         </div>
                         <br>
                     </div>
@@ -271,14 +271,15 @@ $querySbo =  mysqli_query($koneksi, "SELECT *
                                     <input type="hidden" value="<?= $data2['id_po']; ?>" class="form-control" name="id_po" readonly>
                                 </div>
                             </div>
-
-                            <div class="mb-3">
+                            <h4>Apakah anda yakin ingin mengajukan kembali PO <b><?= $data2['keterangan']; ?>?</b></h4>
+                            <br>
+                            <!-- <div class="mb-3">
                                 <label for="validationTextarea">Komentar</label>
                                 <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required>@<?php echo $Nama ?> : </textarea>
                                 <div class="invalid-feedback">
                                     Please enter a message in the textarea.
                                 </div>
-                            </div>
+                            </div> -->
                             <div class=" modal-footer">
                                 <button class="btn btn-success" type="submit" name="kirim">Kirim</button></span></a>
                                 &nbsp;

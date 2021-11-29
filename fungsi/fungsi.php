@@ -7,8 +7,8 @@ function host()
     $srv = $_SERVER['SERVER_NAME'];
     $port = ":" .  $_SERVER['SERVER_PORT'];
 
-    $host = 'http://' . $srv .  '/sistem/gs-belawan/';
-    // $host = 'http://' . $srv . '/gs-belawan/';
+    // $host = 'http://' . $srv .  '/sistem/gs-belawan/';
+    $host = 'http://' . $srv . '/gs-belawan/';
 
     return $host;
 }

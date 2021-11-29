@@ -126,12 +126,10 @@ $tanggalCargo = date("Y-m-d");
                                 </div>
                             </div>
                             <div class="form-group">
-                                <?php if ($totalTolak > 0) { ?>
-                                    <label for="alasan_tolak" class="col-sm-offset-5 col-sm-2 control-label">Alasan Tolak</label>
-                                    <div class="col-sm-3">
-                                        <textarea rows="5" type="text" name="alasan_tolak" disabled class="form-control "><?= $dataTolak['alasan_tolak_direktur']; ?>, <?= $dataTolak['alasan_tolak_mgrfin']; ?>, <?= $dataTolak['alasan_tolak_mgrga']; ?></textarea>
-                                    </div>
-                                <?php } ?>
+                                <label for="alasan_tolak" class="col-sm-offset-5 col-sm-2 control-label">Alasan Ditolak</label>
+                                <div class="col-sm-3">
+                                    <textarea rows="5" type="text" name="alasan_tolak" disabled class="form-control "><?= $data['komentar_mgr_finjkt']; ?>&#13;&#10;<?= $data['komentar_direktur']; ?></textarea>
+                                </div>
                             </div>
                             <?php
                             $foto = $data['foto_item'];
@@ -342,6 +340,7 @@ $tanggalCargo = date("Y-m-d");
 
                             <div class="col-sm-4">
                                 <input type="hidden" value="<?= $data['id_kasbon']; ?>" class="form-control" name="id_kasbon">
+                                <input type="hidden" value="ditolak_kasbon&sp=tolak_purchasing" class="form-control" name="url">
                             </div>
                         </div>
 

@@ -57,7 +57,8 @@ $queryPV = mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah  FROM bkk_final WH
 $dataPV = mysqli_fetch_assoc($queryPV);
 
 // query kasbon ditolak
-$queryKasbonTolak = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '202' AND from_user = '0' AND sr_id IS NULL");
+$queryKasbonTolak = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon IN ('505', '202') -- AND from_user = '0'
+                                                  AND sr_id IS NULL");
 $dataKasbonTolak = mysqli_fetch_assoc($queryKasbonTolak);
 
 $queryTolakPO = mysqli_query($koneksi, "SELECT COUNT(id) as jumlah FROM bkk_final WHERE status_bkk = '202' AND pengajuan = 'PO'");
