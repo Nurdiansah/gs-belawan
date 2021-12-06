@@ -8,7 +8,7 @@ $rowUser = mysqli_fetch_assoc($queryUser);
 $idUser = $rowUser['id_user'];
 
 $query = mysqli_query($koneksi, "SELECT *, bf.id as id_bkk
-                                    FROM bkk_final bf
+                                    FROM bkk_ke_pusat bf
                                     JOIN po po
                                         ON id_po = id_kdtransaksi
                                     JOIN detail_biayaops dbo

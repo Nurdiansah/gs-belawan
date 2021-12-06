@@ -65,6 +65,11 @@ $tanggal = date("Y-m-d H:i:s");
 
 ?>
 <section class="content">
+    <?php
+    if (isset($_COOKIE['pesan'])) {
+        echo "<div class='alert " . $_COOKIE['warna'] . "' role='alert'><b>" . $_COOKIE['pesan'] . "</b></div>";
+    }
+    ?>
     <div class="row">
         <div class="col-sm-12 col-xs-12">
             <div class="box box-primary">
@@ -376,17 +381,28 @@ $tanggal = date("Y-m-d H:i:s");
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="doc_faktur" class="col-sm-offset-1 col-sm-3 control-label">Invoice/Faktur </label>
+                                <div class="form-group ">
+                                    <label id="tes" for="id_supplier" class="col-sm-4 control-label">Metode Pembayaran</label>
                                     <div class="col-sm-5">
-                                        <div class="input-group input-file" name="doc_faktur">
-                                            <input type="text" class="form-control" />
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-choose" type="button">Browse</button>
-                                            </span>
-                                        </div>
+                                        <input type="text" class="form-control " name="metode_pembayaran" id="metode_pembayaran" value="<?= $data2['metode_pembayaran'] ?>" readonly>
                                     </div>
                                 </div>
+                                <?php
+                                if ($data2['metode_pembayaran'] == 'Transfer') {
+                                ?>
+                                    <div class="form-group">
+                                        <label for="doc_faktur" class="col-sm-offset-1 col-sm-3 control-label">Invoice/Faktur </label>
+                                        <div class="col-sm-5">
+                                            <div class="input-group input-file" name="doc_faktur">
+                                                <input type="text" class="form-control" <?php echo $data2['metode_pembayaran'] = 'Transfer' ? 'required' : ''; ?> />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default btn-choose" type="button">Browse</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+
                                 <div class="mb-3">
                                     <label for="validationTextarea">Redaksi : </label>
                                     <textarea rows="8" class="form-control is-invalid" name="keterangan" id="validationTextarea" required placeholder="Redaksi"></textarea>

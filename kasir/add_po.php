@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
 	$tgl_tempo1 = $_POST['tgl_tempo1'];
 	$persentase_pembayaran1 = $_POST['persentase_pembayaran1'];
 	$nominal_pembayaran1 = str_replace(".", "", $_POST['nominal_pembayaran1']);
-
+	$metode_pembayaran = $_POST['metode_pembayaran'];
 	$tanggal = dateNow();
 
 	// pertambahan tanggal
@@ -26,9 +26,9 @@ if (isset($_POST['submit'])) {
 
 	// query log
 	$insertTagihan = mysqli_query($koneksi, "INSERT INTO tagihan_po (po_id, regulasi_tempo, persentase , nominal, 
-																	tgl_buat, tgl_tempo,status_tagihan) VALUES
+																	tgl_buat, tgl_tempo, metode_pembayaran,status_tagihan) VALUES
 																	('$id_po', '$tgl_tempo1', '$persentase_pembayaran1' , '$nominal_pembayaran1', 
-																	'$tanggal', '$tgl_tempo', '1' ); ");
+																	'$tanggal', '$tgl_tempo', '$metode_pembayaran' ,'1' ); ");
 
 	if ($updatePo && $insertTagihan) {
 		# jika semua query berhasil di jalankan

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "../fungsi/koneksi.php";
+include "../fungsi/koneksipusat.php";
 include "../fungsi/fungsi.php";
 
 if (isset($_POST['submit'])) {
@@ -12,6 +13,8 @@ if (isset($_POST['submit'])) {
 	$keterangan	 = $_POST['keterangan'];
 	$id_anggaran = $_POST['id_anggaran'];
 	$id_supplier = $_POST['id_supplier'];
+	$metode_pembayaran = $_POST['metode_pembayaran'];
+
 	$persen = $_POST['persen'];
 	$nilai_barang = ($persen / 100) * $_POST['nilai_barang'];
 	$nilai_jasa = ($persen / 100) * $_POST['nilai_jasa'];
@@ -28,25 +31,21 @@ if (isset($_POST['submit'])) {
 	$doc = ($_FILES['doc_faktur']['name']);
 	$ekstensi = pathinfo($doc, PATHINFO_EXTENSION);
 
+
+
 	// BEGIN/START TRANSACTION        
 	mysqli_begin_transaction($koneksi);
 
-	//query BKK
-	$insertBkk = mysqli_query($koneksi, "INSERT INTO bkk_final (id_anggaran, id_supplier, id_jenispengajuan, pengajuan, id_kdtransaksi, id_tagihan, created_on_bkk, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, status_bkk) VALUES
-				             ('$id_anggaran', '$id_supplier' , '4', 'PO', '$id_po', '$id_tagihan','$tanggal', '$nilai_barang', '$nilai_jasa', '$nilai_ppn', '$id_pph', '$nilai_pph', '$total', '$keterangan', '0'); ");
+	if ($metode_pembayaran == 'Tunai') {
 
-	$updatePO = mysqli_query($koneksi, "UPDATE po SET status_po = '8'
-	                            		WHERE id_po ='$id_po' ");
-
-	$queryMaxBKK = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT MAX(id) as max_bkk FROM bkk_final"));
-	$dataMaxBKK = $queryMaxBKK['max_bkk'];
-
-	if ($doc == '') {
-		// Jika cod tidak ada invoice
+		// Tunai
+		$insertBkk = mysqli_query($koneksi, "INSERT INTO bkk_final (id_anggaran, id_supplier, id_jenispengajuan, pengajuan, id_kdtransaksi, id_tagihan, created_on_bkk, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, status_bkk) VALUES
+																 ('$id_anggaran', '$id_supplier' , '4', 'PO', '$id_po', '$id_tagihan','$tanggal', '$nilai_barang', '$nilai_jasa', '$nilai_ppn', '$id_pph', '$nilai_pph', '$total', '$keterangan', '0'); ");
 
 		$updateTagihan = mysqli_query($koneksi, "UPDATE tagihan_po SET status_tagihan = '2', bkk_id = '$dataMaxBKK'
-											 WHERE id_tagihan ='$id_tagihan' ");
+												 WHERE id_tagihan ='$id_tagihan' ");
 	} else {
+
 		// Jika file yang di upload bukan pdf
 		if ($ekstensi != 'pdf') {
 			setcookie('pesan', 'File yang anda upload bukan berbentuk pdf , silahkan upload ulang dengan extensi pdf !', time() + (3), '/');
@@ -55,15 +54,30 @@ if (isset($_POST['submit'])) {
 			header("location:index.php?p=list_dpo&id=$id_tagihan");
 		} else {
 
-			$namadoc = md5($id_tagihan) . "faktur." . $ekstensi;
+			// insert bkk pusat
+			$insertBkk = mysqli_query($koneksiPusat, "INSERT INTO bkk_final (id_anggaran, id_supplier, id_jenispengajuan, pengajuan, id_kdtransaksi, id_tagihan, created_on_bkk, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, id_area, status_bkk) VALUES
+																			('$id_anggaran', '$id_supplier' , '4', 'PO', '$id_po', '$id_tagihan','$tanggal', '$nilai_barang', '$nilai_jasa', '$nilai_ppn', '$id_pph', '$nilai_pph', '$total', '$keterangan', '2','0'); ");
+
+			// insert bkk belawan
+			$insertBkk = mysqli_query($koneksi, "INSERT INTO bkk_ke_pusat (id_anggaran, id_supplier, id_jenispengajuan, pengajuan, id_kdtransaksi, id_tagihan, created_on_bkk, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, status_bkk) VALUES
+																			('$id_anggaran', '$id_supplier' , '4', 'PO', '$id_po', '$id_tagihan','$tanggal', '$nilai_barang', '$nilai_jasa', '$nilai_ppn', '$id_pph', '$nilai_pph', '$total', '$keterangan', '0'); ");
+
+
+			$queryMaxBKK = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT MAX(id) as max_bkk FROM bkk_ke_pusat"));
+			$dataMaxBKK = $queryMaxBKK['max_bkk'];
+
+			$namadoc = md5($id_tagihan) . "faktur-belawan." . $ekstensi;
 
 			$updateTagihan = mysqli_query($koneksi, "UPDATE tagihan_po SET status_tagihan = '2', doc_faktur = '$namadoc', bkk_id = '$dataMaxBKK'
-									WHERE id_tagihan ='$id_tagihan' ");
+		  												 WHERE id_tagihan ='$id_tagihan' ");
 
 
 			move_uploaded_file($lokasi_doc, "../file/invoice/" . $namadoc);
 		}
 	}
+
+	$updatePO = mysqli_query($koneksi, "UPDATE po SET status_po = '8'
+	WHERE id_po ='$id_po' ");
 
 	if ($insertBkk && $updatePO  && $updateTagihan) {
 		# jika semua query berhasil di jalankan

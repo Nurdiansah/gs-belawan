@@ -269,7 +269,7 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                     }
                                     if ($jumlahData == 0) {
                                         echo "<tr>
-                                                <td style='text-align: center;' colspan='5'> Belum ada pembayaran</td>
+                                                <td style='text-align: center;' colspan='6'> Belum ada pembayaran</td>
                                             </tr>";
                                     }
 
@@ -364,6 +364,16 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                             <option value="7">1 - 7 Hari </option>
                                             <option value="14">1 - 14 Hari </option>
                                             <option value="30">1 - 30 Hari </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label id="tes" for="dari_bank" class="col-sm-5 control-label">Metode Pembayaran</label>
+                                    <div class="col-sm-4">
+                                        <select name="metode_pembayaran" class="form-control" required>
+                                            <option value="">---Metode Pembayaran---</option>
+                                            <option value="Tunai">Tunai</option>
+                                            <option value="Transfer"> Transfer</option>
                                         </select>
                                     </div>
                                 </div>

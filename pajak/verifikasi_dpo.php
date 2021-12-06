@@ -29,17 +29,17 @@ $query =  mysqli_query($koneksi, "SELECT *, bf.nilai_barang as n_barang, bf.nila
                                         ON d.id_divisi = bo.id_divisi 
                                     JOIN po p
                                         ON p.kd_transaksi = bo.kd_transaksi
-                                    JOIN bkk_final bf
+                                    JOIN bkk_ke_pusat bf
                                         ON id_kdtransaksi = id_po
                                     LEFT JOIN pph ph
-                                        ON ph.id_pph = p.id_pph
+                                        ON ph.id_pph = bf.id_pph
                                     JOIN detail_biayaops dbo
                                         ON p.id_dbo = dbo.id
                                     JOIN tagihan_po
                                         ON id_po = po_id
                                     WHERE p.id_po = '$id' ");
 
-// $query = mysqli_query($koneksi, "SELECT * FROM bkk_final
+// $query = mysqli_query($koneksi, "SELECT * FROM bkk_ke_pusat
 //                                     INNER JOIN po
 //                                         ON id_po = id_kdtransaksi
 //                                     WHERE id = '$bkk'     
@@ -62,6 +62,11 @@ $totalReapp = mysqli_num_rows($queryReapp);
 // echo die($data2['id_kdtransaksi']);
 ?>
 <section class="content">
+    <?php
+    if (isset($_COOKIE['pesan'])) {
+        echo "<div class='alert " . $_COOKIE['warna'] . "' role='alert'><b>" . $_COOKIE['pesan'] . "</b></div>";
+    }
+    ?>
     <div class="row">
         <div class="col-sm-12 col-xs-12">
             <div class="box box-primary">
@@ -294,6 +299,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                 </div>
                                 <form method="post" name="form" action="vrf_po.php" enctype="multipart/form-data" class="form-horizontal">
                                     <input type="hidden" required class="form-control is-valid" name="id_po" value="<?= $data2['id_po']; ?>">
+                                    <input type="hidden" value="<?= $data2['id_tagihan']; ?>" name="id_tagihan" readonly>
                                     <input type="hidden" required class="form-control is-valid" name="id_bkk" value="<?= $bkk; ?>">
                                     <div class="form-group">
                                         <label id="tes" for="nilai_bkk" class=" col-sm-4 control-label" id="rupiah">Nilai Barang</label>
@@ -500,6 +506,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                             <div class="form-group ">
                                 <div class="col-sm-4">
                                     <input type="hidden" value="<?= $data2['id_po']; ?>" class="form-control" name="id_po" readonly>
+                                    <input type="hidden" value="<?= $data2['id_tagihan']; ?>" name="id_tagihan" readonly>
                                     <input type="hidden" value="<?= $bkk; ?>" class="form-control" name="id_bkk" readonly>
                                     <input type="hidden" value="verifikasi_po" class="form-control" name="url" readonly>
                                 </div>
@@ -564,6 +571,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
     var id_pph = '<?= $data2['id_pph']; ?>';
     var jenis = '<?= $data2['jenis']; ?>';
 
+    console.log(id_pph);
 
 
 
@@ -643,7 +651,6 @@ $totalReapp = mysqli_num_rows($queryReapp);
         var ppn_nilai = hilangkanTitik('ppn_nilai')
         var biaya_lain = hilangkanTitik('biaya_lain')
 
-        console.log(tandaPemisahTitik(ppn_nilai));
 
         // var jml = hilangkanTitik('jml')
         var pph_nilai = hilangkanTitik('pph_nilai')

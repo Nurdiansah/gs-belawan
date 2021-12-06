@@ -190,6 +190,7 @@ if (isset($_POST['login'])) {
 	            </select>
             </div>             -->
 				</div>
+				<br>
 				<div class="row">
 					<div class="col-xs-12">
 						<input type="submit" class="btn btn-primary btn-block btn-flat pull-right" value="Login" name="login" />
@@ -197,7 +198,7 @@ if (isset($_POST['login'])) {
 					</div><!-- /.col -->
 				</div>
 			</form>
-
+			<br>
 
 		</div>
 		<?= $err; ?>
