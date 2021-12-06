@@ -167,7 +167,7 @@ $tanggalCargo = date("Y-m-d");
             },
             {
                 date: '',
-                content: '<b>Manager GA</b><small>Waiting.....</small>'
+                content: '<b>Manager</b><small>Waiting.....</small>'
             },
             {
                 date: '',

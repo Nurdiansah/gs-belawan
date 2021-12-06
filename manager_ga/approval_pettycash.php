@@ -26,7 +26,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                             ON tp.id_anggaran = a.id_anggaran 
                                             JOIN divisi d
                                             ON tp.id_divisi = d.id_divisi
-                                            WHERE tp.id_manager = '$idUser'
+                                            WHERE (tp.id_manager = '$idUser' OR tp.from = 'mr')
                                             AND tp.status_pettycash = '1'
                                             ORDER BY tp.created_pettycash_on DESC   ");
 ?>

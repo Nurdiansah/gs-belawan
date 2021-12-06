@@ -22,7 +22,7 @@ $query = mysqli_query($koneksi, "SELECT *, b.tgl_bkk as btgl_bkk
                                         FROM bkk b
                                         JOIN bkk_final bf
                                         ON bf.id_kdtransaksi=b.kd_transaksi
-                                        WHERE b.id_divisi = '$id_divisi' AND b.status_bkk ='9' 
+                                        WHERE b.id_divisi = '$id_divisi' AND b.status_bkk ='10' 
                                         ORDER BY b.kd_transaksi DESC  ");
 
 

@@ -31,7 +31,6 @@
                                                                                                                                         echo $dataPV['jumlah'];
                                                                                                                                       } ?></span></a>
         <a href="index.php?p=verifikasi_bkk" class="list-group-item"> <i class="fa fa-print"> </i> BKK <span class="badge label-success"><?= $dataBKK['jumlah'] > 0 ? $dataBKK['jumlah'] : ''; ?></span></a>
-        <!-- <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a> -->
       </div>
     </div>
     <div class="col-lg-3 col-xs-6">
@@ -64,8 +63,8 @@
         <a href="index.php?p=proses_mr" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"><?php if ($dataPMR['jumlah'] > 0) {
                                                                                                                                         echo $dataPMR['jumlah'];
                                                                                                                                       } ?></span> </a>
-        <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
-        <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
+        <a href="" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
+        <a href="" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
       </div>
     </div>
     <div class="col-lg-3 col-xs-6">
@@ -76,7 +75,7 @@
         <a href="index.php?p=approval_kasbon" class="list-group-item"> <i class="fa fa-check-square-o"></i> Approval <span class="badge label-danger"><?php if ($dataKasbonDivisi['jumlah'] > 0) {
                                                                                                                                                         echo $dataKasbonDivisi['jumlah'];
                                                                                                                                                       } ?></span></a>
-        <a href="#" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"></span> </a>
+        <a href="index.php?p=proses_kasbon&sp=kp_user" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"></span> </a>
         <a href="index.php?p=ditolak_kasbon&sp=tolak_purchasing" class="list-group-item"> <i class="fa fa-close"></i> Ditolak <span class="badge label-danger"><?php if ($totalTolakKasbon > 0) {
                                                                                                                                                                   echo $totalTolakKasbon;
                                                                                                                                                                 } ?></span> </a>

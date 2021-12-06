@@ -6,7 +6,7 @@ $queryKu = mysqli_query($koneksi, "SELECT *
                                             ON k.id_dbo = dbo.id
                                             JOIN divisi d
                                             ON d.id_divisi = dbo.id_divisi                                            
-                                            WHERE k.status_kasbon NOT BETWEEN 0 AND 1 AND k.status_kasbon != 8 AND from_user = '1' AND id_manager='$idUser'
+                                            WHERE k.status_kasbon NOT BETWEEN 0 AND 1 AND k.status_kasbon != 10 AND from_user = '1' AND id_manager='$idUser'
                                             ");
 
 $jumlahData  = mysqli_num_rows($queryKu);
@@ -42,25 +42,27 @@ $jumlahData  = mysqli_num_rows($queryKu);
                         <td> <?= $row['keterangan']; ?> </td>
                         <td> <span class="label label-success"><?= formatRupiah($row['harga_akhir']) ?> </span></td>
                         <td>
-                            <?php if ($row['status_kasbon'] == 1) { ?>
-                                <span class="label label-primary">Verifikasi Manager</span>
-                            <?php  } else if ($row['status_kasbon'] == 2) { ?>
-                                <span class="label label-primary">Verifikasi Pajak </span>
-                            <?php  } else if ($row['status_kasbon'] == 3) { ?>
-                                <span class="label label-success">Approval Manager Finance </span>
-                            <?php  } else if ($row['status_kasbon'] == 4) { ?>
-                                <span class="label label-success">Approval Direktur </span>
-                            <?php  } else if ($row['status_kasbon'] == 5) { ?>
-                                <span class="label label-warning">Dana sudah bisa diambil </span>
-                            <?php  } else if ($row['status_kasbon'] == 6) { ?>
-                                <span class="label label-info">Pengajuan sedang di belikan </span>
-                            <?php  } else if ($row['status_kasbon'] == 7) { ?>
-                                <span class="label label-info">Verifikasi LPJ </span>
-                            <?php  } else if ($row['status_kasbon'] == 8) { ?>
-                                <span class="label label-info">BKK</span>
-                            <?php  } elseif ($row['status_kasbon'] == 101) {  ?>
-                                <span class="label label-danger">Ditolak Manager</span>
-                            <?php  } elseif ($row['status_kasbon'] == 202) {  ?>
+                            <?php if ($row['status_kasbon'] == 1) {
+                                echo "<span class='label label-primary'>'Verifikasi Manager</span>";
+                            } else if ($row['status_kasbon'] == 2) {
+                                echo "<span class='label label-primary'>'Verifikasi Pajak </span>";
+                            } else if ($row['status_kasbon'] == 3) {
+                                echo "<span class='label label-primary'>'Approval Costcontrol </span>";
+                            } else if ($row['status_kasbon'] == 4) {
+                                echo "<span class='label label-primary'>'Approval Manager </span>";
+                            } else if ($row['status_kasbon'] == 5) {
+                                echo "<span class='label label-primary'>'Approval GM Finance </span>";
+                            } else if ($row['status_kasbon'] == 6) {
+                                echo "<span class='label label-primary'>'Approval Direktur </span>";
+                            } else if ($row['status_kasbon'] == 7) {
+                                echo "<span class='label label-warning'>'Dana sudah bisa diambil </span>";
+                            } else if ($row['status_kasbon'] == 8) {
+                                echo "<span class='label label-info'>'Pengajuan sedang di belikan </span>";
+                            } else if ($row['status_kasbon'] == 9) {
+                                echo "<span class='label label-info'>'Verifikasi LPJ </span>";
+                            } else if ($row['status_kasbon'] == 101) {
+                                echo "<span class='label label-danger'>Ditolak Manager</span>";
+                            } elseif ($row['status_kasbon'] == 202) {  ?>
                                 <span class="label label-danger">Ditolak Pajak</span>
                             <?php  } elseif ($row['status_kasbon'] == 303) {  ?>
                                 <span class="label label-danger">Ditolak Manager Finance</span>

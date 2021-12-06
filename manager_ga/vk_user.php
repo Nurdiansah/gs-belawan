@@ -39,7 +39,7 @@ $queryKu = mysqli_query($koneksi, "SELECT *
                         <td> <?= formatTanggal($row['tgl_kasbon']); ?> </td>
                         <td> <?= $row['nm_divisi']; ?> </td>
                         <td> <?= $row['keterangan']; ?> </td>
-                        <td> <span class="label label-success"><?= formatRupiah($row['harga_akhir']) ?> </span></td>
+                        <td> <button class="btn btn-success"><?= formatRupiah($row['harga_akhir']) ?> </button></td>
                         <td>
                             <a href="?p=verifikasi_dkasbon_user&id=<?= $row['id_kasbon']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info">Lihat</button></span></a>
                         </td>

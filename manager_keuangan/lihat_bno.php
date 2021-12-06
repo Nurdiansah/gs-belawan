@@ -24,7 +24,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                             ON d.id_divisi = b.id_divisi
                                             JOIN bkk_final bf
                                             ON bf.id_kdtransaksi = b.kd_transaksi
-                                            WHERE b.status_bkk='9' AND b.id_manager='$idUser' ORDER BY b.kd_transaksi DESC  ");
+                                            WHERE b.status_bkk='10' AND b.id_manager='$idUser' ORDER BY b.kd_transaksi DESC  ");
 
 
 ?>
@@ -41,7 +41,7 @@ $query = mysqli_query($koneksi, "SELECT *
                     <br>
                 </div>
                 <div class="table-responsive">
-                    <table class="table text-center table table-striped table-hover" id="material">
+                    <table class="table text-center table table-striped table-hover" id="">
                         <thead>
                             <tr>
                                 <th>No</th>

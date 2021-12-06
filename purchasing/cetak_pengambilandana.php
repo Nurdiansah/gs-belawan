@@ -202,7 +202,12 @@ $tgl_sekarang = date("Y-m-d");
         <td><?= formatTanggalWaktu($data['tgl_kasbon']); ?></td>
     </tr>
     <tr>
-        <td><b>Manager GA</b></td>
+        <td><b>Cost Control</b></td>
+        <td>:</td>
+        <td>APPROVED (<?= formatTanggalWaktu($data['app_costcontrol']); ?>)</td>
+    </tr>
+    <tr>
+        <td><b>Manager</b></td>
         <td>:</td>
         <td>APPROVED (<?= formatTanggalWaktu($data['app_mgr_ga']); ?>)</td>
     </tr>
@@ -211,16 +216,16 @@ $tgl_sekarang = date("Y-m-d");
         <td>:</td>
         <td>APPROVED (<?= formatTanggalWaktu($data['app_mgr_finance']); ?>)</td>
     </tr>
-    <tr>
+    <!-- <tr>
         <td><b>Direktur 1 </b></td>
         <td>:</td>
         <td>APPROVED by <?= strtoupper(cekUsername($data['id_direktur'])) ?> (<?= formatTanggalWaktu($data['app_direktur']); ?>)</td>
-    </tr>
+    </tr> -->
     <tr>
-        <td><b>Direktur 2</b></td>
+        <td><b>Direktur</b></td>
         <td>:</td>
-        <td>APPROVED by <?= strtoupper(cekUsername($data['id_direktur2'])) ?> (<?= formatTanggalWaktu($data['app_direktur2']); ?>)</td>
-        <td>Jakarta, <?= date('d', strtotime($tgl_sekarang)) . ' ' . ($bln_tgl[date('m', strtotime($tgl_sekarang))]) . ' ' . date('Y', strtotime($tgl_sekarang)); ?></td>
+        <td>APPROVED (<?= $data['app_direktur2'] . formatTanggalWaktu($data['app_direktur2']); ?>)</td>
+        <td>Medan, <?= date('d', strtotime($tgl_sekarang)) . ' ' . ($bln_tgl[date('m', strtotime($tgl_sekarang))]) . ' ' . date('Y', strtotime($tgl_sekarang)); ?></td>
     </tr>
 </table>
 <!-- </td> -->

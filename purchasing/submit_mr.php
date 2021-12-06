@@ -34,7 +34,7 @@ if (isset($_GET['id'])) {
 	mysqli_begin_transaction($koneksi);
 
 	// pengajuan yang akan di jadikan po
-	if ($totalPengajuan > 10000000) {
+	if ($totalPengajuan > 5000000) {
 
 		$queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor_po) from po WHERE year(tgl_po)='$tahun' ");
 
@@ -60,7 +60,7 @@ if (isset($_GET['id'])) {
 		mysqli_query($koneksi, $queryPo);
 
 		$queue = "berhasil";
-	} else if ($totalPengajuan > 100000 && $totalPengajuan <= 10000000) {  //jika total pengajuan kurang dari 10 jt menjadi kasbon
+	} else if ($totalPengajuan > 100000 && $totalPengajuan <= 5000000) {  //jika total pengajuan kurang dari 10 jt menjadi kasbon
 
 		$queryHight = mysqli_query($koneksi, "SELECT MAX(id_kasbon) from kasbon ");
 

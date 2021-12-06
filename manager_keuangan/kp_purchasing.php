@@ -44,21 +44,25 @@ $jumlahData  = mysqli_num_rows($query);
                         <td> <?= $row['nm_barang']; ?> </td>
                         <td> <?= formatRupiah($row['harga_akhir']) ?> </td>
                         <td>
-                            <?php if ($row['status_kasbon'] == 1) { ?>
-                                <span class="label label-primary">Verifikasi Pajak</span>
-                            <?php  } else if ($row['status_kasbon'] == 2) { ?>
-                                <span class="label label-primary">Verifikasi Manager GA </span>
-                            <?php  } else if ($row['status_kasbon'] == 3) { ?>
-                                <span class="label label-success">Approval Manager Finance </span>
-                            <?php  } else if ($row['status_kasbon'] == 4) { ?>
-                                <span class="label label-success">Approval Direktur </span>
-                            <?php  } else if ($row['status_kasbon'] == 5) { ?>
-                                <span class="label label-warning">Dana sudah bisa diambil </span>
-                            <?php  } else if ($row['status_kasbon'] == 6) { ?>
-                                <span class="label label-info">Pengajuan sedang di belikan </span>
-                            <?php  } else if ($row['status_kasbon'] == 7) { ?>
-                                <span class="label label-info">Pengajuan sedang di belikan </span>
-                            <?php  } else if ($row['status_kasbon'] == 101) { ?>
+                            <?php if ($row['status_kasbon'] == 1) {
+                                echo "<span class='label label-primary'>'Verifikasi Manager</span>";
+                            } else if ($row['status_kasbon'] == 2) {
+                                echo "<span class='label label-primary'>'Verifikasi Pajak </span>";
+                            } else if ($row['status_kasbon'] == 3) {
+                                echo "<span class='label label-primary'>'Approval Costcontrol </span>";
+                            } else if ($row['status_kasbon'] == 4) {
+                                echo "<span class='label label-primary'>'Approval Manager </span>";
+                            } else if ($row['status_kasbon'] == 5) {
+                                echo "<span class='label label-primary'>'Approval GM Finance </span>";
+                            } else if ($row['status_kasbon'] == 6) {
+                                echo "<span class='label label-primary'>'Approval Direktur </span>";
+                            } else if ($row['status_kasbon'] == 7) {
+                                echo "<span class='label label-warning'>Payment Kasir </span>";
+                            } else if ($row['status_kasbon'] == 8) {
+                                echo "<span class='label label-info'>'Pengajuan sedang di belikan </span>";
+                            } else if ($row['status_kasbon'] == 9) {
+                                echo "<span class='label label-info'>'Verifikasi LPJ </span>";
+                            } else if ($row['status_kasbon'] == 101) { ?>
                                 <span class="label label-danger">Rejected Manager Ga </span>
                             <?php  } else if ($row['status_kasbon'] == 202) { ?>
                                 <span class="label label-danger">Rejected Pajak </span>

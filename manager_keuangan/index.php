@@ -37,7 +37,7 @@ $queryProsesbno = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah_proses 
 $dataProsesbno = mysqli_fetch_assoc($queryProsesbno);
 
 // query data lihat
-$querySelesai = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah_Selesai FROM bkk WHERE status_bkk='9' AND id_manager='$idUser' ");
+$querySelesai = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah_Selesai FROM bkk WHERE status_bkk='10' AND id_manager='$idUser' ");
 $dataSelesai = mysqli_fetch_assoc($querySelesai);
 
 // query data Verifikasi Pajak
@@ -48,8 +48,14 @@ $dataBno = mysqli_fetch_assoc($queryBno);
 $queryAM = mysqli_query($koneksi, "SELECT COUNT(kd_transaksi) AS jumlah FROM biaya_ops WHERE status_biayaops='1' AND id_manager='$idUser' ");
 $dataAM = mysqli_fetch_assoc($queryAM);
 
+// $query = mysqli_query($koneksi, "SELECT * 
+
+
 // query proses mr
-$queryPMR = mysqli_query($koneksi, "SELECT COUNT(kd_transaksi) AS jumlah FROM biaya_ops WHERE id_manager='$idUser' AND status_biayaops = '2' ORDER BY kd_transaksi DESC");
+$queryPMR = mysqli_query($koneksi, "SELECT COUNT(b.kd_transaksi) AS jumlah FROM biaya_ops b     
+                                              JOIN detail_biayaops dbo                                                                       
+                                              ON b.kd_transaksi = dbo.kd_transaksi
+                                              WHERE id_manager='$idUser' AND b.status_biayaops <= '2'AND b.status_biayaops != '0' AND dbo.status <= '2' GROUP BY b.kd_transaksi ORDER BY b.kd_transaksi DESC ");
 $dataPMR = mysqli_fetch_assoc($queryPMR);
 
 // query AP

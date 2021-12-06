@@ -121,73 +121,80 @@ $data = mysqli_fetch_assoc($query);
         text-align: left;
 
     }
-    
 </style>
 <?php
 include "../fungsi/koneksi.php";
 
 ?>
+
 <body>
-    
 
-<div class="kiri">
-    <img src="../gambar/gs.png" style="width:80px;height:50px" />
-</div>
-<h2><b>PT.GRAHA SEGARA</b></h2>
-<hr>
 
-<?php
+    <div class="kiri">
+        <img src="../gambar/gs.png" style="width:80px;height:50px" />
+    </div>
+    <h2><b>PT.GRAHA SEGARA</b></h2>
+    <hr>
 
-?>
-<h4 align="center"><u>LAPORAN PENGAMBILAN DANA</u></h4>
-<h5 align=""><u>KODE ID : [ <?= $data['kd_pettycash'] ?> ]</u></h5>
-<table border="0px">
-    <tr>
-        <td style="text-align: left; width=120px; "><b>Keperluan</b></td>
-        <td style="text-align: ; width=5%;">:</td>
-        <td style="width=400px;">
-            <?= $data['keterangan_pettycash']; ?>
-        </td>
-        <td align="right" rowspan="5 ">
-            <qrcode value="[ E-Finance GS ] | Kode Pettycash : <?= $data['kd_pettycash']; ?> | Sebesar :  <?= formatRupiah($data['total_pettycash']); ?> " ec="H" style="width: 40mm; background-color: white; color: black;"></qrcode>
-        </td>
-    </tr>
-    <tr>
-        <td><b>Nominal</b></td>
-        <td>:</td>
-        <td><?= formatRupiah($data['total_pettycash']) ?></td>
-    </tr>
-    <tr>
-        <td><b>Terbilang</b></td>
-        <td>:</td>
-        <td><?= Terbilang($data['total_pettycash']); ?> Rupiah </td>
-    </tr>
-    <tr>
-        <td><b>Dibuat</b></td>
-        <td>:</td>
-        <td><?= formatTanggalWaktu($data['created_pettycash_on']); ?></td>
-    </tr>
-    <tr>
-        <td><b>Manager </b></td>
-        <td>:</td>
-        <td>APPROVED (<?= formatTanggalWaktu($data['app_mgr']); ?>)</td>
-    </tr>
-</table>
-<br>
-<table border="0px">
-    <tr>
-        <td style="text-align: center; width=350px;">Penerima,</td>
-        <td style="text-align: center; width=350px;">Kasir,</td>
-    </tr>
-    <tr>
-        <td style="height=40px;"></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td style="text-align: center;">(......................)</td>
-        <td style="text-align: center;">(......................)</td>
-    </tr>
-</table>
+    <?php
+
+    ?>
+    <h4 align="center"><u>LAPORAN PENGAMBILAN DANA</u></h4>
+    <h5 align=""><u>KODE ID : [ <?= $data['kd_pettycash'] ?> ]</u></h5>
+    <table border="0px">
+        <tr>
+            <td style="text-align: left; width=120px; "><b>Keperluan</b></td>
+            <td style="text-align: ; width=5%;">:</td>
+            <td style="width=400px;">
+                <?= $data['keterangan_pettycash']; ?>
+            </td>
+            <td align="right" rowspan="5 ">
+                <qrcode value="[ E-Finance GS ] | Kode Pettycash : <?= $data['kd_pettycash']; ?> | Sebesar :  <?= formatRupiah($data['total_pettycash']); ?> " ec="H" style="width: 40mm; background-color: white; color: black;"></qrcode>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Nominal</b></td>
+            <td>:</td>
+            <td><?= formatRupiah($data['total_pettycash']) ?></td>
+        </tr>
+        <tr>
+            <td><b>Terbilang</b></td>
+            <td>:</td>
+            <td><?= Terbilang($data['total_pettycash']); ?> Rupiah </td>
+        </tr>
+        <tr>
+            <td><b>Dibuat</b></td>
+            <td>:</td>
+            <td><?= formatTanggalWaktu($data['created_pettycash_on']); ?></td>
+        </tr>
+        <tr>
+            <?php
+            if ($data['id_manager'] == '17') {
+                echo "<td><b>Manager </b></td>";
+            } else {
+                echo "<td><b>Supervisor </b></td>";
+            }
+
+            ?>
+            <td>:</td>
+            <td>APPROVED (<?= formatTanggalWaktu($data['app_mgr']); ?>)</td>
+        </tr>
+    </table>
+    <br>
+    <table border="0px">
+        <tr>
+            <td style="text-align: center; width=350px;">Penerima,</td>
+            <td style="text-align: center; width=350px;">Kasir,</td>
+        </tr>
+        <tr>
+            <td style="height=40px;"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">(......................)</td>
+            <td style="text-align: center;">(......................)</td>
+        </tr>
+    </table>
 </body>
 <!-- </td> -->
 

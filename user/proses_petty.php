@@ -90,10 +90,14 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                                     <?php } ?>
                                                 </td>
                                                 <td> <?php if ($row['status_pettycash'] == 1) {
-                                                            if ($row['from'] == 'user') { ?>
-                                                            <span class="label label-primary">Menunggu Approve Manager </span>
-                                                        <?php } else { ?>
-                                                            <span class="label label-primary">Menunggu Approve Manager GA</span>
+                                                            if ($row['from'] == 'user') {
+                                                                if ($row['id_manager'] == '17') {
+                                                                    echo "<span class='label label-primary'>Menunggu Approve Manager </span>";
+                                                                } else {
+                                                                    echo "<span class='label label-primary'>Menunggu Approve Supervisor </span>";
+                                                                }
+                                                            } else { ?>
+                                                            <span class="label label-primary">Menunggu Approve Manager</span>
                                                         <?php }
                                                         } else if ($row['status_pettycash'] == 2) {
                                                             if ($row['from'] == 'user') { ?>

@@ -315,7 +315,7 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
         var vrf_pajak = "<?php print($data['vrf_pajak']); ?>";
         var created_on = "<?php print(date("d M Y H:i", strtotime($data['tgl_kasbon']))); ?>";
 
-        var jamDefault = "01 Jan 1970 07:00";
+        var jamDefault = "01 Jan 1970 01:00";
         var waiting = "<b>Manager </b><small>Waiting....</small>";
 
         // app mgr
@@ -334,10 +334,10 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
         }
 
         var app_mgr_ga = "<?php print(date("d M Y H:i", strtotime($data['app_mgr_ga']))); ?>";
-        var content_mgr_ga = '<b>Manager GA</b><small>sudah memverifikasi</small>';
+        var content_mgr_ga = '<b>Manager</b><small>sudah memverifikasi</small>';
         if (app_mgr_ga == jamDefault) {
             app_mgr_ga = "";
-            var content_mgr_ga = "<b>Manager GA </b><small>Waiting....</small>";
+            var content_mgr_ga = "<b>Manager </b><small>Waiting....</small>";
         }
 
 
@@ -379,13 +379,13 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
         } else if (status == '3') {
             var content_cc = "<b>Cost Control</b><font color= blue ><small>Verifikasi Cost Control </small></font> ";
         } else if (status == '4') {
-            var content_direktur = "<b>Manager GA</b><font color= blue ><small>Verifikasi Manager GA </small></font> ";
+            var content_mgr_ga = "<b>Manager </b><font color= blue ><small>Verifikasi Manager </small></font> ";
         } else if (status == '5') {
-            var content_kasir = "<b>General Manager</b><font color= blue ><small>Verifikasi General Manager </small></font> ";
+            var content_manager_finance = "<b>GM Finance</b><font color= blue ><small>Verifikasi GM Finance </small></font> ";
         } else if (status = '6') {
-            var content_pembelian = "<b>Direksi</b><font color= blue ><small>Verifikasi Direksi </small></font> ";
+            var content_direktur = "<b>Direksi</b><font color= blue ><small>Verifikasi Direksi </small></font> ";
         } else if (status = '7') {
-            var content_v_lpj = "<b>Kasir</b><font color= blue ><small>Verifikasi LPJ </small></font> ";
+            var content_v_lpj = "<b>Kasir</b><font color= blue ><small>Payment </small></font> ";
         }
 
         var events = [{

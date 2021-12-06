@@ -66,9 +66,14 @@ $query = mysqli_query($koneksi, "SELECT *
                                         <td> <?= $no; ?> </td>
                                         <td> <?= $row['kd_transaksi']; ?> </td>
                                         <td> <?= formatTanggal($row['created_on']); ?> </td>
-                                        <td> <?php if ($row['status_biayaops'] == 1) { ?>
-                                                <span class="label label-success">Menunggu Approve Manager </span>
-                                            <?php  } else if ($row['status_biayaops'] == 2) { ?>
+                                        <td> <?php if ($row['status_biayaops'] == 1) {
+
+                                                    if ($row['id_manager'] == '17') {
+                                                        echo "<span class='label label-success'>Menunggu Approve Manager </span>";
+                                                    } else {
+                                                        echo "<span class='label label-success'>Menunggu Approve Supervisor </span>";
+                                                    }
+                                                } else if ($row['status_biayaops'] == 2) { ?>
                                                 <span class="label label-success">Bidding Process Purchasing</span>
                                             <?php  } else if ($row['status_biayaops'] == 3) { ?>
                                                 <span class="label label-warning">Verifikasi Tax</span>

@@ -53,12 +53,24 @@ $queryAM = mysqli_query($koneksi, "SELECT COUNT(kd_transaksi) AS jumlah FROM bia
 $dataAM = mysqli_fetch_assoc($queryAM);
 
 // query proses mr
-$queryPMR = mysqli_query($koneksi, "SELECT COUNT(kd_transaksi) AS jumlah FROM biaya_ops WHERE id_manager='$idUser' AND status_biayaops = '2' ORDER BY kd_transaksi DESC");
+$queryPMR = mysqli_query($koneksi, "SELECT COUNT(b.kd_transaksi) AS jumlah FROM biaya_ops b     
+                                              JOIN detail_biayaops dbo                                                                       
+                                              ON b.kd_transaksi = dbo.kd_transaksi
+                                              WHERE id_manager='$idUser' AND b.status_biayaops <= '2'AND b.status_biayaops != '0' AND dbo.status <= '2' GROUP BY b.kd_transaksi ORDER BY b.kd_transaksi DESC ");
 $dataPMR = mysqli_fetch_assoc($queryPMR);
 
+// Kasbon proses purchasing
+$queryKPP = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon !=0 AND status_kasbon !=3 AND status_kasbon !=8  AND from_user= '0'  ");
+$dataKPP = mysqli_fetch_assoc($queryKPP);
+
+// Kasbon proses user
+$queryKPU = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah  FROM kasbon WHERE status_kasbon NOT BETWEEN 0 AND 1 AND status_kasbon != 8 AND from_user = '1' AND id_manager='$idUser' ");
+$dataKPU = mysqli_fetch_assoc($queryKPU);
+
 // query AP
-$queryAP = mysqli_query($koneksi, "SELECT COUNT(id_pettycash) AS jumlah FROM transaksi_pettycash WHERE id_manager = '$idUser' AND status_pettycash = '1'   ");
+$queryAP = mysqli_query($koneksi, "SELECT COUNT(tp.id_pettycash) AS jumlah FROM transaksi_pettycash tp WHERE (tp.id_manager = '$idUser' OR tp.from = 'mr')  AND status_pettycash = '1'   ");
 $dataAP = mysqli_fetch_assoc($queryAP);
+
 
 // query proses Kasbon 1
 $queryKV1 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah
@@ -199,6 +211,9 @@ $dataBKK = mysqli_fetch_assoc($queryBKK);
   <script src="https://www.amcharts.com/lib/4/core.js"></script>
   <script src="https://www.amcharts.com/lib/4/charts.js"></script>
   <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+  <!-- Include jQuery Timeline CSS -->
+  <link href="../assets/dist/js/jquery.roadmap.min.css" rel="stylesheet" type="text/css" />
 
 
 </head>
@@ -490,6 +505,9 @@ $dataBKK = mysqli_fetch_assoc($queryBKK);
 
     <script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
+
+    <!-- Include jQuery Timeline Plugin -->
+    <script src="../assets/dist/js/jquery.roadmap.js" type="text/javascript"></script>
 
 </body>
 

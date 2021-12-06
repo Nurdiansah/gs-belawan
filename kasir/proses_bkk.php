@@ -76,9 +76,9 @@ $jumlahData = mysqli_num_rows($query);
                                                 <td> <?php if ($row['status_bkk'] == 0) { ?>
                                                         <span class="label label-info">Verifikasi Invoice Pajak</span>
                                                     <?php } else if ($row['status_bkk'] == 1) { ?>
-                                                        <span class="label label-primary">Menunggu Approve Manager Finance </span>
+                                                        <span class="label label-primary">Menunggu Approve Cost Control </span>
                                                     <?php  } else if ($row['status_bkk'] == 2) { ?>
-                                                        <span class="label label-primary">Menunggu Approve Direktur</span>
+                                                        <span class="label label-primary">Menunggu Approve Manager</span>
                                                     <?php  } else if ($row['status_bkk'] == 3) { ?>
                                                         <span class="label label-warning">Payment</span>
                                                     <?php  } ?>

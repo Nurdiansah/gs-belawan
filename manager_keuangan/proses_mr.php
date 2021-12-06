@@ -19,8 +19,16 @@ $rowUser = mysqli_fetch_assoc($queryUser);
 $id_divisi = $rowUser['id_divisi'];
 $idUser = $rowUser['id_user'];
 
-$query = mysqli_query($koneksi, "SELECT * FROM biaya_ops WHERE id_manager='$idUser' AND status_biayaops = '2' ORDER BY kd_transaksi DESC");
 
+// $query = mysqli_query($koneksi, "SELECT * FROM biaya_ops WHERE id_manager='$idUser' AND status_biayaops = '2'  ORDER BY kd_transaksi DESC");
+
+$query = mysqli_query($koneksi, "SELECT * 
+                                        FROM biaya_ops b     
+                                        JOIN detail_biayaops dbo                                                                       
+                                         ON b.kd_transaksi = dbo.kd_transaksi
+                                        WHERE  id_manager='$idUser' AND b.status_biayaops <= '2'AND b.status_biayaops != '0' AND dbo.status <= '2' GROUP BY b.kd_transaksi ORDER BY b.kd_transaksi DESC ");
+
+// WHERE b.status_biayaops <= '2'AND b.status_biayaops != '0' AND dbo.status <= '2' AND b.id_divisi = '$id_divisi' GROUP BY b.kd_transaksi ORDER BY b.kd_transaksi DESC ");
 
 ?>
 <!-- Main content -->

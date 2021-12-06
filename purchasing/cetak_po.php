@@ -54,6 +54,12 @@ if (isset($_GET['id'])) {
     border: 1px solid #000;
   }
 
+  .tablebawah td {
+    font-size: 12;
+    text-align: center;
+    font-weight: bold;
+  }
+
   div.kanan {
     width: 300px;
     float: right;
@@ -115,6 +121,7 @@ if (isset($_GET['id'])) {
     margin-left: 30px;
     display: inline;
     margin-top: 50px;
+
   }
 
   div.tengahkiri {
@@ -129,6 +136,7 @@ if (isset($_GET['id'])) {
     float: none;
     margin-left: 60px;
     margin-top: -140px;
+
   }
 
   div.tengahkirittd {
@@ -137,6 +145,7 @@ if (isset($_GET['id'])) {
     margin-left: 10px;
     /* display:inline; */
     margin-top: -140px;
+
   }
 
   div.tengahkananttd {
@@ -144,6 +153,7 @@ if (isset($_GET['id'])) {
     float: right;
     margin-left: 370px;
     margin-top: -30px;
+
   }
 
   div.kananttd {
@@ -151,6 +161,7 @@ if (isset($_GET['id'])) {
     float: right;
     margin-left: 600px;
     margin-top: -110px;
+
   }
 
   div.posisibawah {
@@ -186,6 +197,15 @@ $total_po  = $row['total_po'];
 $nilai_ppn  = $row['nilai_ppn'];
 $grand_total  = $row['grand_totalpo'];
 
+$app_create  = $row['tgl_po'];
+$app_spv = $row['app_mgr_ga'];
+$app_cc = $row['app_cc'];
+$app_mgr = $row['app_mgr_ga'];
+$app_mgr_finance = $row['app_mgr_finance'];
+$app_direksi = $row['app_direksi'];
+
+$noPo = $row['po_number'];
+
 
 $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo                                                         
                                                     WHERE id_dbo=$id_dbo");
@@ -205,10 +225,11 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
 
 <!--  -->
 <div class="kiri">
-  <p style="font-size : 8;"><b>PT.GRAHA SEGARA</b><br>
-    Jl. Timor Raya No. 1 Koja, Tanjung Priok, Jakarta 14310 <br>
-    Telp.(62.21) 4390 4902-03-04 (HUNTING). Fax. (62-21) 4390 4906 <br>
-    E-mail : finance@grahasegara.com Website: www.grahasegara.com</p>
+  <p style="font-size : 8;"><b>PT.GRAHA SEGARA Cabang Belawan - Medan</b><br>
+    Jl. Raya Pelabuhan Gabion Lingkungan XII, Kelurahan Bagian Deli, <br>
+    Kecamatan Medan Belawan, Medan, Sumatera Utara 20414<br>
+    Phone +62-61 888 10100 - 04, Fax: +62-61 888 10106 - 07<br>
+    Website: http://www.grahasegara.co.id</p>
 </div>
 <div class="kanan">
 </div>
@@ -310,39 +331,40 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
   </tr>
 </table>
 <br><br>
-<!-- <div class="posisibawah"> -->
-<div class="kirittd">
-  <p>ORIGINATED BY,<br> </p>
-  <br>
-  <br>
-  <br>
-  <!-- <img src="../file/ttd/ttd1.png" style="width:120px"> -->
-  <p><b>Purchasing <br></b></p>
-</div>
 
-<div class="tengahkirittd">
-  <p><br><br>APPROVED BY,</p>
-  <br>
-  <br>
-  <p><br><b>Manager GA</b></p>
-</div>
-
-<div class="tengahkananttd">
-  <p>ACCEPTED & ASSIGNED<br>BY FINANCE &<br>ACCOUNTING DIVISION </p>
-  <br>
-  <br>
-  <br>
-  <p><b>Finance Manager <br></b></p>
-</div>
-
-<div class="kananttd">
-  <p>APPROVED BY,<br></p>
-  <br>
-  <br>
-  <br>
-  <!-- <img src="../file/ttd/ttd2.png" style="width:120px"> -->
-  <p><b>Director <br></b></p>
-</div>
+<table border="0px" class="tablebawah">
+  <tr>
+    <!-- <td style="width: 200px;"> <?= $row['sub_deskripsi']; ?> </td> -->
+    <td style="width: 150px;">ORIGINATED BY</td>
+    <td style="width: 150px;">ACCEPTED & ASSIGNED BY HEAD OF DIVISION</td>
+    <td style="width: 160px;">ACCEPTED & ASSIGNED BY FINANCE & ACCOUNTING DIVISION</td>
+    <td colspan="2">APPROVED BY</td>
+  </tr>
+  <tr>
+    <td style="height: 50px;">
+      <qrcode value="E-FIN GS BELAWAN | Nomor PO <?= $noPo; ?> di buat <?= $app_create ?>" ec="H" style="width: 25mm; background-color: white; color: black;"></qrcode>
+    </td>
+    <td style="height: 50px;">
+      <qrcode value="E-FIN GS BELAWAN | Nomor PO <?= $noPo; ?>, Approved Supervisor <?= $app_spv ?>" ec="H" style="width: 25mm; background-color: white; color: black;"></qrcode>
+    </td>
+    <td style="height: 50px;">
+      <qrcode value="E-FIN GS BELAWAN | Nomor PO <?= $noPo; ?>, Approved Costcontrol <?= $app_cc ?>" ec="H" style="width: 25mm; background-color: white; color: black;"></qrcode>
+    </td>
+    <td style="height: 50px;">
+      <qrcode value="E-FIN GS BELAWAN | Nomor PO <?= $noPo; ?>, Approved Manager <?= $app_mgr ?>" ec="H" style="width: 25mm; background-color: white; color: black;"></qrcode>
+    </td>
+    <td style="height: 50px;">
+      <qrcode value="E-FIN GS BELAWAN | Nomor PO <?= $noPo; ?>, Approved Direktur <?= $app_direksi ?>" ec="H" style="width: 25mm; background-color: white; color: black;"></qrcode>
+    </td>
+  </tr>
+  <tr>
+    <td>Purchasing</td>
+    <td>Supervisor</td>
+    <td>Supervisor</td>
+    <td style="width: 120px;">Manager</td>
+    <td style="width: 120px;">Director</td>
+  </tr>
+</table>
 <!-- </div> -->
 <!-- Memanggil fungsi bawaan HTML2PDF -->
 <?php

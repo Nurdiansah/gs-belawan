@@ -37,7 +37,7 @@ $query = mysqli_query($koneksi, "SELECT *
                             <td> <?= tanggal_indo($row['tgl_pengajuan']); ?> </td>
                             <td> <?= $row['nm_divisi']; ?> </td>
                             <td> <?= $row['nm_barang']; ?> </td>
-                            <td> <span class="label label-success"><?= formatRupiah($row['harga_akhir']) ?> </span></td>
+                            <td> <button class="btn btn-success"><?= formatRupiah($row['harga_akhir']) ?> </button></td>
                             <td>
                                 <a href="?p=verifikasi_kasbon&aksi=lihat&id=<?= $row['id_kasbon']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button type="button" class="btn btn-warning"><i class="fa fa-search-plus"></i></button></span></a>
                             </td>

@@ -22,7 +22,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                             FROM bkk b
                                             JOIN divisi d
                                             ON d.id_divisi = b.id_divisi
-                                            WHERE b.status_bkk BETWEEN '2' AND '8'
+                                            WHERE b.status_bkk BETWEEN '2' AND '9'
                                             AND b.status_bkk NOT IN ('101', '202', '303', '404', '505')
                                             AND b.id_manager='$idUser'
                                             ORDER BY b.kd_transaksi DESC  ");
@@ -72,21 +72,31 @@ $query = mysqli_query($koneksi, "SELECT *
                                         <td> <?= $row['keterangan']; ?> </td>
                                         <td> <?= $row['nm_vendor']; ?> </td>
                                         <td> <?= "Rp." . $angka_format; ?> </td>
-                                        <td><?php if ($row['status_bkk'] == 2) { ?>
-                                                <span class="label label-success">Verifikasi Anggaran</span>
-                                            <?php  } else if ($row['status_bkk'] == 3) { ?>
-                                                <span class="label label-success">Verifikasi Pajak</span>
-                                            <?php   } else if ($row['status_bkk'] == 4) { ?>
-                                                <span class="label label-success">Verifikasi Kordinator Pajak</span>
-                                            <?php   } else if ($row['status_bkk'] == 5) { ?>
-                                                <span class="label label-primary">Approval Manager Keuangan</span>
-                                            <?php   } else if ($row['status_bkk'] == 6) { ?>
-                                                <span class="label label-primary">Approval Direktur</span>
-                                            <?php   } else if ($row['status_bkk'] == 7) { ?>
-                                                <span class="label label-primary">Payment Kasir</span>
-                                            <?php   } else if ($row['status_bkk'] == 8) { ?>
-                                                <span class="label label-warning">Proses Payment</span>
-                                            <?php   } ?>
+                                        <td> <?php if ($row['status_bkk'] == '4') {
+                                                    echo "<h4><span class='label label-primary'> Verifikasi Pajak </span></h4>";
+                                                } else if ($row['status_bkk'] == '5') {
+                                                    echo "<h4><span class='label label-primary'> Approval Cost Control </span></h4>";
+                                                } else if ($row['status_bkk'] == '6') {
+                                                    echo "<h4><span class='label label-primary'> Approval Manager </span></h4>";
+                                                } else if ($row['status_bkk'] == '7') {
+                                                    echo "<h4><span class='label label-primary'> Approval GM Finance </span></h4>";
+                                                } else if ($row['status_bkk'] == '8') {
+                                                    echo "<h4><span class='label label-primary'> Approval Direksi </span></h4>";
+                                                } else if ($row['status_bkk'] == 404) { ?>
+                                                <span class="label label-danger">Ditolak Direktur </span>
+                                            <?php   } else if ($row['status_bkk'] == 303) { ?>
+                                                <span class="label label-danger">Ditolak Manager Finance</span>
+                                            <?php   } else if ($row['status_bkk'] == 202) { ?>
+                                                <span class="label label-danger">Ditolak Pajak</span>
+                                            <?php   } else if ($row['status_bkk'] == 101) { ?>
+                                                <span class="label label-danger">Ditolak Manager</span>
+                                            <?php   } else if ($row['status_bkk'] == 9) {
+                                                    if ($row['jenis'] == 'umum') {
+                                                        echo "<span class='label label-warning'>Proses Payment</span>";
+                                                    } else {
+                                                        echo "<span class='label label-warning'>Proses Tempo</span>";
+                                                    }
+                                                } ?>
                                         </td>
                                         <td>
                                             <a href="?p=proses_biayanonops&aksi=edit&id=<?= $row['id_bkk']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info">Lihat</button></span></a>

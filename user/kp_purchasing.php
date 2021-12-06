@@ -30,7 +30,7 @@
                         <td> <?= tanggal_indo($row['tgl_pengajuan']); ?> </td>
                         <td> <?= $row['nm_barang']; ?> </td>
                         <td> <?= formatRupiah($row['harga_akhir']) ?> </td>
-                        <td>
+                        <!-- <td>
                             <?php if ($row['status_kasbon'] == 1) { ?>
                                 <span class="label label-primary">Verifikasi Pajak</span>
                             <?php  } else if ($row['status_kasbon'] == 2) { ?>
@@ -45,6 +45,27 @@
                                 <span class="label label-info">Pengajuan sedang di belikan </span>
                             <?php  } else if ($row['status_kasbon'] == 7) { ?>
                                 <span class="label label-info">Pengajuan sedang di belikan </span>
+                            <?php  } elseif (is_null($row['status_kasbon'])) { ?>
+                                <span class="label label-info">Submit Kembali Purchasing</span>
+                            <?php }  ?>
+                        </td> -->
+                        <td>
+                            <?php if ($row['status_kasbon'] == 2) { ?>
+                                <span class="label label-primary">Verifikasi Pajak</span>
+                            <?php  } else if ($row['status_kasbon'] == 3) { ?>
+                                <span class="label label-primary">Verifikasi Cost Control</span>
+                            <?php  } else if ($row['status_kasbon'] == 4) { ?>
+                                <span class="label label-warning">Approval Manager</span>
+                            <?php  } else if ($row['status_kasbon'] == 5) { ?>
+                                <span class="label label-warning">Approval GM Finance</span>
+                            <?php  } else if ($row['status_kasbon'] == 6) { ?>
+                                <span class="label label-warning">Approval Direksi</span>
+                            <?php  } else if ($row['status_kasbon'] == 7) { ?>
+                                <span class="label label-info">Dana sudah bisa di ambil </span>
+                            <?php  } else if ($row['status_kasbon'] == 8) { ?>
+                                <span class="label label-info">Proses pembelian purchasing</span>
+                            <?php  } else if ($row['status_kasbon'] == 9) { ?>
+                                <span class="label label-info">Verifikasi LPJ kasir</span>
                             <?php  } elseif (is_null($row['status_kasbon'])) { ?>
                                 <span class="label label-info">Submit Kembali Purchasing</span>
                             <?php }  ?>
