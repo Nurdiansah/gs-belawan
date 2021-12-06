@@ -136,7 +136,7 @@ $totalRealisasi = realisasiCoaDivisi($id_divisi, $noCoa, $tahun);
                                 <div class="col-sm-3">
                                     <textarea rows="5" type="text" name="keterangan" disabled class="form-control "> <?= $data['keterangan']; ?></textarea>
                                 </div>
-                                <label for="alasan_tolak" class="col-sm-offset- col-sm-2 control-label">Alasan Tolak</label>
+                                <label for="alasan_tolak" class="col-sm-offset- col-sm-2 control-label">Alasan Ditolak</label>
                                 <div class="col-sm-3">
                                     <textarea rows="5" type="text" name="alasan_tolak" disabled class="form-control "><?= $data['komentar_pajak']; ?></textarea>
                                 </div>

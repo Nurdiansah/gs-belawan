@@ -335,6 +335,7 @@ $tanggalCargo = date("Y-m-d");
 
                             <div class="col-sm-4">
                                 <input type="hidden" value="<?= $data['id_kasbon']; ?>" class="form-control" name="id_kasbon">
+                                <input type="hidden" value="verifikasi_kasbon&sp=vk_purchasing" class="form-control" name="url">
                             </div>
                         </div>
 

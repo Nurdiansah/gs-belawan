@@ -1,63 +1,112 @@
 <?php
 include "../fungsi/koneksi.php";
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['simpan']) || isset($_POST['submit'])) {
+
+    // Deklarasi
     $id_kasbon = $_POST['id_kasbon'];
+    $from_user = $_POST['from_user'];
+    $vrf_pajak = $_POST['vrf_pajak'];
     $nilai_barang = $_POST['nilai_barang'];
     $nilai_jasa = $_POST['nilai_jasa'];
-    $nilai_ppn = str_replace(".", "", $_POST['ppn_nilai']);
-    $nilai_pph = $_POST['pph_nilai'];
+
+    $nilai_ppn = penghilangTitik($_POST['nilai_ppn']);
+
     $id_pph = $_POST['id_pph'];
-    $harga = str_replace(".", "", $_POST['jml_bkk']);
 
-    $komentar = "Pengajuan disubmit kembali oleh pajak";
-
-
-    // cek tabel tolak_kasbon, jika dikolom tolak mgr ga dan pajak NULL maka diapus
-    $cekTolak = mysqli_query($koneksi, "SELECT * FROM tolak_kasbon WHERE kasbon_id = '$id_kasbon'");
-    $dataTolak = mysqli_fetch_assoc($cekTolak);
-
-    if ($dataTolak['alasan_tolak_mgrfin'] == NULL && $dataTolak['alasan_tolak_direktur'] == NULL) {
-        $aksi_tolak = "DELETE FROM tolak_kasbon WHERE id_tolak = '$id_kasbon'";
+    if ($_POST['nilai_pph2'] == 0) {
+        $nilai_pph = penghilangTitik($_POST['nilai_pph']);
     } else {
-        $aksi_tolak = "UPDATE tolak_kasbon SET alasan_tolak_mgrga = NULL, waktu_tolak_mgrga = NULL
-                        WHERE kasbon_id = '$id_kasbon'";
+        $nilai_pph = $_POST['nilai_pph2'];
     }
-    // selesai cek tabel tolak_kasbon
 
-    // cek ditabel reapprove_kasbon, jika udh ada isinya dari pengajuan tsb maka hanya update saja
-    $cekReapp = mysqli_query($koneksi, "SELECT * FROM reapprove_kasbon WHERE kasbon_id = '$id_kasbon'");
-    $totalReapp = mysqli_num_rows($cekReapp);
 
-    if ($totalReapp == 0) {
-        $aksi_reapp = "INSERT INTO reapprove_kasbon (kasbon_id, alasan_reapprove_pajak, waktu_reapprove_pajak) VALUES
-                        ('$id_kasbon', '$komentar', NOW());";
-    } else {
-        $aksi_reapp = "UPDATE reapprove_kasbon SET alasan_reapprove_pajak = '$komentar', waktu_reapprove_pajak = NOW()
-                        WHERE kasbon_id = '$id_kasbon';";
+    $biaya_lain = $_POST['biaya_lain'];
+    $potongan = $_POST['potongan'];
+    $pembulatan = $_POST['pembulatan'];
+
+    $harga = penghilangTitik($_POST['harga_akhir']);
+
+    $tanggal = dateNow();
+
+    // Simpan data
+    if (isset($_POST['simpan'])) {
+        // Simpan
+
+        // BEGIN/START TRANSACTION        
+        mysqli_begin_transaction($koneksi);
+
+        $update = mysqli_query($koneksi, "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+                nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
+                id_pph = '$id_pph', biaya_lain = '$biaya_lain', potongan = '$potongan', 
+                harga_akhir = '$harga', app_pajak = '$tanggal'                                              
+                WHERE id_kasbon ='$id_kasbon' ");
+
+        if ($update) {
+            # jika semua query berhasil di jalankan
+            mysqli_commit($koneksi);
+
+            setcookie('pesan', 'Kasbon berhasil di Simpan!', time() + (3), '/');
+            setcookie('warna', 'alert-success', time() + (3), '/');
+        } else {
+            #jika ada query yang gagal
+            mysqli_rollback($koneksi);
+            echo mysqli_error($koneksi);
+            die;
+            setcookie('pesan', 'Kasbon gagal di Simpan!<br>' . mysqli_error($koneksi) . '', time() + (3), '/');
+            setcookie('warna', 'alert-danger', time() + (3), '/');
+        }
+        header("location:index.php?p=verifikasi_kasbon&sp=vk_user");
     }
-    // end
 
-    // AKSI UNTUK JALANIN DATANYA
-    $tolak = mysqli_multi_query($koneksi, "UPDATE kasbon SET
-                                                                nilai_barang = '$nilai_barang',
-                                                                nilai_jasa = '$nilai_jasa',
-                                                                nilai_ppn = '$nilai_ppn',
-                                                                nilai_pph = '$nilai_pph',
-                                                                id_pph = '$id_pph',
-                                                                harga_akhir = '$harga',
-                                                                status_kasbon = '2',
-                                                                app_pajak = NOW()
-                                                WHERE id_kasbon = '$id_kasbon';
+    // Submit atau release
+    if (isset($_POST['submit'])) {
+        // Submit atau release       
+        // cek user
+        $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]'");
+        $rowUser = mysqli_fetch_assoc($queryUser);
+        $nama = $rowUser['nama'];
 
-                                            $aksi_tolak;   
-                                            $aksi_reapp; 
-                                            ");
+        // cek jika kasbon dari kasir, maka proses langsung ke direksi
+        $queryCekKasbon = mysqli_query($koneksi, "SELECT * FROM kasbon
+                                                    JOIN detail_biayaops
+                                                        ON id_dbo = id
+                                                    WHERE id_kasbon = '$id_kasbon'");
+        $dataCekKasbon = mysqli_fetch_assoc($queryCekKasbon);
+        // end cek        
 
-    if ($tolak) {
-        header('Location: index.php?p=ditolak_kasbon&sp=tolak_purchasing');
-    } else {
-        echo 'error' . mysqli_error($koneksi);
+        // BEGIN/START TRANSACTION        
+        mysqli_begin_transaction($koneksi);
+
+        // kemanager finance
+        $status_kasbon = "5";
+
+
+        #kondisi jika verfikasi pajak sebelum pembayaran            
+
+        $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+                                        nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
+                                        id_pph = '$id_pph', biaya_lain = '$biaya_lain', potongan = '$potongan', 
+                                        harga_akhir = '$harga', app_pajak = '$tanggal', status_kasbon = '$status_kasbon'                                       
+                                        WHERE id_kasbon ='$id_kasbon' ";
+
+        $hasil = mysqli_query($koneksi, $query);
+
+
+        if ($hasil) {
+            # jika semua query berhasil di jalankan
+            mysqli_commit($koneksi);
+
+            setcookie('pesan', 'Kasbon berhasil di Verifikasi!', time() + (3), '/');
+            setcookie('warna', 'alert-success', time() + (3), '/');
+        } else {
+            #jika ada query yang gagal
+            mysqli_rollback($koneksi);
+            echo mysqli_error($koneksi);
+            die;
+            setcookie('pesan', 'Kasbon gagal di Verifikasi!<br>' . mysqli_error($koneksi) . '', time() + (3), '/');
+            setcookie('warna', 'alert-danger', time() + (3), '/');
+        }
+        header("location:index.php?p=verifikasi_kasbon&sp=vk_user");
     }
-    // END AKSI JALANIN DATANYA
 }

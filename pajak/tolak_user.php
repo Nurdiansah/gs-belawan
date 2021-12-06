@@ -4,10 +4,8 @@
             <tr>
                 <th>No</th>
                 <th>ID Kasbon</th>
-                <th>Kode Transaksi</th>
                 <th>Tanggal Pengajuan</th>
-                <th>Alasan Penolakan</th>
-                <th>Waktu Ditolak</th>
+                <th>Alasan Ditolak</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -16,17 +14,9 @@
                 <tr>
                     <td><?= $no; ?></td>
                     <td><?= $dataUser['id_kasbon']; ?></td>
-                    <td><?= $dataUser['kd_transaksi']; ?></td>
                     <td><?= $dataUser['tgl_kasbon']; ?></td>
                     <td>
-                        <?= $dataUser['alasan_tolak_direktur']; ?><br>
-                        <?= $dataUser['alasan_tolak_mgrfin']; ?><br>
-                        <?= $dataUser['alasan_tolak_mgrga']; ?>
-                    </td>
-                    <td>
-                        <?= $dataUser['waktu_tolak_direktur']; ?><br>
-                        <?= $dataUser['waktu_tolak_mgrfin']; ?><br>
-                        <?= $dataUser['waktu_tolak_mgrga']; ?>
+                        <?= $dataUser['komentar_mgr_finjkt']; ?>
                     </td>
                     <td>
                         <a href="index.php?p=dtl_kasbonditolak&aksi=lihat&id=<?= $dataUser['id_kasbon']; ?>" class="btn btn-primary " title="Lihat"> Lihat</a>

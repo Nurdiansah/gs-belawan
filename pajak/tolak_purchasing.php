@@ -7,6 +7,7 @@
                 <th>Kode Transaksi</th>
                 <!-- <th>Divisi</th> -->
                 <th>Tanggal Pengajuan</th>
+                <th>Alasan Ditolak</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -18,6 +19,10 @@
                     <td><?= $dataPurchasing['kd_transaksi']; ?></td>
                     <!-- <td><?= $dataPurchasing['nm_divisi']; ?></td> -->
                     <td><?= $dataPurchasing['tgl_kasbon']; ?></td>
+                    <td>
+                        <?= $dataPurchasing['komentar_mgr_finjkt']; ?><br>
+                        <?= $dataPurchasing['komentar_direktur']; ?>
+                    </td>
                     <td>
                         <a href="index.php?p=dtl_kasbonditolak&aksi=lihat&id=<?= $dataPurchasing['id_kasbon']; ?>" class="btn btn-primary " title="Lihat"> Lihat</a>
                         <!-- <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#approve_<?= $dataPurchasing['id_kasbon']; ?>" title="Setuju"><i class="fa fa-check"></i></button>

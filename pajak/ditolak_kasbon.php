@@ -8,7 +8,7 @@ $queryPurchasing = mysqli_query($koneksi, "SELECT * FROM kasbon ks
                                         ON id_kasbon = kasbon_id
                                     LEFT JOIN divisi d
                                         ON ks.divisi_id = d.id_divisi
-                                    WHERE status_kasbon = '202'
+                                    WHERE status_kasbon = '505'
                                     AND from_user = '0'
                                     AND sr_id IS NULL
                                     ORDER BY id_kasbon DESC");
@@ -17,7 +17,7 @@ $totalPurchasing = mysqli_num_rows($queryPurchasing);
 $queryUser = mysqli_query($koneksi, "SELECT * FROM kasbon
                                     LEFT JOIN tolak_kasbon
                                         ON id_kasbon = kasbon_id
-                                    WHERE status_kasbon = '202'
+                                    WHERE status_kasbon = '505'
                                     AND from_user = '1'
                                     ORDER BY id_kasbon DESC");
 $totalUser = mysqli_num_rows($queryUser);

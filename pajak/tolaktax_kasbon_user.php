@@ -34,9 +34,10 @@ if (isset($_POST['tolak'])) {
                                                 WHERE id_kasbon = '$id_kasbon';
 
                                             -- $aksi_reapp;
-                                            -- $aksi_tolak;");
+                                            -- $aksi_tolak;
+                                            ");
 
     if ($tolak) {
-        header('Location: index.php?p=verifikasi_kasbon&sp=vk_user');
+        header('Location: index.php?p=' . $_POST['url'] . '');
     }
 }
