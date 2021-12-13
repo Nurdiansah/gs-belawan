@@ -298,13 +298,62 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                                             } else if ($dataBkk['status_bkk'] == '2') {
                                                                 echo "<span class='label label-primary'>Verifikasi Manager</span>";
                                                             } else  if ($dataBkk['status_bkk'] == '17') {
-                                                                echo "<span class='label label-warning'>Ready To Pay</span>";
+                                                                echo "<button type='button' class='btn btn-warning modalSubmit' data-toggle='modal' data-target='#submit_" . $dataBkk['id_tagihan'] . "' data-id='" . $row['id'] . "'><i class='fa fa-credit-card'></i> Payment</button>";
                                                             }
                                                         }
                                                     }
                                                     ?>
                                                 </td>
                                             </tr>
+
+                                            <!-- Modal Payment  -->
+                                            <div id="submit_<?= $dataBkk['id_tagihan'] ?>" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- konten modal-->
+                                                    <div class="modal-content">
+                                                        <!-- heading modal -->
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title"> Submit Invoice </h4>
+                                                        </div>
+                                                        <!-- body modal -->
+                                                        <div class="modal-body">
+                                                            <form method="post" enctype="multipart/form-data" action="payment_invoice_po.php" class="form-horizontal">
+                                                                <!-- <input type="text" name="id_tagihan" value="<?= $dataBkk['id_tagihan'] ?>"> -->
+                                                                <input type="hidden" name="id" value="<?= $dataBkk['id'] ?>">
+                                                                <!-- <input type="text" name="id_bkk" value="<?= $dataBkk['regulasi_tempo'] ?>"> -->
+                                                                <!-- <input type="text" name="id_tagihan" id="me_id_tagihan"> -->
+                                                                <div class="box-body">
+                                                                    <div class="form-group">
+                                                                        <label for="tanggal" class="col-sm-offset- col-sm-4 control-label">Tanggal</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" required class="form-control tanggal" name="tanggal" autocomplete="off" required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <br><br>
+                                                                    <div class="form-group ">
+                                                                        <label for="doc_faktur" class="col-sm-offset- col-sm-4 control-label">Invoice / Faktur</label>
+                                                                        <div class="col-sm-6">
+                                                                            <!-- <div class="input-group input-file" name="doc_faktur" required> -->
+                                                                            <input type="file" class="form-control" required name="doc_faktur" required />
+                                                                            <!-- <span class="input-group-btn">
+                                                                                    <button class="btn btn-default btn-choose" type="button">Browse</button>
+                                                                                </span>
+                                                                            </div> -->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class=" modal-footer">
+                                                                    <button class="btn btn-primary" type="submit" name="payment">Submit</button></span>
+                                                                    <input type="reset" class="btn btn-danger" data-dismiss="modal" value="No">
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Modal Payment  -->
+
                                     <?php
 
                                             $persent += $row['persentase'];
@@ -379,127 +428,7 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
     </div>
     </div>
 
-    <!--  -->
-    <div id="konfirmasi" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- konten modal-->
-            <div class="modal-content">
-                <!-- heading modal -->
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Verifikasi PO</h4>
-                </div>
-                <!-- body modal -->
-                <div class="modal-body">
-                    <div class="perhitungan">
-                        <form method="post" name="form" enctype="multipart/form-data" action="add_po.php" class="form-horizontal">
-                            <div class="box-body">
-                                <input type="hidden" value="<?= $row2['kd_transaksi']; ?>" disabled class="form-control" name="kd_transaksi">
-                                <div class="form-group ">
-                                    <div class="col-sm-4">
-                                        <input type="hidden" value="<?= $data2['id_po']; ?>" class="form-control" name="id_po" readonly>
-                                    </div>
-                                </div>
-                                <div class="form-group ">
-                                    <label id="tes" for="dari_bank" class="col-sm-5 control-label">Regulasi Jatuh Tempo</label>
-                                    <div class="col-sm-4">
-                                        <select name="tgl_tempo1" class="form-control" required>
-                                            <option value="">---Pilih Regulasi---</option>
-                                            <option value="0">COD</option>
-                                            <option value="7">1 - 7 Hari </option>
-                                            <option value="14">1 - 14 Hari </option>
-                                            <option value="30">1 - 30 Hari </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group ">
-                                    <label id="tes" for="dari_bank" class="col-sm-5 control-label">Metode Pembayaran</label>
-                                    <div class="col-sm-4">
-                                        <select name="metode_pembayaran" class="form-control" required>
-                                            <option value="">---Metode Pembayaran---</option>
-                                            <option value="Tunai">Tunai</option>
-                                            <option value="Transfer"> Transfer</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group ">
-                                    <label id="tes" for="nocek_bkk" class="col-sm-5 control-label">Total PO</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control " name="nocek_bkk" value="<?= formatRupiah(round($data2['grand_totalpo'])); ?>" readonly>
-                                    </div>
-                                </div>
-                                <div class="form-group ">
-                                    <label id="tes" for="persentase_pembayaran1" class="col-sm-5 control-label">Pembayaran</label>
-                                    <div class="col-sm-4">
-                                        <div class="input-group">
-                                            <input type="number" class="form-control " min="0" max="<?= $sisaPersen; ?>" placeholder="100" name="persentase_pembayaran1" id="persentase_pembayaran" value="<?= $sisaPersen; ?>" required>
-                                            <span class="input-group-addon">%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group ">
-                                    <label id="tes" for="persentase_pembayaran" class="col-sm-5 control-label">Nominal Pembayaran</label>
-                                    <div class="col-sm-4">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">Rp.</span>
-                                            <input type="text" class="form-control " name="nominal_pembayaran1" id="nominal_pembayaran1" value="<?= formatRupiah2(round($sisaPembayaran)); ?>" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class=" modal-footer">
-                                    <button class="btn btn-success" type="submit" name="submit">Submit</button></span></a>
-                                    &nbsp;
-                                    <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal">
-                                </div>
-                            </div>
-                        </form>
-                        <!-- div perhitungan -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--  -->
 
-    <!--  -->
-    <div id="tolak" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- konten modal-->
-            <div class="modal-content">
-                <!-- heading modal -->
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Alasan Penolakan </h4>
-                </div>
-                <!-- body modal -->
-                <div class="modal-body">
-                    <form method="post" enctype="multipart/form-data" action="#" class="form-horizontal">
-                        <div class="box-body">
-                            <div class="form-group ">
-                                <div class="col-sm-4">
-                                    <input type="hidden" value="<?= $data2['kd_transaksi']; ?>" class="form-control" name="kd_transaksi" readonly>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="validationTextarea">Komentar</label>
-                                <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required>@<?php echo $Nama ?> : </textarea>
-                                <div class="invalid-feedback">
-                                    Please enter a message in the textarea.
-                                </div>
-                            </div>
-                            <div class=" modal-footer">
-                                <button class="btn btn-success" type="submit" name="tolak">Kirim</button></span></a>
-                                &nbsp;
-                                <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--  -->
 
 
 </section>
@@ -510,6 +439,38 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
             format: "yyyy-mm-dd",
             autoclose: true
         });
+    });
+
+    // Browse
+    function bs_input_file() {
+        $(".input-file").before(
+            function() {
+                if (!$(this).prev().hasClass('input-ghost')) {
+                    var element = $("<input type='file' class='input-ghost'  accept='application/pdf' style='visibility:hidden; height:0'>");
+                    element.attr("name", $(this).attr("name"));
+                    element.change(function() {
+                        element.next(element).find('input').val((element.val()).split('\\').pop());
+                    });
+                    $(this).find("button.btn-choose").click(function() {
+                        element.click();
+                    });
+                    $(this).find("button.btn-reset").click(function() {
+                        element.val(null);
+                        $(this).parents(".input-file").find('input').val('');
+                    });
+                    $(this).find('input').css("cursor", "pointer");
+                    $(this).find('input').mousedown(function() {
+                        $(this).parents('.input-file').prev().click();
+                        return false;
+                    });
+                    return element;
+                }
+            }
+        );
+    }
+
+    $(function() {
+        bs_input_file();
     });
 
     $(".perhitungan").keyup(function() {
