@@ -924,10 +924,10 @@ $jmlReapp = mysqli_num_rows($reApprove);
                                         <td> <?= formatRupiah(round($row['nominal'])); ?> </td>
                                         <td>
                                             <?php
-                                            if ($row['status_tagihan'] < 4) {
+                                            if ($row['status_tagihan'] <= 4) {
                                                 # code...
                                                 echo "<button class='btn btn-warning'>Belum di bayar</button>";
-                                            } else if ($row['status_tagihan'] == 4) {
+                                            } else if ($row['status_tagihan'] == 5) {
                                                 echo "<button class='btn btn-success'>Terbayar</button>";
                                             }
 
