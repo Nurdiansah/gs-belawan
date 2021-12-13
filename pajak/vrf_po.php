@@ -8,6 +8,7 @@ if (isset($_POST['submit'])) {
     $id_po = $_POST['id_po'];
     $id_bkk = $_POST['id_bkk'];
     $id_tagihan = $_POST['id_tagihan'];
+    $metode_pembayaran = $_POST['metode_pembayaran'];
 
     $nilai_barang = $_POST['nilai_barang'];
     $nilai_jasa = $_POST['nilai_jasa'];
@@ -30,19 +31,27 @@ if (isset($_POST['submit'])) {
 
     mysqli_begin_transaction($koneksi);
 
-    // bkk ke pusat
-    $updateBkkPusat = mysqli_query($koneksiPusat, "UPDATE bkk_final SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+
+    if ($metode_pembayaran == 'Transfer') {
+        // bkk ke pusat
+        $updateBkkPusat = mysqli_query($koneksiPusat, "UPDATE bkk_final SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
                                                                         nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
                                                                         id_pph = '$id_pph', nominal = '$harga' , status_bkk = '1'
                                                                     WHERE id_tagihan = '$id_tagihan' AND id_area = '2'
                                                                     ");
 
-    $query = "UPDATE bkk_ke_pusat SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+        $hasil = mysqli_query($koneksi, "UPDATE bkk_ke_pusat SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
                                 nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
                                 id_pph = '$id_pph', nominal = '$harga', status_bkk = '1'
                             WHERE id = '$id_bkk'
-                ";
-    $hasil = mysqli_query($koneksi, $query);
+                ");
+    } else {
+        $hasil = mysqli_query($koneksi, "UPDATE bkk_final SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+                                nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
+                                id_pph = '$id_pph', nominal = '$harga', status_bkk = '1'
+                            WHERE id = '$id_bkk'
+                ");
+    }
 
     $updTagihan = mysqli_query($koneksi, "UPDATE tagihan_po SET nominal = '$harga' WHERE bkk_id = '$id_bkk'");
 
@@ -71,11 +80,14 @@ if (isset($_POST['submit'])) {
     $id_bkk = $_POST['id_bkk'];
     $id_tagihan = $_POST['id_tagihan'];
 
+    $metode_pembayaran = $_POST['metode_pembayaran'];
+
     $nilai_barang = $_POST['nilai_barang'];
     $nilai_jasa = $_POST['nilai_jasa'];
     $nilai_ppn = str_replace(".", "", $_POST['ppn_nilai']);
     $id_pph = $_POST['id_pph'];
     $harga = str_replace(".", "", $_POST['jml']);
+
 
     if ($_POST['pph_nilai2'] == 0) {
         $nilai_pph = penghilangTitik($_POST['pph_nilai']);
@@ -88,26 +100,34 @@ if (isset($_POST['submit'])) {
     $rowUser = mysqli_fetch_assoc($queryUser);
     $nama = $rowUser['nama'];
 
-    date_default_timezone_set('Asia/Jakarta');
-    $tanggal = date("Y-m-d H:i:s");
+    $tanggal = dateNow();
 
     mysqli_begin_transaction($koneksi);
 
-    // bkk ke pusat
-    $updateBkkPusat = mysqli_query($koneksiPusat, "UPDATE bkk_final SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
-                                                                nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
-                                                                id_pph = '$id_pph', nominal = '$harga'
-                                                            WHERE id_tagihan = '$id_tagihan' AND id_area = '2'
-                                                            ");
+    if ($metode_pembayaran == 'Transfer') {
+        // bkk ke pusat
+        $updateBkkPusat = mysqli_query($koneksiPusat, "UPDATE bkk_final SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+                                                                            nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
+                                                                            id_pph = '$id_pph', nominal = '$harga'
+                                                                        WHERE id_tagihan = '$id_tagihan' AND id_area = '2'
+                                                                        ");
 
-    // bkk 
-    $query = "UPDATE bkk_ke_pusat SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
-                                nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
-                                id_pph = '$id_pph', nominal = '$harga'
-                            WHERE id = '$id_bkk'
-                ";
+        // bkk 
+        $hasil = mysqli_query($koneksi, "UPDATE bkk_ke_pusat SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+                                                                        nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
+                                                                        id_pph = '$id_pph', nominal = '$harga'
+                                                                        WHERE id = '$id_bkk'
+                                                                        ");
+    } else {
+        // bkk 
+        $hasil = mysqli_query($koneksi, "UPDATE bkk_final SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+                                                                        nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
+                                                                        id_pph = '$id_pph', nominal = '$harga'
+                                                                        WHERE id = '$id_bkk'
+                                                                        ");
+    }
 
-    $hasil = mysqli_query($koneksi, $query);
+
 
     $updTagihan = mysqli_query($koneksi, "UPDATE tagihan_po SET nominal = '$harga' WHERE bkk_id = '$id_bkk'");
 
@@ -126,7 +146,7 @@ if (isset($_POST['submit'])) {
         setcookie('pesan', 'PO gagal di simpan!<br>' . mysqli_error($koneksi) . '', time() + (3), '/');
         setcookie('warna', 'alert-danger', time() + (3), '/');
     }
-    header("location:index.php?p=verifikasi_dpo&id=" . enkripRambo($id_po) . "&bkk=" . enkripRambo($id_bkk));
+    header("location:index.php?p=verifikasi_dpo&id=" . enkripRambo($id_po) . "&bkk=" . enkripRambo($id_bkk) . "&id_tagihan=" . enkripRambo($id_tagihan));
 }
 ?>
 <!-- pindah -->

@@ -42,6 +42,9 @@ if (isset($_POST['submit'])) {
 		$insertBkk = mysqli_query($koneksi, "INSERT INTO bkk_final (id_anggaran, id_supplier, id_jenispengajuan, pengajuan, id_kdtransaksi, id_tagihan, created_on_bkk, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, status_bkk) VALUES
 																 ('$id_anggaran', '$id_supplier' , '4', 'PO', '$id_po', '$id_tagihan','$tanggal', '$nilai_barang', '$nilai_jasa', '$nilai_ppn', '$id_pph', '$nilai_pph', '$total', '$keterangan', '0'); ");
 
+		$queryMaxBKK = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT MAX(id) as max_bkk FROM bkk_final"));
+		$dataMaxBKK = $queryMaxBKK['max_bkk'];
+
 		$updateTagihan = mysqli_query($koneksi, "UPDATE tagihan_po SET status_tagihan = '2', bkk_id = '$dataMaxBKK'
 												 WHERE id_tagihan ='$id_tagihan' ");
 	} else {
@@ -80,6 +83,8 @@ if (isset($_POST['submit'])) {
 	WHERE id_po ='$id_po' ");
 
 	if ($insertBkk && $updatePO  && $updateTagihan) {
+
+
 		# jika semua query berhasil di jalankan
 		mysqli_commit($koneksi);
 

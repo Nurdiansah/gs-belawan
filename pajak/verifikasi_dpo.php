@@ -3,7 +3,9 @@ include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
 $id = dekripRambo($_GET['id']);
+$id_tagihan = dekripRambo($_GET['id_tagihan']);
 $bkk = dekripRambo($_GET['bkk']);
+
 
 $queryNama =  mysqli_query($koneksi, "SELECT nama from user WHERE username  = '$_SESSION[username]'");
 $rowNama = mysqli_fetch_assoc($queryNama);
@@ -22,34 +24,40 @@ $queryBo =  mysqli_query($koneksi, "SELECT * FROM po p
                                             ON s.id_supplier = dbo.id_supplier
                                             WHERE p.id_po ='$id' ");
 
+$queryCek = mysqli_query($koneksi, "SELECT * FROM tagihan_po WHERE id_tagihan = '$id_tagihan'");
+$dataCek = mysqli_fetch_assoc($queryCek);
+$metode_pembayaran = $dataCek['metode_pembayaran'];
+
+if ($metode_pembayaran == 'Transfer') {
+    $tableBkk = 'bkk_ke_pusat';
+} else {
+    $tableBkk = 'bkk_final';
+}
+
+
 
 $query =  mysqli_query($koneksi, "SELECT *, bf.nilai_barang as n_barang, bf.nilai_jasa as n_jasa, bf.nilai_ppn as n_ppn, bf.id_pph as bf_id_pph, bf.nilai_pph as n_pph
-                                    FROM biaya_ops bo
-                                    JOIN divisi d
-                                        ON d.id_divisi = bo.id_divisi 
+                                    FROM tagihan_po  tp
                                     JOIN po p
-                                        ON p.kd_transaksi = bo.kd_transaksi
-                                    JOIN bkk_ke_pusat bf
-                                        ON id_kdtransaksi = id_po
-                                    LEFT JOIN pph ph
-                                        ON ph.id_pph = bf.id_pph
+                                        ON p.id_po = tp.po_id
                                     JOIN detail_biayaops dbo
                                         ON p.id_dbo = dbo.id
-                                    JOIN tagihan_po
-                                        ON id_po = po_id
-                                    WHERE p.id_po = '$id' ");
-
-// $query = mysqli_query($koneksi, "SELECT * FROM bkk_ke_pusat
-//                                     INNER JOIN po
-//                                         ON id_po = id_kdtransaksi
-//                                     WHERE id = '$bkk'     
-//                 ");
+                                    JOIN biaya_ops bo
+                                        ON bo.kd_transaksi = dbo.kd_transaksi
+                                    JOIN divisi d
+                                        ON d.id_divisi = bo.id_divisi 
+                                    JOIN $tableBkk bf
+                                        ON bf.id = tp.bkk_id
+                                    LEFT JOIN pph ph
+                                        ON ph.id_pph = bf.id_pph                                    
+                                    WHERE p.id_po = '$id' AND tp.id_tagihan = '$id_tagihan'
+                                    ");
 
 $data2 = mysqli_fetch_assoc($query);
-// print_r($data2);
-// die;
+
 
 $id_dbo = $data2['id_dbo'];
+
 
 $querySbo =  mysqli_query($koneksi, "SELECT * 
                                                         FROM sub_dbo                                                         
@@ -260,9 +268,9 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                                 <td><?= formatRupiah($dataTagihan['nominal']); ?></td>
                                                 <td>
                                                     <?php
-                                                    if ($row['status_tagihan'] < 4) {
+                                                    if ($dataTagihan['status_tagihan'] < 4) {
                                                         echo "<button class='btn btn-warning'>Belum di bayar</button>";
-                                                    } else if ($row['status_tagihan'] == 5) {
+                                                    } else if ($dataTagihan['status_tagihan'] == 5) {
                                                         echo "<button class='btn btn-success'>Terbayar</button>";
                                                     }
                                                     ?>
@@ -300,13 +308,14 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                 <form method="post" name="form" action="vrf_po.php" enctype="multipart/form-data" class="form-horizontal">
                                     <input type="hidden" required class="form-control is-valid" name="id_po" value="<?= $data2['id_po']; ?>">
                                     <input type="hidden" value="<?= $data2['id_tagihan']; ?>" name="id_tagihan" readonly>
-                                    <input type="hidden" required class="form-control is-valid" name="id_bkk" value="<?= $bkk; ?>">
+                                    <input type="hidden" value="<?= $data2['metode_pembayaran']; ?>" name="metode_pembayaran" readonly>
+                                    <input type="hidden" required class="form-control is-valid" name="id_bkk" value="<?= $data2['id']; ?>">
                                     <div class="form-group">
                                         <label id="tes" for="nilai_bkk" class=" col-sm-4 control-label" id="rupiah">Nilai Barang</label>
                                         <div class="col-sm-5">
                                             <div class="input-group">
                                                 <span class="input-group-addon">Rp.</span>
-                                                <input type="text" required class="form-control" name="nilai_barang" id="nilai_barang" value="<?= round($data2['nilai_barang']); ?>" />
+                                                <input type="text" required class="form-control" name="nilai_barang" id="nilai_barang" value="<?= round($data2['n_barang']); ?>" />
                                             </div>
                                             <i><span id="nb_ui"></span></i>
                                         </div>

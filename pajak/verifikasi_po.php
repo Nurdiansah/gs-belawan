@@ -8,6 +8,20 @@ $rowUser = mysqli_fetch_assoc($queryUser);
 $idUser = $rowUser['id_user'];
 
 $query = mysqli_query($koneksi, "SELECT *, bf.id as id_bkk
+                                    FROM bkk_final bf
+                                    JOIN po po
+                                        ON id_po = id_kdtransaksi
+                                    JOIN detail_biayaops dbo
+                                        ON id_dbo = dbo.id
+                                    JOIN divisi dvs
+                                        ON dvs.id_divisi = dbo.id_divisi
+                                    JOIN tagihan_po tp
+                                        ON tp.bkk_id = bf.id
+                                    WHERE pengajuan = 'PO'
+                                    AND status_bkk = '0' AND tp.status_tagihan = '2'
+                                union all
+
+                                SELECT *, bf.id as id_bkk
                                     FROM bkk_ke_pusat bf
                                     JOIN po po
                                         ON id_po = id_kdtransaksi
@@ -15,9 +29,13 @@ $query = mysqli_query($koneksi, "SELECT *, bf.id as id_bkk
                                         ON id_dbo = dbo.id
                                     JOIN divisi dvs
                                         ON dvs.id_divisi = dbo.id_divisi
+                                    JOIN tagihan_po tp
+                                        ON tp.bkk_id = bf.id
                                     WHERE pengajuan = 'PO'
-                                    AND status_bkk = '0'
+                                    AND status_bkk = '0' AND tp.status_tagihan = '2'
                 ");
+
+
 
 ?>
 <!-- Main content -->
@@ -65,7 +83,7 @@ $query = mysqli_query($koneksi, "SELECT *, bf.id as id_bkk
                                             <!-- <td> <?= 'Rp. ' . number_format($row['total_po'], 0, ",", "."); ?></td>                                         -->
                                             <td> <?= formatRupiah($row['nominal']); ?> </td>
                                             <td>
-                                                <a href="index.php?p=verifikasi_dpo&id=<?= enkripRambo($row['id_po']); ?>&bkk=<?= enkripRambo($row['id_bkk']); ?>"><span data-placement='top' data-toggle='tooltip' title='Detail'><button class="btn btn-success"><i class="fa fa-search-plus"></i></button></span></a>
+                                                <a href="index.php?p=verifikasi_dpo&id=<?= enkripRambo($row['id_po']); ?>&bkk=<?= enkripRambo($row['id_bkk']); ?>&id_tagihan=<?= enkripRambo($row['id_tagihan']); ?>"><span data-placement='top' data-toggle='tooltip' title='Detail'><button class="btn btn-success"><i class="fa fa-search-plus"></i></button></span></a>
                                             </td>
                                 </tr>
                         <?php

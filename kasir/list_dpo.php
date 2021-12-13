@@ -255,7 +255,15 @@ $tanggal = date("Y-m-d H:i:s");
                                                     <td> <?= formatTanggal($row['tgl_buat']); ?> </td>
                                                     <td> <?= formatTanggal($row['tgl_tempo']); ?> </td>
                                                     <td> <?= formatRupiah(round($row['nominal'])); ?> </td>
-                                                    <td><button class="btn btn-warning">Belum di bayar</button></td>
+                                                    <td>
+                                                        <?php
+                                                        if ($row['status_tagihan'] == '5') {
+                                                            echo "<span class='label label-success'>Terbayar</span>";
+                                                        } else {
+                                                            echo "<span class='label label-warning'>Belum di bayar</span>";
+                                                        }
+                                                        ?>
+                                                    </td>
                                         </tr>
                                 <?php
                                                     $no++;
