@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "../fungsi/koneksi.php";
+include "../fungsi/koneksipusat.php";
 include "../fungsi/fungsi.php";
 
 if (isset($_POST['simpan'])) {
@@ -74,10 +75,9 @@ if (isset($_POST['simpan'])) {
 
 
 		//query di kualifikasikan ke bkk final
-		$queryBkkfinal = "INSERT INTO bkk_final (id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk, id_anggaran, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, bukti_pembayaran,status_bkk) VALUES
+		$return =  mysqli_query($koneksi, "INSERT INTO bkk_final (id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk, id_anggaran, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, bukti_pembayaran,status_bkk) VALUES
 											('1', 'BIAYA UMUM','$kd_transaksi', '$tgl_bkk', '$id_anggaran', '$nilai_barang', '$nilai_jasa', '$nilai_ppn','$id_pph', '$nilai_pph', '$nominal', '$keterangan', '$namabaru', '1');
-									";
-		$return = mysqli_query($koneksi, $queryBkkfinal);
+									");
 
 		//query realisasi anggaran
 		$fieldRealisasi = fieldRealisasi($bulan);
@@ -88,28 +88,33 @@ if (isset($_POST['simpan'])) {
 		$jml_realisasi = $rowJA['jumlah_realisasi'] + $DPP;
 		$jml_kuantitas = $rowJA['realisasi_kuantitas'] + 1;
 
-		$queryRealisasi = "UPDATE anggaran SET $fieldRealisasi = '$jml_akhir', jumlah_realisasi = '$jml_realisasi', realisasi_kuantitas = '$jml_kuantitas'
-										WHERE id_anggaran ='$id_anggaran' ";
+		$realisasi = mysqli_query($koneksi, "UPDATE anggaran SET $fieldRealisasi = '$jml_akhir', jumlah_realisasi = '$jml_realisasi', realisasi_kuantitas = '$jml_kuantitas'
+										WHERE id_anggaran ='$id_anggaran' ");
 
-		$realisasi = mysqli_query($koneksi, $queryRealisasi);
+
+		// query update biaya umum
+		$hasil =  mysqli_query($koneksi, "UPDATE bkk SET tgl_bkk = '$tgl_bkk', nocek_bkk = '$nocek_bkk' , dari_bank = '$dari_bank' , 
+					dari_rekening = '$dari_rekening', keterangan = '$keterangan',  doc_lpj = '$namabaru', status_bkk = '10' 
+					WHERE id_bkk ='$id' ");
+		// 
+
 	} else if ($jenis == 'kontrak') {
 		//query di kualifikasikan ke bkk final
-		$queryBkkfinal = "INSERT INTO bkk_final (id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk,  id_anggaran, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, status_bkk) VALUES
+		$return = mysqli_query($koneksi, "INSERT INTO bkk_ke_pusat (id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk,  id_anggaran, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, status_bkk) VALUES
 												('1', 'BIAYA UMUM','$kd_transaksi', '$tgl_bkk', '$id_anggaran', '$nilai_barang', '$nilai_jasa', '$nilai_ppn','$id_pph', '$nilai_pph', '$nominal', '$keterangan',  '1');
-									";
-		$return = mysqli_query($koneksi, $queryBkkfinal);
+									");
 
 		$realisasi = 'Berhasil';
+
+		// query update biaya umum
+		$hasil =  mysqli_query($koneksi, "UPDATE bkk SET tgl_bkk = '$tgl_bkk',keterangan = '$keterangan',  doc_lpj = '$namabaru', status_bkk = '17' 
+			WHERE id_bkk ='$id' ");
+		// 
+		$bkkPusat = mysqli_query($koneksiPusat, "INSERT INTO bkk_final (id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk,  id_anggaran, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, id_area ,status_bkk) VALUES
+																		('1', 'BIAYA UMUM','$kd_transaksi', '$tgl_bkk', '$id_anggaran', '$nilai_barang', '$nilai_jasa', '$nilai_ppn','$id_pph', '$nilai_pph', '$nominal', '$keterangan', '2', '1');
+									");
 	}
 
-
-	// query update bkk
-	$query = "UPDATE bkk SET tgl_bkk = '$tgl_bkk', nocek_bkk = '$nocek_bkk' , dari_bank = '$dari_bank' , 
-					dari_rekening = '$dari_rekening', keterangan = '$keterangan',  doc_lpj = '$namabaru', status_bkk = '10' 
-					WHERE id_bkk ='$id' ";
-
-
-	$hasil = mysqli_query($koneksi, $query);
 
 
 	if ($hasil && $realisasi && $return) {

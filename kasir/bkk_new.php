@@ -177,12 +177,12 @@ include "../fungsi/koneksi.php";
         <td style="width=380px;"><?= Terbilang($data['nominal']); ?> Rupiah </td>
     </tr>
     <tr>
-        <td><b>Manager Finance</b></td>
+        <td><b>Cost Control</b></td>
         <td style="text-align: ; width=5%;">:</td>
         <td>APPROVED (<?= formatTanggalWaktu($data['v_mgr_finance']); ?>)</td>
     </tr>
     <tr>
-        <td><b>Direktur</b></td>
+        <td><b>Manager</b></td>
         <td style="text-align: ; width=5%;">:</td>
         <?php if ($data['v_direktur'] == "") { ?>
             <td>-</td>
