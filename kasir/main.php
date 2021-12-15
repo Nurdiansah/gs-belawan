@@ -22,9 +22,9 @@
           Biaya Umum
         </a>
         <a href="index.php?p=biayaumum_tempo" class="list-group-item"> <i class="fa fa-clock-o"></i> Tempo <span class="badge label-info"><?php echo $dataBUT['jumlah'] >= 1 ? $dataBUT['jumlah'] : ''; ?></span></a>
-        <a href="index.php?p=payment_kaskeluar" class="list-group-item"> <i class="fa fa-money"></i> Payment <span class="badge label-warning"><?php echo $dataBUP >= 1 ? $dataBUP : ''; ?></span></a>
+        <a href="index.php?p=payment_kaskeluar" class="list-group-item"> <i class="fa fa-money"></i> Payment <span class="badge label-warning"><?= $dataBUP >= 1 ? $dataBUP : ''; ?></span></a>
+        <a href="index.php?p=proses_payment" class="list-group-item"><i class="fa fa-spinner"></i> Proses<span class="badge label-info"><?= $dataBPP['jumlah'] >= 1 ? $dataBPP['jumlah'] : ''; ?></span></a>
         <a href="index.php?p=lihat_bno" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi <span class="badge label-success"></span></a>
-        <a href="#" class="list-group-item"><i class="fa fa-minimize"></i> <span class="badge label-info"></span> </a>
       </div>
     </div>
     <div class="col-lg-4 col-xs-6">
@@ -38,10 +38,8 @@
         <a href="index.php?p=ditolak_bkk" class="list-group-item"><i class="fa fa-close"></i> Ditolak<span class="badge label-info"><?php if ($dataTolakBKK['jumlah'] >= 1) {
                                                                                                                                       echo $dataTolakBKK['jumlah'];
                                                                                                                                     } ?></span> </a>
-        <a href="index.php?p=outstanding_cek" class="list-group-item"><i class="fa fa-check-square-o"></i> Outstanding Cek <span class="badge label-warning"><?php if ($dataOutstanding['jumlah'] > 0) {
-                                                                                                                                                                echo $dataOutstanding['jumlah'];
-                                                                                                                                                              } ?></span> </a>
         <a href="index.php?p=transaksi_bkk" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi<span class="badge label-success"></span></a>
+        <a href="#" class="list-group-item"><i class="fa fa-minimize"></i> <span class="badge label-info"></span> </a>
       </div>
     </div>
     <div class="col-lg-4 col-xs-6">
@@ -105,9 +103,7 @@
         <a href="index.php?p=list_po" class="list-group-item"> <i class="fa fa-clock-o"></i> Tempo<span class="badge label-warning"><?php if ($dataTP['jumlah'] >= 1) {
                                                                                                                                       echo $dataTP['jumlah'];
                                                                                                                                     } ?></span> </a>
-        <a href="index.php?p=payment_po" class="list-group-item"> <i class="fa fa-money"></i> Payment<span class="badge label-warning"><?php if ($dataPP['jumlah'] >= 1) {
-                                                                                                                                          echo $dataPP['jumlah'];
-                                                                                                                                        } ?></span> </a>
+        <a href="index.php?p=payment_po" class="list-group-item"> <i class="fa fa-money"></i> Payment<span class="badge label-warning"><?php echo $dataPRP['jumlah'] >= 1 ? $dataPRP['jumlah'] : ''; ?></span></a>
         <a href="index.php?p=transaksi_po" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi<span class="badge label-success"></span></a>
       </div>
     </div>

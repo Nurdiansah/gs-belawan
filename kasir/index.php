@@ -48,6 +48,10 @@ $dataBUT = mysqli_fetch_assoc($queryBUT);
 $queryUmum = mysqli_query($koneksi,  "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk='9' AND jenis = 'umum'  ");
 $dataBUPU = mysqli_fetch_assoc($queryUmum);
 
+// biaya umum tempo
+$queryBPP = mysqli_query($koneksi,  "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk='17' AND jenis='kontrak'  ");
+$dataBPP = mysqli_fetch_assoc($queryBPP);
+
 $dataBUP = $dataBUPU['jumlah'];
 
 // biaya umum transaksi
@@ -133,6 +137,13 @@ $dataTP = mysqli_fetch_assoc($queryTP);
 // po payment
 $queryPP = mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah  FROM bkk_final WHERE status_bkk = '3' AND pengajuan ='PO'  ");
 $dataPP = mysqli_fetch_assoc($queryPP);
+
+// po proses payment
+$queryPRP = mysqli_query($koneksi, "SELECT COUNT(id_po) AS jumlah  FROM po WHERE status_po ='8'  ");
+$dataPRP = mysqli_fetch_assoc($queryPRP);
+
+// print_r($dataPRP);
+// die;
 
 // po outstanding
 $queryOP = mysqli_query($koneksi, "SELECT COUNT(id_po) AS jumlah  FROM po WHERE status_po= '11'  ");

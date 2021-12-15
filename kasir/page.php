@@ -125,4 +125,8 @@ if ($page == 'formpesan') {
     include_once "outstanding_cek.php";
 } else if ($page == "detail_bkk") {
     include_once "detail_bkk.php";
+} else if ($page == "proses_payment") {
+    include_once "proses_payment.php";
+} else if ($page == "proses_dpayment") {
+    include_once "proses_dpayment.php";
 }
