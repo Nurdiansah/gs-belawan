@@ -29,6 +29,7 @@ if (isset($_POST['simpan']) || isset($_POST['submit'])) {
     $biaya_lain = $_POST['biaya_lain'];
     $potongan = $_POST['potongan'];
     $pembulatan = $_POST['pembulatan'];
+    $free_approve = $_POST['free_approve'];
 
     $harga = penghilangTitik($_POST['harga_akhir']);
 
@@ -84,20 +85,30 @@ if (isset($_POST['simpan']) || isset($_POST['submit'])) {
         mysqli_begin_transaction($koneksi);
 
         // kemanager finance
-        $status_kasbon = "5";
+        // $status_kasbon = "5";
         $level = "gm";
         $linkUser   = "url=index.php?p=verifikasi_kasbon&sp=vk_user&lvl=manager_finance";
 
 
-        #kondisi jika verfikasi pajak sebelum pembayaran            
+        #verifikasi antara free approve dan approve
+    
+        if ($free_approve == '1') {
+            $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+                        nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
+                        id_pph = '$id_pph', biaya_lain = '$biaya_lain', potongan = '$potongan', 
+                        harga_akhir = '$harga', app_pajak = '$tanggal',app_mgr_finance = '$tanggal',app_direktur = '$tanggal',app_direktur2 = '$tanggal', status_kasbon = '7'                                       
+                        WHERE id_kasbon ='$id_kasbon' ";
 
-        $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
-                                        nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
-                                        id_pph = '$id_pph', biaya_lain = '$biaya_lain', potongan = '$potongan', 
-                                        harga_akhir = '$harga', app_pajak = '$tanggal', status_kasbon = '$status_kasbon'                                       
-                                        WHERE id_kasbon ='$id_kasbon' ";
+            $hasil = mysqli_query($koneksi, $query);
+        } else {
+            $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+                        nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
+                        id_pph = '$id_pph', biaya_lain = '$biaya_lain', potongan = '$potongan', 
+                        harga_akhir = '$harga', app_pajak = '$tanggal', status_kasbon = '5'                                       
+                        WHERE id_kasbon ='$id_kasbon' ";
 
-        $hasil = mysqli_query($koneksi, $query);
+            $hasil = mysqli_query($koneksi, $query);
+        }
 
         // query data buat diemail kasbon user
         $queryEmail = mysqli_query($koneksi, "SELECT * FROM kasbon ks
@@ -331,6 +342,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                             <input type="hidden" name="id_kasbon" value="<?= $data['id_kasbon'] ?>">
                             <input type="hidden" name="from_user" value="<?= $data['from_user'] ?>">
                             <input type="hidden" name="vrf_pajak" value="<?= $data['vrf_pajak'] ?>">
+                            <input type="hidden" name="free_approve" value="<?= $data['free_approve'] ?>">
                             <div class="box-body">
                                 <div class="form-group">
                                     <label id="tes" for="nilai_barang" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Nilai Barang</label>

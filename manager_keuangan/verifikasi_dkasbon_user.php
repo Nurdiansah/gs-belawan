@@ -181,9 +181,11 @@ $totalReapp = mysqli_num_rows($queryReapp);
                             <?php } ?>
                             <br>
                             <div class="form-group ">
-                                <button type="button" class="btn btn-danger col-sm-offset-10" data-toggle="modal" data-target="#tolak">Reject </button></span></a>
+                                <button type="button" class="btn btn-primary col-sm-offset-9" data-toggle="modal" data-target="#freeapprove">Free Approve </button></span></a>
                                 &nbsp;
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#approve"> Approve </button></span></a>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approve"> Approve </button></span></a>
+                                &nbsp;
+                                <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#tolak">Reject </button></span></a>
                             </div>
                         </div>
                     </form>
@@ -243,13 +245,46 @@ $totalReapp = mysqli_num_rows($queryReapp);
     <!-- </div> -->
 </section>
 
+<!--Modal freeapprove  -->
+<div id="freeapprove" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- konten modal-->
+        <div class="modal-content">
+            <!-- heading modal -->
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> Konfirmasi </h4>
+            </div>
+            <!-- body modal -->
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" action="setuju_kasbon_freeapprove.php" class="form-horizontal">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <h4 class="text-center">Apakah anda yakin ingin menyetujui kasbon ini?</h4>
+                        </div>
+                        <input type="hidden" name="free_approve" value="<?= $data['free_approve']; ?>">
+                        <input type="hidden" name="id" value="<?= $id; ?>">
+                        <small class="text-warning text-left">*Fitur free approve digunakan untuk pengajuan biaya tanpa melalui GM Finance dan Direksi</small>
+                        <div class=" modal-footer">
+                            <button class="btn btn-primary" type="submit" name="submit">Yes</button></span>
+                            &nbsp;
+                            <input type="reset" class="btn btn-danger" data-dismiss="modal" value="No">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Modal freeapprove  -->
+
 <!--  -->
 <div id="approve" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- konten modal-->
         <div class="modal-content">
             <!-- heading modal -->
-            <div class="modal-header">
+            <div class="modal-header bg-success">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title"> Konfirmasi </h4>
             </div>
@@ -281,7 +316,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
         <!-- konten modal-->
         <div class="modal-content">
             <!-- heading modal -->
-            <div class="modal-header">
+            <div class="modal-header bg-danger">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Alasan Penolakan </h4>
             </div>
