@@ -69,6 +69,8 @@ $tanggalCargo = date("Y-m-d");
                                 <label id="tes" for="nm_barang" class="col-sm-offset col-sm-2 control-label">Nama Barang</label>
                                 <input type="hidden" required class="form-control is-valid" name="id_kasbon" value="<?= $data['id_kasbon']; ?>">
                                 <input type="hidden" required class="form-control is-valid" name="id" value="<?= $data['id']; ?>">
+                                <input type="hidden" required name="from_user" value="<?= $data['from_user']; ?>">
+                                <input type="hidden" required name="vrf_pajak" value="<?= $data['vrf_pajak']; ?>">
                                 <div class="col-sm-3">
                                     <input type="text" readonly class="form-control is-valid" name="nm_barang" value="<?= $data['nm_barang']; ?>">
                                 </div>
@@ -232,6 +234,7 @@ $tanggalCargo = date("Y-m-d");
                                     <h3 class="text-center">Verifikasi Tax</h3>
                                 </div>
                                 <br>
+                                <input type="hidden" name="free_approve" value="<?= $data['free_approve']; ?>">
                                 <div class="form-group">
                                     <label id="tes" for="nilai_bkk" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Nilai Barang</label>
                                     <div class="col-sm-4">

@@ -7,6 +7,11 @@ if (isset($_POST['submit'])) {
     $id_kasbon = $_POST['id_kasbon'];
     $from_user = $_POST['from_user'];
     $vrf_pajak = $_POST['vrf_pajak'];
+    $free_approve = $_POST['free_approve'];    
+
+    // print_r('Test');
+    // die;
+
 
     // str_replace(".", "", $_POST['harga']);
 
@@ -146,12 +151,25 @@ if (isset($_POST['submit'])) {
         }
     } else {
         # Jika kasbon dari purchasing
-        $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
-                                            nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
-                                            id_pph = '$id_pph', harga_akhir = '$harga', status_kasbon = '5', app_pajak = '$tanggal'                                              
-                                            WHERE id_kasbon ='$id_kasbon' ";
 
-        $hasil = mysqli_query($koneksi, $query);
+        if ($free_approve == '1') {
+            # code...
+            $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+                                    nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
+                                    id_pph = '$id_pph', harga_akhir = '$harga', status_kasbon = '7', app_pajak = '$tanggal' , app_mgr_finance = '$tanggal' , app_direktur = '$tanggal' , app_direktur2 = '$tanggal'                                                                                     
+                                    WHERE id_kasbon ='$id_kasbon' ";
+
+            $hasil = mysqli_query($koneksi, $query);
+        } else {
+            # code...
+            $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+                                                nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
+                                                id_pph = '$id_pph', harga_akhir = '$harga', status_kasbon = '5', app_pajak = '$tanggal'
+                                                WHERE id_kasbon ='$id_kasbon' ";
+    
+            $hasil = mysqli_query($koneksi, $query);
+        }
+        
 
 
         // query data buat diemail dikasbon purchasing
@@ -175,7 +193,7 @@ if (isset($_POST['submit'])) {
             $linkPurchasing = "url=index.php?p=verifikasi_kasbon&sp=vk_purchasing&lvl=manager_keuangan";
             $name = $dataUser['nama'];
             $email = $dataUser['email'];
-            $subject = "Approval Kasbon " . $kode_otomatis;
+            $subject = "Approval Kasbon " . $id_kasbon;
             $body = addslashes("<font style='font-family: Courier;'>
                                 Dear Bapak/Ibu <b>$name</b>,<br><br>
                                 Diberitahukan bahwa divisi <b>" . $dataEmail['nm_divisi'] . "</b> telah membuat pengajuan Kasbon, dengan rincian sbb:<br>

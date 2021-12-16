@@ -60,9 +60,7 @@
         <a href="index.php?p=approval_mr" class="list-group-item"> <i class="fa fa-check-square-o"></i> Approval <span class="badge label-danger"><?php if ($dataAM['jumlah'] > 0) {
                                                                                                                                                     echo $dataAM['jumlah'];
                                                                                                                                                   } ?></span></a>
-        <a href="index.php?p=proses_mr" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"><?php if ($dataPMR['jumlah'] > 0) {
-                                                                                                                                        echo $dataPMR['jumlah'];
-                                                                                                                                      } ?></span> </a>
+        <a href="index.php?p=proses_mr" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"></span> </a>
         <a href="" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
         <a href="" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
       </div>

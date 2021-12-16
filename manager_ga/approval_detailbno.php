@@ -158,11 +158,46 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                             <br>
                             <div class="col-sm-offset-10 col-sm-5 control-label">
                                 <h4> Verifikasi </h4>
-                                <a href="setuju_bno.php?id=<?= $row2['id_bkk']; ?>"><span data-placement='top' data-toggle='tooltip' title='Kirim'><button class="btn btn-success">Approve</button></span></a>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approve">Approve </button></span></a>
                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#tolakuser">Reject </button></span></a>
                             </div>
                             <!-- </div> -->
                         </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="approve" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- konten modal-->
+            <div class="modal-content">
+                <!-- heading modal -->
+                <div class="modal-header bg-success">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Konfirmasi </h4>
+                </div>
+                <!-- body modal -->
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data" action="setuju_bno.php" class="form-horizontal">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <input type="hidden" value="<?= $row2['id_bkk']; ?>" class="form-control" name="id_bkk" readonly>
+                                    <input type="hidden" value="<?= $row2['free_approve']; ?>" class="form-control" name="free_approve" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            <label for="" class="control-label col-sm-offset-3">Apakah anda yakin ingin menyetujui pengajuan ini ? </label>
+                            </div>
+                            
+                            <div class=" modal-footer">
+                                <button class="btn btn-success" type="submit" name="approve">Ya, saya yakin</button></span></a>
+                                &nbsp;
+                                <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal">
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

@@ -31,6 +31,12 @@ $query = mysqli_query($koneksi, "SELECT *
 ?>
 <!-- Main content -->
 <section class="content">
+
+    <?php
+    if (isset($_COOKIE['pesan'])) {
+        echo "<div class='alert " . $_COOKIE['warna'] . "' role='alert'><b>" . $_COOKIE['pesan'] . "</b></div>";
+    }
+    ?>
     <!-- Small boxes (Stat box) -->
     <div class="row">
         <div class="col-sm-12">

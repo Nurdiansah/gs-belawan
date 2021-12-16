@@ -4,8 +4,8 @@ session_start();
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
-if (isset($_GET['id'])) {
-	$id = $_GET['id'];
+if (isset($_POST['approve'])) {
+	$id = $_POST['id_bkk'];
 	$tanggal = date('Y-m-d');
 
 	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]' ");
