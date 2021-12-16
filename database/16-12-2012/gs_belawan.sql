@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5deb2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Dec 15, 2021 at 10:41 PM
--- Server version: 8.0.27-0ubuntu0.20.04.1
+-- Host: 127.0.0.1
+-- Generation Time: Dec 16, 2021 at 09:27 AM
+-- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -29,57 +28,57 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `anggaran` (
-  `id_anggaran` int NOT NULL,
-  `tahun` int NOT NULL,
-  `id_divisi` int NOT NULL,
+  `id_anggaran` int(11) NOT NULL,
+  `tahun` int(11) NOT NULL,
+  `id_divisi` int(11) NOT NULL,
   `no_coa` varchar(15) NOT NULL,
   `kd_anggaran` varchar(30) NOT NULL,
   `jenis_anggaran` varchar(10) NOT NULL,
-  `id_golongan` int NOT NULL,
-  `id_subgolongan` int NOT NULL,
+  `id_golongan` int(11) NOT NULL,
+  `id_subgolongan` int(11) NOT NULL,
   `nm_item` varchar(200) NOT NULL,
   `id_satuan` varchar(5) DEFAULT NULL,
-  `harga` bigint NOT NULL,
-  `januari_kuantitas` int DEFAULT '0',
-  `januari_nominal` bigint NOT NULL DEFAULT '0',
-  `januari_realisasi` bigint NOT NULL DEFAULT '0',
-  `februari_kuantitas` int DEFAULT '0',
-  `februari_nominal` bigint NOT NULL DEFAULT '0',
-  `februari_realisasi` bigint NOT NULL DEFAULT '0',
-  `maret_kuantitas` int DEFAULT '0',
-  `maret_nominal` bigint NOT NULL DEFAULT '0',
-  `maret_realisasi` bigint NOT NULL DEFAULT '0',
-  `april_kuantitas` int DEFAULT '0',
-  `april_nominal` bigint NOT NULL DEFAULT '0',
-  `april_realisasi` bigint NOT NULL DEFAULT '0',
-  `mei_kuantitas` int DEFAULT '0',
-  `mei_nominal` bigint NOT NULL DEFAULT '0',
-  `mei_realisasi` bigint NOT NULL DEFAULT '0',
-  `juni_kuantitas` int DEFAULT '0',
-  `juni_nominal` bigint NOT NULL DEFAULT '0',
-  `juni_realisasi` bigint NOT NULL DEFAULT '0',
-  `juli_kuantitas` int DEFAULT '0',
-  `juli_nominal` bigint NOT NULL DEFAULT '0',
-  `juli_realisasi` bigint NOT NULL DEFAULT '0',
-  `agustus_kuantitas` int DEFAULT '0',
-  `agustus_nominal` bigint NOT NULL DEFAULT '0',
-  `agustus_realisasi` bigint NOT NULL DEFAULT '0',
-  `september_kuantitas` int DEFAULT '0',
-  `september_nominal` bigint NOT NULL DEFAULT '0',
-  `september_realisasi` bigint NOT NULL DEFAULT '0',
-  `oktober_kuantitas` int DEFAULT '0',
-  `oktober_nominal` bigint NOT NULL DEFAULT '0',
-  `oktober_realisasi` bigint NOT NULL DEFAULT '0',
-  `november_kuantitas` int DEFAULT '0',
-  `november_nominal` bigint NOT NULL DEFAULT '0',
-  `november_realisasi` bigint NOT NULL DEFAULT '0',
-  `desember_kuantitas` int DEFAULT '0',
-  `desember_nominal` bigint NOT NULL DEFAULT '0',
-  `desember_realisasi` bigint NOT NULL DEFAULT '0',
-  `jumlah_kuantitas` int NOT NULL DEFAULT '0',
-  `jumlah_nominal` bigint NOT NULL DEFAULT '0',
-  `jumlah_realisasi` bigint NOT NULL DEFAULT '0',
-  `realisasi_kuantitas` int NOT NULL DEFAULT '0',
+  `harga` bigint(20) NOT NULL,
+  `januari_kuantitas` int(11) DEFAULT 0,
+  `januari_nominal` bigint(20) NOT NULL DEFAULT 0,
+  `januari_realisasi` bigint(20) NOT NULL DEFAULT 0,
+  `februari_kuantitas` int(11) DEFAULT 0,
+  `februari_nominal` bigint(20) NOT NULL DEFAULT 0,
+  `februari_realisasi` bigint(20) NOT NULL DEFAULT 0,
+  `maret_kuantitas` int(11) DEFAULT 0,
+  `maret_nominal` bigint(20) NOT NULL DEFAULT 0,
+  `maret_realisasi` bigint(20) NOT NULL DEFAULT 0,
+  `april_kuantitas` int(11) DEFAULT 0,
+  `april_nominal` bigint(20) NOT NULL DEFAULT 0,
+  `april_realisasi` bigint(20) NOT NULL DEFAULT 0,
+  `mei_kuantitas` int(11) DEFAULT 0,
+  `mei_nominal` bigint(20) NOT NULL DEFAULT 0,
+  `mei_realisasi` bigint(20) NOT NULL DEFAULT 0,
+  `juni_kuantitas` int(11) DEFAULT 0,
+  `juni_nominal` bigint(20) NOT NULL DEFAULT 0,
+  `juni_realisasi` bigint(20) NOT NULL DEFAULT 0,
+  `juli_kuantitas` int(11) DEFAULT 0,
+  `juli_nominal` bigint(20) NOT NULL DEFAULT 0,
+  `juli_realisasi` bigint(20) NOT NULL DEFAULT 0,
+  `agustus_kuantitas` int(11) DEFAULT 0,
+  `agustus_nominal` bigint(20) NOT NULL DEFAULT 0,
+  `agustus_realisasi` bigint(20) NOT NULL DEFAULT 0,
+  `september_kuantitas` int(11) DEFAULT 0,
+  `september_nominal` bigint(20) NOT NULL DEFAULT 0,
+  `september_realisasi` bigint(20) NOT NULL DEFAULT 0,
+  `oktober_kuantitas` int(11) DEFAULT 0,
+  `oktober_nominal` bigint(20) NOT NULL DEFAULT 0,
+  `oktober_realisasi` bigint(20) NOT NULL DEFAULT 0,
+  `november_kuantitas` int(11) DEFAULT 0,
+  `november_nominal` bigint(20) NOT NULL DEFAULT 0,
+  `november_realisasi` bigint(20) NOT NULL DEFAULT 0,
+  `desember_kuantitas` int(11) DEFAULT 0,
+  `desember_nominal` bigint(20) NOT NULL DEFAULT 0,
+  `desember_realisasi` bigint(20) NOT NULL DEFAULT 0,
+  `jumlah_kuantitas` int(11) NOT NULL DEFAULT 0,
+  `jumlah_nominal` bigint(20) NOT NULL DEFAULT 0,
+  `jumlah_realisasi` bigint(20) NOT NULL DEFAULT 0,
+  `realisasi_kuantitas` int(11) NOT NULL DEFAULT 0,
   `created_by` varchar(50) NOT NULL,
   `created_on` datetime NOT NULL,
   `last_modified_by` varchar(50) DEFAULT NULL,
@@ -416,7 +415,7 @@ INSERT INTO `anggaran` (`id_anggaran`, `tahun`, `id_divisi`, `no_coa`, `kd_angga
 --
 
 CREATE TABLE `bank` (
-  `id_bank` int NOT NULL,
+  `id_bank` int(11) NOT NULL,
   `nm_bank` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -444,11 +443,11 @@ CREATE TABLE `biaya_ops` (
   `id_jenispengajuan` varchar(15) DEFAULT NULL,
   `id_divisi` varchar(15) NOT NULL,
   `tgl_pengajuan` date DEFAULT NULL,
-  `total` bigint NOT NULL DEFAULT '0',
+  `total` bigint(20) NOT NULL DEFAULT 0,
   `id_manager` varchar(15) DEFAULT NULL,
   `komentar` varchar(200) DEFAULT NULL,
   `penerima_dana` varchar(50) DEFAULT NULL,
-  `nominal_pengembalian` int NOT NULL DEFAULT '0',
+  `nominal_pengembalian` int(11) NOT NULL DEFAULT 0,
   `created_by` varchar(50) DEFAULT NULL,
   `created_on` datetime DEFAULT NULL,
   `last_modified_by` varchar(50) DEFAULT NULL,
@@ -488,7 +487,7 @@ INSERT INTO `biaya_ops` (`kd_transaksi`, `id_jenispengajuan`, `id_divisi`, `tgl_
 --
 
 CREATE TABLE `bkk` (
-  `id_bkk` int NOT NULL,
+  `id_bkk` int(11) NOT NULL,
   `kd_transaksi` varchar(15) DEFAULT NULL,
   `nm_vendor` varchar(50) DEFAULT NULL,
   `tgl_pengajuan` date DEFAULT NULL,
@@ -509,18 +508,18 @@ CREATE TABLE `bkk` (
   `metode_pembayaran` varchar(15) NOT NULL DEFAULT 'tunai',
   `tgl_tempo` date DEFAULT NULL,
   `tgl_payment` date DEFAULT NULL,
-  `nilai_barang` int NOT NULL DEFAULT '0',
-  `nilai_jasa` int NOT NULL DEFAULT '0',
-  `ppn_persen` int NOT NULL DEFAULT '0',
-  `ppn_nilai` int NOT NULL DEFAULT '0',
-  `biaya_lain` int NOT NULL DEFAULT '0',
+  `nilai_barang` int(11) NOT NULL DEFAULT 0,
+  `nilai_jasa` int(11) NOT NULL DEFAULT 0,
+  `ppn_persen` int(11) NOT NULL DEFAULT 0,
+  `ppn_nilai` int(11) NOT NULL DEFAULT 0,
+  `biaya_lain` int(11) NOT NULL DEFAULT 0,
   `id_pph` varchar(15) DEFAULT NULL,
-  `pph_persen` int NOT NULL DEFAULT '0',
-  `pph_nilai` int NOT NULL DEFAULT '0',
-  `nilai_bkk` int DEFAULT NULL,
-  `ppn_bkk` int NOT NULL DEFAULT '0',
-  `bll_bkk` int DEFAULT NULL,
-  `potongan` int NOT NULL DEFAULT '0',
+  `pph_persen` int(11) NOT NULL DEFAULT 0,
+  `pph_nilai` int(11) NOT NULL DEFAULT 0,
+  `nilai_bkk` int(11) DEFAULT NULL,
+  `ppn_bkk` int(11) NOT NULL DEFAULT 0,
+  `bll_bkk` int(11) DEFAULT NULL,
+  `potongan` int(11) NOT NULL DEFAULT 0,
   `jml_bkk` decimal(10,0) DEFAULT NULL,
   `bank_tujuan` varchar(20) DEFAULT NULL,
   `norek_tujuan` varchar(20) DEFAULT NULL,
@@ -535,9 +534,10 @@ CREATE TABLE `bkk` (
   `dari_bank` varchar(15) DEFAULT NULL,
   `dari_rekening` varchar(15) DEFAULT NULL,
   `doc_lpj` varchar(100) NOT NULL DEFAULT '0',
-  `komentar` text,
-  `komentar_mgrfin` text,
-  `komentar_direktur` text,
+  `komentar` text DEFAULT NULL,
+  `komentar_mgrfin` text DEFAULT NULL,
+  `komentar_direktur` text DEFAULT NULL,
+  `free_approve` varchar(2) NOT NULL DEFAULT '0',
   `status_bkk` varchar(10) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -545,15 +545,15 @@ CREATE TABLE `bkk` (
 -- Dumping data for table `bkk`
 --
 
-INSERT INTO `bkk` (`id_bkk`, `kd_transaksi`, `nm_vendor`, `tgl_pengajuan`, `tgl_pengajuankasir`, `tgl_verifikasimanager`, `app_pajak`, `app_cc`, `app_managerga`, `tgl_verifikasimanagerkeuangan`, `tgl_verifikasidireksi`, `tgl_verifikasidireksi2`, `tgl_bkk`, `terbilang_bkk`, `nocek_bkk`, `id_anggaran`, `keterangan`, `jenis`, `metode_pembayaran`, `tgl_tempo`, `tgl_payment`, `nilai_barang`, `nilai_jasa`, `ppn_persen`, `ppn_nilai`, `biaya_lain`, `id_pph`, `pph_persen`, `pph_nilai`, `nilai_bkk`, `ppn_bkk`, `bll_bkk`, `potongan`, `jml_bkk`, `bank_tujuan`, `norek_tujuan`, `penerima_tujuan`, `invoice`, `id_divisi`, `id_pemohon`, `id_manager`, `id_gm`, `id_direktur`, `id_direktur2`, `dari_bank`, `dari_rekening`, `doc_lpj`, `komentar`, `komentar_mgrfin`, `komentar_direktur`, `status_bkk`) VALUES
-(2, 'A00001', 'PT PKBMsasasa', '2021-11-29', NULL, '2021-11-29', NULL, '2021-11-29 00:00:00', '2021-11-29 10:39:00', '2021-11-30', '2021-11-30', '2021-11-30', '2021-12-15', 'Satu Juta Dua Ratus  Ribu ', '', '247', ' test pembayaran TKBM ', 'umum', 'tunai', NULL, NULL, 0, 1200000, 0, 0, 0, '', 0, 0, NULL, 0, NULL, 0, '1200000', '', '', '', 'A00001-inv-biaya-non-ops.pdf', '10', '1', '21', NULL, '68', '68', '', '', 'A00001-bukti-pembayaran-biaya-umum.', NULL, '@Manager Finance : tolak lagi lahh bosss', NULL, '10'),
-(3, 'A00002', 'lembur tkbm', '2021-11-30', NULL, '2021-11-30', NULL, '2021-11-30 15:19:51', '2021-11-30 15:20:18', '2021-11-30', '2021-11-30', '2021-11-30', '2021-12-02', 'Lima Ratus Dua Puluh Lima Ribu ', '', '240', ' insentif kerja tambahan tkbm ', 'umum', 'tunai', NULL, NULL, 525000, 0, 0, 0, 0, '', 0, 0, NULL, 0, NULL, 0, '525000', '', '', '', 'A00002-inv-biaya-non-ops.pdf', '10', '1', '21', NULL, '66', '68', '', '', 'A00002-bukti-pembayaran-biaya-umum.pdf', NULL, NULL, NULL, '10'),
-(4, 'A00003', 'PT.GRAHA MANDIRI BARATA', '2021-11-30', NULL, '2021-11-30', NULL, NULL, NULL, NULL, NULL, NULL, '2021-11-30', ' Seratus Delapan Puluh Sembilan Juta  Seratus Empat Puluh Empat Ribu Dua Ratus Sembilan Puluh Enam', NULL, '271', 'tagihan gaji tenaga security bulan oktober', 'kontrak', 'transfer', '2021-12-30', '2022-01-06', 171949360, 0, 10, 17194936, 0, NULL, 0, 0, NULL, 0, NULL, 0, '189144296', '', '', '', 'A00003-inv-biaya-non-ops.pdf', '12', '8', '21', NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '4'),
-(5, 'A00004', 'Internet Nusanet', '2021-12-01', NULL, '2021-12-01', NULL, '2021-12-01 15:17:32', '2021-12-01 15:17:52', '2021-12-01', '2021-12-01', '2021-12-01', '2021-12-01', 'Tiga Juta Dua Ratus Delapan Puluh Sembilan Ribu ', '-', '211', ' Pembayaran Billing Nusanet November 2021 ', 'kontrak', 'transfer', '2021-12-31', '2022-01-06', 2990000, 0, 10, 299000, 0, '', 0, 0, NULL, 0, NULL, 0, '3289000', '', '', '', 'A00004-inv-biaya-non-ops.pdf', '8', '9', '17', NULL, '66', '68', '2', '019191', '', NULL, NULL, NULL, '10'),
-(6, 'A00005', 'PT. THE SERVICE LINE', '2021-12-01', NULL, '2021-12-01', NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-01', 'Dua Puluh Sembilan Juta Delapan Puluh Sembilan Ribu Delapan Ratus Tiga Puluh ', NULL, '85', 'Pembayaran cleaning service', 'kontrak', 'transfer', '2021-12-31', '2022-01-06', 26180847, 0, 10, 2618084, 0, NULL, 0, 0, NULL, 0, NULL, 0, '29089830', 'PT. BANK SINARMAS', '0004509595', 'PT. THE SERVICE LINE', 'A00005-inv-biaya-non-ops.pdf', '4', '11', '17', NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '4'),
-(7, 'A00006', 'pln', '2021-12-02', NULL, '2021-12-03', NULL, '2021-12-03 01:17:38', '2021-12-03 01:18:40', '2021-12-03', '2021-12-03', '2021-12-03', '2021-12-15', 'Dua Juta ', '', '220', '  listrik mess manager desember 2021  Belawan ', 'kontrak', 'tunai', '2021-12-20', '2021-12-20', 2000000, 0, 0, 0, 0, '', 0, 0, NULL, 0, NULL, 0, '2000000', '', '', '', 'A00006-inv-biaya-non-ops.pdf', '9', '13', '18', NULL, '66', '68', '', '', '', NULL, NULL, NULL, '10'),
-(8, 'A00007', 'PT. Indo Arsip', '2021-12-02', NULL, '2021-12-02', NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-02', 'Satu Juta Lima Ratus Dua Puluh Lima Ribu Delapan Ratus Sembilan Puluh Delapan', NULL, '78', 'Penyimpanan Dokumen', 'kontrak', 'tunai', '2022-01-01', '2022-01-06', 0, 1439526, 10, 143952, 0, '2', 2, 28790, NULL, 0, NULL, 28790, '1525898', '', '', '', 'A00007-inv-biaya-non-ops.pdf', '3', '15', '18', NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '4'),
-(9, 'A00008', 'pelindo', '2021-12-02', NULL, '2021-12-02', NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-02', ' Seratus Sepuluh Juta ', NULL, '3', 'pembayaran sewa lahan pelindo 2023', 'kontrak', 'transfer', '2022-01-01', '2022-01-06', 100000000, 0, 10, 10000000, 0, '', 0, 0, NULL, 0, NULL, 0, '110000000', 'mandiri', 'xxx', 'pelindo', 'A00008-inv-biaya-non-ops.pdf', '1', '14', '18', NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '4');
+INSERT INTO `bkk` (`id_bkk`, `kd_transaksi`, `nm_vendor`, `tgl_pengajuan`, `tgl_pengajuankasir`, `tgl_verifikasimanager`, `app_pajak`, `app_cc`, `app_managerga`, `tgl_verifikasimanagerkeuangan`, `tgl_verifikasidireksi`, `tgl_verifikasidireksi2`, `tgl_bkk`, `terbilang_bkk`, `nocek_bkk`, `id_anggaran`, `keterangan`, `jenis`, `metode_pembayaran`, `tgl_tempo`, `tgl_payment`, `nilai_barang`, `nilai_jasa`, `ppn_persen`, `ppn_nilai`, `biaya_lain`, `id_pph`, `pph_persen`, `pph_nilai`, `nilai_bkk`, `ppn_bkk`, `bll_bkk`, `potongan`, `jml_bkk`, `bank_tujuan`, `norek_tujuan`, `penerima_tujuan`, `invoice`, `id_divisi`, `id_pemohon`, `id_manager`, `id_gm`, `id_direktur`, `id_direktur2`, `dari_bank`, `dari_rekening`, `doc_lpj`, `komentar`, `komentar_mgrfin`, `komentar_direktur`, `free_approve`, `status_bkk`) VALUES
+(2, 'A00001', 'PT PKBMsasasa', '2021-11-29', NULL, '2021-11-29', NULL, '2021-11-29 00:00:00', '2021-11-29 10:39:00', '2021-11-30', '2021-11-30', '2021-11-30', '2021-12-15', 'Satu Juta Dua Ratus  Ribu ', '', '247', ' test pembayaran TKBM ', 'umum', 'tunai', NULL, NULL, 0, 1200000, 0, 0, 0, '', 0, 0, NULL, 0, NULL, 0, '1200000', '', '', '', 'A00001-inv-biaya-non-ops.pdf', '10', '1', '21', NULL, '68', '68', '', '', 'A00001-bukti-pembayaran-biaya-umum.', NULL, '@Manager Finance : tolak lagi lahh bosss', NULL, '0', '10'),
+(3, 'A00002', 'lembur tkbm', '2021-11-30', NULL, '2021-11-30', NULL, '2021-12-16 10:47:18', '2021-12-16 10:50:23', '2021-12-16', '2021-12-16', '2021-12-16', '2021-12-02', 'Lima Ratus Dua Puluh Lima Ribu ', '', '240', ' insentif kerja tambahan tkbm ', 'umum', 'tunai', NULL, NULL, 525000, 0, 0, 0, 0, '', 0, 0, NULL, 0, NULL, 0, '525000', '', '', '', 'A00002-inv-biaya-non-ops.pdf', '10', '1', '21', NULL, '66', '68', '', '', 'A00002-bukti-pembayaran-biaya-umum.pdf', NULL, NULL, NULL, '1', '9'),
+(4, 'A00003', 'PT.GRAHA MANDIRI BARATA', '2021-11-30', NULL, '2021-11-30', NULL, '2021-12-16 10:04:47', '2021-12-16 10:30:18', '2021-12-16', '2021-12-16', '2021-12-16', '2021-11-30', ' Seratus Delapan Puluh Sembilan Juta  Seratus Empat Puluh Empat Ribu Dua Ratus Sembilan Puluh Enam', NULL, '271', 'tagihan gaji tenaga security bulan oktober', 'kontrak', 'transfer', '2021-12-30', '2022-01-06', 171949360, 0, 10, 17194936, 0, NULL, 0, 0, NULL, 0, NULL, 0, '189144296', '', '', '', 'A00003-inv-biaya-non-ops.pdf', '12', '8', '21', NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '1', '9'),
+(5, 'A00004', 'Internet Nusanet', '2021-12-01', NULL, '2021-12-01', NULL, '2021-12-01 15:17:32', '2021-12-01 15:17:52', '2021-12-01', '2021-12-01', '2021-12-01', '2021-12-01', 'Tiga Juta Dua Ratus Delapan Puluh Sembilan Ribu ', '-', '211', ' Pembayaran Billing Nusanet November 2021 ', 'kontrak', 'transfer', '2021-12-31', '2022-01-06', 2990000, 0, 10, 299000, 0, '', 0, 0, NULL, 0, NULL, 0, '3289000', '', '', '', 'A00004-inv-biaya-non-ops.pdf', '8', '9', '17', NULL, '66', '68', '2', '019191', '', NULL, NULL, NULL, '0', '10'),
+(6, 'A00005', 'PT. THE SERVICE LINE', '2021-12-01', NULL, '2021-12-01', NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-01', 'Dua Puluh Sembilan Juta Delapan Puluh Sembilan Ribu Delapan Ratus Tiga Puluh ', NULL, '85', 'Pembayaran cleaning service', 'kontrak', 'transfer', '2021-12-31', '2022-01-06', 26180847, 0, 10, 2618084, 0, NULL, 0, 0, NULL, 0, NULL, 0, '29089830', 'PT. BANK SINARMAS', '0004509595', 'PT. THE SERVICE LINE', 'A00005-inv-biaya-non-ops.pdf', '4', '11', '17', NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '0', '4'),
+(7, 'A00006', 'pln', '2021-12-02', NULL, '2021-12-03', NULL, '2021-12-03 01:17:38', '2021-12-03 01:18:40', '2021-12-03', '2021-12-03', '2021-12-03', '2021-12-15', 'Dua Juta ', '', '220', '  listrik mess manager desember 2021  Belawan ', 'kontrak', 'tunai', '2021-12-20', '2021-12-20', 2000000, 0, 0, 0, 0, '', 0, 0, NULL, 0, NULL, 0, '2000000', '', '', '', 'A00006-inv-biaya-non-ops.pdf', '9', '13', '18', NULL, '66', '68', '', '', '', NULL, NULL, NULL, '0', '10'),
+(8, 'A00007', 'PT. Indo Arsip', '2021-12-02', NULL, '2021-12-02', NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-02', 'Satu Juta Lima Ratus Dua Puluh Lima Ribu Delapan Ratus Sembilan Puluh Delapan', NULL, '78', 'Penyimpanan Dokumen', 'kontrak', 'tunai', '2022-01-01', '2022-01-06', 0, 1439526, 10, 143952, 0, '2', 2, 28790, NULL, 0, NULL, 28790, '1525898', '', '', '', 'A00007-inv-biaya-non-ops.pdf', '3', '15', '18', NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '0', '4'),
+(9, 'A00008', 'pelindo', '2021-12-02', NULL, '2021-12-02', NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-02', ' Seratus Sepuluh Juta ', NULL, '3', 'pembayaran sewa lahan pelindo 2023', 'kontrak', 'transfer', '2022-01-01', '2022-01-06', 100000000, 0, 10, 10000000, 0, '', 0, 0, NULL, 0, NULL, 0, '110000000', 'mandiri', 'xxx', 'pelindo', 'A00008-inv-biaya-non-ops.pdf', '1', '14', '18', NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '0', '4');
 
 -- --------------------------------------------------------
 
@@ -562,27 +562,27 @@ INSERT INTO `bkk` (`id_bkk`, `kd_transaksi`, `nm_vendor`, `tgl_pengajuan`, `tgl_
 --
 
 CREATE TABLE `bkk_final` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `id_jenispengajuan` varchar(15) DEFAULT NULL,
   `pengajuan` varchar(15) DEFAULT NULL,
   `id_kdtransaksi` varchar(15) DEFAULT NULL,
-  `id_tagihan` int DEFAULT NULL,
+  `id_tagihan` int(11) DEFAULT NULL,
   `nomor` varchar(15) DEFAULT NULL,
   `tgl_bkk` date DEFAULT NULL,
   `no_bkk` varchar(50) DEFAULT NULL,
   `no_cekbkk` varchar(20) DEFAULT NULL,
   `id_supplier` varchar(15) DEFAULT NULL,
   `id_anggaran` varchar(15) DEFAULT NULL,
-  `nilai_barang` int NOT NULL DEFAULT '0',
-  `nilai_jasa` int NOT NULL DEFAULT '0',
-  `nilai_ppn` int NOT NULL DEFAULT '0',
+  `nilai_barang` int(11) NOT NULL DEFAULT 0,
+  `nilai_jasa` int(11) NOT NULL DEFAULT 0,
+  `nilai_ppn` int(11) NOT NULL DEFAULT 0,
   `id_pph` varchar(15) DEFAULT NULL,
-  `nilai_pph` int NOT NULL DEFAULT '0',
-  `pengembalian` int NOT NULL DEFAULT '0',
-  `nominal` bigint NOT NULL DEFAULT '0',
+  `nilai_pph` int(11) NOT NULL DEFAULT 0,
+  `pengembalian` int(11) NOT NULL DEFAULT 0,
+  `nominal` bigint(20) NOT NULL DEFAULT 0,
   `dari_bank` varchar(15) DEFAULT NULL,
   `dari_rekening` varchar(20) DEFAULT NULL,
-  `keterangan` text,
+  `keterangan` text DEFAULT NULL,
   `remarks` varchar(250) DEFAULT NULL,
   `bukti_pembayaran` varchar(255) DEFAULT NULL,
   `created_on_bkk` datetime DEFAULT NULL,
@@ -616,27 +616,27 @@ INSERT INTO `bkk_final` (`id`, `id_jenispengajuan`, `pengajuan`, `id_kdtransaksi
 --
 
 CREATE TABLE `bkk_ke_pusat` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `id_jenispengajuan` varchar(15) DEFAULT NULL,
   `pengajuan` varchar(15) DEFAULT NULL,
   `id_kdtransaksi` varchar(15) DEFAULT NULL,
-  `id_tagihan` int DEFAULT NULL,
+  `id_tagihan` int(11) DEFAULT NULL,
   `nomor` varchar(15) DEFAULT NULL,
   `tgl_bkk` date DEFAULT NULL,
   `no_bkk` varchar(50) DEFAULT NULL,
   `no_cekbkk` varchar(20) DEFAULT NULL,
   `id_supplier` varchar(15) DEFAULT NULL,
   `id_anggaran` varchar(15) DEFAULT NULL,
-  `nilai_barang` int NOT NULL DEFAULT '0',
-  `nilai_jasa` int NOT NULL DEFAULT '0',
-  `nilai_ppn` int NOT NULL DEFAULT '0',
+  `nilai_barang` int(11) NOT NULL DEFAULT 0,
+  `nilai_jasa` int(11) NOT NULL DEFAULT 0,
+  `nilai_ppn` int(11) NOT NULL DEFAULT 0,
   `id_pph` varchar(15) DEFAULT NULL,
-  `nilai_pph` int NOT NULL DEFAULT '0',
-  `pengembalian` int NOT NULL DEFAULT '0',
-  `nominal` bigint NOT NULL DEFAULT '0',
+  `nilai_pph` int(11) NOT NULL DEFAULT 0,
+  `pengembalian` int(11) NOT NULL DEFAULT 0,
+  `nominal` bigint(20) NOT NULL DEFAULT 0,
   `dari_bank` varchar(15) DEFAULT NULL,
   `dari_rekening` varchar(20) DEFAULT NULL,
-  `keterangan` text,
+  `keterangan` text DEFAULT NULL,
   `remarks` varchar(250) DEFAULT NULL,
   `bukti_pembayaran` varchar(255) DEFAULT NULL,
   `created_on_bkk` datetime DEFAULT NULL,
@@ -663,7 +663,7 @@ INSERT INTO `bkk_ke_pusat` (`id`, `id_jenispengajuan`, `pengajuan`, `id_kdtransa
 --
 
 CREATE TABLE `coa` (
-  `id_coa` int NOT NULL,
+  `id_coa` int(11) NOT NULL,
   `no_coa` char(20) DEFAULT NULL,
   `nama_coa` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -675,7 +675,7 @@ CREATE TABLE `coa` (
 --
 
 CREATE TABLE `detail_biayaops` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `kd_transaksi` varchar(15) DEFAULT NULL,
   `id_divisi` varchar(15) DEFAULT NULL,
   `nm_barang` varchar(50) DEFAULT NULL,
@@ -684,12 +684,12 @@ CREATE TABLE `detail_biayaops` (
   `type` varchar(20) DEFAULT NULL,
   `spesifikasi` varchar(100) DEFAULT NULL,
   `satuan` varchar(15) DEFAULT NULL,
-  `jumlah` int DEFAULT NULL,
+  `jumlah` int(11) DEFAULT NULL,
   `id_supplier` varchar(15) NOT NULL DEFAULT '0',
   `keterangan` varchar(250) DEFAULT NULL,
   `foto_item` varchar(100) DEFAULT '0',
   `doc_penawaran` varchar(100) DEFAULT NULL,
-  `harga_estimasi` decimal(12,2) NOT NULL DEFAULT '0.00',
+  `harga_estimasi` decimal(12,2) NOT NULL DEFAULT 0.00,
   `alasan_penolakan` varchar(200) DEFAULT NULL,
   `is_for` varchar(15) NOT NULL DEFAULT 'mr',
   `status` varchar(3) NOT NULL DEFAULT '0'
@@ -736,17 +736,17 @@ INSERT INTO `detail_biayaops` (`id`, `kd_transaksi`, `id_divisi`, `nm_barang`, `
 --
 
 CREATE TABLE `detail_sr` (
-  `id_dsr` bigint NOT NULL,
-  `sr_id` bigint DEFAULT NULL,
+  `id_dsr` bigint(20) NOT NULL,
+  `sr_id` bigint(20) DEFAULT NULL,
   `deskripsi` varchar(255) DEFAULT NULL,
   `merk` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   `spesifikasi` varchar(255) DEFAULT NULL,
-  `qty` int DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
   `satuan` varchar(255) DEFAULT NULL,
-  `sub_total` int NOT NULL DEFAULT '0',
-  `total` int NOT NULL DEFAULT '0',
-  `keterangan` text,
+  `sub_total` int(11) NOT NULL DEFAULT 0,
+  `total` int(11) NOT NULL DEFAULT 0,
+  `keterangan` text DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_by` varchar(100) DEFAULT NULL,
@@ -761,7 +761,7 @@ CREATE TABLE `detail_sr` (
 --
 
 CREATE TABLE `divisi` (
-  `id_divisi` int NOT NULL,
+  `id_divisi` int(11) NOT NULL,
   `nm_divisi` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -793,7 +793,7 @@ INSERT INTO `divisi` (`id_divisi`, `nm_divisi`) VALUES
 --
 
 CREATE TABLE `golongan` (
-  `id_golongan` int NOT NULL,
+  `id_golongan` int(11) NOT NULL,
   `nm_golongan` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -904,7 +904,7 @@ INSERT INTO `golongan` (`id_golongan`, `nm_golongan`) VALUES
 --
 
 CREATE TABLE `jenis_pengajuan` (
-  `id_jenispengajuan` int NOT NULL,
+  `id_jenispengajuan` int(11) NOT NULL,
   `kd_pengajuan` varchar(15) DEFAULT NULL,
   `nm_pengajuan` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -925,23 +925,23 @@ INSERT INTO `jenis_pengajuan` (`id_jenispengajuan`, `kd_pengajuan`, `nm_pengajua
 
 CREATE TABLE `kasbon` (
   `id_kasbon` varchar(15) NOT NULL,
-  `id_dbo` int DEFAULT NULL,
-  `sr_id` bigint DEFAULT NULL,
+  `id_dbo` int(11) DEFAULT NULL,
+  `sr_id` bigint(20) DEFAULT NULL,
   `divisi_id` varchar(15) DEFAULT NULL,
   `kd_transaksi` varchar(15) DEFAULT NULL,
-  `nilai_barang` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `nilai_jasa` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `nilai_ppn` decimal(12,2) NOT NULL DEFAULT '0.00',
+  `nilai_barang` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `nilai_jasa` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `nilai_ppn` decimal(12,2) NOT NULL DEFAULT 0.00,
   `id_pph` varchar(15) DEFAULT NULL,
-  `nilai_pph` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `nilai_pengajuan` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `pengembalian` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `penambahan` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `biaya_lain` int NOT NULL DEFAULT '0',
-  `potongan` int NOT NULL DEFAULT '0',
-  `harga_akhir` decimal(12,2) NOT NULL DEFAULT '0.00',
+  `nilai_pph` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `nilai_pengajuan` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `pengembalian` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `penambahan` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `biaya_lain` int(11) NOT NULL DEFAULT 0,
+  `potongan` int(11) NOT NULL DEFAULT 0,
+  `harga_akhir` decimal(12,2) NOT NULL DEFAULT 0.00,
   `tgl_kasbon` datetime DEFAULT NULL,
-  `user_id` int DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `id_manager` varchar(15) DEFAULT NULL,
   `app_supervisor` datetime DEFAULT NULL,
   `app_manager` datetime DEFAULT NULL,
@@ -958,14 +958,15 @@ CREATE TABLE `kasbon` (
   `doc_lpj` varchar(100) DEFAULT NULL,
   `id_direktur` varchar(15) DEFAULT NULL,
   `id_direktur2` varchar(15) DEFAULT NULL,
-  `from_user` tinyint(1) NOT NULL DEFAULT '0',
+  `from_user` tinyint(1) NOT NULL DEFAULT 0,
   `vrf_pajak` varchar(10) NOT NULL DEFAULT 'bp',
-  `komentar` text,
-  `komentar_mgr_fin` text,
-  `komentar_mgr_ga` text,
-  `komentar_pajak` text,
-  `komentar_mgr_finjkt` text,
-  `komentar_direktur` text,
+  `komentar` text DEFAULT NULL,
+  `komentar_mgr_fin` text DEFAULT NULL,
+  `komentar_mgr_ga` text DEFAULT NULL,
+  `komentar_pajak` text DEFAULT NULL,
+  `komentar_mgr_finjkt` text DEFAULT NULL,
+  `komentar_direktur` text DEFAULT NULL,
+  `free_approve` varchar(2) NOT NULL DEFAULT '0',
   `status_kasbon` varchar(15) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -973,24 +974,24 @@ CREATE TABLE `kasbon` (
 -- Dumping data for table `kasbon`
 --
 
-INSERT INTO `kasbon` (`id_kasbon`, `id_dbo`, `sr_id`, `divisi_id`, `kd_transaksi`, `nilai_barang`, `nilai_jasa`, `nilai_ppn`, `id_pph`, `nilai_pph`, `nilai_pengajuan`, `pengembalian`, `penambahan`, `biaya_lain`, `potongan`, `harga_akhir`, `tgl_kasbon`, `user_id`, `id_manager`, `app_supervisor`, `app_manager`, `app_costcontrol`, `app_pajak`, `app_mgr_ga`, `app_mgr_finance`, `app_direktur`, `app_direktur2`, `waktu_penerima_dana`, `penerima_dana`, `waktu_lpj`, `doc_pendukung`, `doc_lpj`, `id_direktur`, `id_direktur2`, `from_user`, `vrf_pajak`, `komentar`, `komentar_mgr_fin`, `komentar_mgr_ga`, `komentar_pajak`, `komentar_mgr_finjkt`, `komentar_direktur`, `status_kasbon`) VALUES
-('KS0001', 1, NULL, NULL, NULL, '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '0.00', '0.00', 0, 0, '129000.00', '2021-11-29 10:54:01', NULL, '21', '2021-11-29 11:09:08', NULL, '2021-12-01 15:35:03', NULL, '2021-12-03 09:24:12', NULL, NULL, NULL, NULL, NULL, NULL, 'KS0001-doc-pendukung.pdf', NULL, NULL, NULL, 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '2'),
-('KS0002', 2, NULL, NULL, NULL, '200000.00', '0.00', '0.00', '', '0.00', '200000.00', '0.00', '0.00', 0, 0, '200000.00', '2021-11-29 13:59:49', NULL, '21', '2021-11-29 14:03:02', NULL, '2021-11-29 14:04:20', '2021-11-29 14:16:14', '2021-11-29 14:09:46', '2021-11-29 14:17:15', '2021-11-29 14:17:44', '2021-11-29 14:18:02', '2021-11-29 14:24:52', 'Nurdin', NULL, 'KS0002-doc-pendukung.pdf', NULL, '66', '68', 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '8'),
-('KS0003', 5, NULL, NULL, NULL, '740000.00', '0.00', '0.00', '', '0.00', '750000.00', '10000.00', '0.00', 0, 0, '740000.00', '2021-11-30 12:28:48', NULL, '21', '2021-11-30 12:31:35', NULL, '2021-11-30 12:33:01', '2021-11-30 12:36:58', '2021-11-30 12:33:52', '2021-11-30 12:37:14', '2021-11-30 12:37:31', '2021-11-30 12:37:50', '2021-11-30 12:42:27', '', '2021-11-30 12:44:33', 'KS0003-doc-pendukung.pdf', 'KS0003-doc-lpj-kasbon.pdf', '66', '68', 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '9'),
-('KS0004', 6, NULL, NULL, NULL, '260000.00', '0.00', '0.00', '', '0.00', '400000.00', '140000.00', '0.00', 0, 0, '260000.00', '2021-11-30 14:50:55', NULL, '21', '2021-11-30 14:52:21', NULL, '2021-11-30 14:53:59', '2021-11-30 14:55:32', '2021-11-30 14:54:35', '2021-11-30 14:57:12', '2021-11-30 14:58:06', '2021-11-30 14:59:08', '2021-11-30 15:00:19', 'kiki', '2021-11-30 15:02:11', 'KS0004-doc-pendukung.pdf', 'KS0004-doc-lpj-kasbon.pdf', '68', '66', 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '10'),
-('KS0005', 7, NULL, NULL, 'B00003', '0.00', '0.00', '0.00', '', '0.00', '500000.00', '0.00', '0.00', 0, 0, '500000.00', '2021-11-30 15:33:09', NULL, NULL, NULL, NULL, '2021-11-30 15:34:01', '2021-11-30 15:39:00', '2021-11-30 15:34:49', '2021-11-30 15:42:39', NULL, NULL, '2021-12-01 10:54:37', 'Juan', '2021-12-01 10:56:50', NULL, 'KS0005-doc-lpj-kasbon.pdf', NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '9'),
-('KS0006', 8, NULL, NULL, NULL, '149000.00', '0.00', '0.00', '', '0.00', '149000.00', '0.00', '0.00', 0, 0, '149000.00', '2021-12-01 09:48:14', NULL, '17', '2021-12-01 09:50:19', NULL, '2021-12-01 09:50:57', '2021-12-01 09:52:59', '2021-12-01 09:51:45', '2021-12-01 09:55:17', '2021-12-01 09:55:34', '2021-12-01 09:55:51', '2021-12-01 10:00:38', 'Yazid', '2021-12-01 10:07:34', 'KS0006-doc-pendukung.pdf', 'KS0006-doc-lpj-kasbon.pdf', '66', '68', 1, 'bp', '@Kasir : Pembelian BBM Operasional Purchasing', NULL, NULL, NULL, NULL, NULL, '707'),
-('KS0007', 9, NULL, NULL, 'B00004', '2815000.00', '0.00', '0.00', '', '0.00', '2815000.00', '0.00', '0.00', 0, 0, '2815000.00', '2021-12-01 10:26:29', NULL, NULL, NULL, NULL, '2021-12-01 10:35:12', '2021-12-01 10:43:55', '2021-12-01 10:42:30', '2021-12-01 10:45:22', NULL, NULL, '2021-12-01 10:53:54', 'Yazid', '2021-12-01 10:57:10', NULL, 'KS0007-doc-lpj-kasbon.pdf', NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '9'),
-('KS0008', 10, NULL, NULL, 'B00004', '1020000.00', '0.00', '0.00', '', '0.00', '1020000.00', '0.00', '0.00', 0, 0, '1020000.00', '2021-12-01 10:33:08', NULL, NULL, NULL, NULL, '2021-12-01 10:34:54', '2021-12-01 10:43:29', '2021-12-01 10:42:21', '2021-12-01 10:45:12', NULL, NULL, '2021-12-01 10:53:42', 'Yazid', '2021-12-01 10:56:26', NULL, 'KS0008-doc-lpj-kasbon.pdf', NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '9'),
-('KS0009', 11, NULL, NULL, NULL, '300000.00', '0.00', '0.00', '', '0.00', '300000.00', '0.00', '0.00', 0, 0, '300000.00', '2021-12-01 14:14:00', NULL, '17', '2021-12-01 14:16:07', NULL, '2021-12-01 14:17:34', '2021-12-01 14:21:42', '2021-12-01 14:18:27', '2021-12-01 14:22:24', '2021-12-01 14:22:43', '2021-12-01 14:23:10', '2021-12-01 14:25:37', 'Desi', '2021-12-01 14:29:02', 'KS0009-doc-pendukung.pdf', 'KS0009-doc-lpj-kasbon.pdf', '66', '68', 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '10'),
-('KS0010', 12, NULL, NULL, 'B00005', '375000.00', '0.00', '0.00', '', '0.00', '375000.00', '0.00', '0.00', 0, 0, '375000.00', '2021-12-01 14:47:35', NULL, NULL, NULL, NULL, '2021-12-01 14:48:20', '2021-12-01 14:49:59', '2021-12-01 14:49:26', '2021-12-01 14:51:17', NULL, NULL, '2021-12-01 14:52:09', 'desi', NULL, NULL, NULL, NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '8'),
-('KS0011', 18, NULL, NULL, 'B00010', '1528000.00', '0.00', '152800.00', '', '0.00', '0.00', '0.00', '0.00', 0, 0, '1680800.00', '2021-12-02 10:10:06', NULL, NULL, NULL, NULL, '2021-12-02 10:12:43', '2021-12-02 10:15:38', '2021-12-02 10:14:22', '2021-12-02 10:17:14', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '7'),
-('KS0012', 15, NULL, NULL, 'B00008', '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '0.00', '0.00', 0, 0, '200000.00', '2021-12-02 10:23:05', NULL, NULL, NULL, NULL, '2021-12-02 10:43:24', NULL, '2021-12-03 09:24:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '2'),
-('KS0013', 20, NULL, NULL, 'B00012', '3000000.00', '0.00', '0.00', '', '0.00', '3000000.00', '0.00', '0.00', 0, 0, '3000000.00', '2021-12-02 11:17:57', NULL, NULL, NULL, NULL, '2021-12-02 11:19:31', '2021-12-02 11:22:21', '2021-12-02 11:20:53', '2021-12-02 11:23:00', NULL, NULL, '2021-12-02 11:32:14', 'jefa', NULL, NULL, NULL, NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '8'),
-('KS0014', 26, NULL, NULL, NULL, '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '0.00', '0.00', 0, 0, '199000.00', '2021-12-02 14:16:11', NULL, '18', '2021-12-02 14:27:16', NULL, '2021-12-02 14:28:22', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'KS0014-doc-pendukung.pdf', NULL, NULL, NULL, 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '4'),
-('KS0015', 28, NULL, NULL, NULL, '280000.00', '0.00', '0.00', '', '0.00', '0.00', '0.00', '0.00', 0, 0, '280000.00', '2021-12-02 14:41:33', NULL, '18', '2021-12-02 14:43:24', NULL, '2021-12-02 14:52:02', '2021-12-02 15:35:46', '2021-12-02 14:55:17', '2021-12-02 15:37:58', '2021-12-02 15:39:30', '2021-12-02 15:52:06', NULL, NULL, NULL, 'KS0015-doc-pendukung.pdf', NULL, '68', '66', 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '7'),
-('KS0016', 27, NULL, NULL, 'B00017', '280000.00', '0.00', '0.00', '', '0.00', '0.00', '0.00', '0.00', 0, 0, '280000.00', '2021-12-02 14:46:17', NULL, NULL, NULL, NULL, '2021-12-02 14:52:35', '2021-12-02 15:36:27', '2021-12-02 14:54:54', '2021-12-02 15:39:22', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '7'),
-('KS0017', 29, NULL, NULL, NULL, '180000.00', '0.00', '0.00', '', '0.00', '200000.00', '20000.00', '0.00', 0, 0, '180000.00', '2021-12-03 09:27:47', NULL, '21', '2021-12-03 09:29:18', NULL, '2021-12-03 09:30:09', '2021-12-03 09:36:25', '2021-12-03 09:34:19', '2021-12-03 09:39:02', '2021-12-03 09:39:46', '2021-12-03 09:40:31', '2021-12-03 09:44:05', 'Nurdin', '2021-12-03 09:45:57', 'KS0017-doc-pendukung.pdf', 'KS0017-doc-lpj-kasbon.pdf', '68', '66', 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '10');
+INSERT INTO `kasbon` (`id_kasbon`, `id_dbo`, `sr_id`, `divisi_id`, `kd_transaksi`, `nilai_barang`, `nilai_jasa`, `nilai_ppn`, `id_pph`, `nilai_pph`, `nilai_pengajuan`, `pengembalian`, `penambahan`, `biaya_lain`, `potongan`, `harga_akhir`, `tgl_kasbon`, `user_id`, `id_manager`, `app_supervisor`, `app_manager`, `app_costcontrol`, `app_pajak`, `app_mgr_ga`, `app_mgr_finance`, `app_direktur`, `app_direktur2`, `waktu_penerima_dana`, `penerima_dana`, `waktu_lpj`, `doc_pendukung`, `doc_lpj`, `id_direktur`, `id_direktur2`, `from_user`, `vrf_pajak`, `komentar`, `komentar_mgr_fin`, `komentar_mgr_ga`, `komentar_pajak`, `komentar_mgr_finjkt`, `komentar_direktur`, `free_approve`, `status_kasbon`) VALUES
+('KS0001', 1, NULL, NULL, NULL, '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '0.00', '0.00', 0, 0, '129000.00', '2021-11-29 10:54:01', NULL, '21', '2021-11-29 11:09:08', NULL, '2021-12-01 15:35:03', NULL, '2021-12-03 09:24:12', NULL, NULL, NULL, NULL, NULL, NULL, 'KS0001-doc-pendukung.pdf', NULL, NULL, NULL, 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '0', '3'),
+('KS0002', 2, NULL, NULL, NULL, '200000.00', '0.00', '0.00', '', '0.00', '200000.00', '0.00', '0.00', 0, 0, '200000.00', '2021-11-29 13:59:49', NULL, '21', '2021-11-29 14:03:02', NULL, '2021-11-29 14:04:20', '2021-11-29 14:16:14', '2021-11-29 14:09:46', '2021-11-29 14:17:15', '2021-11-29 14:17:44', '2021-11-29 14:18:02', '2021-11-29 14:24:52', 'Nurdin', NULL, 'KS0002-doc-pendukung.pdf', NULL, '66', '68', 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '0', '3'),
+('KS0003', 5, NULL, NULL, NULL, '740000.00', '0.00', '0.00', '', '0.00', '750000.00', '10000.00', '0.00', 0, 0, '740000.00', '2021-11-30 12:28:48', NULL, '21', '2021-11-30 12:31:35', NULL, '2021-11-30 12:33:01', '2021-11-30 12:36:58', '2021-11-30 12:33:52', '2021-11-30 12:37:14', '2021-11-30 12:37:31', '2021-11-30 12:37:50', '2021-11-30 12:42:27', '', '2021-11-30 12:44:33', 'KS0003-doc-pendukung.pdf', 'KS0003-doc-lpj-kasbon.pdf', '66', '68', 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '0', '3'),
+('KS0004', 6, NULL, NULL, NULL, '260000.00', '0.00', '0.00', '', '0.00', '400000.00', '140000.00', '0.00', 0, 0, '260000.00', '2021-11-30 14:50:55', NULL, '21', '2021-11-30 14:52:21', NULL, '2021-11-30 14:53:59', '2021-11-30 14:55:32', '2021-11-30 14:54:35', '2021-11-30 14:57:12', '2021-11-30 14:58:06', '2021-11-30 14:59:08', '2021-11-30 15:00:19', 'kiki', '2021-11-30 15:02:11', 'KS0004-doc-pendukung.pdf', 'KS0004-doc-lpj-kasbon.pdf', '68', '66', 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '0', '3'),
+('KS0005', 7, NULL, NULL, 'B00003', '0.00', '0.00', '0.00', '', '0.00', '500000.00', '0.00', '0.00', 0, 0, '500000.00', '2021-11-30 15:33:09', NULL, NULL, NULL, NULL, '2021-11-30 15:34:01', '2021-11-30 15:39:00', '2021-11-30 15:34:49', '2021-11-30 15:42:39', NULL, NULL, '2021-12-01 10:54:37', 'Juan', '2021-12-01 10:56:50', NULL, 'KS0005-doc-lpj-kasbon.pdf', NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '0', '3'),
+('KS0006', 8, NULL, NULL, NULL, '149000.00', '0.00', '0.00', '', '0.00', '149000.00', '0.00', '0.00', 0, 0, '149000.00', '2021-12-01 09:48:14', NULL, '17', '2021-12-01 09:50:19', NULL, '2021-12-01 09:50:57', '2021-12-01 09:52:59', '2021-12-01 09:51:45', '2021-12-01 09:55:17', '2021-12-01 09:55:34', '2021-12-01 09:55:51', '2021-12-01 10:00:38', 'Yazid', '2021-12-01 10:07:34', 'KS0006-doc-pendukung.pdf', 'KS0006-doc-lpj-kasbon.pdf', '66', '68', 1, 'bp', '@Kasir : Pembelian BBM Operasional Purchasing', NULL, NULL, NULL, NULL, NULL, '0', '3'),
+('KS0007', 9, NULL, NULL, 'B00004', '2815000.00', '0.00', '0.00', '', '0.00', '2815000.00', '0.00', '0.00', 0, 0, '2815000.00', '2021-12-01 10:26:29', NULL, NULL, NULL, NULL, '2021-12-01 10:35:12', '2021-12-01 10:43:55', '2021-12-01 10:42:30', '2021-12-01 10:45:22', NULL, NULL, '2021-12-01 10:53:54', 'Yazid', '2021-12-01 10:57:10', NULL, 'KS0007-doc-lpj-kasbon.pdf', NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '0', '3'),
+('KS0008', 10, NULL, NULL, 'B00004', '1020000.00', '0.00', '0.00', '', '0.00', '1020000.00', '0.00', '0.00', 0, 0, '1020000.00', '2021-12-01 10:33:08', NULL, NULL, NULL, NULL, '2021-12-01 10:34:54', '2021-12-01 10:43:29', '2021-12-01 10:42:21', '2021-12-01 10:45:12', NULL, NULL, '2021-12-01 10:53:42', 'Yazid', '2021-12-01 10:56:26', NULL, 'KS0008-doc-lpj-kasbon.pdf', NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '0', '3'),
+('KS0009', 11, NULL, NULL, NULL, '300000.00', '0.00', '0.00', '', '0.00', '300000.00', '0.00', '0.00', 0, 0, '300000.00', '2021-12-01 14:14:00', NULL, '17', '2021-12-01 14:16:07', NULL, '2021-12-01 14:17:34', '2021-12-01 14:21:42', '2021-12-01 14:18:27', '2021-12-01 14:22:24', '2021-12-01 14:22:43', '2021-12-01 14:23:10', '2021-12-01 14:25:37', 'Desi', '2021-12-01 14:29:02', 'KS0009-doc-pendukung.pdf', 'KS0009-doc-lpj-kasbon.pdf', '66', '68', 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '0', '3'),
+('KS0010', 12, NULL, NULL, 'B00005', '375000.00', '0.00', '0.00', '', '0.00', '375000.00', '0.00', '0.00', 0, 0, '375000.00', '2021-12-01 14:47:35', NULL, NULL, NULL, NULL, '2021-12-01 14:48:20', '2021-12-01 14:49:59', '2021-12-01 14:49:26', '2021-12-01 14:51:17', NULL, NULL, '2021-12-01 14:52:09', 'desi', NULL, NULL, NULL, NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '0', '3'),
+('KS0011', 18, NULL, NULL, 'B00010', '1528000.00', '0.00', '152800.00', '', '0.00', '0.00', '0.00', '0.00', 0, 0, '1680800.00', '2021-12-02 10:10:06', NULL, NULL, NULL, NULL, '2021-12-02 10:12:43', '2021-12-02 10:15:38', '2021-12-02 10:14:22', '2021-12-02 10:17:14', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '0', '3'),
+('KS0012', 15, NULL, NULL, 'B00008', '0.00', '0.00', '0.00', NULL, '0.00', '0.00', '0.00', '0.00', 0, 0, '200000.00', '2021-12-02 10:23:05', NULL, NULL, NULL, NULL, '2021-12-02 10:43:24', NULL, '2021-12-03 09:24:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '0', '3'),
+('KS0013', 20, NULL, NULL, 'B00012', '3000000.00', '0.00', '0.00', '', '0.00', '3000000.00', '0.00', '0.00', 0, 0, '3000000.00', '2021-12-02 11:17:57', NULL, NULL, NULL, NULL, '2021-12-02 11:19:31', '2021-12-02 11:22:21', '2021-12-02 11:20:53', '2021-12-02 11:23:00', NULL, NULL, '2021-12-02 11:32:14', 'jefa', NULL, NULL, NULL, NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '0', '3'),
+('KS0014', 26, NULL, NULL, NULL, '199000.00', '0.00', '0.00', '', '0.00', '0.00', '0.00', '0.00', 0, 0, '199000.00', '2021-12-02 14:16:11', NULL, '18', '2021-12-02 14:27:16', NULL, '2021-12-16 13:29:22', '2021-12-16 13:44:24', '2021-12-16 13:30:50', '2021-12-16 13:44:24', '2021-12-16 13:44:24', '2021-12-16 13:44:24', NULL, NULL, NULL, 'KS0014-doc-pendukung.pdf', NULL, NULL, NULL, 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '1', '7'),
+('KS0015', 28, NULL, NULL, NULL, '280000.00', '0.00', '0.00', '', '0.00', '0.00', '0.00', '0.00', 0, 0, '280000.00', '2021-12-02 14:41:33', NULL, '18', '2021-12-02 14:43:24', NULL, '2021-12-02 14:52:02', '2021-12-02 15:35:46', '2021-12-02 14:55:17', '2021-12-02 15:37:58', '2021-12-02 15:39:30', '2021-12-02 15:52:06', NULL, NULL, NULL, 'KS0015-doc-pendukung.pdf', NULL, '68', '66', 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '0', '2'),
+('KS0016', 27, NULL, NULL, 'B00017', '280000.00', '0.00', '0.00', '', '0.00', '0.00', '0.00', '0.00', 0, 0, '280000.00', '2021-12-02 14:46:17', NULL, NULL, NULL, NULL, '2021-12-16 11:25:26', '2021-12-16 12:21:53', '2021-12-16 11:26:04', '2021-12-16 12:21:53', '2021-12-16 12:21:53', '2021-12-16 12:21:53', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '1', '7'),
+('KS0017', 29, NULL, NULL, NULL, '180000.00', '0.00', '0.00', '', '0.00', '200000.00', '20000.00', '0.00', 0, 0, '180000.00', '2021-12-03 09:27:47', NULL, '21', '2021-12-03 09:29:18', NULL, '2021-12-16 11:56:26', '2021-12-03 09:36:25', '2021-12-16 11:57:23', '2021-12-03 09:39:02', '2021-12-03 09:39:46', '2021-12-03 09:40:31', '2021-12-03 09:44:05', 'Nurdin', '2021-12-03 09:45:57', 'KS0017-doc-pendukung.pdf', 'KS0017-doc-lpj-kasbon.pdf', '68', '66', 1, 'bp', NULL, NULL, NULL, NULL, NULL, NULL, '0', '2');
 
 -- --------------------------------------------------------
 
@@ -999,10 +1000,10 @@ INSERT INTO `kasbon` (`id_kasbon`, `id_dbo`, `sr_id`, `divisi_id`, `kd_transaksi
 --
 
 CREATE TABLE `log_system` (
-  `id_log` int NOT NULL,
+  `id_log` int(11) NOT NULL,
   `waktu` datetime DEFAULT NULL,
   `nama_user` varchar(50) DEFAULT NULL,
-  `keterangan` text
+  `keterangan` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2017,7 +2018,58 @@ INSERT INTO `log_system` (`id_log`, `waktu`, `nama_user`, `keterangan`) VALUES
 (1004, '2021-12-15 14:20:08', 'kasir', 'login'),
 (1005, '2021-12-15 14:43:19', 'Kasir', 'logout'),
 (1006, '2021-12-15 14:44:24', 'kasir', 'login'),
-(1007, '2021-12-15 15:21:20', 'kasir', 'login');
+(1007, '2021-12-15 15:21:20', 'kasir', 'login'),
+(1008, '2021-12-16 09:55:04', 'bayu', 'login'),
+(1009, '2021-12-16 09:57:32', 'bayu', 'login'),
+(1010, '2021-12-16 10:04:47', 'Bayu', 'Menyetujui Pengajuan Biaya Non OPS id: 4'),
+(1011, '2021-12-16 10:05:06', 'Bayu', 'logout'),
+(1012, '2021-12-16 10:05:21', 'yudha', 'login'),
+(1013, '2021-12-16 10:30:18', 'Yudha', 'Menyetujui Pengajuan Biaya Non OPS id: 4'),
+(1014, '2021-12-16 10:35:37', 'Yudha', 'logout'),
+(1015, '2021-12-16 10:35:45', 'kasir', 'login'),
+(1016, '2021-12-16 10:36:03', 'Kasir', 'logout'),
+(1017, '2021-12-16 10:36:18', 'yudha', 'login'),
+(1018, '2021-12-16 10:37:27', 'Yudha', 'logout'),
+(1019, '2021-12-16 10:37:47', 'bayu', 'login'),
+(1020, '2021-12-16 10:47:18', 'Bayu', 'Menyetujui Pengajuan Biaya Non OPS id: 3'),
+(1021, '2021-12-16 10:47:22', 'Bayu', 'logout'),
+(1022, '2021-12-16 10:47:33', 'yudha', 'login'),
+(1023, '2021-12-16 10:50:23', 'Yudha', 'Menyetujui Pengajuan Biaya Non OPS id: 3'),
+(1024, '2021-12-16 10:50:26', 'Yudha', 'logout'),
+(1025, '2021-12-16 10:50:37', 'kasir', 'login'),
+(1026, '2021-12-16 10:55:28', 'Kasir', 'logout'),
+(1027, '2021-12-16 10:55:59', 'bayu', 'login'),
+(1028, '2021-12-16 11:25:26', 'Bayu', 'Selesai melakukan verifikasi kasbon id: KS0016'),
+(1029, '2021-12-16 11:25:33', 'Bayu', 'logout'),
+(1030, '2021-12-16 11:25:43', 'yudha', 'login'),
+(1031, '2021-12-16 11:26:04', 'Yudha', 'Selesai melakukan verifikasi kasbon id: KS0016'),
+(1032, '2021-12-16 11:26:07', 'Yudha', 'logout'),
+(1033, '2021-12-16 11:26:15', 'pajak', 'login'),
+(1034, '2021-12-16 11:31:12', 'Pajak', 'Selesai melakukan verifikasi Kasbon id: KS0016'),
+(1039, '2021-12-16 11:56:00', 'Pajak', 'logout'),
+(1040, '2021-12-16 11:56:11', 'bayu', 'login'),
+(1041, '2021-12-16 11:56:26', 'Bayu', 'Selesai melakukan verifikasi kasbon id: KS0017'),
+(1042, '2021-12-16 11:56:31', 'Bayu', 'logout'),
+(1043, '2021-12-16 11:56:34', 'pajak', 'login'),
+(1044, '2021-12-16 11:56:43', 'Pajak', 'logout'),
+(1045, '2021-12-16 11:57:08', 'yudha', 'login'),
+(1046, '2021-12-16 11:57:58', 'Yudha', 'logout'),
+(1047, '2021-12-16 11:58:03', 'pajak', 'login'),
+(1052, '2021-12-16 12:05:26', 'Pajak', 'Selesai melakukan verifikasi Kasbon id: KS0016'),
+(1053, '2021-12-16 12:05:30', 'Pajak', 'logout'),
+(1054, '2021-12-16 12:19:31', 'pajak', 'login'),
+(1055, '2021-12-16 12:19:46', 'Pajak', 'Selesai melakukan verifikasi Kasbon id: KS0016'),
+(1056, '2021-12-16 12:21:53', 'Pajak', 'Selesai melakukan verifikasi Kasbon id: KS0016'),
+(1057, '2021-12-16 13:20:25', 'Pajak', 'logout'),
+(1058, '2021-12-16 13:20:27', 'bayu', 'login'),
+(1059, '2021-12-16 13:29:22', 'Bayu', 'Selesai melakukan verifikasi kasbon id: KS0014'),
+(1060, '2021-12-16 13:29:28', 'Bayu', 'logout'),
+(1061, '2021-12-16 13:29:52', 'yudha', 'login'),
+(1062, '2021-12-16 13:30:53', 'Yudha', 'logout'),
+(1063, '2021-12-16 13:31:01', 'pajak', 'login'),
+(1064, '2021-12-16 13:44:24', 'Pajak', 'Selesai melakukan verifikasi Kasbon id: KS0014'),
+(1065, '2021-12-16 13:44:51', 'Pajak', 'logout'),
+(1066, '2021-12-16 13:44:59', 'kasir', 'login');
 
 -- --------------------------------------------------------
 
@@ -2026,24 +2078,24 @@ INSERT INTO `log_system` (`id_log`, `waktu`, `nama_user`, `keterangan`) VALUES
 --
 
 CREATE TABLE `po` (
-  `id_po` int NOT NULL,
+  `id_po` int(11) NOT NULL,
   `id_dbo` varchar(15) DEFAULT NULL,
   `kd_transaksi` varchar(15) DEFAULT NULL,
   `nomor_po` varchar(15) DEFAULT NULL,
   `tgl_po` datetime DEFAULT NULL,
   `po_number` varchar(50) DEFAULT NULL,
-  `nilai_barang` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `nilai_jasa` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `nilai_ppn` decimal(12,2) NOT NULL DEFAULT '0.00',
+  `nilai_barang` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `nilai_jasa` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `nilai_ppn` decimal(12,2) NOT NULL DEFAULT 0.00,
   `id_pph` varchar(15) DEFAULT NULL,
-  `nilai_pph` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `pengembalian_po` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `sub_totalpo` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `diskon_po` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `total_po` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `biaya_lain` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `nilai_pembulatan` decimal(6,2) NOT NULL DEFAULT '0.00',
-  `grand_totalpo` decimal(12,2) NOT NULL DEFAULT '0.00',
+  `nilai_pph` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `pengembalian_po` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `sub_totalpo` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `diskon_po` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `total_po` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `biaya_lain` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `nilai_pembulatan` decimal(6,2) NOT NULL DEFAULT 0.00,
+  `grand_totalpo` decimal(12,2) NOT NULL DEFAULT 0.00,
   `app_pajak` datetime DEFAULT NULL,
   `app_cc` datetime DEFAULT NULL,
   `app_mgr_ga` datetime DEFAULT NULL,
@@ -2052,23 +2104,23 @@ CREATE TABLE `po` (
   `app_direksi2` datetime DEFAULT NULL,
   `app_kasir` datetime DEFAULT NULL,
   `doc_quotation` varchar(200) DEFAULT NULL,
-  `note_po` text,
+  `note_po` text DEFAULT NULL,
   `regulasi_tempo1` varchar(15) DEFAULT NULL,
   `tgl_tempo1` datetime DEFAULT NULL,
-  `persentase_pembayaran1` int NOT NULL DEFAULT '0',
-  `nominal_pembayaran1` bigint NOT NULL DEFAULT '0',
+  `persentase_pembayaran1` int(11) NOT NULL DEFAULT 0,
+  `nominal_pembayaran1` bigint(20) NOT NULL DEFAULT 0,
   `regulasi_tempo2` varchar(15) DEFAULT NULL,
   `tgl_tempo2` datetime DEFAULT NULL,
-  `persentase_pembayaran2` int NOT NULL DEFAULT '0',
-  `nominal_pembayaran2` bigint NOT NULL DEFAULT '0',
-  `persentase` int NOT NULL DEFAULT '0',
+  `persentase_pembayaran2` int(11) NOT NULL DEFAULT 0,
+  `nominal_pembayaran2` bigint(20) NOT NULL DEFAULT 0,
+  `persentase` int(11) NOT NULL DEFAULT 0,
   `id_direktur` varchar(15) DEFAULT NULL,
   `id_direktur2` varchar(15) DEFAULT NULL,
-  `komentar` text,
-  `komentar_mgr_fin` text,
-  `komentar_mngr_ga` text,
-  `komentar_mgr_finjkt` text,
-  `komentar_direktur` text,
+  `komentar` text DEFAULT NULL,
+  `komentar_mgr_fin` text DEFAULT NULL,
+  `komentar_mngr_ga` text DEFAULT NULL,
+  `komentar_mgr_finjkt` text DEFAULT NULL,
+  `komentar_direktur` text DEFAULT NULL,
   `status_po` varchar(15) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -2089,7 +2141,7 @@ INSERT INTO `po` (`id_po`, `id_dbo`, `kd_transaksi`, `nomor_po`, `tgl_po`, `po_n
 --
 
 CREATE TABLE `pph` (
-  `id_pph` int NOT NULL,
+  `id_pph` int(11) NOT NULL,
   `nm_pph` varchar(50) NOT NULL,
   `jenis` varchar(30) NOT NULL DEFAULT 'fixed',
   `persen` decimal(10,0) DEFAULT NULL
@@ -2121,11 +2173,11 @@ CREATE TABLE `provinsi` (
 --
 
 CREATE TABLE `queue_email` (
-  `id_queue` int NOT NULL,
-  `name_email` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-  `address_email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-  `subject_email` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-  `body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci,
+  `id_queue` int(11) NOT NULL,
+  `name_email` varchar(40) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+  `address_email` varchar(50) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+  `subject_email` varchar(200) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+  `body` text COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
@@ -2333,7 +2385,19 @@ INSERT INTO `queue_email` (`id_queue`, `name_email`, `address_email`, `subject_e
 (185, 'Safei', 'safei@grahasegara.com', 'Approval Kasbon KS0017', '<font style=\'font-family: Courier;\'>\r\n                        Dear Bapak/Ibu <b>Safei</b>,<br><br>\r\n                        Diberitahukan bahwa divisi <b>Operasional</b> telah membuat pengajuan Kasbon, dengan rincian sbb:<br>\r\n                        <table>\r\n                            <tr>\r\n                                <td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n                                <td style=\'font-family: Courier;\'>: KS0017</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td style=\'font-family: Courier;\'>Divisi</td>\r\n                                <td style=\'font-family: Courier;\'>: Operasional</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td style=\'font-family: Courier;\'>Keterangan</td>\r\n                                <td style=\'font-family: Courier;\'>: Akomodasi BBM Operasional </td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td style=\'font-family: Courier;\'>Total</td>\r\n                                <td style=\'font-family: Courier;\'>: 200.000,00</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td style=\'font-family: Courier;\'>Tanggal</td>\r\n                                <td style=\'font-family: Courier;\'>: 2021-12-03 09:27:47</td>\r\n                            </tr>\r\n                        </table>\r\n                        <br>\r\n                        Mohon untuk melakukan <i>Approval</i> / <i>Reject</i> pada sistem E-Fin Graha Segara <a href=\'http://101.255.125.77/gs-belawan/index.php?url=index.php?p=approval_kasbon&lvl=manager\' target=\'_blank\'>disini</a><br><br>\r\n                        Best Regards,<br>\r\n                        This email auto generate by system.\r\n                        </font>', '2021-12-03 09:28:04', '2021-12-03 09:28:04'),
 (186, 'Bayu', 'bayu@grahasegara.com', 'Approval Kasbon KS0017', '<font style=\'font-family: Courier;\'>\r\n                                Dear Bapak/Ibu <b>Bayu</b>,<br><br>\r\n                                Diberitahukan bahwa divisi <b>Operasional</b> telah membuat pengajuan Kasbon, dengan rincian sbb:<br>\r\n                                <table>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n                                        <td style=\'font-family: Courier;\'>: KS0017</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Divisi</td>\r\n                                        <td style=\'font-family: Courier;\'>: Operasional</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Keterangan</td>\r\n                                        <td style=\'font-family: Courier;\'>: Akomodasi BBM Operasional </td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Total</td>\r\n                                        <td style=\'font-family: Courier;\'>: 200.000,00</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Tanggal Pengajuan</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-03 09:27:47</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Approve Manager</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-03 09:29:18</td>\r\n                                    </tr>\r\n                                </table>\r\n                                <br>\r\n                                Mohon untuk melakukan <i>Verifikasi</i> pada sistem E-Fin Graha Segara <a href=\'http://101.255.125.77/gs-belawan/index.php?url=index.php?p=verifikasi_kasbon&sp=vk_user&lvl=manager_keuangan\' target=\'_blank\'>disini</a><br><br>\r\n                                Best Regards,<br>\r\n                                This email auto generate by system.\r\n                            </font>', '2021-12-03 09:29:18', '2021-12-03 09:29:18'),
 (187, 'Yudha', 'yuda@grahasegara.com', 'Approval Kasbon KS0017', '<font style=\'font-family: Courier;\'>\r\n							Dear Bapak/Ibu <b>Yudha</b>,<br><br>\r\n							Diberitahukan bahwa divisi <b>Operasional</b> telah membuat pengajuan Kasbon, dengan rincian sbb:<br>\r\n							<table>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n									<td style=\'font-family: Courier;\'>: KS0017</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Divisi</td>\r\n									<td style=\'font-family: Courier;\'>: Operasional</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Keterangan</td>\r\n									<td style=\'font-family: Courier;\'>: Akomodasi BBM Operasional </td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Total</td>\r\n									<td style=\'font-family: Courier;\'>: 200.000,00</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Tanggal Pengajuan</td>\r\n									<td style=\'font-family: Courier;\'>: 2021-12-03 09:27:47</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Approve Manager</td>\r\n									<td style=\'font-family: Courier;\'>: </td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Verifikasi Pajak</td>\r\n									<td style=\'font-family: Courier;\'>: </td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Approve Manager Finance</td>\r\n									<td style=\'font-family: Courier;\'>: 2021-12-03 09:30:09</td>\r\n								</tr>\r\n							</table>\r\n							<br>\r\n							Mohon untuk melakukan <i>Approval</i> / <i>Reject</i> pada sistem E-Fin Graha Segara <a href=\'http://101.255.125.77/gs-belawan/index.php?url=index.php?p=verifikasi_kasbon&sp=vk_user&lvl=manager_ga\' target=\'_blank\'>disini</a><br><br>\r\n							Best Regards,<br>\r\n							This email auto generate by system.\r\n						</font>', '2021-12-03 09:30:09', '2021-12-03 09:30:09'),
-(188, 'Andi', 'andi@grahasegara.com', 'Approval Kasbon KS0017', '<font style=\'font-family: Courier;\'>\r\n                            Dear Bapak/Ibu <b>Andi</b>,<br><br>\r\n                            Diberitahukan bahwa divisi <b>Operasional</b> telah membuat pengajuan Kasbon, dengan rincian sbb:<br>\r\n                            <table>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n                                    <td style=\'font-family: Courier;\'>: KS0017</td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Divisi</td>\r\n                                    <td style=\'font-family: Courier;\'>: Operasional</td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Keterangan</td>\r\n                                    <td style=\'font-family: Courier;\'>: Akomodasi BBM Operasional </td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Total</td>\r\n                                    <td style=\'font-family: Courier;\'>: 200.000,00</td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Tanggal Pengajuan</td>\r\n                                    <td style=\'font-family: Courier;\'>: 2021-12-03 09:27:47</td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Approve Manager</td>\r\n                                    <td style=\'font-family: Courier;\'>: </td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Verifikasi Pajak</td>\r\n                                    <td style=\'font-family: Courier;\'>: 2021-12-03 09:36:25</td>\r\n                                </tr>\r\n                            </table>\r\n                            <br>\r\n                            Mohon untuk melakukan <i>Approval</i> / <i>Reject</i> pada sistem E-Fin Graha Segara <a href=\'http://101.255.125.77/gs-belawan/index.php?url=index.php?p=verifikasi_kasbon&sp=vk_user&lvl=manager_finance\' target=\'_blank\'>disini</a><br><br>\r\n                            Best Regards,<br>\r\n                            This email auto generate by system.\r\n                        </font>', '2021-12-03 09:36:25', '2021-12-03 09:36:25');
+(188, 'Andi', 'andi@grahasegara.com', 'Approval Kasbon KS0017', '<font style=\'font-family: Courier;\'>\r\n                            Dear Bapak/Ibu <b>Andi</b>,<br><br>\r\n                            Diberitahukan bahwa divisi <b>Operasional</b> telah membuat pengajuan Kasbon, dengan rincian sbb:<br>\r\n                            <table>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n                                    <td style=\'font-family: Courier;\'>: KS0017</td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Divisi</td>\r\n                                    <td style=\'font-family: Courier;\'>: Operasional</td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Keterangan</td>\r\n                                    <td style=\'font-family: Courier;\'>: Akomodasi BBM Operasional </td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Total</td>\r\n                                    <td style=\'font-family: Courier;\'>: 200.000,00</td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Tanggal Pengajuan</td>\r\n                                    <td style=\'font-family: Courier;\'>: 2021-12-03 09:27:47</td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Approve Manager</td>\r\n                                    <td style=\'font-family: Courier;\'>: </td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Verifikasi Pajak</td>\r\n                                    <td style=\'font-family: Courier;\'>: 2021-12-03 09:36:25</td>\r\n                                </tr>\r\n                            </table>\r\n                            <br>\r\n                            Mohon untuk melakukan <i>Approval</i> / <i>Reject</i> pada sistem E-Fin Graha Segara <a href=\'http://101.255.125.77/gs-belawan/index.php?url=index.php?p=verifikasi_kasbon&sp=vk_user&lvl=manager_finance\' target=\'_blank\'>disini</a><br><br>\r\n                            Best Regards,<br>\r\n                            This email auto generate by system.\r\n                        </font>', '2021-12-03 09:36:25', '2021-12-03 09:36:25'),
+(189, 'Yudha', 'yuda@grahasegara.com', 'Approval Biaya Umum A00003', '<font style=\'font-family: Courier;\'>\r\n							Dear Bapak/Ibu <b>Yudha</b>,<br><br>\r\n							Diberitahukan bahwa <b>Admin Security</b> telah membuat pengajuan Biaya Umum, dengan rincian sbb:<br>\r\n							<table>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n									<td style=\'font-family: Courier;\'>: A00003</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Divisi</td>\r\n									<td style=\'font-family: Courier;\'>: Security</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Nama Vendor</td>\r\n									<td style=\'font-family: Courier;\'>: PT.GRAHA MANDIRI BARATA</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Keterangan</td>\r\n									<td style=\'font-family: Courier;\'>: tagihan gaji tenaga security bulan oktober</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Nilai Barang</td>\r\n									<td style=\'font-family: Courier;\'>: 171.949.360</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Nilai Jasa</td>\r\n									<td style=\'font-family: Courier;\'>: 0</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>PPN</td>\r\n									<td style=\'font-family: Courier;\'>: 17.194.936 (10%)</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>PPH</td>\r\n									<td style=\'font-family: Courier;\'>: 0 (0%)</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Total</td>\r\n									<td style=\'font-family: Courier;\'>: 189.144.296</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Tanggal Pengajuan</td>\r\n									<td style=\'font-family: Courier;\'>: 2021-11-30</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Approve Manager</td>\r\n									<td style=\'font-family: Courier;\'>: 2021-11-30</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Verifikasi Pajak</td>\r\n									<td style=\'font-family: Courier;\'>: </td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Approve Manager Finance</td>\r\n									<td style=\'font-family: Courier;\'>: 2021-12-16 10:04:47</td>\r\n								</tr>\r\n							</table>\r\n							<br>\r\n							Mohon untuk melakukan <i>Approval</i> / <i>Reject</i> pada sistem E-Fin Graha Segara <a href=\'http://localhost/gs-belawan/index.php?url=index.php?p=verifikasi_bno&lvl=manager_ga\' target=\'_blank\'>disini</a><br><br>\r\n							Best Regards,<br>\r\n							This email auto generate by system.\r\n                        </font>', '2021-12-16 10:04:47', '2021-12-16 10:04:47'),
+(190, 'Yudha', 'yuda@grahasegara.com', 'Approval Biaya Umum A00002', '<font style=\'font-family: Courier;\'>\r\n							Dear Bapak/Ibu <b>Yudha</b>,<br><br>\r\n							Diberitahukan bahwa <b>Admin OPS</b> telah membuat pengajuan Biaya Umum, dengan rincian sbb:<br>\r\n							<table>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n									<td style=\'font-family: Courier;\'>: A00002</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Divisi</td>\r\n									<td style=\'font-family: Courier;\'>: Operasional</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Nama Vendor</td>\r\n									<td style=\'font-family: Courier;\'>: lembur tkbm</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Keterangan</td>\r\n									<td style=\'font-family: Courier;\'>:  insentif kerja tambahan tkbm </td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Nilai Barang</td>\r\n									<td style=\'font-family: Courier;\'>: 525.000</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Nilai Jasa</td>\r\n									<td style=\'font-family: Courier;\'>: 0</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>PPN</td>\r\n									<td style=\'font-family: Courier;\'>: 0 (0%)</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>PPH</td>\r\n									<td style=\'font-family: Courier;\'>: 0 (0%)</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Total</td>\r\n									<td style=\'font-family: Courier;\'>: 525.000</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Tanggal Pengajuan</td>\r\n									<td style=\'font-family: Courier;\'>: 2021-11-30</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Approve Manager</td>\r\n									<td style=\'font-family: Courier;\'>: 2021-11-30</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Verifikasi Pajak</td>\r\n									<td style=\'font-family: Courier;\'>: </td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Approve Manager Finance</td>\r\n									<td style=\'font-family: Courier;\'>: 2021-12-16 10:47:18</td>\r\n								</tr>\r\n							</table>\r\n							<br>\r\n							Mohon untuk melakukan <i>Approval</i> / <i>Reject</i> pada sistem E-Fin Graha Segara <a href=\'http://localhost/gs-belawan/index.php?url=index.php?p=verifikasi_bno&lvl=manager_ga\' target=\'_blank\'>disini</a><br><br>\r\n							Best Regards,<br>\r\n							This email auto generate by system.\r\n                        </font>', '2021-12-16 10:47:18', '2021-12-16 10:47:18'),
+(191, 'Yudha', 'yuda@grahasegara.com', 'Approval Kasbon KS0016', '<font style=\'font-family: Courier;\'>\r\n                                Dear Bapak/Ibu <b>Yudha</b>,<br><br>\r\n                                Diberitahukan bahwa divisi <b>Kasir</b> telah membuat pengajuan Kasbon, dengan rincian sbb:<br>\r\n                                <table>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n                                        <td style=\'font-family: Courier;\'>: KS0016</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Divisi</td>\r\n                                        <td style=\'font-family: Courier;\'>: Kasir</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Keterangan</td>\r\n                                        <td style=\'font-family: Courier;\'>:  Pembelian 4 Botol Tinta Printer Epson T664 Untuk Kasir Umum</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Total</td>\r\n                                        <td style=\'font-family: Courier;\'>: 280.000,00</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Tanggal Pengajuan</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:46:17</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Approve Manager</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:43:00</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Bidding Purchasing</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:46:17</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Verifikasi Pajak</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 15:36:27</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Approval Manager GA</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:54:54</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Approval Manager Finance</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-16 11:25:26</td>\r\n                                    </tr>\r\n                                </table>\r\n                                <br>\r\n                                Mohon untuk melakukan <i>Approval</i> / <i>Reject</i> pada sistem E-Fin Graha Segara <a href=\'http://localhost/gs-belawan/index.php?url=index.php?p=verifikasi_kasbon&sp=vk_purchasing&lvl=manager_ga\' target=\'_blank\'>disini</a><br><br>\r\n                                Best Regards,<br>\r\n                                This email auto generate by system.\r\n                            </font>', '2021-12-16 11:25:26', '2021-12-16 11:25:26'),
+(192, 'Pajak', 'pajak@grahasegara.com', 'Approval Kasbon KS0016', '<font style=\'font-family: Courier;\'>\r\n                                Dear Bapak/Ibu <b>Pajak</b>,<br><br>\r\n                                Diberitahukan bahwa divisi <b>Kasir</b> telah membuat pengajuan Kasbon, dengan rincian sbb:<br>\r\n                                <table>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n                                        <td style=\'font-family: Courier;\'>: KS0016</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Divisi</td>\r\n                                        <td style=\'font-family: Courier;\'>: Kasir</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Keterangan</td>\r\n                                        <td style=\'font-family: Courier;\'>:  Pembelian 4 Botol Tinta Printer Epson T664 Untuk Kasir Umum</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Total</td>\r\n                                        <td style=\'font-family: Courier;\'>: 280.000,00</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Tanggal Pengajuan</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:46:17</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Approve Manager</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:43:00</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Bidding Purchasing</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:46:17</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Verifikasi Pajak</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 15:36:27</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Approval Manager GA</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-16 11:26:04</td>\r\n                                    </tr>\r\n                                </table>\r\n                                <br>\r\n                                Mohon untuk melakukan <i>Approval</i> / <i>Reject</i> pada sistem E-Fin Graha Segara <a href=\'http://localhost/gs-belawan/index.php?url=index.php?p=verifikasi_kasbon&sp=vk_purchasing&lvl=kordinator_pajak\' target=\'_blank\'>disini</a><br><br>\r\n                                Best Regards,<br>\r\n                                This email auto generate by system.\r\n                            </font>', '2021-12-16 11:26:04', '2021-12-16 11:26:04'),
+(193, 'Andi', 'andi@grahasegara.com', 'Approval Kasbon ', '<font style=\'font-family: Courier;\'>\r\n                                Dear Bapak/Ibu <b>Andi</b>,<br><br>\r\n                                Diberitahukan bahwa divisi <b>Kasir</b> telah membuat pengajuan Kasbon, dengan rincian sbb:<br>\r\n                                <table>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n                                        <td style=\'font-family: Courier;\'>: KS0016</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Divisi</td>\r\n                                        <td style=\'font-family: Courier;\'>: Kasir</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Keterangan</td>\r\n                                        <td style=\'font-family: Courier;\'>:  Pembelian 4 Botol Tinta Printer Epson T664 Untuk Kasir Umum</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Total</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2.800.000,00</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Tanggal Pengajuan</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:46:17</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Approve Manager</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:43:00</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Bidding Purchasing</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:46:17</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Verifikasi Pajak</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-16 11:31:12</td>\r\n                                    </tr>\r\n                                </table>\r\n                                <br>\r\n                                Mohon untuk melakukan <i>Approval</i>  / <i>Reject</i> pada sistem E-Fin Graha Segara <a href=\'http://localhost/gs-belawan/index.php?url=index.php?p=verifikasi_kasbon&sp=vk_purchasing&lvl=manager_keuangan\' target=\'_blank\'>disini</a><br><br>\r\n                                Best Regards,<br>\r\n                                This email auto generate by system.\r\n                            </font>', '2021-12-16 11:31:12', '2021-12-16 11:31:12'),
+(198, 'Yudha', 'yuda@grahasegara.com', 'Approval Kasbon KS0017', '<font style=\'font-family: Courier;\'>\r\n							Dear Bapak/Ibu <b>Yudha</b>,<br><br>\r\n							Diberitahukan bahwa divisi <b>Operasional</b> telah membuat pengajuan Kasbon, dengan rincian sbb:<br>\r\n							<table>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n									<td style=\'font-family: Courier;\'>: KS0017</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Divisi</td>\r\n									<td style=\'font-family: Courier;\'>: Operasional</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Keterangan</td>\r\n									<td style=\'font-family: Courier;\'>: Akomodasi BBM Operasional </td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Total</td>\r\n									<td style=\'font-family: Courier;\'>: 180.000,00</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Tanggal Pengajuan</td>\r\n									<td style=\'font-family: Courier;\'>: 2021-12-03 09:27:47</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Approve Manager</td>\r\n									<td style=\'font-family: Courier;\'>: </td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Verifikasi Pajak</td>\r\n									<td style=\'font-family: Courier;\'>: 2021-12-03 09:36:25</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Approve Manager Finance</td>\r\n									<td style=\'font-family: Courier;\'>: 2021-12-16 11:56:26</td>\r\n								</tr>\r\n							</table>\r\n							<br>\r\n							Mohon untuk melakukan <i>Approval</i> / <i>Reject</i> pada sistem E-Fin Graha Segara <a href=\'http://localhost/gs-belawan/index.php?url=index.php?p=verifikasi_kasbon&sp=vk_user&lvl=manager_ga\' target=\'_blank\'>disini</a><br><br>\r\n							Best Regards,<br>\r\n							This email auto generate by system.\r\n						</font>', '2021-12-16 11:56:26', '2021-12-16 11:56:26'),
+(203, 'Andi', 'andi@grahasegara.com', 'Approval Kasbon KS0016', '<font style=\'font-family: Courier;\'>\r\n                                Dear Bapak/Ibu <b>Andi</b>,<br><br>\r\n                                Diberitahukan bahwa divisi <b>Kasir</b> telah membuat pengajuan Kasbon, dengan rincian sbb:<br>\r\n                                <table>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n                                        <td style=\'font-family: Courier;\'>: KS0016</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Divisi</td>\r\n                                        <td style=\'font-family: Courier;\'>: Kasir</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Keterangan</td>\r\n                                        <td style=\'font-family: Courier;\'>:  Pembelian 4 Botol Tinta Printer Epson T664 Untuk Kasir Umum</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Total</td>\r\n                                        <td style=\'font-family: Courier;\'>: 280.000,00</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Tanggal Pengajuan</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:46:17</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Approve Manager</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:43:00</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Bidding Purchasing</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:46:17</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Verifikasi Pajak</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-16 12:05:26</td>\r\n                                    </tr>\r\n                                </table>\r\n                                <br>\r\n                                Mohon untuk melakukan <i>Approval</i>  / <i>Reject</i> pada sistem E-Fin Graha Segara <a href=\'http://localhost/gs-belawan/index.php?url=index.php?p=verifikasi_kasbon&sp=vk_purchasing&lvl=manager_keuangan\' target=\'_blank\'>disini</a><br><br>\r\n                                Best Regards,<br>\r\n                                This email auto generate by system.\r\n                            </font>', '2021-12-16 12:05:26', '2021-12-16 12:05:26'),
+(204, 'Andi', 'andi@grahasegara.com', 'Approval Kasbon KS0016', '<font style=\'font-family: Courier;\'>\r\n                                Dear Bapak/Ibu <b>Andi</b>,<br><br>\r\n                                Diberitahukan bahwa divisi <b>Kasir</b> telah membuat pengajuan Kasbon, dengan rincian sbb:<br>\r\n                                <table>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n                                        <td style=\'font-family: Courier;\'>: KS0016</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Divisi</td>\r\n                                        <td style=\'font-family: Courier;\'>: Kasir</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Keterangan</td>\r\n                                        <td style=\'font-family: Courier;\'>:  Pembelian 4 Botol Tinta Printer Epson T664 Untuk Kasir Umum</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Total</td>\r\n                                        <td style=\'font-family: Courier;\'>: 280.000,00</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Tanggal Pengajuan</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:46:17</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Approve Manager</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:43:00</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Bidding Purchasing</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:46:17</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Verifikasi Pajak</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-16 12:19:46</td>\r\n                                    </tr>\r\n                                </table>\r\n                                <br>\r\n                                Mohon untuk melakukan <i>Approval</i>  / <i>Reject</i> pada sistem E-Fin Graha Segara <a href=\'http://localhost/gs-belawan/index.php?url=index.php?p=verifikasi_kasbon&sp=vk_purchasing&lvl=manager_keuangan\' target=\'_blank\'>disini</a><br><br>\r\n                                Best Regards,<br>\r\n                                This email auto generate by system.\r\n                            </font>', '2021-12-16 12:19:46', '2021-12-16 12:19:46'),
+(205, 'Andi', 'andi@grahasegara.com', 'Approval Kasbon KS0016', '<font style=\'font-family: Courier;\'>\r\n                                Dear Bapak/Ibu <b>Andi</b>,<br><br>\r\n                                Diberitahukan bahwa divisi <b>Kasir</b> telah membuat pengajuan Kasbon, dengan rincian sbb:<br>\r\n                                <table>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n                                        <td style=\'font-family: Courier;\'>: KS0016</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Divisi</td>\r\n                                        <td style=\'font-family: Courier;\'>: Kasir</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Keterangan</td>\r\n                                        <td style=\'font-family: Courier;\'>:  Pembelian 4 Botol Tinta Printer Epson T664 Untuk Kasir Umum</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Total</td>\r\n                                        <td style=\'font-family: Courier;\'>: 280.000,00</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Tanggal Pengajuan</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:46:17</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Approve Manager</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:43:00</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Bidding Purchasing</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-02 14:46:17</td>\r\n                                    </tr>\r\n                                    <tr>\r\n                                        <td style=\'font-family: Courier;\'>Verifikasi Pajak</td>\r\n                                        <td style=\'font-family: Courier;\'>: 2021-12-16 12:21:53</td>\r\n                                    </tr>\r\n                                </table>\r\n                                <br>\r\n                                Mohon untuk melakukan <i>Approval</i>  / <i>Reject</i> pada sistem E-Fin Graha Segara <a href=\'http://localhost/gs-belawan/index.php?url=index.php?p=verifikasi_kasbon&sp=vk_purchasing&lvl=manager_keuangan\' target=\'_blank\'>disini</a><br><br>\r\n                                Best Regards,<br>\r\n                                This email auto generate by system.\r\n                            </font>', '2021-12-16 12:21:53', '2021-12-16 12:21:53'),
+(206, 'Yudha', 'yuda@grahasegara.com', 'Approval Kasbon KS0014', '<font style=\'font-family: Courier;\'>\r\n							Dear Bapak/Ibu <b>Yudha</b>,<br><br>\r\n							Diberitahukan bahwa divisi <b>Accounting</b> telah membuat pengajuan Kasbon, dengan rincian sbb:<br>\r\n							<table>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n									<td style=\'font-family: Courier;\'>: KS0014</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Divisi</td>\r\n									<td style=\'font-family: Courier;\'>: Accounting</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Keterangan</td>\r\n									<td style=\'font-family: Courier;\'>: Pembelian BBm Mobil Oprasional Ke Kantor pajak tebing 20 november 2021</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Total</td>\r\n									<td style=\'font-family: Courier;\'>: 199.000,00</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Tanggal Pengajuan</td>\r\n									<td style=\'font-family: Courier;\'>: 2021-12-02 14:16:11</td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Approve Manager</td>\r\n									<td style=\'font-family: Courier;\'>: </td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Verifikasi Pajak</td>\r\n									<td style=\'font-family: Courier;\'>: </td>\r\n								</tr>\r\n								<tr>\r\n									<td style=\'font-family: Courier;\'>Approve Manager Finance</td>\r\n									<td style=\'font-family: Courier;\'>: 2021-12-16 13:29:22</td>\r\n								</tr>\r\n							</table>\r\n							<br>\r\n							Mohon untuk melakukan <i>Approval</i> / <i>Reject</i> pada sistem E-Fin Graha Segara <a href=\'http://localhost/gs-belawan/index.php?url=index.php?p=verifikasi_kasbon&sp=vk_user&lvl=manager_ga\' target=\'_blank\'>disini</a><br><br>\r\n							Best Regards,<br>\r\n							This email auto generate by system.\r\n						</font>', '2021-12-16 13:29:22', '2021-12-16 13:29:22');
+INSERT INTO `queue_email` (`id_queue`, `name_email`, `address_email`, `subject_email`, `body`, `created_at`, `updated_at`) VALUES
+(207, 'Andi', 'andi@grahasegara.com', 'Approval Kasbon KS0014', '<font style=\'font-family: Courier;\'>\r\n                            Dear Bapak/Ibu <b>Andi</b>,<br><br>\r\n                            Diberitahukan bahwa divisi <b>Accounting</b> telah membuat pengajuan Kasbon, dengan rincian sbb:<br>\r\n                            <table>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Kode Transaksi</td>\r\n                                    <td style=\'font-family: Courier;\'>: KS0014</td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Divisi</td>\r\n                                    <td style=\'font-family: Courier;\'>: Accounting</td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Keterangan</td>\r\n                                    <td style=\'font-family: Courier;\'>: Pembelian BBm Mobil Oprasional Ke Kantor pajak tebing 20 november 2021</td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Total</td>\r\n                                    <td style=\'font-family: Courier;\'>: 199.000,00</td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Tanggal Pengajuan</td>\r\n                                    <td style=\'font-family: Courier;\'>: 2021-12-02 14:16:11</td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Approve Manager</td>\r\n                                    <td style=\'font-family: Courier;\'>: </td>\r\n                                </tr>\r\n                                <tr>\r\n                                    <td style=\'font-family: Courier;\'>Verifikasi Pajak</td>\r\n                                    <td style=\'font-family: Courier;\'>: 2021-12-16 13:44:24</td>\r\n                                </tr>\r\n                            </table>\r\n                            <br>\r\n                            Mohon untuk melakukan <i>Approval</i> / <i>Reject</i> pada sistem E-Fin Graha Segara <a href=\'http://localhost/gs-belawan/index.php?url=index.php?p=verifikasi_kasbon&sp=vk_user&lvl=manager_finance\' target=\'_blank\'>disini</a><br><br>\r\n                            Best Regards,<br>\r\n                            This email auto generate by system.\r\n                        </font>', '2021-12-16 13:44:24', '2021-12-16 13:44:24');
 
 -- --------------------------------------------------------
 
@@ -2342,11 +2406,11 @@ INSERT INTO `queue_email` (`id_queue`, `name_email`, `address_email`, `subject_e
 --
 
 CREATE TABLE `queue_email_tempo` (
-  `id_queue` int NOT NULL,
+  `id_queue` int(11) NOT NULL,
   `name_email` varchar(40) DEFAULT NULL,
   `address_email` varchar(50) DEFAULT NULL,
   `subject_email` varchar(200) DEFAULT NULL,
-  `body` text,
+  `body` text DEFAULT NULL,
   `tanggal_tempo` date DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
@@ -2359,11 +2423,11 @@ CREATE TABLE `queue_email_tempo` (
 --
 
 CREATE TABLE `reapprove_bkk` (
-  `id` int NOT NULL,
-  `id_bkk` int DEFAULT NULL,
-  `alasan_reapprove_mgr` text,
+  `id` int(11) NOT NULL,
+  `id_bkk` int(11) DEFAULT NULL,
+  `alasan_reapprove_mgr` text DEFAULT NULL,
   `waktu_reapprove_mgr` datetime DEFAULT NULL,
-  `alasan_reapprove_mgrfin` text,
+  `alasan_reapprove_mgrfin` text DEFAULT NULL,
   `waktu_reapprove_mgrfin` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -2374,13 +2438,13 @@ CREATE TABLE `reapprove_bkk` (
 --
 
 CREATE TABLE `reapprove_bkk_final` (
-  `id` int NOT NULL,
-  `id_bkk_final` int DEFAULT NULL,
-  `alasan_reapprove_pajak` text,
+  `id` int(11) NOT NULL,
+  `id_bkk_final` int(11) DEFAULT NULL,
+  `alasan_reapprove_pajak` text DEFAULT NULL,
   `waktu_reapprove_pajak` datetime DEFAULT NULL,
-  `alasan_reapprove_kasir` text,
+  `alasan_reapprove_kasir` text DEFAULT NULL,
   `waktu_reapprove_kasir` datetime DEFAULT NULL,
-  `alasan_reapprove_mgrfin` text,
+  `alasan_reapprove_mgrfin` text DEFAULT NULL,
   `waktu_reapprove_mgrfin` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -2391,17 +2455,17 @@ CREATE TABLE `reapprove_bkk_final` (
 --
 
 CREATE TABLE `reapprove_kasbon` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `kasbon_id` varchar(15) DEFAULT NULL,
-  `alasan_reapprove_mgrfin` text,
+  `alasan_reapprove_mgrfin` text DEFAULT NULL,
   `waktu_reapprove_mgrfin` datetime DEFAULT NULL,
-  `alasan_reapprove_mgrga` text,
+  `alasan_reapprove_mgrga` text DEFAULT NULL,
   `waktu_reapprove_mgrga` datetime DEFAULT NULL,
-  `alasan_reapprove_pajak` text,
+  `alasan_reapprove_pajak` text DEFAULT NULL,
   `waktu_reapprove_pajak` datetime DEFAULT NULL,
-  `alasan_reapprove_purchasing` text,
+  `alasan_reapprove_purchasing` text DEFAULT NULL,
   `waktu_reapprove_purchasing` datetime DEFAULT NULL,
-  `alasan_reapprove_mgr` text,
+  `alasan_reapprove_mgr` text DEFAULT NULL,
   `waktu_reapprove_mgr` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -2412,15 +2476,15 @@ CREATE TABLE `reapprove_kasbon` (
 --
 
 CREATE TABLE `reapprove_po` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `po_id` varchar(15) DEFAULT NULL,
-  `alasan_reapprove_mgrfin` text,
+  `alasan_reapprove_mgrfin` text DEFAULT NULL,
   `waktu_reapprove_mgrfin` datetime DEFAULT NULL,
-  `alasan_reapprove_mgrga` text,
+  `alasan_reapprove_mgrga` text DEFAULT NULL,
   `waktu_reapprove_mgrga` datetime DEFAULT NULL,
-  `alasan_reapprove_pajak` text,
+  `alasan_reapprove_pajak` text DEFAULT NULL,
   `waktu_reapprove_pajak` datetime DEFAULT NULL,
-  `alasan_reapprove_purchasing` text,
+  `alasan_reapprove_purchasing` text DEFAULT NULL,
   `waktu_reapprove_purchasing` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -2431,7 +2495,7 @@ CREATE TABLE `reapprove_po` (
 --
 
 CREATE TABLE `rekening` (
-  `id_rekening` int NOT NULL,
+  `id_rekening` int(11) NOT NULL,
   `id_bank` varchar(15) DEFAULT NULL,
   `no_rekening` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -2464,35 +2528,35 @@ CREATE TABLE `satuan` (
 --
 
 CREATE TABLE `so` (
-  `id_so` bigint NOT NULL,
-  `sr_id` bigint DEFAULT NULL,
-  `id_user` int DEFAULT NULL,
-  `id_divisi` int DEFAULT NULL,
-  `id_manager` int DEFAULT NULL,
-  `id_anggaran` int DEFAULT NULL,
-  `id_supplier` int DEFAULT NULL,
+  `id_so` bigint(20) NOT NULL,
+  `sr_id` bigint(20) DEFAULT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `id_divisi` int(11) DEFAULT NULL,
+  `id_manager` int(11) DEFAULT NULL,
+  `id_anggaran` int(11) DEFAULT NULL,
+  `id_supplier` int(11) DEFAULT NULL,
   `nm_barang` varchar(200) DEFAULT NULL,
-  `nominal` bigint DEFAULT NULL,
-  `diskon` bigint DEFAULT NULL,
-  `total` bigint DEFAULT NULL,
-  `nilai_barang` int DEFAULT NULL,
-  `nilai_jasa` int DEFAULT NULL,
-  `nilai_ppn` bigint DEFAULT NULL,
+  `nominal` bigint(20) DEFAULT NULL,
+  `diskon` bigint(20) DEFAULT NULL,
+  `total` bigint(20) DEFAULT NULL,
+  `nilai_barang` int(11) DEFAULT NULL,
+  `nilai_jasa` int(11) DEFAULT NULL,
+  `nilai_ppn` bigint(20) DEFAULT NULL,
   `id_pph` varchar(15) DEFAULT NULL,
-  `nilai_pph` int NOT NULL,
-  `nilai_pengajuan` int NOT NULL,
-  `pengembalian` int NOT NULL,
-  `penambahan` int NOT NULL,
-  `harga_akhir` bigint NOT NULL,
-  `grand_total` bigint DEFAULT NULL,
-  `note` text,
-  `keterangan` text,
-  `komentar` text,
-  `doc_ba` text,
-  `doc_penawaran` text,
-  `doc_quotation` text,
-  `doc_pembayaran` text,
-  `alasan_penolakan` text,
+  `nilai_pph` int(11) NOT NULL,
+  `nilai_pengajuan` int(11) NOT NULL,
+  `pengembalian` int(11) NOT NULL,
+  `penambahan` int(11) NOT NULL,
+  `harga_akhir` bigint(20) NOT NULL,
+  `grand_total` bigint(20) DEFAULT NULL,
+  `note` text DEFAULT NULL,
+  `keterangan` text DEFAULT NULL,
+  `komentar` text DEFAULT NULL,
+  `doc_ba` text DEFAULT NULL,
+  `doc_penawaran` text DEFAULT NULL,
+  `doc_quotation` text DEFAULT NULL,
+  `doc_pembayaran` text DEFAULT NULL,
+  `alasan_penolakan` text DEFAULT NULL,
   `tgl_tempo` date DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -2505,8 +2569,8 @@ CREATE TABLE `so` (
   `app_mgr_fin` datetime DEFAULT NULL,
   `app_direktur1` datetime DEFAULT NULL,
   `app_direktur2` datetime DEFAULT NULL,
-  `direktur1` int DEFAULT NULL,
-  `direktur2` int DEFAULT NULL,
+  `direktur1` int(11) DEFAULT NULL,
+  `direktur2` int(11) DEFAULT NULL,
   `status` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -2517,25 +2581,25 @@ CREATE TABLE `so` (
 --
 
 CREATE TABLE `sr` (
-  `id_sr` bigint NOT NULL,
-  `id_user` int DEFAULT NULL,
-  `id_divisi` int DEFAULT NULL,
-  `id_manager` int DEFAULT NULL,
-  `id_anggaran` int DEFAULT NULL,
-  `id_supplier` int DEFAULT NULL,
+  `id_sr` bigint(20) NOT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `id_divisi` int(11) DEFAULT NULL,
+  `id_manager` int(11) DEFAULT NULL,
+  `id_anggaran` int(11) DEFAULT NULL,
+  `id_supplier` int(11) DEFAULT NULL,
   `nm_barang` varchar(200) DEFAULT NULL,
-  `nominal` bigint DEFAULT NULL,
-  `diskon` bigint DEFAULT NULL,
-  `total` bigint DEFAULT NULL,
-  `nilai_ppn` bigint DEFAULT NULL,
-  `grand_total` bigint DEFAULT NULL,
-  `note` text,
-  `keterangan` text,
-  `komentar` text,
-  `doc_ba` text,
-  `doc_penawaran` text,
-  `doc_quotation` text,
-  `alasan_penolakan` text,
+  `nominal` bigint(20) DEFAULT NULL,
+  `diskon` bigint(20) DEFAULT NULL,
+  `total` bigint(20) DEFAULT NULL,
+  `nilai_ppn` bigint(20) DEFAULT NULL,
+  `grand_total` bigint(20) DEFAULT NULL,
+  `note` text DEFAULT NULL,
+  `keterangan` text DEFAULT NULL,
+  `komentar` text DEFAULT NULL,
+  `doc_ba` text DEFAULT NULL,
+  `doc_penawaran` text DEFAULT NULL,
+  `doc_quotation` text DEFAULT NULL,
+  `alasan_penolakan` text DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_by` varchar(50) DEFAULT NULL,
@@ -2543,7 +2607,7 @@ CREATE TABLE `sr` (
   `app_mgr` datetime DEFAULT NULL,
   `app_purchasing` datetime DEFAULT NULL,
   `status` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2552,14 +2616,14 @@ CREATE TABLE `sr` (
 --
 
 CREATE TABLE `sub_dbo` (
-  `id_subdbo` int NOT NULL,
-  `id_dbo` int DEFAULT NULL,
-  `sub_deskripsi` text,
-  `sub_qty` decimal(10,2) DEFAULT '0.00',
+  `id_subdbo` int(11) NOT NULL,
+  `id_dbo` int(11) DEFAULT NULL,
+  `sub_deskripsi` text DEFAULT NULL,
+  `sub_qty` decimal(10,2) DEFAULT 0.00,
   `sub_unit` varchar(20) DEFAULT NULL,
-  `sub_unitprice` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `total_price` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `status_subdbo` int DEFAULT NULL
+  `sub_unitprice` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `total_price` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `status_subdbo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2631,7 +2695,7 @@ INSERT INTO `sub_dbo` (`id_subdbo`, `id_dbo`, `sub_deskripsi`, `sub_qty`, `sub_u
 --
 
 CREATE TABLE `sub_golongan` (
-  `id_subgolongan` int NOT NULL,
+  `id_subgolongan` int(11) NOT NULL,
   `id_golongan` varchar(5) DEFAULT NULL,
   `nm_subgolongan` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -2853,7 +2917,7 @@ INSERT INTO `sub_golongan` (`id_subgolongan`, `id_golongan`, `nm_subgolongan`) V
 --
 
 CREATE TABLE `supplier` (
-  `id_supplier` int NOT NULL,
+  `id_supplier` int(11) NOT NULL,
   `nm_supplier` varchar(50) DEFAULT NULL,
   `kota_supplier` varchar(25) DEFAULT NULL,
   `alamat_supplier` varchar(200) DEFAULT NULL,
@@ -2987,20 +3051,20 @@ INSERT INTO `supplier` (`id_supplier`, `nm_supplier`, `kota_supplier`, `alamat_s
 --
 
 CREATE TABLE `tagihan_po` (
-  `id_tagihan` bigint NOT NULL,
-  `po_id` int DEFAULT NULL,
-  `bkk_id` int DEFAULT NULL,
-  `regulasi_tempo` varchar(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `persentase` int DEFAULT NULL,
-  `nominal` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `doc_faktur` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `no_ref_faktur` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_tagihan` bigint(20) NOT NULL,
+  `po_id` int(11) DEFAULT NULL,
+  `bkk_id` int(11) DEFAULT NULL,
+  `regulasi_tempo` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `persentase` int(11) DEFAULT NULL,
+  `nominal` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `doc_faktur` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `no_ref_faktur` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `metode_pembayaran` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `tgl_buat` datetime DEFAULT NULL,
   `tgl_tempo` datetime DEFAULT NULL,
   `app_pajak` datetime DEFAULT NULL,
-  `status_tagihan` varchar(3) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+  `status_tagihan` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tagihan_po`
@@ -3017,7 +3081,7 @@ INSERT INTO `tagihan_po` (`id_tagihan`, `po_id`, `bkk_id`, `regulasi_tempo`, `pe
 --
 
 CREATE TABLE `tahun` (
-  `id_tahun` int NOT NULL,
+  `id_tahun` int(11) NOT NULL,
   `nm_tahun` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -3036,13 +3100,13 @@ INSERT INTO `tahun` (`id_tahun`, `nm_tahun`) VALUES
 --
 
 CREATE TABLE `tolak_bkk_final` (
-  `id` int NOT NULL,
-  `id_bkk_final` int DEFAULT NULL,
-  `alasan_tolak_pajak` text,
+  `id` int(11) NOT NULL,
+  `id_bkk_final` int(11) DEFAULT NULL,
+  `alasan_tolak_pajak` text DEFAULT NULL,
   `waktu_tolak_pajak` datetime DEFAULT NULL,
-  `alasan_tolak_mgrfin` text,
+  `alasan_tolak_mgrfin` text DEFAULT NULL,
   `waktu_tolak_mgrfin` datetime DEFAULT NULL,
-  `alasan_tolak_direktur` text,
+  `alasan_tolak_direktur` text DEFAULT NULL,
   `waktu_tolak_direktur` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -3053,15 +3117,15 @@ CREATE TABLE `tolak_bkk_final` (
 --
 
 CREATE TABLE `tolak_kasbon` (
-  `id_tolak` int NOT NULL,
+  `id_tolak` int(11) NOT NULL,
   `kasbon_id` varchar(15) DEFAULT NULL,
-  `alasan_tolak_direktur` text,
+  `alasan_tolak_direktur` text DEFAULT NULL,
   `waktu_tolak_direktur` datetime DEFAULT NULL,
-  `alasan_tolak_mgrfin` text,
+  `alasan_tolak_mgrfin` text DEFAULT NULL,
   `waktu_tolak_mgrfin` datetime DEFAULT NULL,
-  `alasan_tolak_mgrga` text,
+  `alasan_tolak_mgrga` text DEFAULT NULL,
   `waktu_tolak_mgrga` datetime DEFAULT NULL,
-  `alasan_tolak_pajak` text,
+  `alasan_tolak_pajak` text DEFAULT NULL,
   `waktu_tolak_pajak` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -3072,15 +3136,15 @@ CREATE TABLE `tolak_kasbon` (
 --
 
 CREATE TABLE `tolak_po` (
-  `id_tolak` int NOT NULL,
+  `id_tolak` int(11) NOT NULL,
   `po_id` varchar(15) DEFAULT NULL,
-  `alasan_tolak_direktur` text,
+  `alasan_tolak_direktur` text DEFAULT NULL,
   `waktu_tolak_direktur` datetime DEFAULT NULL,
-  `alasan_tolak_mgrfin` text,
+  `alasan_tolak_mgrfin` text DEFAULT NULL,
   `waktu_tolak_mgrfin` datetime DEFAULT NULL,
-  `alasan_tolak_mgrga` text,
+  `alasan_tolak_mgrga` text DEFAULT NULL,
   `waktu_tolak_mgrga` datetime DEFAULT NULL,
-  `alasan_tolak_pajak` text,
+  `alasan_tolak_pajak` text DEFAULT NULL,
   `waktu_tolak_pajak` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -3091,17 +3155,17 @@ CREATE TABLE `tolak_po` (
 --
 
 CREATE TABLE `transaksi_pettycash` (
-  `id_pettycash` int NOT NULL,
+  `id_pettycash` int(11) NOT NULL,
   `kd_pettycash` varchar(15) DEFAULT NULL,
-  `id_dbo` int DEFAULT NULL,
+  `id_dbo` int(11) DEFAULT NULL,
   `id_divisi` varchar(15) DEFAULT NULL,
   `id_manager` varchar(15) DEFAULT NULL,
-  `id_anggaran` int DEFAULT NULL,
+  `id_anggaran` int(11) DEFAULT NULL,
   `keterangan_pettycash` varchar(200) DEFAULT NULL,
-  `komentar_pettycash` text,
-  `nominal_pengajuan` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `pengembalian` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `penambahan` decimal(12,2) NOT NULL DEFAULT '0.00',
+  `komentar_pettycash` text DEFAULT NULL,
+  `nominal_pengajuan` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `pengembalian` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `penambahan` decimal(12,2) NOT NULL DEFAULT 0.00,
   `total_pettycash` decimal(12,2) DEFAULT NULL,
   `penerima_dana` varchar(50) DEFAULT NULL,
   `doc_lpj_pettycash` varchar(200) DEFAULT NULL,
@@ -3141,16 +3205,16 @@ INSERT INTO `transaksi_pettycash` (`id_pettycash`, `kd_pettycash`, `id_dbo`, `id
 --
 
 CREATE TABLE `user` (
-  `id_user` int NOT NULL,
+  `id_user` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `nama` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `nama` varchar(40) CHARACTER SET utf8 NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8 NOT NULL,
   `level` enum('anggaran','admin_divisi','manager','admin_pajak','kordinator_pajak','kasir','direktur','direktur_eksekutif','purchasing','manager_ga','manager_keuangan','superuser','account_receivable','gm') NOT NULL,
   `id_divisi` varchar(15) DEFAULT NULL,
   `id_manager` varchar(15) DEFAULT NULL,
   `asmen` varchar(50) DEFAULT NULL,
-  `area` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `area` varchar(40) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -3409,193 +3473,193 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `anggaran`
 --
 ALTER TABLE `anggaran`
-  MODIFY `id_anggaran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=315;
+  MODIFY `id_anggaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=315;
 
 --
 -- AUTO_INCREMENT for table `bank`
 --
 ALTER TABLE `bank`
-  MODIFY `id_bank` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_bank` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `bkk`
 --
 ALTER TABLE `bkk`
-  MODIFY `id_bkk` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_bkk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `bkk_final`
 --
 ALTER TABLE `bkk_final`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `bkk_ke_pusat`
 --
 ALTER TABLE `bkk_ke_pusat`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `coa`
 --
 ALTER TABLE `coa`
-  MODIFY `id_coa` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_coa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `detail_biayaops`
 --
 ALTER TABLE `detail_biayaops`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `detail_sr`
 --
 ALTER TABLE `detail_sr`
-  MODIFY `id_dsr` bigint NOT NULL AUTO_INCREMENT;
+  MODIFY `id_dsr` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `divisi`
 --
 ALTER TABLE `divisi`
-  MODIFY `id_divisi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_divisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `golongan`
 --
 ALTER TABLE `golongan`
-  MODIFY `id_golongan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id_golongan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `jenis_pengajuan`
 --
 ALTER TABLE `jenis_pengajuan`
-  MODIFY `id_jenispengajuan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_jenispengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `log_system`
 --
 ALTER TABLE `log_system`
-  MODIFY `id_log` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1008;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1067;
 
 --
 -- AUTO_INCREMENT for table `po`
 --
 ALTER TABLE `po`
-  MODIFY `id_po` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_po` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pph`
 --
 ALTER TABLE `pph`
-  MODIFY `id_pph` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pph` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `queue_email`
 --
 ALTER TABLE `queue_email`
-  MODIFY `id_queue` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
+  MODIFY `id_queue` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
 
 --
 -- AUTO_INCREMENT for table `queue_email_tempo`
 --
 ALTER TABLE `queue_email_tempo`
-  MODIFY `id_queue` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_queue` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `reapprove_bkk`
 --
 ALTER TABLE `reapprove_bkk`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `reapprove_bkk_final`
 --
 ALTER TABLE `reapprove_bkk_final`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `reapprove_kasbon`
 --
 ALTER TABLE `reapprove_kasbon`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rekening`
 --
 ALTER TABLE `rekening`
-  MODIFY `id_rekening` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_rekening` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `so`
 --
 ALTER TABLE `so`
-  MODIFY `id_so` bigint NOT NULL AUTO_INCREMENT;
+  MODIFY `id_so` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sr`
 --
 ALTER TABLE `sr`
-  MODIFY `id_sr` bigint NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sr` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sub_dbo`
 --
 ALTER TABLE `sub_dbo`
-  MODIFY `id_subdbo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id_subdbo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `sub_golongan`
 --
 ALTER TABLE `sub_golongan`
-  MODIFY `id_subgolongan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
+  MODIFY `id_subgolongan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
 
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id_supplier` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- AUTO_INCREMENT for table `tagihan_po`
 --
 ALTER TABLE `tagihan_po`
-  MODIFY `id_tagihan` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_tagihan` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tahun`
 --
 ALTER TABLE `tahun`
-  MODIFY `id_tahun` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_tahun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tolak_bkk_final`
 --
 ALTER TABLE `tolak_bkk_final`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tolak_kasbon`
 --
 ALTER TABLE `tolak_kasbon`
-  MODIFY `id_tolak` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tolak` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tolak_po`
 --
 ALTER TABLE `tolak_po`
-  MODIFY `id_tolak` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tolak` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `transaksi_pettycash`
 --
 ALTER TABLE `transaksi_pettycash`
-  MODIFY `id_pettycash` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_pettycash` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
