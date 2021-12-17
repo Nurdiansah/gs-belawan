@@ -21,6 +21,7 @@ if (isset($_POST['submit'])) {
 	$id_divisi = $_POST['id_divisi'];
 	$id_manager = $_POST['id_manager'];
 	$doc_lpj = $_POST['doc_lpj'];
+	$tgl_bkk = $_POST['tgl_bkk'];
 
 	// $DPP = ($nilai_barang + $nilai_jasa) - $nilai_pph;
 	$DPP = $nilai_barang + $nilai_jasa;
@@ -34,7 +35,6 @@ if (isset($_POST['submit'])) {
 
 	date_default_timezone_set('Asia/Jakarta');
 	$tanggal = date("Y-m-d H:i:s");
-	$tgl_bkk = date("Y-m-d ");
 
 	// query user
 	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]'");
@@ -48,9 +48,11 @@ if (isset($_POST['submit'])) {
 										";
 
 	//deklarasi tanggal
-	$bulan    = date('n');
+	// $bulan    = date('n');
+	// $tahun     = date('Y');
+	$bulan 	   = date("n", strtotime($tgl_bkk));
 	$romawi    = getRomawi($bulan);
-	$tahun     = date('Y');
+	$tahun     = date("Y", strtotime($tgl_bkk));
 	$nomor     = "/GS-GK/" . $romawi . "/" . $tahun;
 
 	mysqli_query($koneksi, $queryLog);
@@ -97,10 +99,9 @@ if (isset($_POST['submit'])) {
 		}
 
 		$nomorBkk = $nomorAkhir . $nomor;
-
 		//query di kualifikasikan ke bkk final
-		$queryBkkfinal = "INSERT INTO bkk_final (id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk, id_anggaran, id_supplier, nilai_barang, nilai_jasa, nilai_ppn, nilai_pph, id_pph, pengembalian, nominal, keterangan, status_bkk) VALUES
-													('1', 'KASBON', '$id_kasbon', '$waktu_penerima_dana', '$id_anggaran','$id_supplier', '$nilai_barang','$nilai_jasa', '$nilai_ppn', '$nilai_pph', '$id_pph','$pengembalian','$total', '$keterangan', '1')
+		$queryBkkfinal = "INSERT INTO bkk_final (nomor, no_bkk, release_on_bkk,id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk, id_anggaran, id_supplier, nilai_barang, nilai_jasa, nilai_ppn, nilai_pph, id_pph, pengembalian, nominal, keterangan, status_bkk) VALUES
+												('$nomorAkhir', '$nomorBkk', '$tgl_bkk','1', 'KASBON', '$id_kasbon', '$waktu_penerima_dana', '$id_anggaran','$id_supplier', '$nilai_barang','$nilai_jasa', '$nilai_ppn', '$nilai_pph', '$id_pph','$pengembalian','$total', '$keterangan', '1')
 										";
 		$hasil =  mysqli_query($koneksi, $queryBkkfinal);
 	}

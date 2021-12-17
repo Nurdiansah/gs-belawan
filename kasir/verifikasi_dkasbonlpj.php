@@ -291,6 +291,10 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                 <input type="hidden" value="<?= $data['waktu_penerima_dana']; ?>" class="form-control" name="waktu_penerima_dana" readonly>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="" class="label-control">Tanggal BKK</label>
+                            <input type="date" class="form-control" name="tgl_bkk" required>
+                        </div>
                         <div class="mb-3">
                             <label for="validationTextarea">Redaksi</label>
                             <textarea rows="8" class="form-control is-invalid" name="keterangan" id="validationTextarea" required placeholder="Redaksi BKK"></textarea>

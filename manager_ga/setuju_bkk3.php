@@ -27,7 +27,14 @@ if (isset($_POST['submit'])) {
     // BEGIN/START TRANSACTION        
     mysqli_begin_transaction($koneksi);
 
-    if ($pengajuan == 'KASBON' || $pengajuan == 'BIAYA UMUM') {
+    if ($pengajuan == 'KASBON') {
+        // UPDATE BKK
+        $query1 = mysqli_query($koneksi, "UPDATE bkk_final
+										SET status_bkk = 4 , v_direktur = '$tanggal'
+										WHERE id= '$id' ");
+
+        $queue = "berhasil";
+    } else if ($pengajuan == 'BIAYA UMUM') {
 
         //deklarasi tanggal
 

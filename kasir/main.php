@@ -55,10 +55,10 @@
         <a href="#" class="list-group-item"><i class="fa fa-minimize"></i> <span class="badge label-info"></span> </a>
       </div>
     </div>
-  </div>
-  <!-- /row -->
-  <!-- row -->
-  <div class="row">
+    <!-- </div> -->
+    <!-- /row -->
+    <!-- row -->
+    <!-- <div class="row"> -->
     <div class="col-lg-4 col-xs-6">
       <div class="list-group">
         <a href="#" class="list-group-item label-danger">
