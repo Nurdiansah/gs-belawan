@@ -40,6 +40,8 @@ if (isset($_POST['simpan'])) {
 
 
 	if ($jenis == 'umum') {
+		$tgl_bkk_release = $_POST['tgl_bkk_release'];
+
 		$lokasi_doc_lpj = ($_FILES['doc_lpj']['tmp_name']);
 		$doc_lpj = ($_FILES['doc_lpj']['name']);
 
@@ -51,9 +53,9 @@ if (isset($_POST['simpan'])) {
 		move_uploaded_file($lokasi_doc_lpj, "../file/bukti_pembayaran/" . $namabaru);
 
 		//deklarasi tanggal
-		$bulan    = date('n');
+		$bulan    = date("n", strtotime($tgl_bkk_release));
 		$romawi    = getRomawi($bulan);
-		$tahun     = date('Y');
+		$tahun     = date("Y", strtotime($tgl_bkk_release));
 		$nomor     = "/GS/" . $romawi . "/" . $tahun;
 
 		$queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor) from bkk_final WHERE month(created_on_bkk)='$bulan' ");
@@ -66,17 +68,17 @@ if (isset($_POST['simpan'])) {
 
 			//setiap kode ditambah 1
 			$kode = $kode + 1;
-			$nomorAkhir = "" . str_pad($kode, 4, "0", STR_PAD_LEFT);
+			$nomorAkhir = "" . str_pad($kode, 3, "0", STR_PAD_LEFT);
 		} else {
-			$nomorAkhir = "0001";
+			$nomorAkhir = "001";
 		}
 
 		$nomorBkk = $nomorAkhir . $nomor;
 
 
 		//query di kualifikasikan ke bkk final
-		$return =  mysqli_query($koneksi, "INSERT INTO bkk_final (id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk, id_anggaran, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, bukti_pembayaran,status_bkk) VALUES
-											('1', 'BIAYA UMUM','$kd_transaksi', '$tgl_bkk', '$id_anggaran', '$nilai_barang', '$nilai_jasa', '$nilai_ppn','$id_pph', '$nilai_pph', '$nominal', '$keterangan', '$namabaru', '1');
+		$return =  mysqli_query($koneksi, "INSERT INTO bkk_final (nomor, no_bkk, release_on_bkk, id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk, id_anggaran, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, bukti_pembayaran,status_bkk) VALUES
+																('$nomorAkhir', '$nomorBkk', '$tgl_bkk_release','1', 'BIAYA UMUM','$kd_transaksi', '$tgl_bkk', '$id_anggaran', '$nilai_barang', '$nilai_jasa', '$nilai_ppn','$id_pph', '$nilai_pph', '$nominal', '$keterangan', '$namabaru', '1');
 									");
 
 		//query realisasi anggaran

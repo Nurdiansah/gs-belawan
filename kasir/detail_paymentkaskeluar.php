@@ -69,11 +69,21 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
 
 
 
-                        <form method="post" enctype="multipart/form-data" action="approval.php" class="form-horizontal">
+                        <form class="form-horizontal">
                             <div class="box-body">
                                 <div class="form-group ">
                                     <label class="col-sm-offset-10   control-label"></label>
                                     <!-- <a target="_blank"  href="cetak_bkk.php&id=<?= $row2['id_bkk']; ?>" class="btn btn-success"> Cetak BKK <i class="fa fa-print"></i> </a> -->
+
+                                    <?php
+                                    if ($row2['status_bkk'] == '9') {
+                                        # code...
+                                        echo "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#payment'>Payment</button></span>";
+                                    }
+
+                                    ?>
+
+
                                 </div>
                                 <div class="form-group ">
                                     <label for="id_joborder" class=" col-sm-2 control-label">Kode Transaksi</label>
@@ -200,6 +210,219 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
         </div>
     </div>
 
+    <!-- Modal Payment  -->
+
+    <div id="payment" class="modal fade" role="dialog">
+
+        <div class="modal-dialog">
+
+            <!-- konten modal-->
+
+            <div class="modal-content">
+
+                <!-- heading modal -->
+
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title">Lengkapi Pembayaran</h4>
+
+                </div>
+
+                <!-- body modal -->
+
+                <div class="modal-body">
+
+                    <form method="post" enctype="multipart/form-data" action="add_paymentbno.php" class="form-horizontal">
+
+                        <div class="box-body">
+
+                            <input type="hidden" value="<?= $row2['kd_transaksi']; ?>" disabled class="form-control" name="kd_transaksi">
+
+                            <div class="form-group ">
+
+                                <div class="col-sm-4">
+
+                                    <input type="hidden" value="<?= $row2['id_bkk']; ?>" class="form-control" name="id_bkk" readonly>
+
+                                    <input type="hidden" value="<?= $row2['id_anggaran']; ?>" class="form-control" name="id_anggaran" readonly>
+
+                                    <input type="hidden" value="<?= $row2['jml_bkk']; ?>" class="form-control" name="jml_bkk" readonly>
+
+                                    <input type="hidden" value="<?= $row2['kd_transaksi']; ?>" class="form-control" name="kd_transaksi" readonly>
+
+                                    <input type="hidden" value="<?= $row2['metode_pembayaran']; ?>" name="metode_pembayaran">
+
+                                    <!-- nilai -->
+
+                                    <input type="hidden" value="<?= $row2['nilai_barang']; ?>" name="nilai_barang">
+
+                                    <input type="hidden" value="<?= $row2['nilai_jasa']; ?>" name="nilai_jasa">
+
+                                    <input type="hidden" value="<?= $row2['ppn_nilai']; ?>" name="nilai_ppn">
+
+                                    <input type="hidden" value="<?= $row2['id_pph']; ?>" name="id_pph">
+
+                                    <input type="hidden" value="<?= $row2['pph_nilai']; ?>" name="nilai_pph">
+
+                                    <input type="hidden" value="<?= $row2['jml_bkk']; ?>" name="nominal">
+
+                                    <input type="hidden" value="<?= $row2['jenis']; ?>" name="jenis">
+
+                                    <!-- end nilai -->
+
+                                </div>
+
+                            </div>
+
+                            <?php if ($row2['metode_pembayaran'] === 'transfer') {  ?>
+
+                                <!-- Jika metode pembayaran nya transfer -->
+
+                                <div class="form-group ">
+
+                                    <label id="tes" for="dari_bank" class="col-sm-4 control-label">Bank</label>
+
+                                    <div class="col-sm-4">
+
+                                        <select name="dari_bank" class="form-control">
+
+                                            <option value="">--Pilih Bank--</option>
+
+                                            <?php
+
+                                            $queryBank = mysqli_query($koneksi, "SELECT * FROM bank ORDER BY nm_bank ASC");
+
+                                            if (mysqli_num_rows($queryBank)) {
+
+                                                while ($rowBank = mysqli_fetch_assoc($queryBank)) :
+
+                                            ?>
+
+                                                    <option value="<?= $rowBank['id_bank']; ?>" type="checkbox"><?= $rowBank['nm_bank']; ?></option>
+
+                                            <?php endwhile;
+                                            } ?>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group ">
+
+                                    <label id="tes" for="dari_rekening" class="col-sm-4 control-label">Rekening</label>
+
+                                    <div class="col-sm-4">
+
+                                        <input type="text" class="form-control " name="dari_rekening" value="">
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group ">
+
+                                    <label id="tes" for="nocek_bkk" class="col-sm-4 control-label">No. Cek/Giro</label>
+
+                                    <div class="col-sm-4">
+
+                                        <input type="text" class="form-control " name="nocek_bkk" value="-">
+
+                                    </div>
+
+                                </div>
+
+                                <!-- End Metode pembayarn transfer -->
+
+                            <?php } ?>
+
+
+
+                            <?php
+
+                            if ($row2['jenis'] == 'umum') {
+
+                            ?>
+                                <div class="form-group">
+
+                                    <label for="doc_lpj" class="col-sm-offset- col-sm-4 control-label">Tanggal BKK</label>
+
+                                    <div class="col-sm-5">
+
+                                        <input class="form-control" type="date" name="tgl_bkk_release" <?php echo  $row2['jenis'] == 'umum' ? 'required' : ''; ?>>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label for="doc_lpj" class="col-sm-offset- col-sm-4 control-label">Bukti Pembayaran</label>
+
+                                    <div class="col-sm-5">
+
+                                        <div class="input-group input-file" name="doc_lpj">
+
+                                            <input type="text" class="form-control" placeholder="Lampirkan Bukti Pembayaran disini" />
+
+                                            <span class="input-group-btn">
+
+                                                <button class="btn btn-default btn-choose" type="button">Browse</button>
+
+                                            </span>
+
+                                        </div>
+
+                                        <span class="text-danger"><i>*Opsional</i></span>
+
+                                    </div>
+
+                                </div>
+
+                            <?php
+
+                            }
+
+                            ?>
+
+                            <div class="mb-3">
+
+                                <label for="validationTextarea">Rubah Redaksi</label>
+
+                                <textarea rows="5" class="form-control is-invalid" name="keterangan" id="validationTextarea" required> <?= $row2['keterangan']; ?> </textarea>
+
+                                <div class="invalid-feedback">
+
+                                    Please enter a message in the textarea.
+
+                                </div>
+
+                            </div>
+
+                            <div class=" modal-footer">
+
+                                <button class="btn btn-success" type="submit" name="simpan">Submit</button></span></a>
+
+                                &nbsp;
+
+                                <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal">
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 <?php endwhile;
                 } ?>
