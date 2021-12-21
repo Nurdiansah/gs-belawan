@@ -12,7 +12,7 @@ $tahun = date("Y");
 
 $id = $_GET['id'];
 
-$queryUser =  mysqli_query($koneksi, "SELECT *
+$queryUser = mysqli_query($koneksi, "SELECT *
                                                      from user u
                                                      JOIN divisi d
                                                      ON u.id_divisi=d.id_divisi
@@ -20,7 +20,7 @@ $queryUser =  mysqli_query($koneksi, "SELECT *
 $rowUser = mysqli_fetch_assoc($queryUser);
 $Area = $rowUser['area'];
 
-$queryDetail =  mysqli_query($koneksi, "SELECT * FROM kasbon k
+$queryDetail = mysqli_query($koneksi, "SELECT * FROM kasbon k
                                                          JOIN detail_biayaops db 
                                                          ON k.id_dbo = db.id
                                                          JOIN divisi d
@@ -87,10 +87,10 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
                                         <?php
                                         if (mysqli_num_rows($queryAnggaran)) {
                                             while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
-                                        ?>
+                                            ?>
                                                 <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox"><?= $rowAnggaran['kd_anggaran'] . ' ' . $rowAnggaran['nm_item']; ?></option>
                                         <?php endwhile;
-                                        } ?>
+                                    } ?>
                                     </select>
                                 </div>
 
@@ -164,7 +164,8 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
                                         </table>
                                     </div>
                                 </div>
-                            <?php } ?>
+                            <?php 
+                        } ?>
                             <br>
                             <div class=" col-sm-offset-8 col-sm-4 control-label">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#konfirmasi">Done</button></span></a>
@@ -214,6 +215,10 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
                                 <input type="hidden" value="1" class="form-control" name="qty" readonly>
                                 <input type="hidden" value="<?= $data['waktu_penerima_dana']; ?>" class="form-control" name="waktu_penerima_dana" readonly>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="label-control">Tanggal BKK</label>
+                            <input type="date" class="form-control" name="tgl_bkk" required>
                         </div>
                         <div class="mb-3">
                             <label for="validationTextarea">Redaksi</label>
