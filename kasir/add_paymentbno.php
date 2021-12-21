@@ -11,7 +11,7 @@ if (isset($_POST['simpan'])) {
 	$kd_transaksi = $_POST['kd_transaksi'];
 	$metode_pembayaran = $_POST['metode_pembayaran'];
 	$tgl_bkk = date("Y-m-d");
-	$keterangan	 = $_POST['keterangan'];
+	$keterangan = $_POST['keterangan'];
 	$jml_bkk = $_POST['jml_bkk'];
 
 	$nilai_barang = $_POST['nilai_barang'];
@@ -25,7 +25,7 @@ if (isset($_POST['simpan'])) {
 
 	$DPP = $nilai_barang + $nilai_barang;
 
-	if ($metode_pembayaran  === 'transfer') {
+	if ($metode_pembayaran === 'transfer') {
 		$nocek_bkk = $_POST['nocek_bkk'];
 		$dari_bank = $_POST['dari_bank'];
 		$dari_rekening = $_POST['dari_rekening'];
@@ -49,36 +49,16 @@ if (isset($_POST['simpan'])) {
 
 		$namabaru = $kd_transaksi . "-bukti-pembayaran-biaya-umum." . $ekstensi;
 
-		// $folder_ptw="file/$Doc_ptw";
-		move_uploaded_file($lokasi_doc_lpj, "../file/bukti_pembayaran/" . $namabaru);
-
 		//deklarasi tanggal
-		$bulan    = date("n", strtotime($tgl_bkk_release));
-		$romawi    = getRomawi($bulan);
-		$tahun     = date("Y", strtotime($tgl_bkk_release));
-		$nomor     = "/GS/" . $romawi . "/" . $tahun;
+		$bulan = date("n", strtotime($tgl_bkk_release));
 
-		$queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor) from bkk_final WHERE month(created_on_bkk)='$bulan' ");
+		$nomorBkk = getNomorBkk($bulan);
 
-		$nomorMax = mysqli_fetch_array($queryNomor);
-		if ($nomorMax) {
-
-			$nilaikode = substr($nomorMax[0], 2);
-			$kode = (int) $nilaikode;
-
-			//setiap kode ditambah 1
-			$kode = $kode + 1;
-			$nomorAkhir = "" . str_pad($kode, 3, "0", STR_PAD_LEFT);
-		} else {
-			$nomorAkhir = "001";
-		}
-
-		$nomorBkk = $nomorAkhir . $nomor;
-
+		$nomor = substr($nomorBkk, 0, 3);
 
 		//query di kualifikasikan ke bkk final
-		$return =  mysqli_query($koneksi, "INSERT INTO bkk_final (nomor, no_bkk, release_on_bkk, id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk, id_anggaran, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, bukti_pembayaran,status_bkk) VALUES
-																('$nomorAkhir', '$nomorBkk', '$tgl_bkk_release','1', 'BIAYA UMUM','$kd_transaksi', '$tgl_bkk', '$id_anggaran', '$nilai_barang', '$nilai_jasa', '$nilai_ppn','$id_pph', '$nilai_pph', '$nominal', '$keterangan', '$namabaru', '1');
+		$return = mysqli_query($koneksi, "INSERT INTO bkk_final (nomor, no_bkk, release_on_bkk, id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk, id_anggaran, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, bukti_pembayaran,status_bkk) VALUES
+																('$nomor', '$nomorBkk', '$tgl_bkk_release','1', 'BIAYA UMUM','$kd_transaksi', '$tgl_bkk', '$id_anggaran', '$nilai_barang', '$nilai_jasa', '$nilai_ppn','$id_pph', '$nilai_pph', '$nominal', '$keterangan', '$namabaru', '1');
 									");
 
 		//query realisasi anggaran
@@ -95,7 +75,7 @@ if (isset($_POST['simpan'])) {
 
 
 		// query update biaya umum
-		$hasil =  mysqli_query($koneksi, "UPDATE bkk SET tgl_bkk = '$tgl_bkk', nocek_bkk = '$nocek_bkk' , dari_bank = '$dari_bank' , 
+		$hasil = mysqli_query($koneksi, "UPDATE bkk SET tgl_bkk = '$tgl_bkk', nocek_bkk = '$nocek_bkk' , dari_bank = '$dari_bank' , 
 					dari_rekening = '$dari_rekening', keterangan = '$keterangan',  doc_lpj = '$namabaru', status_bkk = '10' 
 					WHERE id_bkk ='$id' ");
 		// 
@@ -109,7 +89,7 @@ if (isset($_POST['simpan'])) {
 		$realisasi = 'Berhasil';
 
 		// query update biaya umum
-		$hasil =  mysqli_query($koneksi, "UPDATE bkk SET tgl_bkk = '$tgl_bkk',keterangan = '$keterangan',  doc_lpj = '$namabaru', status_bkk = '17' 
+		$hasil = mysqli_query($koneksi, "UPDATE bkk SET tgl_bkk = '$tgl_bkk',keterangan = '$keterangan',  doc_lpj = '$namabaru', status_bkk = '17' 
 			WHERE id_bkk ='$id' ");
 		// 
 		$bkkPusat = mysqli_query($koneksiPusat, "INSERT INTO bkk_final (id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk,  id_anggaran, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, id_area ,status_bkk) VALUES
@@ -120,6 +100,9 @@ if (isset($_POST['simpan'])) {
 
 
 	if ($hasil && $realisasi && $return) {
+		// $folder_ptw="file/$Doc_ptw";
+		move_uploaded_file($lokasi_doc_lpj, "../file/bukti_pembayaran/" . $namabaru);
+
 		# jika semua query berhasil di jalankan
 		mysqli_commit($koneksi);
 

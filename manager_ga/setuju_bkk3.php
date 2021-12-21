@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
     $bulanCOB = $_POST['bulan'];
 
     //query user
-    $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]' ");
+    $queryUser = mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]' ");
     $rowUser = mysqli_fetch_assoc($queryUser);
     $nama = $rowUser['nama'];
 
@@ -19,10 +19,10 @@ if (isset($_POST['submit'])) {
     date_default_timezone_set('Asia/Jakarta');
     $tanggal = date("Y-m-d H:i:s");
 
-    $bulan    = date('n', strtotime($bulanCOB));
+    $bulan = date('n', strtotime($bulanCOB));
 
 
-    $bulanSekarang    = date('n');
+    $bulanSekarang = date('n');
 
     // BEGIN/START TRANSACTION        
     mysqli_begin_transaction($koneksi);
@@ -36,60 +36,11 @@ if (isset($_POST['submit'])) {
         $queue = "berhasil";
     } else if ($pengajuan == 'BIAYA UMUM') {
 
-        //deklarasi tanggal
-
-        $romawi    = getRomawi($bulan);
-        $tahun     = date('Y');
-        $nomor     = "/GS-GK/" . $romawi . "/" . $tahun;
-
-        $queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor) from bkk_final WHERE month(created_on_bkk)='$bulan' ");
-
-        $nomorMax = mysqli_fetch_array($queryNomor);
-        if ($nomorMax) {
-
-            $nilaikode = substr($nomorMax[0], 0);
-            $kode = (int) $nilaikode;
-
-            //setiap kode ditambah 1
-            $kode = $kode + 1;
-            $nomorAkhir = "" . str_pad($kode, 3, "0", STR_PAD_LEFT);
-        } else {
-            $nomorAkhir = "001";
-        }
-
-        $nomorBkk = $nomorAkhir . $nomor;
+         // UPDATE BKK
+        $query1 = mysqli_query($koneksi, "UPDATE bkk_final
+                                SET status_bkk = 4 , v_direktur = '$tanggal'
+                                WHERE id= '$id' ");
         $queue = "berhasil";
-
-        // print_r($nomorBkk);
-        // die;
-
-        if ($jenis_bu == 'kontrak') {
-            # jika biaya umum kontrak release on bkk di kosongin status di ganti 17
-            // UPDATE BKK
-            $query1 = mysqli_query($koneksi, "UPDATE bkk_final
-													SET status_bkk = 17 , v_direktur = '$tanggal'
-													WHERE id= '$id' ");
-        } else {
-
-            if ($bulan == $bulanSekarang) {
-                // Jika kasbon dan biaya umum yang umum
-                $query1 = mysqli_query($koneksi, "UPDATE bkk_final
-															SET status_bkk = 4 , v_direktur = '$tanggal',
-																nomor = '$nomorAkhir', no_bkk = '$nomorBkk', 
-																release_on_bkk = '$tanggal'
-															WHERE id= '$id' ");
-            } else {
-
-
-                $tanggal = date('Y-m-t', strtotime($bulanCOB));
-                // Jika kasbon dan biaya umum yang umum
-                $query1 = mysqli_query($koneksi, "UPDATE bkk_final
-													SET status_bkk = 4 , v_direktur = '$tanggal',
-														nomor = '$nomorAkhir', no_bkk = '$nomorBkk', 
-														release_on_bkk = '$tanggal'
-													WHERE id= '$id' ");
-            }
-        }
 
         // untuk pengajuan PO
     } else if ($pengajuan == 'PO') {

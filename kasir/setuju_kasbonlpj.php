@@ -6,7 +6,7 @@ include "../fungsi/fungsi.php";
 if (isset($_POST['submit'])) {
 	$id_kasbon = $_POST['id_kasbon'];
 	$total = $_POST['total'];
-	$keterangan	 = $_POST['keterangan'];
+	$keterangan = $_POST['keterangan'];
 	$id_anggaran = $_POST['id_anggaran'];
 	$id_supplier = $_POST['id_supplier'];
 	$nilai_barang = $_POST['nilai_barang'];
@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
 	$tanggal = date("Y-m-d H:i:s");
 
 	// query user
-	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]'");
+	$queryUser = mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]'");
 	$rowUser = mysqli_fetch_assoc($queryUser);
 	$id_user = $rowUser['id_user'];
 	$nama = $rowUser['nama'];
@@ -50,10 +50,10 @@ if (isset($_POST['submit'])) {
 	//deklarasi tanggal
 	// $bulan    = date('n');
 	// $tahun     = date('Y');
-	$bulan 	   = date("n", strtotime($tgl_bkk));
-	$romawi    = getRomawi($bulan);
-	$tahun     = date("Y", strtotime($tgl_bkk));
-	$nomor     = "/GS-GK/" . $romawi . "/" . $tahun;
+	$bulan = date("n", strtotime($tgl_bkk));
+	$romawi = getRomawi($bulan);
+	$tahun = date("Y", strtotime($tgl_bkk));
+	$nomor = "/GS-GK/" . $romawi . "/" . $tahun;
 
 	mysqli_query($koneksi, $queryLog);
 
@@ -66,7 +66,7 @@ if (isset($_POST['submit'])) {
 		if ($id_joborder) {
 
 			$nilaikode = substr($id_joborder[0], 2);
-			$kode = (int) $nilaikode;
+			$kode = (int)$nilaikode;
 
 			//setiap kode ditambah 1
 			$kode = $kode + 1;
@@ -83,27 +83,14 @@ if (isset($_POST['submit'])) {
 	} else {
 		# bkk		
 
-		$queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor) from bkk_final WHERE month(release_on_bkk)='$bulan' ");
+		$nomorBkk = getNomorBkk($bulan);
+		$nomor = substr($nomorBkk, 0, 3);
 
-		$nomorMax = mysqli_fetch_array($queryNomor);
-		if ($nomorMax) {
-
-			$nilaikode = substr($nomorMax[0], 2);
-			$kode = (int) $nilaikode;
-
-			//setiap kode ditambah 1
-			$kode = $kode + 1;
-			$nomorAkhir = "" . str_pad($kode, 3, "0", STR_PAD_LEFT);
-		} else {
-			$nomorAkhir = "001";
-		}
-
-		$nomorBkk = $nomorAkhir . $nomor;
 		//query di kualifikasikan ke bkk final
 		$queryBkkfinal = "INSERT INTO bkk_final (nomor, no_bkk, release_on_bkk,id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk, id_anggaran, id_supplier, nilai_barang, nilai_jasa, nilai_ppn, nilai_pph, id_pph, pengembalian, nominal, keterangan, status_bkk) VALUES
-												('$nomorAkhir', '$nomorBkk', '$tgl_bkk','1', 'KASBON', '$id_kasbon', '$waktu_penerima_dana', '$id_anggaran','$id_supplier', '$nilai_barang','$nilai_jasa', '$nilai_ppn', '$nilai_pph', '$id_pph','$pengembalian','$total', '$keterangan', '1')
+												('$nomor', '$nomorBkk', '$tgl_bkk','1', 'KASBON', '$id_kasbon', '$waktu_penerima_dana', '$id_anggaran','$id_supplier', '$nilai_barang','$nilai_jasa', '$nilai_ppn', '$nilai_pph', '$id_pph','$pengembalian','$total', '$keterangan', '1')
 										";
-		$hasil =  mysqli_query($koneksi, $queryBkkfinal);
+		$hasil = mysqli_query($koneksi, $queryBkkfinal);
 	}
 
 
