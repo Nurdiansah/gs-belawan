@@ -90,12 +90,13 @@ $query = mysqli_query($koneksi, "SELECT *
                                         <div class="modal-content">
                                             <!-- heading modal -->
                                             <div class="modal-header">
+
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                 <h4 class="modal-title">Alasan Penolakan </h4>
                                             </div>
                                             <!-- body modal -->
                                             <div class="modal-body">
-                                                <form method="post" enctype="multipart/form-data" action="tolak_kasbon.php" class="form-horizontal">
+                                                <form method="post" enctype="multipart/form-data" action="tolak_kasbon_app1.php" class="form-horizontal">
                                                     <div class="box-body">
                                                         <input type="hidden" name="id_kasbon" id="id_kasbon" value="<?= $row['id_kasbon']; ?>">
                                                         <input type="hidden" name="url" id="url" value="approval_kasbon">

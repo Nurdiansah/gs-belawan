@@ -4,7 +4,7 @@ include "../fungsi/fungsi.php";
 
 $queryPO = mysqli_query($koneksi, "SELECT * FROM po ks
                                     JOIN detail_biayaops db
-                                        ON ks.kd_transaksi = db.kd_transaksi
+                                        ON ks.id_dbo = db.id
                                     LEFT JOIN tolak_po
                                         ON id_po = po_id
                                     WHERE status_po = '0'

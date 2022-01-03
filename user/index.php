@@ -31,7 +31,7 @@ $idUser = $dataUser['id_user'];
 $idManager = $dataUser['id_manager'];
 $idDivisi = $dataUser['id_divisi'];
 
-$queryTolak = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah_ditolak FROM bkk WHERE status_bkk IN ('101', '202') AND id_divisi='$idDivisi' ");
+$queryTolak = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah_ditolak FROM bkk WHERE status_bkk IN ('101', '202', '303') AND id_divisi='$idDivisi' ");
 $dataTolak = mysqli_fetch_assoc($queryTolak);
 // 
 $querySelesai = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah_Selesai FROM bkk WHERE status_bkk='9' AND id_divisi='$idDivisi' ");
@@ -172,7 +172,7 @@ $totalTolakKasbon = $dataTKU['jumlah'] + $dataTKP['jumlah'] + $dataTolakTKS['jum
 $queryTolakPO = mysqli_query($koneksi, "SELECT COUNT(id_po) as jumlah
                                         FROM po po
                                         JOIN detail_biayaops db
-                                          ON db.kd_transaksi = po.kd_transaksi
+                                          ON db.id = po.id_dbo
                                         WHERE status_po = '0'
                                         AND id_divisi = '$idDivisi'");
 $dataTolakPO = mysqli_fetch_assoc($queryTolakPO);

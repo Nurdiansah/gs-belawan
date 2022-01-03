@@ -23,7 +23,7 @@ $Area = $rowUser['area'];
 $queryDetail =  mysqli_query($koneksi, "SELECT * FROM detail_biayaops db 
                                                               JOIN anggaran a
                                                               ON db.id_anggaran = a.id_anggaran 
-                                                              JOIN supplier s
+                                                              LEFT JOIN supplier s
                                                               ON s.id_supplier = db.id_supplier
                                                               WHERE db.id=$id ");
 $data = mysqli_fetch_assoc($queryDetail);

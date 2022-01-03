@@ -133,7 +133,7 @@ if (isset($_POST['update'])) {
                                 <textarea rows="5" type="text" name="keterangan" disabled class="form-control "> <?= $data['keterangan']; ?></textarea>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="alasan_ditolak" class="col-sm-offset- col-sm-2 control-label">Alasan Ditolak</label>
                             <div class="col-sm-3">
                                 <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "><?= $data['alasan_tolak_mgrga']; ?>, <?= $data['alasan_tolak_pajak']; ?>, <?= $data['alasan_tolak_mgrfin']; ?>, <?= $data['alasan_tolak_direktur']; ?></textarea>
@@ -143,7 +143,7 @@ if (isset($_POST['update'])) {
                             <div class="col-sm-3">
                                 <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "><?= $data['waktu_tolak_mgrga']; ?>, <?= $data['waktu_tolak_pajak']; ?>, <?= $data['waktu_tolak_mgrfin']; ?>, <?= $data['waktu_tolak_direktur']; ?></textarea>
                             </div>
-                        </div>
+                        </div> -->
                 </form>
                 <!-- <textarea name="" readonly id="" cols="170" rows="10"> Alasan Penolakan : <?= $data['alasan_penolakan']; ?></textarea>                 -->
                 <?php

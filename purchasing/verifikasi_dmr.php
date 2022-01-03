@@ -9,15 +9,15 @@ $rowNama = mysqli_fetch_assoc($queryNama);
 $Nama = $rowNama['nama'];
 
 $queryBo =  mysqli_query($koneksi, "SELECT * FROM biaya_ops bo
-                                            RIGHT JOIN detail_biayaops dbo
-                                            ON dbo.kd_transaksi = bo.kd_transaksi
-                                            JOIN anggaran a
-                                            ON a.id_anggaran = dbo.id_anggaran
-                                            JOIN divisi d
-                                            ON d.id_divisi = bo.id_divisi
-                                            JOIN supplier s
-                                            ON s.id_supplier = dbo.id_supplier
-                                            WHERE bo.kd_transaksi='$id' AND dbo.status = '2' ");
+                                    RIGHT JOIN detail_biayaops dbo
+                                        ON dbo.kd_transaksi = bo.kd_transaksi
+                                    JOIN anggaran a
+                                        ON a.id_anggaran = dbo.id_anggaran
+                                    JOIN divisi d
+                                        ON d.id_divisi = bo.id_divisi
+                                    LEFT JOIN supplier s
+                                    ON s.id_supplier = dbo.id_supplier
+                                    WHERE bo.kd_transaksi='$id' AND dbo.status = '2' ");
 
 
 $query =  mysqli_query($koneksi, "SELECT * FROM biaya_ops bo

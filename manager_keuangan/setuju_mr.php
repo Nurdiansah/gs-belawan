@@ -15,6 +15,8 @@ if (isset($_POST['submit'])) {
 		header("location:index.php?p=app_dmr&id=$kd_transaksi");
 	} else {
 
+		// print_r($_POST);
+		// die;
 		// fungsi begin tran mysql
 		mysqli_begin_transaction($koneksi);
 

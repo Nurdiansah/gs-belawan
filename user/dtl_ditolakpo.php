@@ -176,7 +176,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                                 } ?>
                             </tbody>
                     </table>
-                    <a href="ajukan_kembali_po.php?id=<?= $id; ?>" class="btn btn-success col-sm-offset-10 " onclick="return confirm('Yakin ingin mengajuan kembali pengajuan ini?')"><i class="fa fa-send"></i> Ajukan Kembali</a>
+                    <a href="ajukan_kembali_po.php?id=<?= enkripRambo($data['id_po']); ?>" class="btn btn-success col-sm-offset-10 " onclick="return confirm('Yakin ingin mengajuan kembali pengajuan ini?')"><i class="fa fa-send"></i> Ajukan Kembali</a>
                 </div>
                 <br>
                 <!-- Modal Tambah -->

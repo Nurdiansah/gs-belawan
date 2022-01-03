@@ -192,12 +192,20 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
             content_purchasing = "<b>purchasing </b><small>Waiting....</small>";
         }
 
+        // Cost control       
+        var app_cc = "<?php print($data2['app_cc']); ?>";
+        var content_cc = '<b>Cost Control</b><small> sudah memverifikasi</small>'
+        if (app_cc === "") {
+            app_cc = " ";
+            content_cc = "<b>Cost Control</b><small>Waiting....</small>";
+        }
+
         // manager ga        
         var app_manager_ga = "<?php print($data2['app_mgr_ga']); ?>";
-        var content_manager_ga = '<b>Manager GA</b><small> sudah memverifikasi</small>'
+        var content_manager_ga = '<b>Manager</b><small> sudah memverifikasi</small>'
         if (app_manager_ga === "") {
             app_manager_ga = " ";
-            content_manager_ga = "<b>Manager GA</b><small>Waiting....</small>";
+            content_manager_ga = "<b>Manager</b><small>Waiting....</small>";
         }
 
         // manager finance
@@ -218,10 +226,10 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
 
         // kasir
         var app_kasir = "<?php print($data2['app_kasir']); ?>";
-        var content_kasir = '<b>LPD Kasir</b><small> create LPD</small>'
+        var content_kasir = '<b>Payment Kasir</b><small> Payment</small>'
         if (app_kasir === "") {
             app_kasir = " ";
-            content_kasir = "<b>LPD Kasir</b><small>Waiting....</small>";
+            content_kasir = "<b>Payment Kasir</b><small>Waiting....</small>";
         }
 
         // pajak
@@ -243,14 +251,26 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
         var status = "<?php print($data2['status_po']); ?>";
 
         if (status == '1') {
-            var content_kasir = "<b>LPD Kasir </b><font color= blue ><small>Create LPD </small></font>";
+            var content_purchasing = "<b> Purchasing </b><font color= blue ><small>Submit Quatation Purchasing </small></font>";
         } else if (status == '2') {
-            var content_manager_ga = "<b>Manager GA </b><font color= blue ><small>Verifikasi Manager GA </small></font>";
+            var content_cc = "<b>Costcontrol </b><font color= blue ><small>Verifikasi Cost Control </small></font>";
         } else if (status == '3') {
-            var content_manager_finance = "<b>Manager Finance</b><font color= blue ><small>Verifikasi Manager Finance </small></font>";
+            var content_manager_finance = "<b>Manager Finance</b><font color= blue ><small>Verifikasi Manager </small></font>";
         } else if (status == '4') {
+            var content_manager_ga = "<b>Manager Ga</b><font color= blue ><small>Verifikasi GM Finance </small></font>";
+        } else if (status == '5') {
             var content_direktur = "<b>Direktur</b><font color= blue ><small>Verifikasi Direktur </small></font>";
         }
+
+        /*
+            1 = Submit Quatation Purchasing
+            2 = Verifikasi Cost Control
+            3 = Approval Manager
+            4 = Approval GM Finance
+            5 = Approval Direktur
+            6 = Proses Pembayaran Kasir
+    */
+        console.log(status);
 
         var events = [{
                 date: '<?= date("d M Y H:i", strtotime($data2['tgl_po'])); ?>',
@@ -263,6 +283,10 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
             {
                 date: app_purchasing,
                 content: content_purchasing
+            },
+            {
+                date: app_cc,
+                content: content_cc
             },
             {
                 date: app_manager_ga,
@@ -279,19 +303,11 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
             {
                 date: app_kasir,
                 content: content_kasir
-            },
-            {
-                date: app_pajak,
-                content: content_pajak
-            },
-            {
-                date: app_kasir_pym,
-                content: content_kasir_pym
             }
         ];
 
         $('#my-timeline').roadmap(events, {
-            eventsPerSlide: 7,
+            eventsPerSlide: 8,
             slide: 1,
             prevArrow: '<i class="material-icons">keyboard_arrow_left</i>',
             nextArrow: '<i class="material-icons">keyboard_arrow_right</i>'

@@ -15,7 +15,7 @@ $totalKasbon = mysqli_num_rows($queryKasbon);
 
 $queryPO = mysqli_query($koneksi, "SELECT * FROM po ks
                                     JOIN detail_biayaops db
-                                        ON ks.kd_transaksi = db.kd_transaksi
+                                        ON ks.id_dbo = db.id
                                         JOIN divisi d
                                             ON db.id_divisi = d.id_divisi
                                     LEFT JOIN tolak_po

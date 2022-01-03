@@ -91,7 +91,7 @@ $jumlahData = mysqli_num_rows($query);
                                                     } else if ($row['status_bkk'] == 404) { ?>
                                                     <span class="label label-danger">Ditolak Direktur </span>
                                                 <?php   } else if ($row['status_bkk'] == 303) { ?>
-                                                    <span class="label label-danger">Ditolak Manager Finance</span>
+                                                    <span class="label label-danger">Ditolak Cost Control</span>
                                                 <?php   } else if ($row['status_bkk'] == 202) { ?>
                                                     <span class="label label-danger">Ditolak Pajak</span>
                                                 <?php   } else if ($row['status_bkk'] == 101) { ?>

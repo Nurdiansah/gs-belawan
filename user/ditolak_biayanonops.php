@@ -8,7 +8,7 @@ $id_divisi = $rowUser['id_divisi'];
 
 $query = mysqli_query($koneksi, "SELECT * FROM bkk
                                     WHERE id_divisi = '$id_divisi'
-                                    AND status_bkk IN ('101', '202')
+                                    AND status_bkk IN ('101', '202', '303')
                                     ORDER BY tgl_bkk DESC");
 
 

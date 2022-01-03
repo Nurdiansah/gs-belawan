@@ -30,11 +30,9 @@ if (isset($_POST['tolak'])) {
     // }
     // selesai cek tabel reapprove_po
 
-    $tolak = mysqli_multi_query($koneksi, "UPDATE po SET status_po = '202', komentar_mgr_ga = '$komentar'
+    $tolak = mysqli_query($koneksi, "UPDATE po SET status_po = '202', komentar_mgr_ga = '$komentar'
                                                 WHERE id_po = '$id_po';
                                                 
-                                            -- $aksi_reapp;
-                                            -- $aksi_tolak;
                                             ");
 
     if ($tolak) {

@@ -1,23 +1,19 @@
 <?php
 
 include "../fungsi/koneksi.php";
+include "../fungsi/fungsi.php";
 
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    $id = dekripRambo($_GET['id']);
 
-    $query =  mysqli_query($koneksi, "SELECT * 
-                                        FROM detail_biayaops db
-                                        JOIN anggaran a
-                                            ON a.id_anggaran = db.id_anggaran
-                                        JOIN po po
-                                            ON db.kd_transaksi = po.kd_transaksi
-                                        WHERE id = '$id'");
-
+    $query =  mysqli_query($koneksi, "SELECT * FROM po WHERE id_po = '$id'");
     $data = mysqli_fetch_assoc($query);
 
-    $id_dbo = $data['id'];
     $id_po = $data['id_po'];
+    $id_dbo = $data['id_dbo'];
     $kd_transaksi = $data['kd_transaksi'];
+
+    echo $id_po . "<br>" . $id_dbo;
 
     $ajukan = mysqli_multi_query($koneksi, "UPDATE detail_biayaops SET alasan_penolakan = NULL
                                             WHERE id = '$id_dbo';
@@ -26,6 +22,9 @@ if (isset($_GET['id'])) {
                                             WHERE id_po = '$id_po';
     
     ");
+
+    // echo mysqli_error($koneksi);
+    // die;
 
     if ($ajukan) {
         header("Location: index.php?p=ditolak_po");

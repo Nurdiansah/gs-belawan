@@ -3,12 +3,12 @@
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
-$queryPO = mysqli_query($koneksi, "SELECT * FROM po ks
+$queryPO = mysqli_query($koneksi, "SELECT * FROM po p
                                     JOIN detail_biayaops db
-                                        ON ks.kd_transaksi = db.kd_transaksi
+                                        ON p.id_dbo = db.id
                                     LEFT JOIN tolak_po
                                         ON id_po = po_id
-                                    WHERE status_po = ''
+                                    WHERE status_po IS NULL
                                     ORDER BY id_po DESC");
 $totalPO = mysqli_num_rows($queryPO);
 

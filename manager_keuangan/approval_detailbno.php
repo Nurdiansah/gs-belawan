@@ -243,9 +243,9 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                 </div>
                             </div>
                             <div class="form-group">
-                            <label for="" class="control-label col-sm-offset-3">Apakah anda yakin ingin menyetujui pengajuan ini ? </label>
+                                <label for="" class="control-label col-sm-offset-3">Apakah anda yakin ingin menyetujui pengajuan ini ? </label>
                             </div>
-                        
+
                             <small class="text-warning text-left">*Fitur free approve digunakan untuk pengajuan biaya tanpa melalui GM Finance dan Direksi</small>
                             <div class=" modal-footer">
                                 <button class="btn btn-success" type="submit" name="approve">Ya, saya yakin</button></span></a>
@@ -279,9 +279,9 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                 </div>
                             </div>
                             <div class="form-group">
-                            <label for="" class="control-label col-sm-offset-3">Apakah anda yakin ingin menyetujui pengajuan ini ? </label>
+                                <label for="" class="control-label col-sm-offset-3">Apakah anda yakin ingin menyetujui pengajuan ini ? </label>
                             </div>
-                            
+
                             <div class=" modal-footer">
                                 <button class="btn btn-success" type="submit" name="approve">Ya, saya yakin</button></span></a>
                                 &nbsp;
@@ -351,6 +351,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
 
                                 <div class="col-sm-4">
                                     <input type="hidden" value="<?= $row2['id_bkk']; ?>" class="form-control" name="id_bkk" readonly>
+                                    <input type="hidden" value="<?= $row2['id_manager']; ?>" class="form-control" name="id_manager" readonly>
                                     <input type="hidden" value="<?= $Nama; ?>" class="form-control" name="Nama" readonly>
                                     <input type="hidden" value="approval_bno" class="form-control" name="url" readonly>
                                 </div>

@@ -78,11 +78,11 @@ $query = mysqli_query($koneksi, "SELECT *
                                                 <?php if ($row['status_po'] == 1) { ?>
                                                     <span class="label label-primary">Submit Quatation Purchasing</span>
                                                 <?php  } else if ($row['status_po'] == 2) { ?>
-                                                    <span class="label label-primary">Verifikasi Manager GA</span>
+                                                    <span class="label label-primary">Verifikasi Cost Control</span>
                                                 <?php  } else if ($row['status_po'] == 3) { ?>
-                                                    <span class="label label-success">Verifikasi Pajak</span>
+                                                    <span class="label label-success">Approval Manager</span>
                                                 <?php  } else if ($row['status_po'] == 4) { ?>
-                                                    <span class="label label-success">Approval Manager Finance</span>
+                                                    <span class="label label-success">Approval GM Finance</span>
                                                 <?php  } else if ($row['status_po'] == 5) { ?>
                                                     <span class="label label-info">Approvel Direktur</span>
                                                 <?php  } else if ($row['status_po'] == 6) { ?>

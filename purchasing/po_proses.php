@@ -87,20 +87,22 @@ $query = mysqli_query($koneksi, "SELECT *
                                                 <td><a class="btn btn-default">Belum bisa di cetak </a></td>
                                             <?php } ?>
                                             <td>
-                                                <?php if ($row['status_po'] == 2) { ?>
-                                                    <span class="label label-primary">Verifikasi Manager GA</span>
+                                                <?php if ($row['status_po'] == 1) { ?>
+                                                    <span class="label label-primary">Submit Quatation Purchasing</span>
+                                                <?php  } else if ($row['status_po'] == 2) { ?>
+                                                    <span class="label label-primary">Verifikasi Cost Control</span>
                                                 <?php  } else if ($row['status_po'] == 3) { ?>
-                                                    <span class="label label-success">Verifikasi Pajak</span>
+                                                    <span class="label label-success">Approval Manager</span>
                                                 <?php  } else if ($row['status_po'] == 4) { ?>
-                                                    <span class="label label-success">Approval Manager Finance</span>
+                                                    <span class="label label-success">Approval GM Finance</span>
                                                 <?php  } else if ($row['status_po'] == 5) { ?>
-                                                    <span class="label label-info">Approval Direktur</span>
+                                                    <span class="label label-info">Approvel Direktur</span>
                                                 <?php  } else if ($row['status_po'] == 6) { ?>
                                                     <span class="label label-info">Proses Pembayaran Kasir</span>
                                                 <?php  } else if ($row['status_po'] == 7) { ?>
                                                     <span class="label label-info">Pengajuan sedang di belikan</span>
-                                                <?php  } else if ($row['status_bkk'] == 17) { ?>
-                                                    <span class="label label-warning">Outstanding Cek</span>
+                                                <?php  } else if ($row['status_po'] == 0) { ?>
+                                                    <span class="label label-danger">Pengajuan Diajukan Kembali</span>
                                                 <?php  } else if ($row['status_po'] == 101) { ?>
                                                     <span class="label label-danger">Ditolak Manager GA</span>
                                                 <?php  } else if ($row['status_po'] == 202) { ?>
@@ -109,9 +111,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                                     <span class="label label-danger">Ditolak Manager Finance</span>
                                                 <?php  } else if ($row['status_po'] == 404) { ?>
                                                     <span class="label label-danger">Ditolak Direktur</span>
-                                                <?php  } else {  ?>
-                                                    -
-                                                <?php } ?>
+                                                <?php  }  ?>
                                             </td>
                                             <td>
                                                 <a href="?p=po_proses&aksi=lihat&id=<?= $row['id_po']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-warning"><i class="fa fa-search-plus"></i></button></span></a>
