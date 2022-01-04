@@ -608,6 +608,48 @@ $totalSRSO = $dataProsesSR['jumlah'] + $dataProsesSO['jumlah'];
       <strong>Copyright &copy; ENC SYSTEM v1.0 </strong>
     </footer>
 
+    <!-- script custom -->
+    <script>
+      $('.kotakAnggaran').hide();
+
+      $('.programkerja_id').on('change', function() {
+        let programKerjaId = this.value;
+
+        if (programKerjaId == '') {
+
+          $('.kotakAnggaran').hide();
+
+        } else {
+
+          $('.kotakAnggaran').show();
+
+          $.ajax({
+            url: host + 'api/anggaran/getanggaranprogramkerja.php',
+            data: {
+              id: programKerjaId
+            },
+            method: 'post',
+            dataType: 'json',
+            success: function(data) {
+              // console.log(data);
+
+              $('#id_anggaran').empty();
+              $.each(data, function(i, value) {
+                $('#id_anggaran').append($('<option>').text(value.nm_item).attr('value', value.id_anggaran));
+              });
+
+            }
+          });
+
+        }
+
+      });
+
+      $('.id_anggaran').on('change', function() {
+        let anggaranId = this.value;
+      });
+    </script>
+
     <!-- jQuery UI 1.11.4 -->
     <script src="../assets/plugins/jQueryUI/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
