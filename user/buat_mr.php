@@ -359,40 +359,42 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                                                 <input type="text" required class="form-control" name="nm_barang" placeholder="Nama Barang">
                                             </div>
                                         </div>
-                                        <div class="form-group ">
-                                            <label for="id_anggaran" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
+
+                                        <div class="form-group">
+                                            <label id="tes" for="id_programkerja" class="col-sm-offset-1 col-sm-3 control-label">Program Kerja</label>
                                             <div class="col-sm-5">
-                                                <select class="form-control select2" name="id_anggaran" required>
-                                                    <option value="">--Kode Anggaran--</option>
+                                                <select class="form-control select2 programkerja_id" name="id_programkerja" required>
+                                                    <option value="">--Program Kerja--</option>
                                                     <?php
-                                                    $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_item
-                                                                                                FROM anggaran agg
-                                                                                                JOIN program_kerja
-                                                                                                    ON programkerja_id = id_programkerja
-                                                                                                JOIN cost_center cc
-                                                                                                    ON costcenter_id = id_costcenter
-                                                                                                JOIN pt pt
-                                                                                                    ON pt_id = id_pt
-                                                                                                JOIN divisi dvs
-                                                                                                    ON divisi_id = dvs.id_divisi
-                                                                                                JOIN parent_divisi pd
-                                                                                                    ON parent_id = id_parent
-                                                                                                JOIN segmen sg
-                                                                                                    ON sg.id_segmen = agg.id_segmen
-                                                                                                WHERE agg.id_divisi = '$Divisi'
-                                                                                                AND jenis_anggaran = 'BIAYA'
-                                                                                                AND tahun = '$tahun'
-                                                                                                ORDER BY nm_item ASC
-                                                                                            ");
-                                                    if (mysqli_num_rows($queryAnggaran)) {
-                                                        while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
+
+                                                    $queryProgramKerja = mysqli_query($koneksi, "SELECT *
+                                                                                FROM program_kerja pk
+                                                                                JOIN cost_center cc
+                                                                                    ON pk.costcenter_id = cc.id_costcenter
+                                                                                WHERE cc.divisi_id = '$idDivisi'
+                                                                                ORDER BY pk.nm_programkerja ASC
+                                                                                ");
+                                                    if (mysqli_num_rows($queryProgramKerja)) {
+                                                        while ($rowPK = mysqli_fetch_assoc($queryProgramKerja)) :
                                                     ?>
-                                                            <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox"><?= $rowAnggaran['nm_item'] . ' - [' . $rowAnggaran['program_kerja']; ?>]</option>
+                                                            <option value="<?= $rowPK['id_programkerja']; ?>" type="checkbox"><?= $rowPK['nm_programkerja']; ?></option>
                                                     <?php endwhile;
                                                     } ?>
                                                 </select>
                                             </div>
                                         </div>
+
+                                        <div class="kotakAnggaran">
+                                            <div class="form-group">
+                                                <label id="tes" for="id_anggaran" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
+                                                <div class="col-sm-5">
+                                                    <select class="form-control select2 id_anggaran" name="id_anggaran" id="id_anggaran" required>
+                                                        <option>--Kode Anggaran--</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group ">
                                             <label for="merk" class="col-sm-offset-1 col-sm-3 control-label">Merk</label>
                                             <div class="col-sm-5">
@@ -458,7 +460,13 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
     </div>
 </section>
 
+<?php
+$host = host();
+?>
+
 <script>
+    var host = '<?= $host ?>';
+
     $(document).ready(function() {
         $('.tanggal').datepicker({
             format: "yyyy-mm-dd",
