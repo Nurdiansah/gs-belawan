@@ -143,7 +143,7 @@ $queryTKU = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbo
                                                                       ON k.id_dbo = dbo.id
                                                                       JOIN divisi d
                                                                       ON d.id_divisi = dbo.id_divisi                                            
-                                                                      WHERE k.status_kasbon IN ('101', '202', '505')
+                                                                      WHERE k.status_kasbon IN ('101', '202', '303', '505')
                                                                       AND from_user = '1'
                                                                       AND dbo.id_divisi = '$idDivisi'");
 

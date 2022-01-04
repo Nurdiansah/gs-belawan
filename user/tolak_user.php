@@ -30,11 +30,13 @@
                         <?php } else { ?>
                             <td>Setelah LPJ</td>
                         <?php } ?>
-                        <td> <?= $row['komentar']; ?> </td>
+                        <td> <?= $row['komentar']; ?><br><?= $row['komentar_mgr_ga']; ?></td>
                         <?php if ($row['status_kasbon'] == '101') { ?>
-                            <td><span class="label label-danger">Ditolak Manager</span></td>
+                            <td><span class="label label-danger">Ditolak Supervisor</span></td>
                         <?php } elseif ($row['status_kasbon'] == '202') { ?>
                             <td><span class="label label-danger">Ditolak Pajak</span></td>
+                        <?php } elseif ($row['status_kasbon'] == '303') { ?>
+                            <td><span class="label label-danger">Ditolak Manager</span></td>
                         <?php } elseif ($row['status_kasbon'] == '505') { ?>
                             <td><span class="label label-danger">Ditolak Kasir</span></td>
                         <?php } ?>

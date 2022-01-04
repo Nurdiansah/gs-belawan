@@ -63,6 +63,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                             <label id="tes" for="nm_barang" class="col-sm-offset col-sm-2 control-label">Nama Barang</label>
                             <input type="hidden" required class="form-control is-valid" name="id" value="<?= $data['id']; ?>">
                             <input type="hidden" required class="form-control is-valid" name="kd_transaksi" value="<?= $data['kd_transaksi']; ?>">
+                            <input type="hidden" value="<?= $data['foto_item']; ?>" name="doc_pendukung_lama">
                             <div class="col-sm-3">
                                 <input type="text" required class="form-control is-valid" name="nm_barang" value="<?= $data['nm_barang']; ?>">
                             </div>
@@ -132,6 +133,18 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                             </div>
                             <!-- </div>
                             <div class="form-group"> -->
+                            <label for="foto" class="col-sm-offset- col-sm-2 control-label">Doc Pendukung/BA/Foto</label>
+                            <div class="col-sm-3">
+                                <div class="input-group input-file" name="doc_pendukung">
+                                    <input type="text" class="form-control" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default btn-choose" type="button">Browse</button>
+                                    </span>
+                                </div>
+                                <p style="color: red;"><i>Kosongkan jika tidak dirubah</i></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="keterangan" class="col-sm-offset- col-sm-2 control-label">Keterangan</label>
                             <div class="col-sm-3">
                                 <textarea rows="5" type="text" name="keterangan" required class="form-control "> <?= $data['keterangan']; ?></textarea>
@@ -141,6 +154,14 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                             <input type="submit" name="submit" class="btn btn-primary col-sm-offset-5 " value="Update">
                             &nbsp;
                             <input type="reset" class="btn btn-danger" value="Batal">
+                        </div>
+                        <div class="form-group">
+                            <h3 class="text-center">Foto Barang</h3>
+                            <br>
+                            <!-- <div class="row "> -->
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="../file/foto/<?= $data['foto_item']; ?>"></iframe>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -239,6 +260,36 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
 <!-- Akhir Modal Tambah  -->
 
 <script>
+    function bs_input_file() {
+        $(".input-file").before(
+            function() {
+                if (!$(this).prev().hasClass('input-ghost')) {
+                    var element = $("<input type='file' class='input-ghost' accept='application/pdf' style='visibility:hidden; height:0'>");
+                    element.attr("name", $(this).attr("name"));
+                    element.change(function() {
+                        element.next(element).find('input').val((element.val()).split('\\').pop());
+                    });
+                    $(this).find("button.btn-choose").click(function() {
+                        element.click();
+                    });
+                    $(this).find("button.btn-reset").click(function() {
+                        element.val(null);
+                        $(this).parents(".input-file").find('input').val('');
+                    });
+                    $(this).find('input').css("cursor", "pointer");
+                    $(this).find('input').mousedown(function() {
+                        $(this).parents('.input-file').prev().click();
+                        return false;
+                    });
+                    return element;
+                }
+            }
+        );
+    }
+    $(function() {
+        bs_input_file();
+    });
+
     $(document).ready(function() {
         $('.tanggal').datepicker({
             format: "yyyy-mm-dd",

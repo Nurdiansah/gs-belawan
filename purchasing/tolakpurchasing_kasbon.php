@@ -19,9 +19,9 @@ if (isset($_POST['tolak'])) {
                                                 UPDATE sub_dbo SET sub_unitprice = NULL, total_price = NULL
                                                 WHERE id_dbo = '$id';
 
-                                                DELETE FROM reapprove_kasbon WHERE kasbon_id = '$id_kasbon';
+                                                -- DELETE FROM reapprove_kasbon WHERE kasbon_id = '$id_kasbon';
 
-                                                DELETE FROM tolak_kasbon WHERE kasbon_id = '$id_kasbon';
+                                                -- DELETE FROM tolak_kasbon WHERE kasbon_id = '$id_kasbon';
     ");
 
     if ($queryTolak) {
