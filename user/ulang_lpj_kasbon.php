@@ -58,7 +58,7 @@ if (isset($_POST['kirim'])) {
     }
 
     $query = "UPDATE kasbon SET doc_lpj = '$nama_doc', $field
-                                status_kasbon = '7', waktu_lpj = '$tanggal', harga_akhir = '$hargaAkhir', komentar = NULL
+                                status_kasbon = '9', waktu_lpj = '$tanggal', harga_akhir = '$hargaAkhir', komentar = NULL
                                 , nilai_barang = '$nilai_barang', nilai_jasa = '$nilai_jasa'
                             WHERE id_kasbon ='$id_kasbon' ";
 

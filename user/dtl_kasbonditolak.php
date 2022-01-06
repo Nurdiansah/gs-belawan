@@ -26,7 +26,7 @@ $queryDetail =  mysqli_query($koneksi, "SELECT *
                                         JOIN anggaran a
                                             ON a.id_anggaran = db.id_anggaran
                                         JOIN kasbon ks
-                                            ON db.kd_transaksi = ks.kd_transaksi
+                                            ON db.id = ks.id_dbo
                                         WHERE id_kasbon = '$id'");
 $data = mysqli_fetch_assoc($queryDetail);
 
@@ -63,6 +63,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo WHERE id_dbo='$data[i
                             <label id="tes" for="nm_barang" class="col-sm-offset col-sm-2 control-label">Nama Barang</label>
                             <input type="hidden" required class="form-control is-valid" name="id" value="<?= $data['id']; ?>">
                             <input type="hidden" required class="form-control is-valid" name="url" value="ditolak_kasbon&sp=tolak_purchasing">
+                            <input type="hidden" name="doc_pendukung_lama" value="<?= $data['foto_item']; ?>">
                             <div class="col-sm-3">
                                 <input type="text" required class="form-control is-valid" name="nm_barang" value="<?= $data['nm_barang']; ?>">
                             </div>
@@ -71,7 +72,6 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo WHERE id_dbo='$data[i
                             <label for="id_anggaran" class="col-sm-offset- col-sm-2 control-label">Kode Anggaran</label>
                             <div class="col-sm-3">
                                 <select class="form-control select2" name="id_anggaran">
-                                    <option value="<?= $data['id_anggaran']; ?>"><?= $data['kd_anggaran'] . ' ' . $data['nm_item']; ?></option>
                                     <?php
                                     $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_item
                                                                                 FROM anggaran agg
@@ -138,6 +138,17 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo WHERE id_dbo='$data[i
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="foto" class="col-sm-offset- col-sm-2 control-label">Doc Pendukung</label>
+                            <div class="col-sm-3">
+                                <div class="input-group input-file" name="doc_pendukung">
+                                    <input type="text" class="form-control" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default btn-choose" type="button">Browse</button>
+                                    </span>
+                                </div>
+                                <p style="color: red;"><i>Kosongkan jika tidak dirubah</i></p>
+                            </div>
+
                             <label for="alasan_ditolak" class="col-sm-offset- col-sm-2 control-label">Alasan Penolakan</label>
                             <div class="col-sm-3">
                                 <textarea rows="5" type="text" name="alasan_ditolak" required class="form-control " disabled> <?= $data['komentar']; ?></textarea>
@@ -148,6 +159,16 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo WHERE id_dbo='$data[i
                             &nbsp;
                             <input type="reset" class="btn btn-danger" value="Batal">
                         </div>
+                        <?php if (!file_exists("../file/foto/" . $data['foto_item']) || $data['foto_item'] != '') { ?>
+                            <div class="form-group">
+                                <h3 class="text-center">Foto Barang</h3>
+                                <br>
+                                <!-- <div class="row "> -->
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="../file/foto/<?= $data['foto_item']; ?>"></iframe>
+                                </div>
+                            </div>
+                        <?php } ?>
                     </div>
                 </form>
 
@@ -248,6 +269,36 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo WHERE id_dbo='$data[i
 </section>
 
 <script>
+    function bs_input_file() {
+        $(".input-file").before(
+            function() {
+                if (!$(this).prev().hasClass('input-ghost')) {
+                    var element = $("<input type='file' class='input-ghost' accept='application/pdf' style='visibility:hidden; height:0'>");
+                    element.attr("name", $(this).attr("name"));
+                    element.change(function() {
+                        element.next(element).find('input').val((element.val()).split('\\').pop());
+                    });
+                    $(this).find("button.btn-choose").click(function() {
+                        element.click();
+                    });
+                    $(this).find("button.btn-reset").click(function() {
+                        element.val(null);
+                        $(this).parents(".input-file").find('input').val('');
+                    });
+                    $(this).find('input').css("cursor", "pointer");
+                    $(this).find('input').mousedown(function() {
+                        $(this).parents('.input-file').prev().click();
+                        return false;
+                    });
+                    return element;
+                }
+            }
+        );
+    }
+    $(function() {
+        bs_input_file();
+    });
+
     $(document).ready(function() {
         $('.tanggal').datepicker({
             format: "yyyy-mm-dd",
