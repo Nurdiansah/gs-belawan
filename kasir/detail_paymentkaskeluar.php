@@ -278,6 +278,8 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
 
                             <?php if ($row2['metode_pembayaran'] === 'transfer') {  ?>
 
+                                <span class="text-success">*Biaya ini akan di buat dengan BKK Jakarta*</span>
+                                <br><br>
                                 <!-- Jika metode pembayaran nya transfer -->
 
                                 <div class="form-group ">
@@ -343,9 +345,12 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
 
                             <?php
 
-                            if ($row2['jenis'] == 'umum') {
+                            if ($row2['metode_pembayaran'] == 'tunai') {
+
 
                             ?>
+                                <span class="text-success">*Biaya ini akan di buat dengan BKK Belawan*</span>
+                                <br><br>
                                 <div class="form-group">
 
                                     <label for="doc_lpj" class="col-sm-offset- col-sm-4 control-label">Tanggal BKK</label>
@@ -381,6 +386,7 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                                     </div>
 
                                 </div>
+
 
                             <?php
 
