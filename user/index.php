@@ -76,7 +76,7 @@ $queryPTP = mysqli_query($koneksi, "SELECT COUNT(id_pettycash) AS jumlah FROM tr
                                             JOIN anggaran a
                                             ON tp.id_anggaran = a.id_anggaran   
                                             WHERE tp.id_divisi = '$idDivisi'
-                                            AND status_pettycash IN (1, 2, 3, 4, 10)
+                                            AND status_pettycash IN (1, 2, 3, 4, 10, 202)
                                             -- AND `from` = 'user'
                                             ORDER BY tp.created_pettycash_on DESC
                                     ");

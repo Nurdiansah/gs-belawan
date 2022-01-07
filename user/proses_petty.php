@@ -26,12 +26,13 @@ $idUser = $rowUser['id_user'];
 $idDivisi = $rowUser['id_divisi'];
 
 $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp   
-                                            JOIN anggaran a
-                                            ON tp.id_anggaran = a.id_anggaran   
-                                            WHERE tp.id_divisi = '$idDivisi'
-                                            AND status_pettycash IN (1, 2, 3, 4, 10)
-                                            -- AND `from` = 'user'
-                                            ORDER BY tp.created_pettycash_on DESC   ");
+                                    JOIN anggaran a
+                                        ON tp.id_anggaran = a.id_anggaran   
+                                    WHERE tp.id_divisi = '$idDivisi'
+                                    AND status_pettycash IN (1, 2, 3, 4, 10, 202)
+                                    -- AND `from` = 'user'
+                                    ORDER BY tp.created_pettycash_on DESC
+                                ");
 
 ?>
 <!-- Main content -->
@@ -116,7 +117,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                                         <?php }
                                                         } else if ($row['status_pettycash'] == 4) { ?>
                                                         <span class="label label-default">Verifikasi LPJ </span>
-                                                    <?php  } else if ($row['status_pettycash'] == 10) { ?>
+                                                    <?php  } else if ($row['status_pettycash'] == 10 || $row['status_pettycash'] == "202") { ?>
                                                         <span class="label label-danger">Pengajuan Ditolak </span>
                                                         <?php if ($row['from'] == "user") { ?>
                                                             &nbsp; <br> <br> <a href="?p=buat_petty&aksi=revisi&id=<?= $row['id_pettycash']; ?>"><span data-placement='top' data-toggle='tooltip' title='Revisi'><button type="button" class="btn btn-success"><i class="fa fa-edit"> </i> Revisi</button></span></a>
