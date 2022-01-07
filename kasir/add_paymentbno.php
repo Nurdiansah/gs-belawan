@@ -39,7 +39,7 @@ if (isset($_POST['simpan'])) {
 	mysqli_begin_transaction($koneksi);
 
 
-	if ($jenis == 'umum') {
+	if ($jenis == 'tunai') {
 		$tgl_bkk_release = $_POST['tgl_bkk_release'];
 
 		$lokasi_doc_lpj = ($_FILES['doc_lpj']['tmp_name']);
@@ -80,7 +80,7 @@ if (isset($_POST['simpan'])) {
 					WHERE id_bkk ='$id' ");
 		// 
 
-	} else if ($jenis == 'kontrak') {
+	} else if ($jenis == 'transfer') {
 		//query di kualifikasikan ke bkk final
 		$return = mysqli_query($koneksi, "INSERT INTO bkk_ke_pusat (id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk,  id_anggaran, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, status_bkk) VALUES
 												('1', 'BIAYA UMUM','$kd_transaksi', '$tgl_bkk', '$id_anggaran', '$nilai_barang', '$nilai_jasa', '$nilai_ppn','$id_pph', '$nilai_pph', '$nominal', '$keterangan',  '1');
