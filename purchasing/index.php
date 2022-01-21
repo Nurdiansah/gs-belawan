@@ -163,7 +163,7 @@ $querySubmitSO = mysqli_query($koneksi, "SELECT COUNT(id_so) as jumlah FROM so W
 $dataSubmitSO = mysqli_fetch_assoc($querySubmitSO);
 
 $queryPetty = mysqli_query($koneksi, "SELECT COUNT(id_pettycash) as jumlah FROM transaksi_pettycash 
-                                            WHERE status_pettycash IN (1, 2, 10)
+                                            WHERE status_pettycash IN (1, 2, 10, 202)
                                             AND `from` IN ('mr', 'sr')");
 $dataPetty = mysqli_fetch_assoc($queryPetty);
 

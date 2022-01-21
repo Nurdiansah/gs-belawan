@@ -40,9 +40,8 @@ $queryBo =  mysqli_query($koneksi, "SELECT * FROM kasbon k
 $queryTotal = mysqli_query($koneksi, "SELECT sum(harga_estimasi) as total FROM detail_biayaops WHERE kd_transaksi='$id' ");
 $rowTotal = mysqli_fetch_assoc($queryTotal);
 
-$querySbo =  mysqli_query($koneksi, "SELECT * 
-                                                        FROM sub_dbo                                                         
-                                                        WHERE id_dbo=$id_dbo ");
+$querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
+                                        WHERE id_dbo=$id_dbo ");
 
 if (isset($_GET['aksi']) && isset($_GET['id'])) {
     //die($id = $_GET['id']);
@@ -67,12 +66,12 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                     <br><br>
                 </div>
 
-                <?php if ($data2['status_kasbon'] == '101' || $data2['status_kasbon'] == '202' || $data2['status_kasbon'] == '303' || $data2['status_kasbon'] == '404') { ?>
+                <?php if ($data2['status_kasbon'] == '101' || $data2['status_kasbon'] == '202' || $data2['status_kasbon'] == '303' || $data2['status_kasbon'] == '404' || $data2['status_kasbon'] == '505') { ?>
                     <div class="box-body">
                         <div class="form-group">
                             <div class="mb-2">
                                 <label for="validationTextarea">Alasan Ditolak</label>
-                                <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" disabled><?= $data2['alasan_tolak_pajak']; ?>&#13;&#10;<?= $data2['alasan_tolak_mgrga']; ?>&#13;&#10;<?= $data2['alasan_tolak_mgrfin']; ?>&#13;&#10;<?= $data2['alasan_tolak_direktur']; ?></textarea>
+                                <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" disabled><?= $data2['komentar_pajak']; ?>&#13;&#10;<?= $data2['komentar_mgr_fin']; ?>&#13;&#10;<?= $data2['komentar_mgr_ga']; ?>&#13;&#10;<?= $data2['komentar_mgr_finjkt']; ?><?= $data2['komentar_direktur']; ?></textarea>
                             </div>
                         </div>
                     </div>
@@ -104,7 +103,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                                 <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= $data2['id_kasbon']; ?>">
                             </div>
                             <div class="col-sm-offset-5 col-sm-3">
-                                <?php if ($data2['status_kasbon'] >= 7) { ?>
+                                <?php if ($data2['status_kasbon'] == 7) { ?>
                                     <a target="_blank" onclick="window.open('cetak_pengambilandana.php?id=<?= enkripRambo($id); ?>','name','width=800,height=600')" class="btn btn-success"><i class="fa fa-print"></i> Laporan Pengambilan Dana </a>
                                 <?php } ?>
                                 <!-- <a target="_blank" href="cetak_kasbon.php?id=<?= $id; ?>" class="btn btn-success"><i class="fa fa-print"></i> Kasbon </a> -->
@@ -223,15 +222,16 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                             <img src="../file/foto/<?= $data2['foto_item']; ?>" width="80%" alt="...">
                         </div>
                     </div> -->
-                <?php } ?>
-
-                <div class="box-header with-border">
-                    <h3 class="text-center">Document Penawaran</h3>
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="../file/doc_penawaran/<?= $data2['doc_penawaran']; ?> "></iframe>
+                <?php }
+                if (!file_exists("../file/doc_penawaran/" . $data2['doc_penawaran'])) {
+                ?>
+                    <div class="box-header with-border">
+                        <h3 class="text-center">Document Penawaran</h3>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="../file/doc_penawaran/<?= $data2['doc_penawaran']; ?> "></iframe>
+                        </div>
                     </div>
-                </div>
-                <!--  -->
+                <?php } ?>
             </div>
         </div>
     </div>

@@ -16,8 +16,9 @@ $queryMR = mysqli_query($koneksi, "SELECT *
                                             ON k.id_dbo = dbo.id
                                             JOIN divisi d
                                             ON d.id_divisi = bo.id_divisi
-                                            WHERE status_kasbon IN (1, 2, 3, 4, 5, 6, 7, 101, 202, 303, 404)
-                                            ORDER BY k.id_kasbon DESC   ");
+                                            WHERE status_kasbon IN (1, 2, 3, 4, 5, 6, 7, 101, 202, 303, 404, 505)
+                                            ORDER BY k.id_kasbon DESC
+                                ");
 
 $sp = $_GET['sp'];
 

@@ -36,6 +36,7 @@ $data = mysqli_fetch_assoc($queryDetail);
 $id_supplier = $data['id_supplier'];
 $id_anggaran = $data['id_anggaran'];
 $totalPengajuan = $data['harga_akhir'];
+$id_dbo = $data['id'];
 
 // total anggaran yang ada di anggaran
 $queryTotal = mysqli_query($koneksi, " SELECT sum(jumlah_nominal) as total_anggaran 
@@ -51,6 +52,8 @@ $queryRealisasi = mysqli_query($koneksi, " SELECT *
 $rowR = mysqli_fetch_assoc($queryRealisasi);
 $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $rowR['maret_realisasi'] + $rowR['april_realisasi'] + $rowR['mei_realisasi'] + $rowR['juni_realisasi'] + $rowR['juli_realisasi'] + $rowR['agustus_realisasi'] + $rowR['september_realisasi'] + $rowR['oktober_realisasi'] + $rowR['november_realisasi'] + $rowR['desember_realisasi'];
 
+$querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
+                                        WHERE id_dbo=$id_dbo ");
 ?>
 
 
@@ -141,7 +144,47 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                     <input type="text" disabled class="form-control is-valid" name="harga" value="<?= formatRupiah($totalPengajuan) ?>">
                                 </div>
                             </div>
-                            <br>
+                            <div class="box-header with-border">
+                                <h3 class="text-center">Rincian Barang</h3>
+                            </div>
+                            <div class="table-responsive datatab">
+                                <table class="table text-center table table-striped table-dark table-hover ">
+                                    <thead style="background-color :#B0C4DE;">
+                                        <th>No</th>
+                                        <th>Deskripsi</th>
+                                        <th>QTY</th>
+                                        <th>Unit</th>
+                                        <th>Unit Price</th>
+                                        <th>Total Price</th>
+                                    </thead>
+                                    <tr>
+                                        <tbody>
+                                            <tr>
+                                                <?php
+                                                $no = 1;
+                                                $total = 0;
+                                                while ($row = mysqli_fetch_assoc($querySbo)) :
+
+                                                ?>
+                                                    <td> <?= $no; ?> </td>
+                                                    <td> <?= $row['sub_deskripsi']; ?> </td>
+                                                    <td> <?= $row['sub_qty']; ?> </td>
+                                                    <td> <?= $row['sub_unit']; ?> </td>
+                                                    <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
+                                                    <td><?= formatRupiah($row['total_price']); ?></td>
+                                            </tr>
+                                        <?php
+                                                    $total += $row['total_price'];
+                                                    $no++;
+                                                endwhile;
+                                        ?>
+                                        <tr style="background-color :#B0C4DE;">
+                                            <td colspan="5"><b>Total</b></td>
+                                            <td><b><?= formatRupiah($total); ?></b></td>
+                                        </tr>
+                                        </tbody>
+                                </table>
+                            </div>
                             <?php
                             $foto = $data['foto_item'];
                             if ($foto === '0') { ?>

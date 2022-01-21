@@ -28,17 +28,22 @@ if (isset($_POST['submit'])) {
     mysqli_begin_transaction($koneksi);
 
     if ($pengajuan == 'KASBON') {
+
+        $nomorBkk = nomorBkkNew($tanggal);
+        $nomorAkhir = substr($nomorBkk, 0, 3);
         // UPDATE BKK
         $query1 = mysqli_query($koneksi, "UPDATE bkk_final
-										SET status_bkk = 4 , v_direktur = '$tanggal'
+										SET status_bkk = 4 , v_direktur = '$tanggal', nomor = '$nomorAkhir', no_bkk = '$nomorBkk'
 										WHERE id= '$id' ");
 
         $queue = "berhasil";
     } else if ($pengajuan == 'BIAYA UMUM') {
+        $nomorBkk = nomorBkkNew($tanggal);
+        $nomorAkhir = substr($nomorBkk, 0, 3);
 
-         // UPDATE BKK
+        // UPDATE BKK
         $query1 = mysqli_query($koneksi, "UPDATE bkk_final
-                                SET status_bkk = 4 , v_direktur = '$tanggal'
+                                SET status_bkk = 4 , v_direktur = '$tanggal', nomor = '$nomorAkhir', no_bkk = '$nomorBkk'
                                 WHERE id= '$id' ");
         $queue = "berhasil";
 

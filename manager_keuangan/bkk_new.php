@@ -13,7 +13,7 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                                           FROM bkk_final b   
                                           LEFT JOIN supplier s
                                           ON b.id_supplier = s.id_supplier
-                                          JOIN anggaran a
+                                          LEFT JOIN anggaran a
                                           ON b.id_anggaran = a.id_anggaran
                                           WHERE b.id = '$id' ");
 
@@ -136,7 +136,6 @@ include "../fungsi/koneksi.php";
 <div class="kiri">
     <img src="../gambar/gs.png" style="width:80px;height:50px" />
 </div>
-<br>
 <h3><b>PT.GRAHA SEGARA</b></h3>
 <hr>
 
@@ -144,59 +143,69 @@ include "../fungsi/koneksi.php";
 
 ?>
 <h3 align="center"><u>BUKTI KAS KELUAR</u></h3>
-<h4 align=""><u>No BKK : [ <?= $data['no_bkk'] ?> ]</u></h4>
+<h4 align="" style="font-size: 12px;"><u>No BKK : [ <?= $data['no_bkk'] ?> ]</u></h4>
 <!-- <table border="1px">
     <tr>
         <td> -->
-<table border="0px">
+<table border="0px" style="font-size: 11px;">
     <tr>
         <td style="text-align: left; width=150px; "><b>Di Bayarkan Kepada</b></td>
         <td style="text-align: ; width=5%;">:</td>
-        <td style="width=380px;">
-            -
+        <td style="width=380px;">-</td>
+        <td align="right" rowspan="6">
+            <qrcode value="[ E-Finance GS ] | Kode BKK : <?= $data['nomor']; ?> | Sebesar :  <?= formatRupiah($data['nominal']); ?> " ec="H" style="width: 35mm; background-color: white; color: black;"></qrcode>
         </td>
-        <td align="right" rowspan="3">
-            <qrcode value="[ E-Finance GS ] | Kode BKK : <?= $data['no_bkk']; ?> | Sebesar :  <?= formatRupiah($data['nominal']); ?> " ec="H" style="width: 35mm; background-color: white; color: black;"></qrcode>
-        </td>
+    </tr>
+    <tr>
+        <td style="text-align: left; width=150px; "><b>Kode Anggaran</b></td>
+        <td style="text-align: ; width=5%;">:</td>
+        <td style="width=380px;"><?= $data['kd_anggaran']; ?> [<?= $data['nm_item']; ?>]</td>
     </tr>
     <tr>
         <td style="text-align: left; width=150px; "><b>Untuk</b></td>
         <td style="text-align: ; width=5%;">:</td>
-        <td style="width=380px;"><?php
-                                    if ($data['pengajuan'] == 'BIAYA KHUSUS') {
-                                        # code...
-                                        echo "Biaya Operasional";
-                                    } else {
-                                        # code...
-                                        echo $data['keterangan'];
-                                    }
-
-                                    ?></td>
+        <td style="width=380px;"><?= $data['keterangan']; ?></td>
+    </tr>
+    <tr>
+        <td style="text-align: left; width=150px; "><b>Jumlah</b></td>
+        <td style="text-align: ; width=5%;">:</td>
+        <td style="text-align: left; width=180px; "><?= formatRupiah($data['nominal']) ?></td>
     </tr>
     <tr>
         <td style="text-align: left; width=150px; "><b>Terbilang</b></td>
         <td style="text-align: ; width=5%;">:</td>
         <td style="width=380px;"><?= Terbilang($data['nominal']); ?> Rupiah </td>
     </tr>
-</table>
-<br>
-<table border="0px">
     <tr>
-        <td style="text-align: left; width=150px; "><b>Jumlah</b></td>
-        <td style="text-align: left; width=180px; ">: <?= formatRupiah($data['nominal']) ?></td>
-        <td style="text-align: left; width=200px; "></td>
-        <td style="text-align: left; width=150px; ">Jakarta, <?= formatTanggal($data['created_on_bkk']) ?></td>
+        <td><b>Tanggal BKK</b></td>
+        <td style="text-align: ; width=5%;">:</td>
+        <td><?= formatTanggalWaktu($data['created_on_bkk']); ?></td>
+    </tr>
+    <tr>
+        <td><b>Cost Control</b></td>
+        <td style="text-align: ; width=5%;">:</td>
+        <td>APPROVED (<?= formatTanggalWaktu($data['v_mgr_finance']); ?>)</td>
+    </tr>
+    <tr>
+        <td><b>Manager</b></td>
+        <td style="text-align: ; width=5%;">:</td>
+        <?php if ($data['v_direktur'] == "") { ?>
+            <td>-</td>
+        <?php } else { ?>
+            <td>APPROVED (<?= formatTanggalWaktu($data['v_direktur']); ?>)</td>
+        <?php } ?>
+        <td style="text-align: right; width=150px; ">Medan, <?= formatTanggal($data['release_on_bkk']) ?></td>
     </tr>
     <tr>
         <td colspan="3"></td>
-        <td>Yang Mengeluarkan,</td>
+        <td style="text-align: right;">Yang Mengeluarkan,</td>
     </tr>
     <tr>
-        <td style="text-align: left; height=40px; " colspan="4"></td>
+        <td style="text-align: right; height=40px; " colspan="4"></td>
     </tr>
     <tr>
         <td colspan="3"></td>
-        <td>System</td>
+        <td style="text-align: center;">System</td>
     </tr>
 </table>
 <!-- </td> -->

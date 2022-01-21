@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
 	$query = "UPDATE detail_biayaops SET nm_barang = '$nm_barang' , id_anggaran = '$id_anggaran' , merk = '$merk', 
                                             type = '$type', spesifikasi = '$spesifikasi', jumlah = '$jumlah', satuan = '$satuan', 
                                             keterangan = '$keterangan', foto_item = '$doc_pendukung'
-                                            WHERE id ='$id' ";
+                    WHERE id ='$id' ";
 
 
 	// move_uploaded_file($tmp,"file/pjsm/$Doc_pjsm");

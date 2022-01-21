@@ -10,14 +10,32 @@ if (isset($_GET['id'])) {
 }
 
 $queryBkk = mysqli_query($koneksi, "SELECT * 
-                                          FROM bkk_final b   
-                                          LEFT JOIN supplier s
-                                          ON b.id_supplier = s.id_supplier
-                                          LEFT JOIN anggaran a
-                                          ON b.id_anggaran = a.id_anggaran
-                                          WHERE b.id = '$id' ");
+                                    FROM bkk_final b   
+                                    LEFT JOIN supplier s
+                                        ON b.id_supplier = s.id_supplier
+                                    LEFT JOIN anggaran a
+                                        ON b.id_anggaran = a.id_anggaran
+                                    WHERE b.id = '$id' ");
 
 $data = mysqli_fetch_assoc($queryBkk);
+$id_kdtransaksi = $data['id_kdtransaksi'];
+
+// query buat ngambil data DIBAYARKAN KEPADA
+if ($data['pengajuan'] == "BIAYA UMUM") {
+    $queryDibayarkan = mysqli_query($koneksi, "SELECT * FROM bkk WHERE kd_transaksi = '$id_kdtransaksi'");
+    $dataDibayarkan = mysqli_fetch_assoc($queryDibayarkan);
+    $dibayarkan = $dataDibayarkan['nm_vendor'];
+} elseif ($data['pengajuan'] == "PO") {
+    $dibayarkan = $data['nm_supplier'];
+} elseif ($data['pengajuan'] == "KASBON") {
+    $queryDibayarkan = mysqli_query($koneksi, "SELECT * FROM kasbon WHERE id_kasbon = '$id_kdtransaksi'");
+    $dataDibayarkan = mysqli_fetch_assoc($queryDibayarkan);
+    // $dibayarkan = $dataDibayarkan['penerima_dana'];
+
+    $dibayarkan = "-";
+} else {
+    $dibayarkan = "-";
+}
 
 ?>
 
@@ -151,7 +169,7 @@ include "../fungsi/koneksi.php";
     <tr>
         <td style="text-align: left; width=150px; "><b>Di Bayarkan Kepada</b></td>
         <td style="text-align: ; width=5%;">:</td>
-        <td style="width=380px;">-</td>
+        <td style="width=380px;"><?= is_null($dibayarkan) ? '-' : $dibayarkan; ?></td>
         <td align="right" rowspan="6">
             <qrcode value="[ E-Finance GS ] | Kode BKK : <?= $data['nomor']; ?> | Sebesar :  <?= formatRupiah($data['nominal']); ?> " ec="H" style="width: 35mm; background-color: white; color: black;"></qrcode>
         </td>
@@ -177,6 +195,11 @@ include "../fungsi/koneksi.php";
         <td style="width=380px;"><?= Terbilang($data['nominal']); ?> Rupiah </td>
     </tr>
     <tr>
+        <td><b>Tanggal BKK</b></td>
+        <td style="text-align: ; width=5%;">:</td>
+        <td><?= formatTanggalWaktu($data['release_on_bkk']); ?></td>
+    </tr>
+    <tr>
         <td><b>Cost Control</b></td>
         <td style="text-align: ; width=5%;">:</td>
         <td>APPROVED (<?= formatTanggalWaktu($data['v_mgr_finance']); ?>)</td>
@@ -189,7 +212,7 @@ include "../fungsi/koneksi.php";
         <?php } else { ?>
             <td>APPROVED (<?= formatTanggalWaktu($data['v_direktur']); ?>)</td>
         <?php } ?>
-        <td style="text-align: right; width=150px; ">Medan, <?= formatTanggal($data['release_on_bkk']) ?></td>
+        <td style="text-align: right; width=150px; ">Medan, <?= formatTanggal($data['v_direktur']) ?></td>
     </tr>
     <tr>
         <td colspan="3"></td>

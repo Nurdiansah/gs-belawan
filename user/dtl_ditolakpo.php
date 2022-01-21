@@ -66,21 +66,21 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                             <label id="tes" for="nm_barang" class="col-sm-offset col-sm-2 control-label">Nama Barang</label>
                             <input type="hidden" required class="form-control is-valid" name="id" value="<?= $data['id']; ?>">
                             <input type="hidden" required class="form-control is-valid" name="url" value="ditolak_po">
+                            <input type="hidden" name="doc_pendukung_lama" value="<?= $data['foto_item']; ?>">
                             <div class="col-sm-3">
-                                <input type="text" required readonly class="form-control is-valid" name="nm_barang" value="<?= $data['nm_barang']; ?>">
+                                <input type="text" required class="form-control is-valid" name="nm_barang" value="<?= $data['nm_barang']; ?>">
                             </div>
                             <!-- </div>
                             <div class="form-group"> -->
                             <label for="id_anggaran" class="col-sm-offset- col-sm-2 control-label">Kode Anggaran</label>
                             <div class="col-sm-3">
-                                <select class="form-control select2" readonly name="id_anggaran">
-                                    <option value="<?= $data['id_anggaran']; ?>"><?= $data['kd_anggaran'] . ' ' . $data['nm_item']; ?></option>
+                                <select class="form-control select2" name="id_anggaran">
                                     <?php
                                     $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_divisi ='$Divisi' ORDER BY nm_item ASC");
                                     if (mysqli_num_rows($queryAnggaran)) {
                                         while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
                                     ?>
-                                            <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox"><?= $rowAnggaran['kd_anggaran'] . ' ' . $rowAnggaran['nm_item']; ?></option>
+                                            <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox"><?= $rowAnggaran['id_anggaran']; ?></option>
                                     <?php endwhile;
                                     } ?>
                                 </select>
@@ -89,50 +89,66 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                         <div class="form-group">
                             <label id="tes" for="merk" class="col-sm-offset col-sm-2 control-label">Merk </label>
                             <div class="col-sm-3">
-                                <input type="text" required readonly class="form-control is-valid" name="merk" value="<?= $data['merk']; ?>">
+                                <input type="text" required class="form-control is-valid" name="merk" value="<?= $data['merk']; ?>">
                             </div>
                             <!-- </div>
                             <div class="form-group"> -->
                             <label for="type" class="col-sm-offset- col-sm-2 control-label">Type</label>
                             <div class="col-sm-3">
-                                <input type="text" required readonly class="form-control " name="type" value="<?= $data['type']; ?>">
+                                <input type="text" required class="form-control " name="type" value="<?= $data['type']; ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label id="tes" for="jumlah" class="col-sm-offset col-sm-2 control-label">QTY</label>
                             <div class="col-sm-3">
-                                <input type="text" required readonly class="form-control is-valid" name="jumlah" value="<?= $data['jumlah']; ?>">
+                                <input type="text" required class="form-control is-valid" name="jumlah" value="<?= $data['jumlah']; ?>">
                             </div>
                             <!-- </div>
                             <div class="form-group"> -->
                             <label for="satuan" class="col-sm-offset- col-sm-2 control-label">Satuan</label>
                             <div class="col-sm-3">
-                                <input type="text" required readonly class="form-control " name="satuan" value="<?= $data['satuan']; ?>">
+                                <input type="text" required class="form-control " name="satuan" value="<?= $data['satuan']; ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label id="tes" for="satuan" class="col-sm-offset col-sm-2 control-label">Spesifikasi</label>
                             <div class="col-sm-3">
-                                <input type="text" required readonly class="form-control is-valid" name="spesifikasi" value="<?= $data['spesifikasi']; ?>">
+                                <input type="text" required class="form-control is-valid" name="spesifikasi" value="<?= $data['spesifikasi']; ?>">
                             </div>
                             <!-- </div>
                             <div class="form-group"> -->
                             <label for="keterangan" class="col-sm-offset- col-sm-2 control-label">Keterangan</label>
                             <div class="col-sm-3">
-                                <textarea rows="5" type="text" name="keterangan" required readonly class="form-control "> <?= $data['keterangan']; ?></textarea>
+                                <textarea rows="5" type="text" name="keterangan" required class="form-control "> <?= $data['keterangan']; ?></textarea>
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="foto" class="col-sm-offset- col-sm-2 control-label">Doc Pendukung</label>
+                            <div class="col-sm-3">
+                                <div class="input-group input-file" name="doc_pendukung">
+                                    <input type="text" class="form-control" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default btn-choose" type="button">Browse</button>
+                                    </span>
+                                </div>
+                                <p style="color: red;"><i>Kosongkan jika tidak dirubah</i></p>
+                            </div>
                             <label for="alasan_ditolak" class="col-sm-offset- col-sm-2 control-label">Alasan Penolakan</label>
                             <div class="col-sm-3">
                                 <textarea rows="5" type="text" name="alasan_ditolak" required readonly class="form-control " disabled> <?= $data['alasan_penolakan']; ?></textarea>
                             </div>
                         </div>
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-primary col-sm-offset-5 " value="Update">
                             &nbsp;
                             <input type="reset" class="btn btn-danger" value="Batal">
-                        </div> -->
+                        </div>
+                        <h3 class="text-center">Foto Barang</h3>
+                        <br>
+                        <!-- <div class="row "> -->
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="../file/foto/<?= $data['foto_item']; ?>"></iframe>
+                        </div>
                     </div>
                 </form>
 
@@ -176,7 +192,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                                 } ?>
                             </tbody>
                     </table>
-                    <a href="ajukan_kembali_po.php?id=<?= enkripRambo($data['id_po']); ?>" class="btn btn-success col-sm-offset-10 " onclick="return confirm('Yakin ingin mengajuan kembali pengajuan ini?')"><i class="fa fa-send"></i> Ajukan Kembali</a>
+                    <a href="ajukan_kembali_po.php?id=<?= $id; ?>" class="btn btn-success col-sm-offset-10 " onclick="return confirm('Yakin ingin mengajuan kembali pengajuan ini?')"><i class="fa fa-send"></i> Ajukan Kembali</a>
                 </div>
                 <br>
                 <!-- Modal Tambah -->
@@ -233,6 +249,36 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
 </section>
 
 <script>
+    function bs_input_file() {
+        $(".input-file").before(
+            function() {
+                if (!$(this).prev().hasClass('input-ghost')) {
+                    var element = $("<input type='file' class='input-ghost' accept='application/pdf' style='visibility:hidden; height:0'>");
+                    element.attr("name", $(this).attr("name"));
+                    element.change(function() {
+                        element.next(element).find('input').val((element.val()).split('\\').pop());
+                    });
+                    $(this).find("button.btn-choose").click(function() {
+                        element.click();
+                    });
+                    $(this).find("button.btn-reset").click(function() {
+                        element.val(null);
+                        $(this).parents(".input-file").find('input').val('');
+                    });
+                    $(this).find('input').css("cursor", "pointer");
+                    $(this).find('input').mousedown(function() {
+                        $(this).parents('.input-file').prev().click();
+                        return false;
+                    });
+                    return element;
+                }
+            }
+        );
+    }
+    $(function() {
+        bs_input_file();
+    });
+
     $(document).ready(function() {
         $('.tanggal').datepicker({
             format: "yyyy-mm-dd",

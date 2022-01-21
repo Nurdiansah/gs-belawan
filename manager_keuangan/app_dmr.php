@@ -98,7 +98,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                             </div>
                             <label for="tgl_pengajuan" class="col-sm-offset-2 col-sm-3 control-label">Tanggal Pengajuan</label>
                             <div class="col-sm-3">
-                                <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= $data2['tgl_pengajuan']; ?>">
+                                <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= formatTanggalWaktu($data2['created_on']); ?>">
                             </div>
                         </div>
                         <div class="form-group">

@@ -13,7 +13,7 @@ $queryUser = mysqli_query($koneksi, "SELECT *
                                             ON k.id_dbo = dbo.id
                                         JOIN divisi d
                                             ON d.id_divisi = dbo.id_divisi                                            
-                                        WHERE k.status_kasbon IN ('101', '202', '303', '505')
+                                        WHERE k.status_kasbon IN ('101', '202', '303', '505', '606')
                                         AND from_user = '1'
                                         AND dbo.id_divisi = '$idDivisi'");
 
@@ -24,7 +24,7 @@ $queryPurchasing = mysqli_query($koneksi, "SELECT * FROM kasbon ks
                                                 ON id_kasbon = kasbon_id
                                             WHERE status_kasbon = '0'
                                             AND from_user = '0'
-                                            AND ks.divisi_id = '$idDivisi'
+                                            AND db.id_divisi = '$idDivisi'
                                             ORDER BY id_kasbon DESC");
 $totalPurchasing = mysqli_num_rows($queryPurchasing);
 

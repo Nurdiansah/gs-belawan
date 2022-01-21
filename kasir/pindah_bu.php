@@ -4,6 +4,7 @@ include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
 if (isset($_POST['edit'])) {
+
     $id_bkk = $_POST['id_bkk'];
     $tgl_tempo = $_POST['tgl_tempo'];
     $tgl_payment = $_POST['tgl_payment'];

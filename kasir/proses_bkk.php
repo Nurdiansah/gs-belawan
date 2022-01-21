@@ -65,7 +65,7 @@ $jumlahData = mysqli_num_rows($query);
                                             while ($row = mysqli_fetch_assoc($query)) :
                                         ?>
                                                 <td> <?= $no; ?> </td>
-                                                <td> <?= formatTanggal($row['created_on_bkk']); ?> </td>
+                                                <td> <?= formatTanggalWaktu($row['created_on_bkk']); ?> </td>
                                                 <td> <?= $row['pengajuan']; ?> </td>
                                                 <td> <?= $row['keterangan']; ?> </td>
                                                 <td> <?= $row['kd_anggaran']; ?> </td>

@@ -30,19 +30,21 @@
                         <?php } else { ?>
                             <td>Setelah LPJ</td>
                         <?php } ?>
-                        <td> <?= $row['komentar']; ?><br><?= $row['komentar_mgr_ga']; ?></td>
+                        <td> <?= $row['komentar']; ?>&#13;&#10;<?= $row['komentar_mgr_ga']; ?>&#13;&#10;<?= $row['komentar_mgr_fin']; ?>&#13;&#10;<?= $row['komentar_pajak']; ?>&#13;&#10;<?= $row['komentar_mgr_finjkt']; ?><?= $row['komentar_direktur']; ?></td>
                         <?php if ($row['status_kasbon'] == '101') { ?>
-                            <td><span class="label label-danger">Ditolak Supervisor</span></td>
-                        <?php } elseif ($row['status_kasbon'] == '202') { ?>
-                            <td><span class="label label-danger">Ditolak Pajak</span></td>
-                        <?php } elseif ($row['status_kasbon'] == '303') { ?>
                             <td><span class="label label-danger">Ditolak Manager</span></td>
+                        <?php } elseif ($row['status_kasbon'] == '202') { ?>
+                            <td><span class="label label-danger">Ditolak Costcontrol</span></td>
+                        <?php } elseif ($row['status_kasbon'] == '404') { ?>
+                            <td><span class="label label-danger">Ditolak Pajak</span></td>
                         <?php } elseif ($row['status_kasbon'] == '505') { ?>
+                            <td><span class="label label-danger">Ditolak Direksi</span></td>
+                        <?php } elseif ($row['status_kasbon'] == '606') { ?>
                             <td><span class="label label-danger">Ditolak Kasir</span></td>
                         <?php } ?>
                         <td> <?= formatRupiah($row['harga_akhir']) ?> </td>
                         <td>
-                            <?php if ($row['status_kasbon'] == '505') { ?>
+                            <?php if ($row['status_kasbon'] == '606') { ?>
                                 <button type="button" class="btn btn-primary modalLPJ" data-toggle="modal" data-target="#LPJ" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-send"></i> LPJ Ulang </button></span>
                             <?php } elseif ($row['status_kasbon'] == '101' || $row['status_kasbon'] == '202') { ?>
                                 <button type="button" class="btn btn-warning modalRelease" data-toggle="modal" data-target="#releaseKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-rocket"></i> Release</button>

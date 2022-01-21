@@ -3,7 +3,7 @@ Call RunProcess()
 	On Error Resume Next
 	Dim URL, objRequest
 		Set objRequest = CreateObject("Microsoft.XMLHTTP")
-		URL = "http://localhost/gs-system/mail/mail.php"
+		URL = "http://localhost/gs-belawan/mail/mail.php"
 		objRequest.open "POST", URL , false
 		objRequest.Send
 	Set objRequest = Nothing 'clean up memory and thanks for playing

@@ -252,8 +252,9 @@ $totalRealisasi = $rowAnggaran['jumlah_realisasi'];
                                 </div>
                                 </div>
                         </div>
-                    </form>
                 </div>
+                </form>
+                <!-- </div> -->
             </div>
 
             <?php

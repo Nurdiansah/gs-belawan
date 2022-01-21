@@ -40,13 +40,15 @@
                             <?php  } else if ($row['status_kasbon'] == 7) { ?>
                                 <span class="label label-success">Dana sudah bisa diambil </span>
                             <?php  } else if ($row['status_kasbon'] == 101) { ?>
-                                <span class="label label-danger">Ditolak Pajak</span>
+                                <span class="label label-danger">Ditolak Supervisor</span>
                             <?php  } else if ($row['status_kasbon'] == 202) { ?>
-                                <span class="label label-danger">Ditolak Manager GA</span>
+                                <span class="label label-danger">Ditolak Cost Control</span>
                             <?php  } else if ($row['status_kasbon'] == 303) { ?>
-                                <span class="label label-danger">Ditolak Manager Finance</span>
+                                <span class="label label-danger">Ditolak Manager GA</span>
                             <?php  } else if ($row['status_kasbon'] == 404) { ?>
-                                <span class="label label-danger">Ditolak Direktur</span>
+                                <span class="label label-danger">Ditolak Pajak</span>
+                            <?php  } else if ($row['status_kasbon'] == 505) { ?>
+                                <span class="label label-danger">Ditolak Direksi/Manager Finance</span>
                             <?php  } else {
                                 echo "-";
                             }  ?>

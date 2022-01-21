@@ -150,14 +150,14 @@ $totalRealisasi = $data['jumlah_realisasi'];
                                     <?php
                                     $foto = $data['foto_item'];
                                     if ($foto === '0') { ?>
-                                        <h3 class="text-center">Foto Barang</h3>
+                                        <h3 class="text-center">Foto Barang/BAP</h3>
                                         <div class="row ">
                                             <div class="col-sm-offset-">
                                                 <h5 class="text-center">Tidak Ada Foto</h5>
                                             </div>
                                         </div>
                                     <?php } else { ?>
-                                        <h3 class="text-center">Foto Barang</h3>
+                                        <h3 class="text-center">Foto Barang/BAP</h3>
                                         <div class="embed-responsive embed-responsive-4by3">
                                             <iframe class="embed-responsive-item" src="../file/pdfjs/web/viewer.html?file=../../foto/<?= $data['foto_item']; ?> "></iframe>
                                         </div>

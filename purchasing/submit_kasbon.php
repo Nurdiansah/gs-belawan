@@ -2,9 +2,11 @@
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
-$queryKasbon = mysqli_query($koneksi, "SELECT * FROM kasbon
-                                        INNER JOIN divisi
-                                            ON id_divisi = divisi_id
+$queryKasbon = mysqli_query($koneksi, "SELECT * FROM kasbon ks
+                                        JOIN detail_biayaops dbo
+                                            ON id_dbo = id
+                                        INNER JOIN divisi dvs
+                                            ON dvs.id_divisi = dbo.id_divisi
                                         WHERE status_kasbon IS NULL
                                         AND from_user = 0");
 $totalKasbon = mysqli_num_rows($queryKasbon);

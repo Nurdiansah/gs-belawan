@@ -28,7 +28,7 @@ $queryRealisasi = mysqli_query($koneksi, " SELECT * FROM anggaran WHERE id_divis
 $rowR = mysqli_fetch_assoc($queryRealisasi);
 $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $rowR['maret_realisasi'] + $rowR['april_realisasi'] + $rowR['mei_realisasi'] + $rowR['juni_realisasi'] + $rowR['juli_realisasi'] + $rowR['agustus_realisasi'] + $rowR['september_realisasi'] + $rowR['oktober_realisasi'] + $rowR['november_realisasi'] + $rowR['desember_realisasi'];
 
-
+$grand_total = $data2['total_pettycash'];
 ?>
 <section class="content">
     <div class="row">
@@ -55,7 +55,7 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                             </div>
                             <label for="tgl_pengajuan" class="col-sm-offset-2 col-sm-3 control-label">Tanggal </label>
                             <div class="col-sm-3">
-                                <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= formatTanggal($data2['created_pettycash_on']); ?>">
+                                <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= formatTanggalWaktu($data2['created_pettycash_on']); ?>">
                             </div>
                         </div>
                         <div class="form-group">
@@ -77,13 +77,27 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                             <div class="col-sm-3">
                                 <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= formatRupiah($data2['total_pettycash']); ?>">
                             </div>
-                            <label for="tgl_pengajuan" class="col-sm-offset-2 col-sm-3 control-label">Pengembalian</label>
-                            <div class="col-sm-3">
-                                <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= formatRupiah($data2['nominal_pengembalian_pettycash']); ?>">
-                            </div>
+                            <?php if ($data2['pengembalian'] > 0) { ?>
+                                <label for="tgl_pengajuan" class="col-sm-offset-2 col-sm-3 control-label">Pengembalian</label>
+                                <div class="col-sm-3">
+                                    <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= formatRupiah($data2['pengembalian']); ?>">
+                                </div>
+                            <?php
+                                $grand_total = $data2['total_pettycash'] - $data2['pengembalian'];
+                            }
+                            if ($data2['penambahan'] > 0) {
+                            ?>
+                                <label for="tgl_pengajuan" class="col-sm-offset-2 col-sm-3 control-label">Penambahan</label>
+                                <div class="col-sm-3">
+                                    <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= formatRupiah($data2['penambahan']); ?>">
+                                </div>
+                            <?php
+                                $grand_total = $data2['total_pettycash'] + $data2['penambahan'];
+                            } ?>
+
                             <label for="tgl_pengajuan" class="col-sm-offset-2 col-sm-3 control-label">Grand Total</label>
                             <div class="col-sm-3">
-                                <b><input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= formatRupiah($data2['grand_total_pettycash']); ?>"> </b>
+                                <b><input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= formatRupiah($grand_total); ?>"> </b>
                             </div>
                         </div>
                         <br>

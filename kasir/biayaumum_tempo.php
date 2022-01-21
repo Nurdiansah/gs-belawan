@@ -22,7 +22,7 @@ $query = mysqli_query($koneksi,  "SELECT *
                                 FROM bkk b
                                 JOIN divisi d
                                 ON d.id_divisi = b.id_divisi
-                                WHERE b.status_bkk='9' AND b.jenis='kontrak' ORDER BY b.kd_transaksi DESC  ");
+                                WHERE b.status_bkk='9' AND b.metode_pembayaran='transfer' ORDER BY b.kd_transaksi DESC  ");
 
 $jumlahData = mysqli_num_rows($query);
 ?>
@@ -72,9 +72,9 @@ $jumlahData = mysqli_num_rows($query);
                                     ?>
                                             <td> <?= $no; ?> </td>
                                             <td> <?= $row['kd_transaksi']; ?> </td>
-                                            <td> <?= tanggal_indo($row['tgl_pengajuan']); ?> </td>
-                                            <td> <?= tanggal_indo($row['tgl_tempo']); ?> </td>
-                                            <td> <?= tanggal_indo($row['tgl_payment']); ?> </td>
+                                            <td> <?= is_null($row['tgl_pengajuan']) ? '-' :  tanggal_indo($row['tgl_pengajuan']); ?> </td>
+                                            <td> <?= is_null($row['tgl_tempo']) ? '-' : tanggal_indo($row['tgl_tempo']); ?> </td>
+                                            <td> <?= is_null($row['tgl_payment']) ? '-' : tanggal_indo($row['tgl_payment']); ?> </td>
                                             <td> <?= $row['jenis']; ?> </td>
                                             <td> <?= $row['nm_divisi']; ?> </td>
                                             <td> <?= $row['nm_vendor']; ?> </td>

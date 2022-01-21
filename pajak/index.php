@@ -57,7 +57,7 @@ $queryPV = mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah  FROM bkk_final WH
 $dataPV = mysqli_fetch_assoc($queryPV);
 
 // query kasbon ditolak
-$queryKasbonTolak = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon IN ('505', '202') -- AND from_user = '0'
+$queryKasbonTolak = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon IN ('505') -- AND from_user = '0'
                                                   AND sr_id IS NULL");
 $dataKasbonTolak = mysqli_fetch_assoc($queryKasbonTolak);
 
@@ -226,8 +226,8 @@ $dataLPJ = mysqli_fetch_assoc($queryLPJ);
                 <li class="user-header">
                   <img src="../gambar/avatar1.jpg" class="img-circle" alt="User Image">
                   <p>
-                    <?php echo " $Nama " ?>
-                    <small>- Kordinator Pajak -</small>
+                    <?php echo " $Nama " ?> Belawan
+                    <small>- Pajak -</small>
                   </p>
                 </li>
 

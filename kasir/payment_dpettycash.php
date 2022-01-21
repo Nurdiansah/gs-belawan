@@ -21,15 +21,16 @@ $Area = $rowUser['area'];
 $Divisi = $rowUser['id_divisi'];
 
 $queryDetail =  mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
-                                                JOIN anggaran a
-                                                ON a.id_anggaran = tp.id_anggaran
-                                                WHERE tp.id_pettycash = '$id' ");
+                                        JOIN anggaran a
+                                            ON a.id_anggaran = tp.id_anggaran
+                                        WHERE tp.id_pettycash = '$id' ");
 $data = mysqli_fetch_assoc($queryDetail);
 $idAnggaran = $data['id_anggaran'];
+$id_dbo = $data['id_dbo'];
 
-$querySbo =  mysqli_query($koneksi, "SELECT * 
-                                                        FROM sub_dbo                                                         
-                                                        WHERE id_dbo=$id ");
+$queryDBO =  mysqli_query($koneksi, "SELECT * FROM detail_biayaops WHERE id = '$id_dbo'
+                            ");
+$dataDBO = mysqli_fetch_assoc($queryDBO);
 
 $tanggalCargo = date("Y-m-d");
 
@@ -117,15 +118,34 @@ if (isset($_POST['tolak'])) {
                         <div class="form-group">
 
                         </div>
-                        <div class="box-header with-border">
-                            <?php if (!empty($data['doc_lpj_pettycash'])) { ?>
-                                <h3 class="text-center">Document LPJ</h3>
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item" src="../file/doc_lpj/<?= $data['doc_lpj_pettycash']; ?> "></iframe>
+                        <?php if ($data['from'] == "user") { ?>
+                            <div class="box-header with-border">
+                                <?php if (!empty($data['doc_lpj_pettycash'])) { ?>
+                                    <h3 class="text-center">Document LPJ</h3>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="../file/doc_lpj/<?= $data['doc_lpj_pettycash']; ?> "></iframe>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                            <?php } elseif ($data['from'] == "mr") {
+                            if (!empty($dataDBO['foto_item'])) { ?>
+                                <div class="box-header with-border">
+                                    <h3 class="text-center">Foto Barang</h3>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="../file/foto/<?= $dataDBO['foto_item']; ?> "></iframe>
+                                    </div>
                                 </div>
-                            <?php } ?>
-
-                        </div>
+                            <?php }
+                            if (!empty($dataDBO['doc_penawaran'])) { ?>
+                                <div class="box-header with-border">
+                                    <h3 class="text-center">Document Penawaran</h3>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="../file/doc_penawaran/<?= $dataDBO['doc_penawaran']; ?> "></iframe>
+                                    </div>
+                                </div>
+                        <?php
+                            }
+                        } ?>
                         <br>
                 </form>
             </div>
@@ -169,7 +189,7 @@ if (isset($_POST['tolak'])) {
                             </div>
                         </div>
                         <div class=" modal-footer">
-                            <button class="btn btn-success" type="submit" name="tolak">Kirim</button></span></a>
+                            <button class="btn btn-success" type="submit" name="submit">Kirim</button></span></a>
                             &nbsp;
                             <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal">
                         </div>

@@ -20,7 +20,7 @@ if (isset($_POST['tolak'])) {
         $nilai_jasa = ($nilai_jasa +  $pengembalian) - $penambahan;
     }
 
-    $query = mysqli_query($koneksi, "UPDATE kasbon SET status_kasbon = '505', komentar = '$komentar',
+    $query = mysqli_query($koneksi, "UPDATE kasbon SET status_kasbon = '606', komentar = '$komentar',
                                             harga_akhir = harga_akhir + pengembalian,   -- harga akhir ditambahn pengembalian
                                             harga_akhir = harga_akhir - penambahan,     -- harga akhir dikurang penambahan
                                             pengembalian = '0',
