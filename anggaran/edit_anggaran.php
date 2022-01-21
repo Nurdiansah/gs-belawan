@@ -1,446 +1,346 @@
 <?php
-
+// session_start();
 include "../fungsi/koneksi.php";
-$id = $_GET['id'];
+include "../fungsi/fungsi.php";
 
-$queryUser =  mysqli_query($koneksi, "SELECT area from user WHERE username  = '$_SESSION[username]'");
+if (isset($_GET['id'])) {
+    $id = dekripRambo($_GET['id']);
+} else {
+    header('Location: index.php?p=anggaran');
+}
+
+$queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggaran = '$id'");
+$dataAnggaran = mysqli_fetch_assoc($queryAnggaran);
+
+$queryUser =  mysqli_query($koneksi, "SELECT area, nama from user WHERE username  = '$_SESSION[username]'");
 $rowUser = mysqli_fetch_assoc($queryUser);
 $Area = $rowUser['area'];
-
-$queryAnggaran =  mysqli_query($koneksi, "SELECT * 
-                                              from anggaran a
-                                              JOIN divisi d
-                                              ON a.id_divisi=d.id_divisi                                              
-                                              LEFT JOIN golongan g
-                                              ON a.id_golongan = g.id_golongan
-                                              LEFT JOIN sub_golongan sg
-                                              ON a.id_subgolongan = sg.id_subgolongan
-                                              WHERE id_anggaran = '$id'");
-$rowAnggaran = mysqli_fetch_assoc($queryAnggaran);
+$nama = $rowUser['nama'];
 
 date_default_timezone_set('Asia/Jakarta');
 $waktuSekarang = date('d-m-Y H:i:s');
+$tahunAyeuna = date("Y");
 
 if (isset($_POST['simpan'])) {
-    $id_anggaran = $_POST['id'];
-    $divisi = $_POST['divisi'];
+    $id = $_POST['id'];
+    $id_divisi = $_POST['id_divisi'];
+    $program_kerja  = $_POST['program_kerja'];
     $tahun = $_POST['tahun'];
+    $segmen = $_POST['segmen'];
     $no_coa = $_POST['no_coa'];
-    $kd_anggaran = $_POST['kd_anggaran'];
-    $golongan = $_POST['golongan'];
-    $sub_golongan = $_POST['sub_golongan'];
+    $nm_coa = $_POST['nm_coa'];
+    $tipe_anggaran = $_POST['tipe_anggaran'];
+    $jenis_anggaran = $_POST['jenis_anggaran'];
     $deskripsi = $_POST['deskripsi'];
-    $harga = str_replace(".", "", $_POST['harga']);
-    $januari_kuantitas = $_POST['januari_kuantitas'];
-    $januari_nominal = str_replace(".", "", $_POST['januari_nominal']);
-    $februari_kuantitas = $_POST['februari_kuantitas'];
-    $februari_nominal = str_replace(".", "", $_POST['februari_nominal']);
-    $maret_kuantitas = $_POST['maret_kuantitas'];
-    $maret_nominal = str_replace(".", "", $_POST['maret_nominal']);
-    $april_kuantitas = $_POST['april_kuantitas'];
-    $april_nominal = str_replace(".", "", $_POST['april_nominal']);
-    $mei_kuantitas = $_POST['mei_kuantitas'];
-    $mei_nominal = str_replace(".", "", $_POST['mei_nominal']);
-    $juni_kuantitas = $_POST['juni_kuantitas'];
-    $juni_nominal = str_replace(".", "", $_POST['juni_nominal']);
-    $juli_kuantitas = $_POST['juli_kuantitas'];
-    $juli_nominal = str_replace(".", "", $_POST['juli_nominal']);
-    $agustus_kuantitas = $_POST['agustus_kuantitas'];
-    $agustus_nominal = str_replace(".", "", $_POST['agustus_nominal']);
-    $september_kuantitas = $_POST['september_kuantitas'];
-    $september_nominal = str_replace(".", "", $_POST['september_nominal']);
-    $oktober_kuantitas = $_POST['oktober_kuantitas'];
-    $oktober_nominal = str_replace(".", "", $_POST['oktober_nominal']);
-    $november_kuantitas = $_POST['november_kuantitas'];
-    $november_nominal = str_replace(".", "", $_POST['november_nominal']);
-    $desember_kuantitas = $_POST['desember_kuantitas'];
-    $desember_nominal = str_replace(".", "", $_POST['desember_nominal']);
-    $jumlah_kuantitas = $_POST['jml_kuantitas'];
-    $jumlah_nominal = str_replace(".", "", $_POST['jml_nominal']);
-    $yg_rubah = $_SESSION['username'];
+    $kd_anggaran = $_POST['kd_anggaran'];
+    $nominal_januari = str_replace(".", "", $_POST['nominal_januari']);
+    $nominal_februari = str_replace(".", "", $_POST['nominal_februari']);
+    $nominal_maret = str_replace(".", "", $_POST['nominal_maret']);
+    $nominal_april = str_replace(".", "", $_POST['nominal_april']);
+    $nominal_mei = str_replace(".", "", $_POST['nominal_mei']);
+    $nominal_juni = str_replace(".", "", $_POST['nominal_juni']);
+    $nominal_juli = str_replace(".", "", $_POST['nominal_juli']);
+    $nominal_agustus = str_replace(".", "", $_POST['nominal_agustus']);
+    $nominal_september = str_replace(".", "", $_POST['nominal_september']);
+    $nominal_oktober = str_replace(".", "", $_POST['nominal_oktober']);
+    $nominal_november = str_replace(".", "", $_POST['nominal_november']);
+    $nominal_desember = str_replace(".", "", $_POST['nominal_desember']);
+    $nominal_jumlah = str_replace(".", "", $_POST['nominal_jumlah']);
 
-    $updAnggaran = mysqli_query($koneksi, "UPDATE anggaran SET tahun = '$tahun',
-                                            id_divisi = '$divisi',
+    $update = mysqli_query($koneksi, "UPDATE anggaran SET id_divisi = '$id_divisi',
+                                            programkerja_id = '$program_kerja',
+                                            tahun = '$tahun',
+                                            id_segmen = '$segmen',
                                             no_coa = '$no_coa',
-                                            kd_anggaran = '$kd_anggaran',
-                                            id_golongan = '$golongan',
-                                            id_subgolongan = '$sub_golongan',
+                                            nm_coa = '$nm_coa',
+                                            tipe_anggaran = '$tipe_anggaran',
+                                            jenis_anggaran = '$jenis_anggaran',
                                             nm_item = '$deskripsi',
-                                            harga = '$harga',
-                                            januari_kuantitas = '$januari_kuantitas',
-                                            januari_nominal = '$januari_nominal',
-                                            februari_kuantitas = '$februari_kuantitas',
-                                            februari_nominal = '$februari_nominal',
-                                            maret_kuantitas = '$maret_kuantitas',
-                                            maret_nominal = '$maret_nominal',
-                                            april_kuantitas = '$april_kuantitas',
-                                            april_nominal = '$april_nominal',
-                                            mei_kuantitas = '$mei_kuantitas',
-                                            mei_nominal = '$mei_nominal',
-                                            juni_kuantitas = '$juni_kuantitas',
-                                            juni_nominal = '$juni_nominal',
-                                            juli_kuantitas = '$juli_kuantitas',
-                                            juli_nominal = '$juli_nominal',
-                                            agustus_kuantitas = '$agustus_kuantitas',
-                                            agustus_nominal = '$agustus_nominal',
-                                            september_kuantitas = '$september_kuantitas',
-                                            september_nominal = '$september_nominal',
-                                            oktober_kuantitas = '$oktober_kuantitas',
-                                            oktober_nominal = '$oktober_nominal',
-                                            november_kuantitas = '$november_kuantitas',
-                                            november_nominal = '$november_nominal',
-                                            desember_kuantitas = '$desember_kuantitas',
-                                            desember_nominal = '$desember_nominal',
-                                            jumlah_kuantitas = '$jumlah_kuantitas',
-                                            jumlah_nominal = '$jumlah_nominal',
-                                            last_modified_by = '$yg_rubah',
-                                            last_modified_on = now()
-                                        WHERE id_anggaran = '$id_anggaran'");
-    if ($updAnggaran) {
-        header('Location: index.php?p=anggaran&divisi=' . $_GET['divisi'] . '&tahun=' . $_GET['tahun'] . '');
+                                            kd_anggaran = '$kd_anggaran',
+                                            januari_nominal = '$nominal_januari',
+                                            februari_nominal = '$nominal_februari',
+                                            maret_nominal = '$nominal_maret',
+                                            april_nominal = '$nominal_april',
+                                            mei_nominal = '$nominal_mei',
+                                            juni_nominal = '$nominal_juni',
+                                            juli_nominal = '$nominal_juli',
+                                            agustus_nominal = '$nominal_agustus',
+                                            september_nominal = '$nominal_september',
+                                            oktober_nominal = '$nominal_oktober',
+                                            november_nominal = '$nominal_november',
+                                            desember_nominal = '$nominal_desember',
+                                            jumlah_nominal = '$nominal_jumlah',
+                                            last_modified_by = '$nama',
+                                            last_modified_on = NOW() 
+                                        WHERE id_anggaran = '$id'
+                        ");
+
+    if ($update) {
+        header('Location: index.php?p=edit_anggaran&id=' . enkripRambo($id) . '');
     } else {
-        die("ada kesalahan : " . mysqli_error($koneksi));
+        echo mysqli_error($koneksi);
+        die;
     }
 }
+
 ?>
 
 <section class="content">
     <div class="row">
-        <div class="col-sm-12 col-xs-12">
-            <div class="box box-primary">
-                <div class="row">
-                    <div class="col-md-2">
-                        <a href="index.php?p=anggaran&divisi=<?= $_GET['divisi'] ?>&tahun=<?= $_GET['tahun']; ?>" class="btn btn-primary"><i class="fa fa-backward"></i> Kembali</a>
+        <form method="post" name="form" action="" enctype="multipart/form-data" class="form-horizontal">
+            <div class="col-sm-6 col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="text-center">Edit Anggaran</h3>
                     </div>
-                    <br><br>
-                </div>
-                <div class="box-header with-border">
-                    <h3 class="text-center">Rubah Anggaran <?= $rowAnggaran['nm_item']; ?></h3>
-                </div>
-                <form method="POST" name="form" action="" enctype="multipart/form-data" class="form-horizontal">
                     <input type="hidden" name="id" value="<?= $id; ?>">
                     <div class="box-body">
                         <div class="form-group">
-                            <label id="tes" for="divisi" class="col-sm-offset-1 col-sm-1 control-label">Divisi</label>
-                            <div class="col-sm-3">
-                                <select name="divisi" class="form-control">
-                                    <option value="">--Pilih Divisi--</option>
+                            <label id="tes" for="divisi" class="col-sm-offset-2 col-sm-2 control-label">Divisi</label>
+                            <div class="col-sm-5">
+                                <select name="id_divisi" id="id_divisi" class="form-control id_divisi" required>
+                                    <option value="">-- Pilih Divisi --</option>
                                     <?php
                                     $queryDivisi = mysqli_query($koneksi, "SELECT * FROM divisi ORDER BY nm_divisi ASC");
                                     if (mysqli_num_rows($queryDivisi)) {
                                         while ($rowDivisi = mysqli_fetch_assoc($queryDivisi)) :
                                     ?>
-                                            <option value="<?= $rowDivisi['id_divisi']; ?>" <?php if ($rowAnggaran['id_divisi'] == $rowDivisi['id_divisi']) {
-                                                                                                echo "selected=\"selected\"";
-                                                                                            } ?>><?= $rowDivisi['nm_divisi']; ?></option>
+                                            <option value="<?= $rowDivisi['id_divisi']; ?>" <?= $rowDivisi['id_divisi'] == $dataAnggaran['id_divisi'] ? 'selected=selected' : ''; ?>><?= $rowDivisi['nm_divisi']; ?></option>
                                     <?php endwhile;
                                     } ?>
                                 </select>
                             </div>
-                            <!-- </div>
-                    <div class="form-group"> -->
-                            <label id="tes" for="tahun" class="col-sm-2 control-label">Anggaran Tahun</label>
-                            <div class="col-sm-3">
-                                <select name="tahun" class="form-control">
-                                    <?php
-                                    $tahunSekarang = date('Y');
-                                    foreach (range(2019, $tahunSekarang) as $tahun) { ?>
-                                        <option value="<?= $tahun; ?>" <?php if ($rowAnggaran['tahun'] == $tahun) {
-                                                                            echo "selected=\"selected\"";
-                                                                        } ?>><?= $tahun; ?></option>
-                                    <?php
-                                    }
+                        </div>
+                        <div class="ktkPK">
+                            <div class="form-group">
+                                <label id="tes" for="divisi" class="col-sm-offset-2 col-sm-2 control-label">Program Kerja</label>
+                                <div class="col-sm-5">
+                                    <select name="program_kerja" id="id_programkerja" class="form-control" required>
+                                        <option value="<?= $dataAnggaran['programkerja_id']; ?>"><?= kodeProgramKerja($dataAnggaran['id_anggaran']); ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="tahun" class="col-sm-offset-2 col-sm-2 control-label">Anggaran Tahun</label>
+                            <div class="col-sm-5">
+                                <select name="tahun" class="form-control" required>
+                                    <?php foreach (range(2019, $tahunAyeuna) as $tahunLoop) { ?>
+                                        <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $dataAnggaran['tahun'] ? "selected=selected" : ''; ?>><?= $tahunLoop; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="tahun" class="col-sm-offset-2 col-sm-2 control-label">Segmen/Job Code</label>
+                            <div class="col-sm-5">
+                                <select name="segmen" class="form-control">
+                                    <?php $querySegmen = mysqli_query($koneksi, "SELECT * FROM segmen ORDER BY nm_segmen ASC");
+                                    while ($dataSegmen = mysqli_fetch_assoc($querySegmen)) {
                                     ?>
+                                        <option value="<?= $dataSegmen['id_segmen']; ?>" <?= $dataAnggaran['id_segmen'] == $dataSegmen['id_segmen'] ? 'selected' : ''; ?>><?= $dataSegmen['nm_segmen']; ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                         </div>
                         <input type="hidden" name="waktu" value="<?php echo $waktuSekarang; ?>">
                         <div class="form-group">
-                            <label id="tes" for="no_coa" class="col-sm-2 control-label">Nomor Coa</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" name="no_coa" value="<?= $rowAnggaran['no_coa']; ?>">
-                            </div>
-                            <!-- </div>
-                        <div class="form-group"> -->
-                            <label id="tes" for="kd_anggaran" class="col-sm-2 control-label">Kode Transaksi</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" name="kd_anggaran" value="<?= $rowAnggaran['kd_anggaran']; ?>">
+                            <label id="tes" for="no_coa" class="col-sm-offset-2 col-sm-2 control-label">Nomor Coa</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="no_coa" value="<?= $dataAnggaran['no_coa']; ?>">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label id="tes" for="golongan" class="col-sm-offset-1 col-sm-1 control-label">Golongan</label>
-                            <div class="col-sm-3">
-                                <select name="golongan" class="form-control">
-                                    <option value="">--Pilih Golongan--</option>
-                                    <?php
-                                    $querygolongan = mysqli_query($koneksi, "SELECT * FROM golongan ORDER BY nm_golongan ASC");
-                                    if (mysqli_num_rows($querygolongan)) {
-                                        while ($rowgolongan = mysqli_fetch_assoc($querygolongan)) :
-                                    ?>
-                                            <option value="<?= $rowgolongan['id_golongan']; ?>" <?php if ($rowAnggaran['id_golongan'] == $rowgolongan['id_golongan']) {
-                                                                                                    echo "selected=selected";
-                                                                                                } ?>><?= $rowgolongan['nm_golongan']; ?></option>
-                                    <?php endwhile;
-                                    } ?>
-                                </select>
+                            <label id="tes" for="nm_coa" class="col-sm-offset-2 col-sm-2 control-label">Nama Coa</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="nm_coa" value="<?= $dataAnggaran['nm_coa']; ?>">
                             </div>
-                            <!-- </div>
-                        <div class="form-group"> -->
-                            <label id="tes" for="sub_golongan" class="col-sm-offset-0 col-sm-2 control-label">Sub Golongan</label>
-                            <div class="col-sm-3">
-                                <select name="sub_golongan" class="form-control">
-                                    <option value="">--Pilih Sub Golongan--</option>
-                                    <?php
-                                    $querysubgolongan = mysqli_query($koneksi, "SELECT * FROM sub_golongan ORDER BY nm_subgolongan ASC");
-                                    if (mysqli_num_rows($querysubgolongan)) {
-                                        while ($rowsubgolongan = mysqli_fetch_assoc($querysubgolongan)) :
-                                    ?>
-                                            <option value="<?= $rowsubgolongan['id_subgolongan']; ?>" <?php if ($rowAnggaran['id_subgolongan'] == $rowsubgolongan['id_subgolongan']) {
-                                                                                                            echo "selected=selected";
-                                                                                                        } ?>><?= $rowsubgolongan['nm_subgolongan']; ?></option>
-                                    <?php endwhile;
-                                    } ?>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="id_golongan" class="col-sm-offset-2 col-sm-2 control-label">Tipe Anggaran</label>
+                            <div class="col-sm-5">
+                                <select name="tipe_anggaran" class="form-control">
+                                    <option value="OPEX" <?= $dataAnggaran['tipe_anggaran'] == "OPEX" ? 'selected' : ''; ?>>OPEX</option>
+                                    <option value="CAPEX" <?= $dataAnggaran['tipe_anggaran'] == "CAPEX" ? 'selected' : ''; ?>>CAPEX</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="perhitungan">
-                            <div class="form-group">
-                                <label id="tes" for="nm_item" class="col-sm-offset-1 col-sm-1 control-label">Deskripsi</label>
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control" name="deskripsi" value="<?= $rowAnggaran['nm_item']; ?>">
-                                </div>
-                                <!-- </div>
-                        <div class="form-group"> -->
-                                <label id="tes" for="harga" class="col-sm-offset-1 col-sm-1 control-label" id="hargal">Harga</label>
-                                <div class="col-sm-3">
-
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" class="form-control " name="harga" id="harga_nominal" value="<?= $rowAnggaran['harga']; ?>" />
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group">
-                                <label id="tes" for="Quantity" class="col-sm-offset-1 col-sm-3 control-label">Quantity</label>
-                                <!-- </div>
-                            <div class="form-group"> -->
-                                <label id="tes" for="januari_nominal" class="col-sm-offset-1 col-sm-4 control-label">Nominal</label>
-                            </div>
-                            <hr>
-                            <div class="form-group">
-                                <label id="tes" for="januari_kuantitas" class="col-sm-offset- col-sm-2 control-label">Januari </label>
-                                <div class="col-sm-3">
-                                    <input type="number" class="form-control" value="<?= $rowAnggaran['januari_kuantitas']; ?>" min="0" name="januari_kuantitas" id="januari_kuantitas">
-                                </div>
-                                <!-- </div>
-                            <div class="form-group"> -->
-                                <label id="tes" for="januari_nominal" class="col-sm-offset- col-sm-2 control-label"></label>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" class="form-control" value="<?= $rowAnggaran['januari_nominal']; ?>" name="januari_nominal" id="januari_nominal" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="februari_kuantitas" class="col-sm-offset- col-sm-2 control-label">Februari </label>
-                                <div class="col-sm-3">
-                                    <input type="number" class="form-control" value="<?= $rowAnggaran['februari_kuantitas']; ?>" min="0" name="februari_kuantitas" id="februari_kuantitas">
-                                </div>
-                                <!-- </div>
-                            <div class="form-group"> -->
-                                <label id="tes" for="februari_nominal" class="col-sm-offset- col-sm-2 control-label"></label>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" class="form-control" value="<?= $rowAnggaran['februari_nominal']; ?>" name="februari_nominal" id="februari_nominal" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="maret_kuantitas" class="col-sm-offset- col-sm-2 control-label">Maret </label>
-                                <div class="col-sm-3">
-                                    <input type="number" class="form-control" value="<?= $rowAnggaran['maret_kuantitas']; ?>" min="0" name="maret_kuantitas" id="maret_kuantitas">
-                                </div>
-                                <!-- </div>
-                            <div class="form-group"> -->
-                                <label id="tes" for="maret_nominal" class="col-sm-offset- col-sm-2 control-label"></label>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" class="form-control" value="<?= $rowAnggaran['maret_nominal']; ?>" name="maret_nominal" id="maret_nominal" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="april_kuantitas" class="col-sm-offset- col-sm-2 control-label">April </label>
-                                <div class="col-sm-3">
-                                    <input type="number" class="form-control" value="<?= $rowAnggaran['april_kuantitas']; ?>" min="0" name="april_kuantitas" id="april_kuantitas">
-                                </div>
-                                <!-- </div>
-                            <div class="form-group"> -->
-                                <label id="tes" for="april_nominal" class="col-sm-offset- col-sm-2 control-label"></label>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" class="form-control" value="<?= $rowAnggaran['april_nominal']; ?>" name="april_nominal" id="april_nominal" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="mei_kuantitas" class="col-sm-offset- col-sm-2 control-label">Mei </label>
-                                <div class="col-sm-3">
-                                    <input type="number" class="form-control" value="<?= $rowAnggaran['mei_kuantitas']; ?>" min="0" name="mei_kuantitas" id="mei_kuantitas">
-                                </div>
-                                <!-- </div>
-                            <div class="form-group"> -->
-                                <label id="tes" for="mei_nominal" class="col-sm-offset- col-sm-2 control-label"></label>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" class="form-control" value="<?= $rowAnggaran['mei_nominal']; ?>" name="mei_nominal" id="mei_nominal" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="juni_kuantitas" class="col-sm-offset- col-sm-2 control-label">Juni </label>
-                                <div class="col-sm-3">
-                                    <input type="number" class="form-control" value="<?= $rowAnggaran['juni_kuantitas']; ?>" min="0" name="juni_kuantitas" id="juni_kuantitas">
-                                </div>
-                                <!-- </div>
-                            <div class="form-group"> -->
-                                <label id="tes" for="juni_nominal" class="col-sm-offset- col-sm-2 control-label"></label>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" class="form-control" value="<?= $rowAnggaran['juni_nominal']; ?>" name="juni_nominal" id="juni_nominal" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="juli_kuantitas" class="col-sm-offset- col-sm-2 control-label">Juli </label>
-                                <div class="col-sm-3">
-                                    <input type="number" class="form-control" value="<?= $rowAnggaran['juli_kuantitas']; ?>" min="0" name="juli_kuantitas" id="juli_kuantitas">
-                                </div>
-                                <!-- </div>
-                            <div class="form-group"> -->
-                                <label id="tes" for="juli_nominal" class="col-sm-offset- col-sm-2 control-label"></label>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" class="form-control" value="<?= $rowAnggaran['juli_nominal']; ?>" name="juli_nominal" id="juli_nominal" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="agustus_kuantitas" class="col-sm-offset- col-sm-2 control-label">Agustus </label>
-                                <div class="col-sm-3">
-                                    <input type="number" class="form-control" value="<?= $rowAnggaran['agustus_kuantitas']; ?>" min="0" name="agustus_kuantitas" id="agustus_kuantitas">
-                                </div>
-                                <!-- </div>
-                            <div class="form-group"> -->
-                                <label id="tes" for="agustus_nominal" class="col-sm-offset- col-sm-2 control-label"></label>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" class="form-control" value="<?= $rowAnggaran['agustus_nominal']; ?>" name="agustus_nominal" id="agustus_nominal" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="september_kuantitas" class="col-sm-offset- col-sm-2 control-label">September </label>
-                                <div class="col-sm-3">
-                                    <input type="number" class="form-control" value="<?= $rowAnggaran['september_kuantitas']; ?>" min="0" name="september_kuantitas" id="september_kuantitas">
-                                </div>
-                                <!-- </div>
-                            <div class="form-group"> -->
-                                <label id="tes" for="september_nominal" class="col-sm-offset- col-sm-2 control-label"></label>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" class="form-control" value="<?= $rowAnggaran['september_nominal']; ?>" name="september_nominal" id="september_nominal" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="oktober_kuantitas" class="col-sm-offset- col-sm-2 control-label">Oktober </label>
-                                <div class="col-sm-3">
-                                    <input type="number" class="form-control" value="<?= $rowAnggaran['oktober_kuantitas']; ?>" min="0" name="oktober_kuantitas" id="oktober_kuantitas">
-                                </div>
-                                <!-- </div>
-                            <div class="form-group"> -->
-                                <label id="tes" for="oktober_nominal" class="col-sm-offset- col-sm-2 control-label"></label>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" class="form-control" value="<?= $rowAnggaran['oktober_nominal']; ?>" name="oktober_nominal" id="oktober_nominal" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="november_kuantitas" class="col-sm-offset- col-sm-2 control-label">November </label>
-                                <div class="col-sm-3">
-                                    <input type="number" class="form-control" value="<?= $rowAnggaran['november_kuantitas']; ?>" min="0" name="november_kuantitas" id="november_kuantitas">
-                                </div>
-                                <!-- </div>
-                            <div class="form-group"> -->
-                                <label id="tes" for="november_nominal" class="col-sm-offset- col-sm-2 control-label"></label>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" class="form-control" value="<?= $rowAnggaran['november_nominal']; ?>" name="november_nominal" id="november_nominal" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="desember_kuantitas" class="col-sm-offset- col-sm-2 control-label">Desember </label>
-                                <div class="col-sm-3">
-                                    <input type="number" class="form-control" value="<?= $rowAnggaran['desember_kuantitas']; ?>" min="0" name="desember_kuantitas" id="desember_kuantitas">
-                                </div>
-                                <!-- </div>
-                            <div class="form-group"> -->
-                                <label id="tes" for="desember_nominal" class="col-sm-offset- col-sm-2 control-label"></label>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" class="form-control" value="<?= $rowAnggaran['desember_nominal']; ?>" name="desember_nominal" id="desember_nominal" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" />
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="col-auto">
-                                <div class="form-group">
-                                    <label id="tes" for="jml_kuantitas" class="col-sm-offset- col-sm-2 control-label">Jumlah Kuantitas</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" name="jml_kuantitas" value="<?= $rowAnggaran['jumlah_kuantitas']; ?>">
-                                    </div>
-                                    <!-- </div>
-                            <div class="form-group"> -->
-                                    <label id="tes" for="jml_nominal" class="col-sm-offset- col-sm-2 control-label">Jumlah Nominal </label>
-                                    <div class="col-sm-3">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">Rp.</span>
-                                            <input type="text" class="form-control" name="jml_nominal" readonly value="<?= $rowAnggaran['jumlah_nominal']; ?>" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <input type="submit" name="simpan" class="btn btn-primary col-sm-offset-5 " value="Simpan">
-                                &nbsp;
-                                <input type="reset" class="btn btn-danger" value="Batal">
+                        <div class="form-group">
+                            <label id="tes" for="id_subgolongan" class=" col-sm-offset-2 col-sm-2 control-label">Jenis Anggaran</label>
+                            <div class="col-sm-5">
+                                <select name="jenis_anggaran" class="form-control">
+                                    <option value="BIAYA" <?= $dataAnggaran['jenis_anggaran'] == "BIAYA" ? 'selected' : ''; ?>>BIAYA</option>
+                                    <option value="PENDAPATAN" <?= $dataAnggaran['jenis_anggaran'] == "PENDAPATAN" ? 'selected' : ''; ?>>PENDAPATAN</option>
+                                </select>
                             </div>
                         </div>
-                </form>
-
+                        <!-- <div class="perhitungan"> -->
+                        <div class="form-group">
+                            <label id="tes" for="deskripsi" class="col-sm-offset-2 col-sm-2 control-label">Deskripsi</label>
+                            <div class="col-sm-5">
+                                <input type="text" required class="form-control" name="deskripsi" value="<?= $dataAnggaran['nm_item']; ?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="kd_anggaran" class="col-sm-offset-2 col-sm-2 control-label">Kode Anggaran</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="kd_anggaran" value="<?= $dataAnggaran['kd_anggaran']; ?>">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label id="tes" for="kd_anggaran" class="col-sm-offset-1 col-sm- control-label"><i>(Dibuat oleh : <?= $dataAnggaran['created_by'] . " " . $dataAnggaran['created_on'] ?>, Dirubah oleh : <?= $dataAnggaran['last_modified_by'] . " " . $dataAnggaran['last_modified_on'] ?>)</i></label>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="col-sm-6 col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="text-center">Nominal</h3>
+                    </div>
+
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label id="tes" for="nominal_januari" class="col-sm-offset- col-sm-4 control-label">Januari </label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp.</span>
+                                    <input type="text" class="form-control" value="<?= formatRupiah2($dataAnggaran['januari_nominal']); ?>" name="nominal_januari" id="nominal_januari" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                </div>
+                                <input type="checkbox" name="all" id="myCheck" onclick="checkBox()"><label for="myCheck">&nbsp;&nbsp;Semua Bulan</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="nominal_februari" class="col-sm-offset- col-sm-4 control-label">Februari</label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp.</span>
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['februari_nominal']); ?>" name="nominal_februari" id="nominal_februari" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="nominal_maret" class="col-sm-offset- col-sm-4 control-label">Maret</label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp.</span>
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['maret_nominal']); ?>" name="nominal_maret" id="nominal_maret" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="nominal_april" class="col-sm-offset- col-sm-4 control-label">April </label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp.</span>
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['april_nominal']); ?>" name="nominal_april" id="nominal_april" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="nominal_mei" class="col-sm-offset- col-sm-4 control-label">Mei</label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp.</span>
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['mei_nominal']); ?>" name="nominal_mei" id="nominal_mei" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="nominal_juni" class="col-sm-offset- col-sm-4 control-label">Juni</label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp.</span>
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['juni_nominal']); ?>" name="nominal_juni" id="nominal_juni" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="nominal_juli" class="col-sm-offset- col-sm-4 control-label">Juli</label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp.</span>
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['juli_nominal']); ?>" name="nominal_juli" id="nominal_juli" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="nominal_agustus" class="col-sm-offset- col-sm-4 control-label">Agustus </label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp.</span>
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['agustus_nominal']); ?>" name="nominal_agustus" id="nominal_agustus" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="nominal_september" class="col-sm-offset- col-sm-4 control-label">September</label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp.</span>
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['september_nominal']); ?>" name="nominal_september" id="nominal_september" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="nominal_oktober" class="col-sm-offset- col-sm-4 control-label">Oktober</label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp.</span>
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['oktober_nominal']); ?>" name="nominal_oktober" id="nominal_oktober" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="nominal_november" class="col-sm-offset- col-sm-4 control-label">November</label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp.</span>
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['november_nominal']); ?>" name="nominal_november" id="nominal_november" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="nominal_desember" class="col-sm-offset- col-sm-4 control-label">Desember </label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp.</span>
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['desember_nominal']); ?>" name="nominal_desember" id="nominal_desember" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-auto">
+                            <div class="form-group">
+                                <label id="tes" for="jml_bkk" class="col-sm-offset- col-sm-4 control-label">Jumlah Nominal </label>
+                                <div class="col-sm-5">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Rp.</span>
+                                        <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['jumlah_nominal']); ?>" name="nominal_jumlah" id="nominal_jumlah" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <input type="submit" name="simpan" class="btn btn-primary col-sm-offset-5" value="Simpan">
+                            &nbsp;
+                            <input type="reset" class="btn btn-danger" value="Batal">
+                        </div>
+                        <!-- </div> -->
+
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </section>
 
 <script>
+    var host = '<?= host() ?>';
+
     $(document).ready(function() {
         $('.tanggal').datepicker({
             format: "yyyy-mm-dd",
@@ -455,106 +355,112 @@ if (isset($_POST['simpan'])) {
         });
     });
 
-    $(".perhitungan").keyup(function() {
+    function getNumber(data) {
+        return eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById(data).value)))));
+    }
 
-        //ambil inputan harga
-        // var harga = parseInt($("#harga_nominal").val())
+    function jumlah_nominal() {
+        //  Math.round(document.getElementById('nominal_januari').value);
+        var nominal_januari = getNumber('nominal_januari');
+        var nominal_februari = getNumber('nominal_februari');
+        var nominal_maret = getNumber('nominal_maret');
+        var nominal_april = getNumber('nominal_april');
+        var nominal_mei = getNumber('nominal_mei');
+        var nominal_juni = getNumber('nominal_juni');
+        var nominal_juli = getNumber('nominal_juli');
+        var nominal_agustus = getNumber('nominal_agustus');
+        var nominal_september = getNumber('nominal_september');
+        var nominal_oktober = getNumber('nominal_oktober');
+        var nominal_november = getNumber('nominal_november');
+        var nominal_desember = getNumber('nominal_desember');
+        var nominal_hasil = parseInt(nominal_januari) + parseInt(nominal_februari) + parseInt(nominal_maret) + parseInt(nominal_april) + parseInt(nominal_mei) + parseInt(nominal_juni) + parseInt(nominal_juli) + parseInt(nominal_agustus) + parseInt(nominal_september) + parseInt(nominal_oktober) + parseInt(nominal_november) + parseInt(nominal_desember);
 
-        var harga = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('harga_nominal').value))))); //input ke dalam angka tanpa titik
+        // console.log(nominal_hasil);
+        if (!isNaN(nominal_hasil)) {
+            document.getElementById('nominal_jumlah').value = tandaPemisahTitik(nominal_hasil);
+        }
+    }
 
-        // nominal januari
-        var januari_nominal = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('januari_nominal').value))))); //input ke dalam angka tanpa titik
+    function checkBox() {
+        var checkBox = document.getElementById("myCheck");
+        if (checkBox.checked == true) {
 
-        // nominal februari
-        var februari_nominal = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('februari_nominal').value))))); //input ke dalam angka tanpa titik
+            var nominal_januari = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('nominal_januari').value)))));
+            var jumlah = nominal_januari * 12;
 
-        // nominal maret
-        var maret_nominal = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('maret_nominal').value))))); //input ke dalam angka tanpa titik
+            document.form.nominal_februari.value = tandaPemisahTitik(nominal_januari);
+            document.form.nominal_maret.value = tandaPemisahTitik(nominal_januari);
+            document.form.nominal_april.value = tandaPemisahTitik(nominal_januari);
+            document.form.nominal_mei.value = tandaPemisahTitik(nominal_januari);
+            document.form.nominal_juni.value = tandaPemisahTitik(nominal_januari);
+            document.form.nominal_juli.value = tandaPemisahTitik(nominal_januari);
+            document.form.nominal_agustus.value = tandaPemisahTitik(nominal_januari);
+            document.form.nominal_september.value = tandaPemisahTitik(nominal_januari);
+            document.form.nominal_oktober.value = tandaPemisahTitik(nominal_januari);
+            document.form.nominal_november.value = tandaPemisahTitik(nominal_januari);
+            document.form.nominal_desember.value = tandaPemisahTitik(nominal_januari);
+            document.form.nominal_jumlah.value = tandaPemisahTitik(jumlah);
 
-        // nominal april
-        var april_nominal = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('april_nominal').value))))); //input ke dalam angka tanpa titik
+        } else {
+            document.form.nominal_februari.value = tandaPemisahTitik(<?= $dataAnggaran['februari_nominal']; ?>);
+            document.form.nominal_maret.value = tandaPemisahTitik(<?= $dataAnggaran['maret_nominal']; ?>);
+            document.form.nominal_april.value = tandaPemisahTitik(<?= $dataAnggaran['april_nominal']; ?>);;
+            document.form.nominal_mei.value = tandaPemisahTitik(<?= $dataAnggaran['mei_nominal']; ?>);;
+            document.form.nominal_juni.value = tandaPemisahTitik(<?= $dataAnggaran['juni_nominal']; ?>);;
+            document.form.nominal_juli.value = tandaPemisahTitik(<?= $dataAnggaran['juli_nominal']; ?>);;
+            document.form.nominal_agustus.value = tandaPemisahTitik(<?= $dataAnggaran['agustus_nominal']; ?>);;
+            document.form.nominal_september.value = tandaPemisahTitik(<?= $dataAnggaran['september_nominal']; ?>);;
+            document.form.nominal_oktober.value = tandaPemisahTitik(<?= $dataAnggaran['oktober_nominal']; ?>);;
+            document.form.nominal_november.value = tandaPemisahTitik(<?= $dataAnggaran['november_nominal']; ?>);;
+            document.form.nominal_desember.value = tandaPemisahTitik(<?= $dataAnggaran['desember_nominal']; ?>);;
+            document.form.nominal_jumlah.value = tandaPemisahTitik(<?= $dataAnggaran['jumlah_nominal']; ?>);;
+            // text.style.display = "none";
+        }
+    }
 
-        // nominal mei
-        var mei_nominal = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('mei_nominal').value))))); //input ke dalam angka tanpa titik
+    // $(".perhitungan").keyup(function() {
 
-        // nominal juni
-        var juni_nominal = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('juni_nominal').value))))); //input ke dalam angka tanpa titik
+    //     //ambil inputan harga
+    //     // var harga = parseInt($("#harga_nominal").val())
 
-        // nominal juli
-        var juli_nominal = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('juli_nominal').value))))); //input ke dalam angka tanpa titik
+    //     var harga = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('harga_nominal').value))))); //input ke dalam angka tanpa titik
+    //     var nominal_januari = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('nominal_januari').value))))); //input ke dalam angka tanpa titik
+    //     var nominal_februari = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('nominal_februari').value))))); //input ke dalam angka tanpa titik
+    //     var nominal_maret = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('nominal_maret').value))))); //input ke dalam angka tanpa titik
+    //     var nominal_april = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('nominal_april').value))))); //input ke dalam angka tanpa titik
+    //     var nominal_mei = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('nominal_mei').value))))); //input ke dalam angka tanpa titik
+    //     var nominal_juni = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('nominal_juni').value))))); //input ke dalam angka tanpa titik
+    //     var nominal_juli = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('nominal_juli').value))))); //input ke dalam angka tanpa titik
+    //     var nominal_agustus = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('nominal_agustus').value))))); //input ke dalam angka tanpa titik
+    //     var nominal_september = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('nominal_september').value))))); //input ke dalam angka tanpa titik
+    //     var nominal_oktober = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('nominal_oktober').value))))); //input ke dalam angka tanpa titik
+    //     var nominal_november = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('nominal_november').value))))); //input ke dalam angka tanpa titik
+    //     var nominal_desember = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('nominal_desember').value))))); //input ke dalam angka tanpa titik
 
-        // nominal agustus
-        var agustus_nominal = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('agustus_nominal').value))))); //input ke dalam angka tanpa titik
+    //     var jk = parseInt($("#januari_kuantitas").val())
+    //     var fk = parseInt($("#februari_kuantitas").val())
+    //     var mk = parseInt($("#maret_kuantitas").val())
+    //     var apk = parseInt($("#april_kuantitas").val())
+    //     var mek = parseInt($("#mei_kuantitas").val())
+    //     var junk = parseInt($("#juni_kuantitas").val())
+    //     var julk = parseInt($("#juli_kuantitas").val())
+    //     var agk = parseInt($("#agustus_kuantitas").val())
+    //     var sepk = parseInt($("#september_kuantitas").val())
+    //     var oktk = parseInt($("#oktober_kuantitas").val())
+    //     var novk = parseInt($("#november_kuantitas").val())
+    //     var desk = parseInt($("#desember_kuantitas").val())
 
-        // nominal september
-        var september_nominal = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('september_nominal').value))))); //input ke dalam angka tanpa titik
+    //     // jumlah nominal
+    //     var jmlKuantitas = jk + fk + mk + apk + mek + junk + julk + agk + sepk + oktk + novk + desk;
+    //     $("#jml_kuantitas").attr("value", jmlKuantitas);
+    //     document.form.jml_kuantitas.value = jmlKuantitas;
 
-        // nominal oktober
-        var oktober_nominal = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('oktober_nominal').value))))); //input ke dalam angka tanpa titik
+    //     // jumlah nominal
+    //     var jml_nominal = nominal_januari + nominal_februari + nominal_maret + nominal_april + nominal_mei + nominal_juni + nominal_juli + nominal_agustus + nominal_september + nominal_oktober + nominal_november + nominal_desember;
+    //     var jml_nominala = tandaPemisahTitik(jml_nominal);
+    //     document.form.jml_nominal.value = jml_nominala;
 
-        // nominal november
-        var november_nominal = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('november_nominal').value))))); //input ke dalam angka tanpa titik
-
-        // nominal desember
-        var desember_nominal = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById('desember_nominal').value))))); //input ke dalam angka tanpa titik
-
-        //ambil inputan kuantitas januari
-        var jk = parseInt($("#januari_kuantitas").val())
-
-        //ambil inputan kuantitas februari
-        var fk = parseInt($("#februari_kuantitas").val())
-
-        //ambil inputan kuantitas maret
-        var mk = parseInt($("#maret_kuantitas").val())
-
-        //ambil inputan kuantitas april
-        var apk = parseInt($("#april_kuantitas").val())
-
-
-        //ambil inputan kuantitas mei
-        var mek = parseInt($("#mei_kuantitas").val())
-
-
-        //ambil inputan kuantitas juni
-        var junk = parseInt($("#juni_kuantitas").val())
-
-
-        //ambil inputan kuantitas juli
-        var julk = parseInt($("#juli_kuantitas").val())
-
-
-
-        //ambil inputan kuantitas agustus
-        var agk = parseInt($("#agustus_kuantitas").val())
-
-
-        //ambil inputan kuantitas september
-        var sepk = parseInt($("#september_kuantitas").val())
-
-
-        //ambil inputan kuantitas oktober
-        var oktk = parseInt($("#oktober_kuantitas").val())
-
-
-        //ambil inputan kuantitas november
-        var novk = parseInt($("#november_kuantitas").val())
-
-
-        //ambil inputan kuantitas desember
-        var desk = parseInt($("#desember_kuantitas").val())
-
-
-        // jumlah nominal
-        var jmlKuantitas = jk + fk + mk + apk + mek + junk + julk + agk + sepk + oktk + novk + desk;
-        $("#jml_kuantitas").attr("value", jmlKuantitas);
-        document.form.jml_kuantitas.value = jmlKuantitas;
-
-        // jumlah nominal
-        var jml_nominal = januari_nominal + februari_nominal + maret_nominal + april_nominal + mei_nominal + juni_nominal + juli_nominal + agustus_nominal + september_nominal + oktober_nominal + november_nominal + desember_nominal;
-        var jml_nominala = tandaPemisahTitik(jml_nominal);
-        document.form.jml_nominal.value = jml_nominala;
-
-    });
+    // });
 
 
     // onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" 
