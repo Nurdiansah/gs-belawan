@@ -556,7 +556,6 @@ function manipulasiTanggal($tgl, $jumlah = 1, $format = 'days')
     return date("Y-m-d H:i:s", strtotime($jumlah . ' ' . $format, strtotime($currentDate)));
 }
 
-<<<<<<< HEAD
 
 function datetimeHtml($data)
 {
@@ -583,7 +582,7 @@ function orderNumber($data)
 {
 
     return sprintf("%04d", $data);
-=======
+}
 function addressBuktiPembayaranBU($kd_transaksi)
 {
     global $koneksi;
@@ -592,5 +591,4 @@ function addressBuktiPembayaranBU($kd_transaksi)
     $buktiPembayaran = $data['bukti_pembayaran'];
 
     return "<iframe class='embed-responsive-item' src='../../gs-system/file/bukti_pembayaran/" . $buktiPembayaran . "'></iframe>";
->>>>>>> d91e9b7e1c510f49d2324605ea51b09c3dd84dc4
 }
