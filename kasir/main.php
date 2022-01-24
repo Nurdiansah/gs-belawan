@@ -42,7 +42,23 @@
         <a href="#" class="list-group-item"><i class="fa fa-minimize"></i> <span class="badge label-info"></span> </a>
       </div>
     </div>
+
+    <!-- Refill funds  -->
     <div class="col-lg-4 col-xs-6">
+      <div class="list-group">
+        <a href="#" class="list-group-item label-primary">
+          Refill Fund
+        </a>
+        <!-- echo $dataBKP['jumlah'] >= 1 ? $dataBKP['jumlah'] : '';  -->
+        <a href="index.php?p=create_refill" class="list-group-item"><i class="fa fa-edit"></i> Create<span class="badge label-warning"></span></a>
+        <a href="index.php?p=refill_proses" class="list-group-item"><i class="fa fa-spinner"></i> Proses<span class="badge label-info"><?= $dataRP['jumlah'] >= 1 ? $dataRP['jumlah'] : ''; ?></span> </a>
+        <a href="index.php?p=transaksi_bkm" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi <span class="badge label-info"></span></a>
+        <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
+      </div>
+    </div>
+    <!--  -->
+    <!-- SO di bekukan  -->
+    <!-- <div class="col-lg-4 col-xs-6">
       <div class="list-group">
         <a href="#" class="list-group-item label-default">
           Service Order
@@ -54,7 +70,9 @@
         <a href="" class="list-group-item"><i class="fa fa-window-minimize"></i> <span class="badge label-info"></span> </a>
         <a href="#" class="list-group-item"><i class="fa fa-minimize"></i> <span class="badge label-info"></span> </a>
       </div>
-    </div>
+    </div> -->
+    <!--  -->
+
     <!-- </div> -->
     <!-- /row -->
     <!-- row -->

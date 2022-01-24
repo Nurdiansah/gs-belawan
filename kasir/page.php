@@ -129,4 +129,12 @@ if ($page == 'formpesan') {
     include_once "proses_payment.php";
 } else if ($page == "proses_dpayment") {
     include_once "proses_dpayment.php";
+} else if ($page == "create_refill") {
+    include_once "create_refill.php";
+} else if ($page == "refill_show") {
+    include_once "refill_show.php";
+} else if ($page == "refill_edit") {
+    include_once "refill_edit.php";
+} else if ($page == "refill_proses") {
+    include_once "refill_proses.php";
 }

@@ -524,3 +524,31 @@ function manipulasiTanggal($tgl, $jumlah = 1, $format = 'days')
     $currentDate = $tgl;
     return date("Y-m-d H:i:s", strtotime($jumlah . ' ' . $format, strtotime($currentDate)));
 }
+
+
+function datetimeHtml($data)
+{
+    $result = str_replace("T", " ", $data);
+
+    return $result;
+}
+
+function convertDatetimeLocal($data)
+{
+    $result = str_replace(" ", "T", $data);
+
+    return $result;
+}
+
+
+function kataJenis($data)
+{
+
+    return  ucfirst(str_replace("_", " ", $data));
+}
+
+function orderNumber($data)
+{
+
+    return sprintf("%04d", $data);
+}
