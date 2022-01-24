@@ -14,7 +14,7 @@
                 <tr>
                     <td><?= $no; ?></td>
                     <td><?= $dataUser['id_kasbon']; ?></td>
-                    <td><?= $dataUser['tgl_kasbon']; ?></td>
+                    <td><?= formatTanggalWaktu($dataUser['tgl_kasbon']); ?></td>
                     <td><?= $dataUser['komentar_mgr_ga']; ?></td>
                     <td>
                         <a href="index.php?p=dtl_kasbonditolak_user&aksi=lihat&id=<?= $dataUser['id_kasbon']; ?>" class="btn btn-primary " title="Lihat"> Lihat</a>

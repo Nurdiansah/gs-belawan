@@ -55,7 +55,7 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                             </div>
                             <label for="tgl_pengajuan" class="col-sm-offset-2 col-sm-3 control-label">Tanggal </label>
                             <div class="col-sm-3">
-                                <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= formatTanggal($data2['created_pettycash_on']); ?>">
+                                <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= formatTanggalWaktu($data2['created_pettycash_on']); ?>">
                             </div>
                         </div>
                         <div class="form-group">

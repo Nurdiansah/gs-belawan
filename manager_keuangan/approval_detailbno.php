@@ -66,7 +66,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                     <div class="form-group "> -->
                                     <label id="tes" for="tgl_bkk" class=" col-sm-2 control-label">Tanggal Pengajuan</label>
                                     <div class="col-sm-3">
-                                        <input type="text" value="<?= $row2['tgl_pengajuan']; ?>" disabled class="form-control" name="tgl_bkk">
+                                        <input type="text" value="<?= formatTanggalWaktu($row2['tgl_pengajuan']); ?>" disabled class="form-control" name="tgl_bkk">
                                     </div>
                                 </div>
                                 <div class="form-group">

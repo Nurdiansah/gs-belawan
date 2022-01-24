@@ -31,7 +31,7 @@ $query = mysqli_query($koneksi, "SELECT tp.id_pettycash ,tp.created_pettycash_on
                                         ON d.id_divisi = tp.id_divisi
                                         JOIN anggaran a
                                         ON tp.id_anggaran = a.id_anggaran   
-                                        WHERE tp.status_pettycash IN (1, 2, 10)
+                                        WHERE tp.status_pettycash IN (1, 2, 10, 202)
                                         AND (tp.from = 'sr' OR tp.from = 'mr')
                                         ORDER BY tp.created_pettycash_on DESC   ");
 
@@ -92,7 +92,7 @@ $jumlahData = mysqli_num_rows($query);
                                                     <a href="?p=proses_petty&aksi=lpj&id=<?= $row['id_pettycash']; ?>"><span data-placement='top' data-toggle='tooltip' title='Revisi'><button type="button" class="btn btn-success"><i class="fa fa-edit"> </i> LPJ</button></span></a>
                                                 <?php  } else if ($row['status_pettycash'] == 4) { ?>
                                                     <span class="label label-default">Verifikasi LPJ </span>
-                                                <?php  } else if ($row['status_pettycash'] == 10) { ?>
+                                                <?php  } else if ($row['status_pettycash'] == 10 || $row['status_pettycash'] == 202) { ?>
                                                     <span class="label label-danger">Pengajuan Ditolak </span>
                                                     &nbsp; <br> <br> <a href="?p=proses_petty&aksi=revisi&id=<?= $row['id_pettycash']; ?>"><span data-placement='top' data-toggle='tooltip' title='Revisi'><button type="button" class="btn btn-success"><i class="fa fa-edit"> </i> Revisi</button></span></a>
                                                 <?php  } ?>

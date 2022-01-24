@@ -34,7 +34,7 @@ $queryKu = mysqli_query($koneksi, "SELECT *
                 ?>
                         <td> <?= $no; ?> </td>
                         <td> <?= $row['id_kasbon']; ?> </td>
-                        <td> <?= formatTanggal($row['tgl_kasbon']); ?> </td>
+                        <td> <?= formatTanggalWaktu($row['tgl_kasbon']); ?> </td>
                         <td> <?= $row['nm_divisi']; ?> </td>
                         <td> <?= $row['keterangan']; ?> </td>
                         <td> <span class="label label-success"><?= formatRupiah($row['harga_akhir']) ?> </span></td>

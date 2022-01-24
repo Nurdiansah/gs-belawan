@@ -72,7 +72,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                     ?>
                                             <td> <?= $no; ?> </td>
                                             <td> <?= $row['kd_transaksi']; ?> </td>
-                                            <td> <?= tanggal_indo($row['tgl_pengajuan']); ?> </td>
+                                            <td> <?= formatTanggalWaktu($row['created_on']); ?> </td>
                                             <td> <?= $row['nm_divisi']; ?> </td>
                                             <td>
                                                 <a href="?p=approval_mr&aksi=lihat&id=<?= $row['kd_transaksi']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info">Lihat</button></span></a>

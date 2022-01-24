@@ -76,7 +76,7 @@ $queryPTP = mysqli_query($koneksi, "SELECT COUNT(id_pettycash) AS jumlah FROM tr
                                             JOIN anggaran a
                                             ON tp.id_anggaran = a.id_anggaran   
                                             WHERE tp.id_divisi = '$idDivisi'
-                                            AND status_pettycash IN (1, 2, 3, 4, 10)
+                                            AND status_pettycash IN (1, 2, 3, 4, 10, 202)
                                             -- AND `from` = 'user'
                                             ORDER BY tp.created_pettycash_on DESC
                                     ");
@@ -143,17 +143,19 @@ $queryTKU = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbo
                                                                       ON k.id_dbo = dbo.id
                                                                       JOIN divisi d
                                                                       ON d.id_divisi = dbo.id_divisi                                            
-                                                                      WHERE k.status_kasbon IN ('101', '202', '303', '505')
+                                                                      WHERE k.status_kasbon IN ('101', '202', '303', '505', '606')
                                                                       AND from_user = '1'
                                                                       AND dbo.id_divisi = '$idDivisi'");
 
 $dataTKU = mysqli_fetch_assoc($queryTKU);
 
 //----------kasbon purchasing
-$queryTKP = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon
+$queryTKP = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon k
+                                    JOIN detail_biayaops db
+                                      ON id = id_dbo
                                     WHERE status_kasbon = '0'
                                     AND from_user = '0'
-                                    AND divisi_id = '$idDivisi'");
+                                    AND id_divisi = '$idDivisi'");
 $dataTKP = mysqli_fetch_assoc($queryTKP);
 
 //----------kasbon SR

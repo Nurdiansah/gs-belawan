@@ -61,7 +61,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                         while ($row = mysqli_fetch_assoc($query)) :
                                     ?>
                                             <td> <?= $no; ?> </td>
-                                            <td> <?= formatTanggal($row['created_pettycash_on']); ?> </td>
+                                            <td> <?= formatTanggalWaktu($row['created_pettycash_on']); ?> </td>
                                             <td> <?= $row['nm_divisi']; ?> </td>
                                             <td> <?= $row['keterangan_pettycash']; ?> </td>
                                             <td> <?= $row['kd_anggaran']; ?> </td>

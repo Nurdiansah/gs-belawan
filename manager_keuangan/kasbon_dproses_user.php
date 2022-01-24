@@ -49,7 +49,7 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
             <div class="box box-primary">
                 <div class="row">
                     <div class="col-md-2">
-                        <a href="index.php?p=kasbon_transaksi&sp=kt_user" class="btn btn-primary"><i class="fa fa-backward"></i> Kembali</a>
+                        <a href="index.php?p=kasbon_transaksi&sp=kp_user" class="btn btn-primary"><i class="fa fa-backward"></i> Kembali</a>
                     </div>
                     <br><br>
                 </div>
@@ -66,7 +66,7 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
                             <div class="form-group">
                                 <label id="tes" for="tanggal" class="col-sm-offset col-sm-2 control-label">Tanggal Pengajuan</label>
                                 <div class="col-sm-3">
-                                    <input type="text" disabled class="form-control is-valid" name="tanggal" value="<?= formatTanggal($data['tgl_kasbon']); ?>">
+                                    <input type="text" disabled class="form-control is-valid" name="tanggal" value="<?= formatTanggalWaktu($data['tgl_kasbon']); ?>">
                                 </div>
                                 <!-- </div>
                             <div class="form-group"> -->

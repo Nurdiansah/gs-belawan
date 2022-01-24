@@ -35,7 +35,7 @@ $query = mysqli_query($koneksi, "SELECT *
                 ?>
                         <td> <?= $no; ?> </td>
                         <td> <?= $row['id_kasbon']; ?> </td>
-                        <td> <?= tanggal_indo($row['tgl_pengajuan']); ?> </td>
+                        <td> <?= formatTanggalWaktu($row['tgl_pengajuan']); ?> </td>
                         <td> <?= $row['nm_barang']; ?> </td>
                         <td> <?= formatRupiah($row['harga_akhir']) ?> </td>
                         <td>

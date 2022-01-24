@@ -1,6 +1,7 @@
 <?php
 
 include "koneksi.php";
+include "koneksipusat.php";
 
 function host()
 {
@@ -519,12 +520,43 @@ function getNomorBkk($data)
     return $nomorBkk;
 }
 
+
+function nomorBkkNew($tanggal)
+{
+    global $koneksi;
+
+    $bulan    = date('n', strtotime($tanggal));
+    $romawi    = getRomawi($bulan);
+    $tahun     = date('Y', strtotime($tanggal));
+    $nomor     = "/GS-GK/" . $romawi . "/" . $tahun;
+
+    $queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor) from bkk_final WHERE month(created_on_bkk)='$bulan' OR month(release_on_bkk)='$bulan' ");
+
+    $nomorMax = mysqli_fetch_array($queryNomor);
+    if ($nomorMax) {
+
+        $nilaikode = substr($nomorMax[0], 0);
+        $kode = (int) $nilaikode;
+
+        //setiap kode ditambah 1
+        $kode = $kode + 1;
+        $nomorAkhir = "" . str_pad($kode, 3, "0", STR_PAD_LEFT);
+    } else {
+        $nomorAkhir = "001";
+    }
+
+    $nomorBkk = $nomorAkhir . $nomor;
+
+    return $nomorBkk;
+}
+
 function manipulasiTanggal($tgl, $jumlah = 1, $format = 'days')
 {
     $currentDate = $tgl;
     return date("Y-m-d H:i:s", strtotime($jumlah . ' ' . $format, strtotime($currentDate)));
 }
 
+<<<<<<< HEAD
 
 function datetimeHtml($data)
 {
@@ -551,4 +583,14 @@ function orderNumber($data)
 {
 
     return sprintf("%04d", $data);
+=======
+function addressBuktiPembayaranBU($kd_transaksi)
+{
+    global $koneksi;
+
+    $data = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM bkk_ke_pusat WHERE pengajuan = 'BIAYA UMUM' AND id_kdtransaksi = '$kd_transaksi' "));
+    $buktiPembayaran = $data['bukti_pembayaran'];
+
+    return "<iframe class='embed-responsive-item' src='../../gs-system/file/bukti_pembayaran/" . $buktiPembayaran . "'></iframe>";
+>>>>>>> d91e9b7e1c510f49d2324605ea51b09c3dd84dc4
 }

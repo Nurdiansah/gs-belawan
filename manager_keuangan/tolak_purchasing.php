@@ -16,7 +16,7 @@
                     <td><?= $no; ?></td>
                     <td><?= $dataPurchasing['id_kasbon']; ?></td>
                     <td><?= $dataPurchasing['kd_transaksi']; ?></td>
-                    <td><?= $dataPurchasing['tgl_kasbon']; ?></td>
+                    <td><?= formatTanggalWaktu($dataPurchasing['tgl_kasbon']); ?></td>
                     <td><?= $dataPurchasing['komentar_mgr_ga']; ?></td>
                     <td>
                         <a href="index.php?p=dtl_kasbonditolak&aksi=lihat&id=<?= $dataPurchasing['id_kasbon']; ?>" class="btn btn-primary " title="Lihat"> Lihat</a>

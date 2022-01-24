@@ -73,7 +73,7 @@ $jumlahData  = mysqli_num_rows($query);
                                     ?>
                                             <td> <?= $no; ?> </td>
                                             <td> <?= $row['po_number']; ?> </td>
-                                            <td> <?= formatTanggal($row['tgl_po']); ?> </td>
+                                            <td> <?= formatTanggalWaktu($row['tgl_po']); ?> </td>
                                             <td> <?= $row['nm_divisi']; ?> </td>
                                             <td> <?= $row['nm_barang']; ?> </td>
                                             <td> <button class="btn btn-success"><?= formatRupiah(round($row['grand_totalpo'])) ?> </button></td>

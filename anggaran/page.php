@@ -100,4 +100,6 @@ if ($page == 'formpesan') {
     include_once "edit_user.php";
 } else if ($page == "monitoring_so") {
     include_once "monitoring_so.php";
+} else if ($page == "program_kerja") {
+    include_once "program_kerja.php";
 }

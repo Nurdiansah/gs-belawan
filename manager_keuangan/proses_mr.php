@@ -65,7 +65,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                 ?>
                                         <td> <?= $no; ?> </td>
                                         <td> <?= $row['kd_transaksi']; ?> </td>
-                                        <td> <?= tanggal_indo($row['tgl_pengajuan']); ?> </td>
+                                        <td> <?= formatTanggalWaktu($row['created_on']); ?> </td>
                                         <td> <?php if ($row['status_biayaops'] == 1) { ?>
                                                 <span class="label label-success">Menunggu Approve Manager </span>
                                             <?php  } else if ($row['status_biayaops'] == 2) { ?>

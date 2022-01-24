@@ -47,6 +47,7 @@ if (isset($_POST['cari'])) {
                                     ORDER BY no_bkk DESC  ");
 }
 
+
 $jumlahData = mysqli_num_rows($query);
 
 ?>

@@ -41,11 +41,11 @@ $rowNama = mysqli_fetch_assoc($queryNama);
 $Nama = $rowNama['nama'];
 
 // biaya umum tempo
-$queryBUT = mysqli_query($koneksi,  "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk='9' AND jenis='kontrak'  ");
+$queryBUT = mysqli_query($koneksi,  "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk='9' AND metode_pembayaran='transfer'  ");
 $dataBUT = mysqli_fetch_assoc($queryBUT);
 
 // biaya umum payment umum
-$queryUmum = mysqli_query($koneksi,  "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk='9' AND jenis = 'umum'  ");
+$queryUmum = mysqli_query($koneksi,  "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk='9' AND metode_pembayaran = 'tunai'  ");
 $dataBUPU = mysqli_fetch_assoc($queryUmum);
 
 // biaya umum tempo
@@ -488,6 +488,25 @@ $dataRP = mysqli_fetch_assoc($queryRP);
       <marquee hspace="40" width="full-width"></marquee>
       <strong>Copyright &copy; ENC SYSTEM v1.0 </strong>
     </footer>
+
+    <!-- Script Custom -->
+    <script>
+      $('body').on('keydown', 'input, select', function(e) {
+        if (e.key === "Enter") {
+          var self = $(this),
+            form = self.parents('form:eq(0)'),
+            focusable, next;
+          focusable = form.find('input,a,select,button,textarea').filter(':visible');
+          next = focusable.eq(focusable.index(this) + 1);
+          if (next.length) {
+            next.focus();
+          } else {
+            form.submit();
+          }
+          return false;
+        }
+      });
+    </script>
 
     <!-- jQuery UI 1.11.4 -->
     <script src="../assets/plugins/jQueryUI/jquery-ui.min.js"></script>

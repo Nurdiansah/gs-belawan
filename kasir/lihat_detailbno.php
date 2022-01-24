@@ -182,7 +182,18 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                             <div class="box-header with-border">
                                 <h3 class="text-center">Bukti Pembayaran </h3>
                                 <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item" src="../file/bukti_pembayaran/<?php echo $row2['doc_lpj']; ?> "></iframe>
+                                    <!-- Kalo BKK Belawan -->
+
+                                    <?php
+                                    if ($row2['metode_pembayaran'] == 'Tunai') {
+                                        # code...
+                                        echo "<iframe class='embed-responsive-item' src='../file/bukti_pembayaran/" . $row2['doc_lpj'] . " '></iframe>";
+                                    } else {
+
+                                        echo addressBuktiPembayaranBU($row2['kd_transaksi']);
+                                    }
+
+                                    ?>
                                 </div>
                                 <br><br>
                             </div>

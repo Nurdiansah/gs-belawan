@@ -240,7 +240,7 @@ $tanggalCargo = date("Y-m-d");
                                     <div class="col-sm-4">
                                         <div class="input-group">
                                             <span class="input-group-addon">Rp.</span>
-                                            <input type="number" required class="form-control" value="0" name="nilai_barang" id="nilai_barang" />
+                                            <input type="number" required class="form-control" value="<?= round($data['nilai_barang']) ?>" name="nilai_barang" id="nilai_barang" />
                                         </div>
                                     </div>
                                 </div>
@@ -249,7 +249,7 @@ $tanggalCargo = date("Y-m-d");
                                     <div class="col-sm-4">
                                         <div class="input-group">
                                             <span class="input-group-addon">Rp.</span>
-                                            <input type="number" required class="form-control" value="0" name="nilai_jasa" id="nilai_jasa" />
+                                            <input type="number" required class="form-control" value="<?= round($data['nilai_jasa']) ?>" name="nilai_jasa" id="nilai_jasa" />
                                         </div>
                                     </div>
                                 </div>
@@ -258,14 +258,14 @@ $tanggalCargo = date("Y-m-d");
                                     <div class="col-sm-2">
                                         <div class="input-group">
                                             <span class="input-group-addon">PPN</span>
-                                            <input type="number" required min="0" max="10" class="form-control " name="ppn_persen" value=0 id="ppn_persen" />
+                                            <input type="number" required min="0" max="10" class="form-control " name="ppn_persen" value="<?= round($data['nilai_ppn']) ?>" id="ppn_persen" />
                                             <span class="input-group-addon">%</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="input-group">
                                             <span class="input-group-addon">Rp.</span>
-                                            <input type="text" readonly class="form-control " name="ppn_nilai" id="ppn_nilai" />
+                                            <input type="text" readonly class="form-control " name="ppn_nilai" value="<?= round($data['nilai_ppn']) ?>" id="ppn_nilai" />
                                         </div>
                                     </div>
                                 </div>
@@ -291,7 +291,7 @@ $tanggalCargo = date("Y-m-d");
                                         <div class="input-group">
                                             <span class="input-group-addon">PPh</span>
                                             <span class="input-group-addon bg-dark">Rp.</span>
-                                            <input type="number" required class="form-control" value="0" name="pph_nilai" id="pph_nilai" />
+                                            <input type="number" required class="form-control" value="<?= round($data['nilai_pph']) ?>" name="pph_nilai" id="pph_nilai" />
                                         </div>
                                     </div>
                                 </div>
@@ -301,12 +301,14 @@ $tanggalCargo = date("Y-m-d");
                                         <div class="col-sm-4">
                                             <div class="input-group">
                                                 <span class="input-group-addon">Rp.</span>
-                                                <input type="text" required class="form-control" name="jml_bkk" readonly />
+                                                <input type="text" required class="form-control" value="<?= round($data['harga_akhir']) ?>" name="jml_bkk" readonly />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" name="submit" class="btn btn-primary col-sm-offset-5 " value="Submit">
+                                        <button type="submit" name="simpan" class="btn btn-primary col-sm-offset-5"><i class="fa fa-save"></i> Simpan</button>
+                                        &nbsp;
+                                        <button type="submit" name="submit" class="btn btn-warning"><i class="fa fa-rocket"></i> Submit</button>
                                         &nbsp;
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#tolak">Reject </button></span></a>
                                     </div>

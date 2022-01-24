@@ -9,6 +9,8 @@ if (isset($_POST['revisi']) || isset($_POST['simpan'])) {
     $id_anggaran = $_POST['id_anggaran'];
     $keterangan_pettycash = $_POST['keterangan'];
     $total_pettycash = str_replace(".", "", $_POST['nominal']);
+    $status_petty = $_POST['status_petty'];
+    $pengajuan = $_POST['pengajuan'];
 
     date_default_timezone_set('Asia/Jakarta');
     $tanggal = date("Y-m-d H:i:s");
@@ -37,6 +39,12 @@ if (isset($_POST['revisi']) || isset($_POST['simpan'])) {
     //     move_uploaded_file($lokasi_doc_lpj, "../file/doc_lpj/" . $namabaru);
     // }
 
+    if ($status_petty == "10") {
+        $status = "1";
+    } elseif ($status_petty == "202" || ($pengajuan == "mr" && $status_petty == "10")) {
+        $status = "2";
+    }
+
     // Kalo tombol simpan
     if (isset($_POST['simpan'])) {
         $query = "UPDATE transaksi_pettycash SET id_anggaran = '$id_anggaran' , keterangan_pettycash = '$keterangan_pettycash',
@@ -54,7 +62,7 @@ if (isset($_POST['revisi']) || isset($_POST['simpan'])) {
         }
     } else if (isset($_POST['revisi'])) { // Kalo tombol yang di klik tombol revisi
         $query = "UPDATE transaksi_pettycash SET id_anggaran = '$id_anggaran' , keterangan_pettycash = '$keterangan_pettycash', komentar_pettycash = NULL,
-                                                total_pettycash = '$total_pettycash', last_modified_pettycash_on = '$tanggal', last_modified_pettycash_by = '$nama', status_pettycash = '1'
+                                                total_pettycash = '$total_pettycash', last_modified_pettycash_on = '$tanggal', last_modified_pettycash_by = '$nama', status_pettycash = '$status'
                                                 WHERE id_pettycash ='$id_pettycash' ";
         $hasil = mysqli_query($koneksi, $query);
         if ($hasil) {

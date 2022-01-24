@@ -70,8 +70,12 @@ $jumlahData = mysqli_num_rows($query);
                                                 <?php
                                                 if ($row['status'] == '1') {
                                                     # code...
-                                                    echo "<span class='label label-warning'>Approval GM Finance</span>";
+                                                    echo "<span class='label label-warning'>Approval Cost Control</span>";
                                                 } else if ($row['status'] == '2') {
+                                                    echo "<span class='label label-warning'>Approval Manager</span>";
+                                                } else if ($row['status'] == '3') {
+                                                    echo "<span class='label label-warning'>Approval GM Finance</span>";
+                                                } else if ($row['status'] == '4') {
                                                     echo "<span class='label label-warning'>Approval Direksi</span>";
                                                 }
 

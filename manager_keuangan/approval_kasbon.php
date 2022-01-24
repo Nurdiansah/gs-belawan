@@ -66,7 +66,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                     ?>
                                             <td> <?= $no; ?> </td>
                                             <td> <?= $row['id_kasbon']; ?> </td>
-                                            <td> <?= formatTanggal($row['tgl_kasbon']); ?> </td>
+                                            <td> <?= formatTanggalWaktu($row['tgl_kasbon']); ?> </td>
                                             <td> <?= $row['keterangan']; ?> </td>
                                             <td> <button class="btn btn-success"><?= formatRupiah(round($row['harga_akhir'])) ?> </button></td>
                                             <td><?php if ($row['status_kasbon'] == 1) { ?>

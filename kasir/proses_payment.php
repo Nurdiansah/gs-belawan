@@ -20,11 +20,11 @@ $tanggal = date("Y-m-d");
 
 $query = mysqli_query($koneksi,  "SELECT * 
                                 FROM bkk b
-                                JOIN bkk_ke_pusat bk
+                               LEFT JOIN bkk_ke_pusat bk
                                 ON bk.id_kdtransaksi = b.kd_transaksi
-                                JOIN divisi d
+                               LEFT JOIN divisi d
                                 ON d.id_divisi = b.id_divisi
-                                WHERE b.status_bkk='17' AND b.jenis='kontrak' ORDER BY b.kd_transaksi DESC  ");
+                                WHERE b.status_bkk='17' AND b.metode_pembayaran='transfer' ORDER BY b.kd_transaksi DESC  ");
 
 $jumlahData = mysqli_num_rows($query);
 ?>
@@ -75,7 +75,7 @@ $jumlahData = mysqli_num_rows($query);
                                             <td> <?= $no; ?> </td>
                                             <td> <?= $row['kd_transaksi']; ?> </td>
                                             <td> <?= tanggal_indo($row['tgl_pengajuan']); ?> </td>
-                                            <td> <?= tanggal_indo($row['tgl_tempo']); ?> </td>
+                                            <td> <?= is_null($row['tgl_tempo']) ? '-' : tanggal_indo($row['tgl_tempo']); ?> </td>
                                             <td> <?= $row['jenis']; ?> </td>
                                             <td> <?= $row['nm_divisi']; ?> </td>
                                             <td> <?= $row['nm_vendor']; ?> </td>

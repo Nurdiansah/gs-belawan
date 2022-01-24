@@ -151,7 +151,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo WHERE id_dbo='$data[i
 
                             <label for="alasan_ditolak" class="col-sm-offset- col-sm-2 control-label">Alasan Penolakan</label>
                             <div class="col-sm-3">
-                                <textarea rows="5" type="text" name="alasan_ditolak" required class="form-control " disabled> <?= $data['komentar']; ?></textarea>
+                                <textarea rows="5" type="text" name="alasan_ditolak" required class="form-control " disabled> <?= $data['komentar']; ?>&#13;&#10;<?= $data['komentar_pajak']; ?>&#13;&#10;<?= $data['komentar_mgr_fin']; ?>&#13;&#10;<?= $data['komentar_mgr_ga']; ?></textarea>
                             </div>
                         </div>
                         <div class="form-group">

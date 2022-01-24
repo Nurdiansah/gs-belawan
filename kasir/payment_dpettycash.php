@@ -21,15 +21,16 @@ $Area = $rowUser['area'];
 $Divisi = $rowUser['id_divisi'];
 
 $queryDetail =  mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
-                                                JOIN anggaran a
-                                                ON a.id_anggaran = tp.id_anggaran
-                                                WHERE tp.id_pettycash = '$id' ");
+                                        JOIN anggaran a
+                                            ON a.id_anggaran = tp.id_anggaran
+                                        WHERE tp.id_pettycash = '$id' ");
 $data = mysqli_fetch_assoc($queryDetail);
 $idAnggaran = $data['id_anggaran'];
+$id_dbo = $data['id_dbo'];
 
-$querySbo =  mysqli_query($koneksi, "SELECT * 
-                                                        FROM sub_dbo                                                         
-                                                        WHERE id_dbo=$id ");
+$queryDBO =  mysqli_query($koneksi, "SELECT * FROM detail_biayaops WHERE id = '$id_dbo'
+                            ");
+$dataDBO = mysqli_fetch_assoc($queryDBO);
 
 $tanggalCargo = date("Y-m-d");
 
@@ -42,6 +43,19 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
         header("location:?p=lihat_detailanggaran&id=$id");
     } else if ($_GET['aksi'] == 'hapus') {
         header("location:?p=hapus_sdboedit&id=$id");
+    }
+}
+
+if (isset($_POST['tolak'])) {
+    $id = $_POST['id_pettycash'];
+    $komentar = "@" . $_POST['Nama'] . " : " . $_POST['komentar'];
+
+    $tolak = mysqli_query($koneksi, "UPDATE transaksi_pettycash SET status_pettycash = '202', komentar_pettycash = '$komentar'
+                                        WHERE id_pettycash = '$id'
+                                    ");
+
+    if ($tolak) {
+        header('Location: index.php?p=payment_pettycash');
     }
 }
 
@@ -67,6 +81,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                             <label for="nominal" class="col-sm-offset-1 col-sm-1 control-label"> </label>
                             <div class="col-sm-3">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#payment"> Payment </button></span></a>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#reject"> Reject </button></span></a>
                             </div>
                         </div>
                         <div class="form-group ">
@@ -103,15 +118,34 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                         <div class="form-group">
 
                         </div>
-                        <div class="box-header with-border">
-                            <?php if (!empty($data['doc_lpj_pettycash'])) { ?>
-                                <h3 class="text-center">Document LPJ</h3>
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item" src="../file/doc_lpj/<?= $data['doc_lpj_pettycash']; ?> "></iframe>
+                        <?php if ($data['from'] == "user") { ?>
+                            <div class="box-header with-border">
+                                <?php if (!empty($data['doc_lpj_pettycash'])) { ?>
+                                    <h3 class="text-center">Document LPJ</h3>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="../file/doc_lpj/<?= $data['doc_lpj_pettycash']; ?> "></iframe>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                            <?php } elseif ($data['from'] == "mr") {
+                            if (!empty($dataDBO['foto_item'])) { ?>
+                                <div class="box-header with-border">
+                                    <h3 class="text-center">Foto Barang</h3>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="../file/foto/<?= $dataDBO['foto_item']; ?> "></iframe>
+                                    </div>
                                 </div>
-                            <?php } ?>
-
-                        </div>
+                            <?php }
+                            if (!empty($dataDBO['doc_penawaran'])) { ?>
+                                <div class="box-header with-border">
+                                    <h3 class="text-center">Document Penawaran</h3>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="../file/doc_penawaran/<?= $dataDBO['doc_penawaran']; ?> "></iframe>
+                                    </div>
+                                </div>
+                        <?php
+                            }
+                        } ?>
                         <br>
                 </form>
             </div>
@@ -167,6 +201,47 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
 </div>
 <!--  -->
 
+<!--  -->
+<div id="reject" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- konten modal-->
+        <div class="modal-content">
+            <!-- heading modal -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Alasan Penolakan </h4>
+            </div>
+            <!-- body modal -->
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" action="" class="form-horizontal">
+                    <div class="box-body">
+                        <div class="form-group ">
+                            <div class="col-sm-4">
+                                <input type="hidden" value="<?= $data['id_pettycash']; ?>" class="form-control" name="id_pettycash" readonly>
+                                <input type="hidden" value="payment_pettycash" class="form-control" name="url" readonly>
+                                <input type="hidden" value="<?= $Nama; ?>" class="form-control" name="Nama" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="validationTextarea">Komentar</label>
+                            <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required></textarea>
+                            <div class="invalid-feedback">
+                                Please enter a message in the textarea.
+                            </div>
+                        </div>
+                        <div class=" modal-footer">
+                            <button class="btn btn-success" type="submit" name="tolak">Kirim</button></span></a>
+                            &nbsp;
+                            <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  -->
 <script>
     $(document).ready(function() {
         $('.tanggal').datepicker({

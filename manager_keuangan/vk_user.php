@@ -23,7 +23,7 @@
                 ?>
                         <td> <?= $no; ?> </td>
                         <td> <?= $row['id_kasbon']; ?> </td>
-                        <td> <?= formatTanggal($row['tgl_kasbon']); ?> </td>
+                        <td> <?= formatTanggalWaktu($row['tgl_kasbon']); ?> </td>
                         <td> <?= $row['nm_divisi']; ?> </td>
                         <td> <?= $row['keterangan']; ?> </td>
                         <td> <button class="btn btn-success"><?= formatRupiah(round($row['harga_akhir'])) ?> </button></td>

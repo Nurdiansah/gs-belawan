@@ -67,7 +67,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                 ?>
                                         <td> <?= $no; ?> </td>
                                         <td> <?= $row['kd_transaksi']; ?> </td>
-                                        <td> <?= tanggal_indo($row['tgl_pengajuan']); ?> </td>
+                                        <td> <?= formatTanggalWaktu($row['tgl_pengajuan']); ?> </td>
                                         <td> <?= $row['nm_divisi']; ?> </td>
                                         <td> <?= $row['keterangan']; ?> </td>
                                         <td> <?= $row['nm_vendor']; ?> </td>

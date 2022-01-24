@@ -64,7 +64,7 @@ $query = mysqli_query($koneksi, "SELECT *, b.id as id_bkk_final FROM bkk_final b
 
                                         ?>
                                                 <td> <?= $no; ?> </td>
-                                                <td> <?= formatTanggal($row['created_on_bkk']); ?> </td>
+                                                <td> <?= formatTanggalWaktu($row['created_on_bkk']); ?> </td>
                                                 <td> <?= $row['pengajuan']; ?> </td>
                                                 <td> <?= $row['keterangan']; ?> </td>
                                                 <td> <?= $row['kd_anggaran']; ?> </td>

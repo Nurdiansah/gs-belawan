@@ -71,7 +71,7 @@ $jumlahData  = mysqli_num_rows($query);
 
                                     ?>
                                             <td> <?= $no; ?> </td>
-                                            <td> <?= formatTanggal($row['created_on_bkk']); ?> </td>
+                                            <td> <?= formatTanggalWaktu($row['created_on_bkk']); ?> </td>
                                             <td> <?= $row['pengajuan']; ?> </td>
                                             <td> <?= batasiKata($row['keterangan']); ?> </td>
                                             <td> <?= $row['kd_anggaran']; ?> </td>

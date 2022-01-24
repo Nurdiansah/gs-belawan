@@ -182,9 +182,11 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
             <ul class="treeview-menu">
               <li><a href="index.php?p=anggaran"><i class="fa fa-chevron-right"></i>Anggaran</a></li>
               <li><a href="index.php?p=input_anggaran"><i class="fa fa-chevron-right"></i>Input Anggaran</a></li>
-              <li><a href="index.php?p=input_anggaran_manual"><i class="fa fa-chevron-right"></i>Input Anggaran Manual</a></li>
-              <li><a href="index.php?p=golongan"><i class="fa fa-chevron-right"></i>Golongan</a></li>
-              <li><a href="index.php?p=sub_golongan"><i class="fa fa-chevron-right"></i>Sub Golongan</a></li>
+              <!-- <li><a href="index.php?p=input_anggaran_manual"><i class="fa fa-chevron-right"></i>Input Anggaran Manual</a></li> -->
+              <!-- <li><a href="index.php?p=cost_center"><i class="fa fa-chevron-right"></i>Costcenter</a></li> -->
+              <li><a href="index.php?p=program_kerja"><i class="fa fa-chevron-right"></i>Program Kerja</a></li>
+              <!-- <li><a href="index.php?p=golongan"><i class="fa fa-chevron-right"></i>Golongan</a></li>
+              <li><a href="index.php?p=sub_golongan"><i class="fa fa-chevron-right"></i>Sub Golongan</a></li> -->
           </li>
         </ul>
         </li>
@@ -270,6 +272,40 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
       <marquee hspace="40" width="full-width"></marquee>
       <strong>Copyright &copy; ENC SYSTEM v1.0 </strong>
     </footer>
+
+    <script>
+      // $('.ktkPK').hide();
+      // input anggaran (program kerja)
+      $('.id_divisi').on('change', function() {
+        let divisiId = this.value;
+        // if (divisiId == '') {
+        // $('.ktkPK').hide();
+        // } else {
+        // $('.ktkPK').show();
+
+        // console.log(divisiId);
+        $.ajax({
+          url: host + 'api/anggaran/getPK.php',
+          data: {
+            id: divisiId
+          },
+          method: 'post',
+          dataType: 'json',
+          success: function(data) {
+            console.log(data);
+
+            $('#id_programkerja').empty();
+            $.each(data, function(i, value) {
+              $('#id_programkerja').append($('<option>').text(value.program_kerja + " - [" + value.nm_programkerja + "]").attr('value', value.id_programkerja));
+            });
+          }
+        });
+        // }
+      });
+      $('.id_programkerja').on('change', function() {
+        let programKerjaId = this.value;
+      });
+    </script>
 
     <!-- jQuery UI 1.11.4 -->
     <script src="../assets/plugins/jQueryUI/jquery-ui.min.js"></script>
