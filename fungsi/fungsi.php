@@ -565,3 +565,29 @@ function addressBuktiPembayaranBU($kd_transaksi)
 
     return "<iframe class='embed-responsive-item' src='../../gs-system/file/bukti_pembayaran/" . $buktiPembayaran . "'></iframe>";
 }
+
+function kodeProgramKerja($id_anggaran)
+{
+    global $koneksi;
+
+    $query =  mysqli_query($koneksi, "SELECT *, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_item
+                                        FROM anggaran a
+                                        LEFT JOIN program_kerja
+                                            ON programkerja_id = id_programkerja
+                                        JOIN cost_center cc
+                                            ON costcenter_id = id_costcenter
+                                        JOIN pt pt
+                                            ON pt_id = id_pt
+                                        JOIN divisi dvs
+                                            ON divisi_id = dvs.id_divisi
+                                        JOIN parent_divisi pd
+                                            ON parent_id = id_parent
+                                        -- end buat ambil PK
+                                        WHERE a.id_anggaran = '$id_anggaran'  ");
+
+    $data = mysqli_fetch_assoc($query);
+
+    $hasil = '[' . $data['program_kerja'] . ']';
+
+    return $hasil;
+}

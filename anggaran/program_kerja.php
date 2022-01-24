@@ -17,9 +17,9 @@ if (isset($_POST['tambah'])) {
 
         //setiap kode ditambah 1
         $kode = $kode + 1;
-        $kd_pk = "" . str_pad($kode, 3, "0", STR_PAD_LEFT);
+        $kd_pk = "" . str_pad($kode, 2, "0", STR_PAD_LEFT);
     } else {
-        $kd_pk = "001";
+        $kd_pk = "01";
     }
 
     $tambahPK = mysqli_query($koneksi, "INSERT INTO program_kerja (costcenter_id, kd_programkerja, nm_programkerja, nm_user) VALUES
