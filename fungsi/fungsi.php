@@ -592,3 +592,11 @@ function addressBuktiPembayaranBU($kd_transaksi)
 
     return "<iframe class='embed-responsive-item' src='../../gs-system/file/bukti_pembayaran/" . $buktiPembayaran . "'></iframe>";
 }
+
+
+function nomorAwal($data)
+{
+    $nomorAwal = substr($data, 0, 3);
+
+    return $nomorAwal;
+}

@@ -138,4 +138,8 @@ else if ($page == "po_proses") {
     include_once "verifikasi_biayaops.php";
 } else if ($page == "verifikasi_dbo") {
     include_once "verifikasi_dbo.php";
+} else if ($page == "verifikasi_refill") {
+    include_once "verifikasi_refill.php";
+} else if ($page == "verifikasi_drefill") {
+    include_once "verifikasi_drefill.php";
 }

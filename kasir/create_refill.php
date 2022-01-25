@@ -255,12 +255,6 @@ $jumlahData = mysqli_num_rows($query);
                                             Kas Besar
                                         </label>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="jenis" value="droping_fund" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            Droping Fund
-                                        </label>
-                                    </div>
                                 </div>
                             </div>
                             <div class="form-group ">
