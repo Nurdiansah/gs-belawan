@@ -618,3 +618,10 @@ function kodeProgramKerja($id_anggaran)
 
     return $hasil;
 }
+
+function nomorAwal($data)
+{
+    $nomorAwal = substr($data, 0, 3);
+
+    return $nomorAwal;
+}

@@ -157,7 +157,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                 <label id="tes" for="id_anggaran" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
                                 <div class="col-sm-5">
                                     <select class="form-control select2 id_anggaran" name="id_anggaran" id="id_anggaran" required>
-                                        <option>--Kode Anggaran--</option>
+                                        <option value="">--Kode Anggaran--</option>
                                     </select>
                                 </div>
                             </div>

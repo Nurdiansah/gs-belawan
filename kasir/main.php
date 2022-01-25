@@ -39,7 +39,7 @@
                                                                                                                                       echo $dataTolakBKK['jumlah'];
                                                                                                                                     } ?></span> </a>
         <a href="index.php?p=transaksi_bkk" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi<span class="badge label-success"></span></a>
-        <a href="#" class="list-group-item"><i class="fa fa-minimize"></i> <span class="badge label-info"></span> </a>
+        <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
       </div>
     </div>
 
@@ -56,27 +56,26 @@
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
       </div>
     </div>
-    <!--  -->
-    <!-- SO di bekukan  -->
-    <!-- <div class="col-lg-4 col-xs-6">
+  </div>
+  <!--  -->
+  <!-- SO di bekukan  -->
+  <!-- <div class="col-lg-4 col-xs-6">
       <div class="list-group">
         <a href="#" class="list-group-item label-default">
           Service Order
         </a>
-        <a href="index.php?p=payment_sr" class="list-group-item"><i class="fa fa-money"></i> Payment<span class="badge label-info"><?php if ($dataSO['jumlah'] > 0) {
-                                                                                                                                      echo $dataSO['jumlah'];
-                                                                                                                                    } ?></span> </a>
+        <a href="index.php?p=payment_sr" class="list-group-item"><i class="fa fa-money"></i> Payment<span class="badge label-info"></span> </a>
         <a href="index.php?p=transaksi_sr" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi<span class="badge label-success"></span></a>
         <a href="" class="list-group-item"><i class="fa fa-window-minimize"></i> <span class="badge label-info"></span> </a>
         <a href="#" class="list-group-item"><i class="fa fa-minimize"></i> <span class="badge label-info"></span> </a>
       </div>
     </div> -->
-    <!--  -->
+  <!--  -->
 
-    <!-- </div> -->
-    <!-- /row -->
-    <!-- row -->
-    <!-- <div class="row"> -->
+  <!-- </div> -->
+  <!-- /row -->
+  <!-- row -->
+  <div class="row">
     <div class="col-lg-4 col-xs-6">
       <div class="list-group">
         <a href="#" class="list-group-item label-danger">

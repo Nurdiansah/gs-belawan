@@ -153,6 +153,10 @@ $dataSO = mysqli_fetch_assoc($querySO);
 $queryTolakSO = mysqli_query($koneksi, "SELECT COUNT(id_so) as jumlah FROM so WHERE status = '606'");
 $dataTolakSO = mysqli_fetch_assoc($queryTolakSO);
 
+// refill fund
+$queryAR = mysqli_query($koneksi, "SELECT COUNT(id_refill) as jumlah FROM refill_funds WHERE status = '1'");
+$dataAR = mysqli_fetch_assoc($queryAR);
+
 ?>
 <!DOCTYPE html>
 <html>

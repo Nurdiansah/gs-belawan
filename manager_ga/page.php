@@ -107,4 +107,8 @@ else if ($page == "approval_biayanonops") {
     include_once "proses_dkasbon.php";
 } else if ($page == "kasbon_dproses_user") {
     include_once "kasbon_dproses_user.php";
+} else if ($page == "verifikasi_refill") {
+    include_once "verifikasi_refill.php";
+} else if ($page == "verifikasi_drefill") {
+    include_once "verifikasi_drefill.php";
 }

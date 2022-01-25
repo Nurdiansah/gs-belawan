@@ -153,6 +153,9 @@ $dataTolakBNO = mysqli_fetch_assoc($queryTolakBNO);
 $queryBKK = mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah  FROM bkk_final WHERE status_bkk = '2'  ");
 $dataBKK = mysqli_fetch_assoc($queryBKK);
 
+// refill fund
+$queryAR = mysqli_query($koneksi, "SELECT COUNT(id_refill) as jumlah FROM refill_funds WHERE status = '2'");
+$dataAR = mysqli_fetch_assoc($queryAR);
 
 ?>
 <!DOCTYPE html>
