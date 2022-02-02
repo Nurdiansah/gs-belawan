@@ -66,6 +66,10 @@
                                 <span class="label label-info">Proses pembelian purchasing</span>
                             <?php  } else if ($row['status_kasbon'] == 9) { ?>
                                 <span class="label label-info">Verifikasi LPJ kasir</span>
+                            <?php  } else if ($row['status_kasbon'] == 202) { ?>
+                                <span class="label label-danger">Ditolak Costcontrol</span>
+                            <?php  } else if ($row['status_kasbon'] == 606) { ?>
+                                <span class="label label-danger">Ditolak Kasir</span>
                             <?php  } elseif (is_null($row['status_kasbon'])) { ?>
                                 <span class="label label-info">Submit Kembali Purchasing</span>
                             <?php }  ?>

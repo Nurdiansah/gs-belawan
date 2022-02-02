@@ -199,6 +199,7 @@ $jmlReapp = mysqli_num_rows($reApprove);
                                         <button class="btn btn-default btn-choose" type="button">Browse</button>
                                     </span>
                                 </div>
+                                <p style="color: red;"><i>Kosongkan jika tidak dirubah</i></p>
                             </div>
 
                             <div class="col-sm-3">

@@ -866,17 +866,19 @@ $jmlReapp = mysqli_num_rows($reApprove);
                     </div>
 
                     <?php
-                    if ($dataBU['doc_lpj'] != '') { ?>
-                        <div class="row">
-                            <!--  -->
-                            <div class="col-sm-7">
-                                <h3 class="text-center">Bukti Pembayaran </h3>
-                                <iframe src="../file/pdfjs/web/viewer.html?file=../../bukti_pembayaran/<?php echo $dataBU['doc_lpj']; ?> " frameborder="0" width="100%" height="550"></iframe>
+                    if ($dataBU['doc_lpj'] != '') {
+                        if (file_exists("../file/bukti_pembayaran/" . $dataBU['doc_lpj'] . "")) {
+                    ?>
+                            <div class="row">
+                                <!--  -->
+                                <div class="col-sm-7">
+                                    <h3 class="text-center">Bukti Pembayaran </h3>
+                                    <iframe src="../file/pdfjs/web/viewer.html?file=../../bukti_pembayaran/<?php echo $dataBU['doc_lpj']; ?> " frameborder="0" width="100%" height="550"></iframe>
+                                </div>
+                                <!--  -->
                             </div>
-                            <!--  -->
-                        </div>
-                    <?php } ?>
-
+                    <?php }
+                    } ?>
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@ if (isset($_POST['edit'])) {
     $id_dbo = $_POST['id_dbo'];
     $id_anggaran = $_POST['id_anggaran'];
     $keterangan = $_POST['keterangan'];
-    $harga_akhir = str_replace(".", "", $_POST['nominal']);
+    $harga_akhir = penghilangTitik($_POST['nominal']);
 
     date_default_timezone_set('Asia/Jakarta');
     $tanggal = date("Y-m-d H:i:s");

@@ -8,7 +8,7 @@ $queryNama =  mysqli_query($koneksi, "SELECT nama from user WHERE username  = '$
 $rowNama = mysqli_fetch_assoc($queryNama);
 $Nama = $rowNama['nama'];
 
-$query =  mysqli_query($koneksi, "SELECT * FROM kasbon k
+$query =  mysqli_query($koneksi, "SELECT *, k.komentar as kkomentar FROM kasbon k
                                             JOIN biaya_ops bo
                                             ON k.kd_transaksi = bo.kd_transaksi
                                             JOIN detail_biayaops dbo
@@ -57,9 +57,21 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                     <br><br>
                 </div>
 
-                <br>
-                <div id="my-timeline"></div>
-                <br>
+                <?php if ($data2['status_kasbon'] == '101' || $data2['status_kasbon'] == '202' || $data2['status_kasbon'] == '303' || $data2['status_kasbon'] == '404' || $data2['status_kasbon'] == '505' || $data2['status_kasbon'] == '606') { ?>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="mb-2">
+                                <label for="validationTextarea">Alasan Ditolak</label>
+                                <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" disabled><?= $data2['kkomentar']; ?>&#13;&#10;<?= $data2['komentar_pajak']; ?>&#13;&#10;<?= $data2['komentar_mgr_fin']; ?>&#13;&#10;<?= $data2['komentar_mgr_ga']; ?>&#13;&#10;<?= $data2['komentar_mgr_finjkt']; ?><?= $data2['komentar_direktur']; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                <?php } else { ?>
+                    <br>
+                    <br>
+                    <div id="my-timeline"></div>
+                    <br>
+                <?php } ?>
 
                 <!-- Detail Job Order -->
 

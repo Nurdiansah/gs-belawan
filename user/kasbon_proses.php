@@ -29,7 +29,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                             ON k.id_dbo = dbo.id
                                             JOIN divisi d
                                             ON d.id_divisi = bo.id_divisi                                            
-                                            WHERE (k.status_kasbon BETWEEN 1 AND 7
+                                            WHERE (k.status_kasbon IN (2, 3, 4, 5, 6, 7, 202, 606)
                                             OR k.status_kasbon IS NULL)
                                             AND bo.id_divisi = '$idDivisi'
                                             ORDER BY k.id_kasbon DESC

@@ -17,7 +17,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
     }
 }
 
-$query = mysqli_query($koneksi, "SELECT * FROM refill_funds WHERE status > '0'");
+$query = mysqli_query($koneksi, "SELECT * FROM refill_funds WHERE status BETWEEN '0' AND '4'");
 
 $jumlahData = mysqli_num_rows($query);
 

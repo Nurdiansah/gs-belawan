@@ -178,18 +178,18 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
 
         // app mgr
         var app_mgr = "<?php print($data2['app_mgr']); ?>";
-        var content_mgr = '<b>Manager</b><small>sudah memverifikasi</small>';
+        var content_mgr = '<b>Supervisor</b><small>sudah memverifikasi</small>';
         if (app_mgr === "") {
             app_mgr = "";
-            var content_mgr = "<b>Manager </b><small>Waiting....</small>";
+            var content_mgr = "<b>Supervisor </b><small>Waiting....</small>";
         }
 
         // purchasing
         var app_purchasing = "<?php print($data2['tgl_po']); ?>";
-        var content_purchasing = '<b>purchasing</b><small> sudah melakukan bidding</small>'
+        var content_purchasing = '<b>Purchasing</b><small> sudah melakukan bidding</small>'
         if (app_purchasing === "") {
             app_purchasing = " ";
-            content_purchasing = "<b>purchasing </b><small>Waiting....</small>";
+            content_purchasing = "<b>Purchasing </b><small>Waiting....</small>";
         }
 
         // Cost control       
@@ -257,7 +257,7 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
         } else if (status == '3') {
             var content_manager_finance = "<b>Manager Finance</b><font color= blue ><small>Verifikasi Manager </small></font>";
         } else if (status == '4') {
-            var content_manager_ga = "<b>Manager Ga</b><font color= blue ><small>Verifikasi GM Finance </small></font>";
+            var content_manager_ga = "<b>Manager</b><font color= blue ><small>Verifikasi Manager</small></font>";
         } else if (status == '5') {
             var content_direktur = "<b>Direktur</b><font color= blue ><small>Verifikasi Direktur </small></font>";
         }

@@ -29,22 +29,22 @@ if (isset($_POST['cari'])) {
     $jmlKarakter = strlen($_POST['bulan']) + 1;     // ngitung jumlah karakter romawi buat ngitung substring, dan ditambah 1 supaya tambahan simbol "/"
 
     $query = mysqli_query($koneksi, "SELECT * FROM bkk_final b    
-                                    JOIN anggaran a
-                                        ON b.id_anggaran = a.id_anggaran
-                                    WHERE b.status_bkk = '4'
-                                    AND SUBSTRING(no_bkk, 11, $jmlKarakter) = '$bulan/'     -- ngambil bulan romawi ditambah /
-                                    AND RIGHT(no_bkk, 4) = '$tahun'     -- ngambil tahun paling kanan dari field no_bkk, (minggir2 kanan kaya belek)
-                                    ORDER BY no_bkk DESC  ");
+                                        LEFT JOIN anggaran a
+                                            ON IFNULL(b.id_anggaran, '0') = a.id_anggaran
+                                        WHERE b.status_bkk = '4'
+                                        AND SUBSTRING(no_bkk, 11, $jmlKarakter) = '$bulan/'     -- ngambil bulan romawi ditambah /
+                                        AND RIGHT(no_bkk, 4) = '$tahun'     -- ngambil tahun paling kanan dari field no_bkk, (minggir2 kanan kaya belek)
+                                        ORDER BY no_bkk DESC  ");
 } elseif (isset($_POST['cetak'])) {
     header('Location: cetak_bkk_excel.php?bulan=' . enkripRambo($_POST['bulan']) . '&tahun=' . enkripRambo($_POST['tahun']) . '');
 } else {
     $query = mysqli_query($koneksi, "SELECT * FROM bkk_final b    
-                                    JOIN anggaran a
-                                        ON b.id_anggaran = a.id_anggaran
-                                    WHERE b.status_bkk = '4'
-                                    AND SUBSTRING(no_bkk, 11, $jmlKarakter) = '$bulanSekarang/'     -- ngambil bulan romawi ditambah /
-                                    AND RIGHT(no_bkk, 4) = '$tahunSekarang'     -- ngambil tahun paling kanan dari field no_bkk, (minggir2 kanan kaya belek)
-                                    ORDER BY no_bkk DESC  ");
+                                        LEFT JOIN anggaran a
+                                            ON  IFNULL(b.id_anggaran, '0') = a.id_anggaran
+                                        WHERE b.status_bkk = '4'
+                                        AND SUBSTRING(no_bkk, 11, $jmlKarakter) = '$bulanSekarang/'     -- ngambil bulan romawi ditambah /
+                                        AND RIGHT(no_bkk, 4) = '$tahunSekarang'     -- ngambil tahun paling kanan dari field no_bkk, (minggir2 kanan kaya belek)
+                                        ORDER BY no_bkk DESC  ");
 }
 
 

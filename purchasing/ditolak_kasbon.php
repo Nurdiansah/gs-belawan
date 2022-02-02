@@ -21,7 +21,14 @@
                     <td><?= $dataKasbon['keterangan']; ?></td>
                     <td><?= $dataKasbon['tgl_kasbon']; ?></td>
                     <td><?= formatRupiah($dataKasbon['harga_akhir']); ?></td>
-                    <td><?= $dataKasbon['komentar_mgr_fin']; ?></td>
+                    <td>
+                        <?php if ($dataKasbon['status_kasbon'] == '202') {
+                            echo $dataKasbon['komentar_mgr_fin'];
+                        } elseif ($dataKasbon['status_kasbon'] == '606') {
+                            echo $dataKasbon['komentar'];
+                        }
+                        ?>
+                    </td>
                     <td>
                         <?php if ($dataKasbon['status_kasbon'] == '202') { ?>
                             <a href="index.php?p=dtl_kasbonditolak&id_kasbon=<?= $dataKasbon['id_kasbon']; ?>" class="btn btn-primary " title="Lihat"> Lihat</a>
@@ -122,8 +129,8 @@
                                     <div class="box-body">
                                         <div class="form-group ">
                                             <div class="col-sm-4">
-                                                <!-- <input type="hidden" name="harga" value="<?= $dataKasbon['harga_akhir']; ?>">
-                                                <input type="hidden" name="doc_lpj_lama" value="<?= $dataKasbon['doc_lpj']; ?>"> -->
+                                                <input type="hidden" name="harga" value="<?= $dataKasbon['harga_akhir']; ?>">
+                                                <input type="hidden" name="doc_lpj_lama" value="<?= $dataKasbon['doc_lpj']; ?>">
                                                 <input type="hidden" name="id_kasbon" value="<?= $dataKasbon['id_kasbon']; ?>">
                                                 <input type="hidden" required class="form-control is-valid" name="status" value="<?= $dataKasbon['status_kasbon']; ?>">
                                                 <input type="hidden" name="url" value="ditolak_mr&sp=ditolak_kasbon">

@@ -52,9 +52,9 @@ if (isset($_POST['simpan'])) {
 		//deklarasi tanggal
 		$bulan = date("n", strtotime($tgl_bkk_release));
 
-		$nomorBkk = getNomorBkk($bulan);
+		$nomorBkk = getNomorBkk($tgl_bkk_release); // getNomorBkk($bulan);
 
-		$nomor = substr($nomorBkk, 0, 3);
+		$nomor = nomorAwal($nomorBkk);
 
 		//query di kualifikasikan ke bkk final
 		$return = mysqli_query($koneksi, "INSERT INTO bkk_final (nomor, no_bkk, release_on_bkk, id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk, id_anggaran, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, bukti_pembayaran,status_bkk) VALUES
