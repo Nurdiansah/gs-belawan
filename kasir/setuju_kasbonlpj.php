@@ -83,9 +83,8 @@ if (isset($_POST['submit'])) {
 	} else {
 		# bkk		
 
-		$nomorBkk = getNomorBkk($bulan);
+		$nomorBkk = nomorBkkNew($tgl_bkk);
 		$nomor = substr($nomorBkk, 0, 3);
-
 
 		//query di kualifikasikan ke bkk final
 		$queryBkkfinal = "INSERT INTO bkk_final (nomor, no_bkk, release_on_bkk,id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk, id_anggaran, id_supplier, nilai_barang, nilai_jasa, nilai_ppn, nilai_pph, id_pph, pengembalian, nominal, keterangan, status_bkk) VALUES

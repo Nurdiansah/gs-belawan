@@ -330,6 +330,9 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
                     <div class="box-body">
                         <div class="form-group ">
                             <div class="col-sm-4">
+                                <input type="hidden" value="<?= $data['id_divisi']; ?>" class="form-control" name="id_divisi" readonly>
+                                <input type="hidden" value="<?= $data['id_manager']; ?>" class="form-control" name="id_manager" readonly>
+                                <input type="hidden" value="<?= $data['doc_lpj']; ?>" class="form-control" name="doc_lpj" readonly>
                                 <input type="hidden" value="<?= $data['id_kasbon']; ?>" class="form-control" name="id_kasbon" readonly>
                                 <input type="hidden" value="<?= $totalPengajuan; ?>" class="form-control" name="total" readonly>
                                 <input type="hidden" value="<?= $data['id_anggaran']; ?>" class="form-control" name="id_anggaran" readonly>
@@ -345,8 +348,10 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="label-control">Tanggal BKK</label>
-                            <input type="date" class="form-control" name="tgl_bkk" required>
+                            <div class="col-sm-12">
+                                <label for="" class="label-control">Tanggal BKK</label>
+                                <input type="date" class="form-control" name="tgl_bkk" required>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="validationTextarea">Redaksi</label>

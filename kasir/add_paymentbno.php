@@ -52,7 +52,7 @@ if (isset($_POST['simpan'])) {
 		//deklarasi tanggal
 		$bulan = date("n", strtotime($tgl_bkk_release));
 
-		$nomorBkk = getNomorBkk($tgl_bkk_release); // getNomorBkk($bulan);
+		$nomorBkk = nomorBkkNew($tgl_bkk_release); // getNomorBkk($bulan);
 
 		$nomor = nomorAwal($nomorBkk);
 
