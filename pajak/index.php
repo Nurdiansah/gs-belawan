@@ -53,7 +53,7 @@ $dataVK3 = mysqli_fetch_assoc($queryVK3);
 $jvk = $dataVK1['jumlah'] + $dataVK2['jumlah'] + $dataVK3['jumlah'];
 
 // po verifikasi
-$queryPV = mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah  FROM bkk_final WHERE status_bkk = '0' AND pengajuan = 'PO' ");
+$queryPV = mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah  FROM bkk_ke_pusat WHERE status_bkk = '0' AND pengajuan = 'PO' ");
 $dataPV = mysqli_fetch_assoc($queryPV);
 
 // query kasbon ditolak
