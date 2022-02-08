@@ -39,12 +39,12 @@
                             <td><span class="label label-danger">Ditolak Pajak</span></td>
                         <?php } elseif ($row['status_kasbon'] == '505') { ?>
                             <td><span class="label label-danger">Ditolak Direksi</span></td>
-                        <?php } elseif ($row['status_kasbon'] == '606') { ?>
+                        <?php } elseif ($row['status_kasbon'] == '707') { ?>
                             <td><span class="label label-danger">Ditolak Kasir</span></td>
                         <?php } ?>
                         <td> <?= formatRupiah($row['harga_akhir']) ?> </td>
                         <td>
-                            <?php if ($row['status_kasbon'] == '606') { ?>
+                            <?php if ($row['status_kasbon'] == '707') { ?>
                                 <button type="button" class="btn btn-primary modalLPJ" data-toggle="modal" data-target="#LPJ" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-send"></i> LPJ Ulang </button></span>
                             <?php } elseif ($row['status_kasbon'] == '101' || $row['status_kasbon'] == '202') { ?>
                                 <button type="button" class="btn btn-warning modalRelease" data-toggle="modal" data-target="#releaseKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-rocket"></i> Release</button>
