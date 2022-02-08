@@ -31,7 +31,8 @@
         <a href="index.php?p=verifikasi_po" class="list-group-item"> <i class="fa fa-list"></i> PO <span class="badge label-success"><?php if ($dataPV['jumlah'] >= 1) {
                                                                                                                                         echo $dataPV['jumlah'];
                                                                                                                                       } ?></span></a>
-        <a href="index.php?p=verifikasi_bkk" class="list-group-item"> <i class="fa fa-print"> </i> BKK <span class="badge label-success"><?= $dataBKK['jumlah'] > 0 ? $dataBKK['jumlah'] : ''; ?></span></a>
+        <a href="index.php?p=verifikasi_bkk" class="list-group-item"> <i class="fa fa-print"> </i> BKK <span class="badge label-primary"><?= $dataBKK['jumlah'] > 0 ? $dataBKK['jumlah'] : ''; ?></span></a>
+        <a href="index.php?p=verifikasi_bkm" class="list-group-item"> <i class="fa fa-print"> </i> BKM <span class="badge label-success"><?= $dataBKM['jumlah'] > 0 ? $dataBKM['jumlah'] : ''; ?></span></a>
       </div>
     </div>
     <div class="col-lg-3 col-xs-6">
@@ -52,6 +53,7 @@
                                                                                                                                                   echo $dataSelesai['jumlah_Selesai'];
                                                                                                                                                 } ?></span></a>
         <a href="" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
+        <a href="" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
       </div>
     </div>
     <div class="col-lg-3 col-xs-6">
@@ -63,6 +65,7 @@
                                                                                                                                                     echo $dataAM['jumlah'];
                                                                                                                                                   } ?></span></a>
         <a href="index.php?p=proses_mr" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"></span> </a>
+        <a href="" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
         <a href="" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
         <a href="" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
         <a href="" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
@@ -81,6 +84,7 @@
                                                                                                                                                                   echo $totalTolakKasbon;
                                                                                                                                                                 } ?></span> </a>
         <a href="#" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi <span class="badge label-success"></span></a>
+        <a href="" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
         <a href="" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
       </div>
     </div>
