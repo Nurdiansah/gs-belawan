@@ -142,4 +142,6 @@ else if ($page == "po_proses") {
     include_once "verifikasi_refill.php";
 } else if ($page == "verifikasi_drefill") {
     include_once "verifikasi_drefill.php";
+} else if ($page == "verifikasi_bkm") {
+    include_once "verifikasi_bkm.php";
 }

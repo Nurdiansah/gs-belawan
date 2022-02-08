@@ -33,6 +33,7 @@
         <a href="index.php?p=verifikasi_bkk" class="list-group-item"> <i class="fa fa-print"></i> BKK <span class="badge label-primary"><?php if ($dataBV['jumlah'] >= 1) {
                                                                                                                                           echo $dataBV['jumlah'];
                                                                                                                                         } ?></span></a>
+        <a href="index.php?p=verifikasi_bkm" class="list-group-item"> <i class="fa fa-print"></i> BKM <span class="badge label-warning"><?= $dataBKM['jumlah'] > 0 ? $dataBKM['jumlah'] : ''; ?></span></a>
       </div>
     </div>
     <div class="col-lg-3 col-xs-6">
@@ -53,6 +54,7 @@
                                                                                                                                                   echo $dataSelesai['jumlah_Selesai'];
                                                                                                                                                 } ?></span></a>
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
+        <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
       </div>
     </div>
     <div class="col-lg-3 col-xs-6">
@@ -65,6 +67,7 @@
                                                                                                                                                   } ?></span></a>
         <a href="index.php?p=proses_mr" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"></span> </a>
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
+        <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
       </div>
@@ -81,6 +84,7 @@
         <a href="index.php?p=ditolak_so" class="list-group-item"> <i class="fa fa-close"></i> Ditolak <span class="badge label-danger"><?php if ($dataTolakSO['jumlah'] > 0) {
                                                                                                                                           echo $dataTolakSO['jumlah'];
                                                                                                                                         } ?></span></a>
+        <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
       </div>

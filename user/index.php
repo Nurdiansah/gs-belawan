@@ -339,109 +339,40 @@ $totalSRSO = $dataProsesSR['jumlah'] + $dataProsesSO['jumlah'];
             </a>
           </li>
 
-          <!--  -->
-          <!-- <li class="header">Master Data</li>
-
+          <!-- KONDISI MENU BKM, HANYA DIVISI (ADMIN BILLING, KALIBARU, PAJAK, DIGUL, DAN MEDAN BILLING & KASIR ) -->
+          <?php if ($idDivisi == "3" || $idDivisi == "9") { ?>
+            <li class="header">Pendapatan</li>
             <li class="treeview">
               <a href="">
-                <i class="fa fa-database"></i>
-                <span>Master Data</span> <i class="fa fa-angle-left pull-right"></i>
+                <i class="fa fa-print"></i>
+                <span>BKM</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="index.php?p=lihat_anggaran&act=view"><i class="fa fa-chevron-right"></i>Anggaran</a></li>              
-                <li><a href="index.php?p=tambah_anggaran"><i class="fa fa-chevron-right"></i>Tambah Anggaran</a></li>
-            </li>
-              </ul>
-            </li> -->
-
-          <!-- khusus admin pajak -->
-          <?php if ($idUser == 38) { ?>
-            <li class="header">VERIFIKASI</li>
-
-            <li class="treeview">
-              <a href="">
-                <i class="fa fa-calendar-check-o"></i>
-                <span>Verifikasi</span> <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <?php if ($dataBno['jumlah'] >= 1) { ?>
-                  <span class="pull-right-container">
-                    <span class="label label-primary pull-right"><?= $dataBno['jumlah']; ?></span>
-                  </span>
-                <?php } ?>
-                <li><a href="index.php?p=pjk_verifikasibno"><i class="fa fa-chevron-right"></i> Verifikasi Biaya Non OPS</a></li>
-                <li><a href="#"><i class="fa fa-chevron-right"></i> Verifikasi MR</a></li>
-                <li><a href="#"><i class="fa fa-chevron-right"></i> Verifikasi SO</a></li>
-                <li><a href="#"><i class="fa fa-chevron-right"></i> Verifikasi Pengajuan Khusus</a></li>
+                <li><a href="index.php?p=buat_bkm"><i class="fa fa-edit"></i> Create</a></li>
+                <!-- <?php if ($prosesBKM['jumlah'] > 0) { ?> -->
+                <span class="pull-right-container">
+                  <span class="label label-info pull-right"></span>
+                </span>
+                <!-- <?php } ?> -->
+                <li><a href="index.php?p=proses_bkm"><i class="fa fa-spinner"></i> Proses</a></li>
+                <!-- <?php if ($tolakBKM['jumlah'] > 0) { ?> -->
+                <span class="pull-right-container">
+                  <span class="label label-danger pull-right"></span>
+                </span>
+                <!-- <?php } ?> -->
+                <li><a href="index.php?p=ditolak_bkm"><i class="fa fa-close"></i> Ditolak</a></li>
+                <!-- <?php if ($transaksiBKM['jumlah'] > 0) { ?> -->
+                <span class="pull-right-container">
+                  <span class="label label-success pull-right"></span>
+                </span>
+                <!-- <?php } ?> -->
+                <li><a href="index.php?p=transaksi_bkm"><i class="fa fa-bar-chart-o"></i> Transaksi</a></li>
               </ul>
             </li>
           <?php } ?>
-
-          <!-- Khusus Admin Purchasing -->
-          <?php if ($idUser == 37) { ?>
-
-            <li class="header">Job Order</li>
-
-            <li class="treeview">
-              <a href="">
-                <i class="fa fa-suitcase  "></i>
-                <span>Job Order</span> <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="index.php?p=list_order"><i class="fa fa-bars"></i> Listorder</a></li>
-
-              </ul>
-            </li>
-
-            <li class="treeview">
-              <a href="">
-                <i class="fa fa-money "></i>
-                <span>Petty Cash</span> <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-spinner"></i> Petty Cash Process </a></li>
-
-                <li><a href="#"><i class="fa fa-close"></i> Petty Cash Rejected</a></li>
-
-                <li><a href="#"><i class="fa fa-bar-chart"></i> Petty Cash Transactions</a></li>
-
-              </ul>
-            </li>
-
-            <li class="treeview">
-              <a href="">
-                <i class="fa fa-shopping-basket "></i>
-                <span>Kasbon</span> <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="index.php?p=po_proses"><i class="fa fa-spinner"></i> Kasbon Process </a></li>
-
-                <li><a href="#"><i class="fa fa-close"></i> Kasbon Rejected</a></li>
-
-                <li><a href="#"><i class="fa fa-bar-chart"></i> Kasbon Transactions</a></li>
-
-              </ul>
-            </li>
-
-            <li class="treeview">
-              <a href="">
-                <i class="fa fa-shopping-cart "></i>
-                <span>Purchasing Order</span> <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-spinner"></i> PO Process </a></li>
-
-                <li><a href="#"><i class="fa fa-close"></i> PO Rejected</a></li>
-
-                <li><a href="#"><i class="fa fa-bar-chart"></i> PO Transactions</a></li>
-
-              </ul>
-            </li>
-
-          <?php } ?>
+          <!-- END -->
 
           <li class="header">Transaksi</li>
-
           <li class="treeview">
             <a href="">
               <i class="fa fa-calendar-check-o"></i>

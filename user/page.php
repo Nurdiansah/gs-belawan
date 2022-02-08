@@ -120,4 +120,12 @@
         include_once "proses_petty.php";
     } else if ($page == "detail_dmr") {
         include_once "detail_dmr.php";
+    } else if ($page == "buat_bkm") {
+        include_once "buat_bkm.php";
+    } else if ($page == "proses_bkm") {
+        include_once "proses_bkm.php";
+    } else if ($page == "ditolak_bkm") {
+        include_once "ditolak_bkm.php";
+    } else if ($page == "transaksi_bkm") {
+        include_once "transaksi_bkm.php";
     }
