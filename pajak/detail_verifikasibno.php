@@ -425,6 +425,19 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
                                             </div>
                                         </div>
                                         <div id="bgn-pembulatan">
+                                            <hr>
+                                            <div class="form-group">
+                                                <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPn Atas</label>
+                                                <div class="col-sm-3">
+                                                    <input type="radio" name="ppn_atas" value="all" id="ppn_atas" onclick="checkPpnAtas()" checked=" checked"> Barang & Jasa
+                                                </div>
+                                                <div class=" col-sm-3">
+                                                    <input type="radio" name="ppn_atas" value="barang" id="ppn_atas" onclick="checkPpnAtas()"> Hanya Barang
+                                                </div>
+                                                <div class=" col-sm-3">
+                                                    <input type="radio" name="ppn_atas" value="jasa" id="ppn_atas" onclick="checkPpnAtas()"> Hanya Jasa
+                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                 <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Pembulatan</label>
                                                 <div class="col-sm-3">
@@ -434,7 +447,9 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
                                                     <input type="radio" name="pembulatan" value="kebawah" id="pembulatan" onclick="checkPembulatan()" checked="checked"> Ke bawah
                                                 </div>
                                             </div>
+                                            <hr>
                                         </div>
+
                                         <div class="form-group">
                                             <label id="tes" for="biaya_lain" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Biaya Lain</label>
                                             <div class="col-sm-5">
@@ -619,8 +634,11 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
     // perhitungan pajak
     var np = <?= $np ?>;
 
+    $("#bgn-pembulatan").hide();
     if (np > 0) {
         $('#myCheck').attr('checked', 'checked');
+
+        $("#bgn-pembulatan").show();
     }
 
     // Cek PPH
@@ -636,20 +654,22 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
 
     showPph(jenis);
 
-    $("#bgn-pembulatan").hide();
     // $("#ktk").hide();
 
     $('#id_pph').on('change', function() {
         let id_pph = this.value;
-        let jenis = $(this).find(':selected').data('id')
+        jenis = $(this).find(':selected').data('id')
 
         showPph(jenis);
 
     });
 
 
+    var ppn_atas = $("input[name='ppn_atas']:checked").val();
+
     $(".perhitungan").keyup(function() {
 
+        // Deklarasi
         var nilaiBarang = parseInt($("#nilai_barang").val())
         var nb_ui = tandaPemisahTitik(nilaiBarang);
         $('#nb_ui').text('Rp.' + nb_ui);
@@ -660,8 +680,6 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
 
         var pph_persen = parseFloat($("#pph_persen").val())
         var pph_nilai = Math.floor(nilaiJasa * pph_persen / 100);
-
-        // console.log(pph_nilai);
 
         var pph_nilaia = tandaPemisahTitik(pph_nilai);
         $("#pph").attr("value", pph_nilaia);
@@ -682,38 +700,15 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
         var np_ui = tandaPemisahTitik(potongan);
         $('#np_ui').text('Rp.' + np_ui);
 
-        var checkBox = document.getElementById("myCheck");
-        if (checkBox.checked == true) {
-            var ppn_nilai = Math.floor(0.1 * (nilaiBarang + nilaiJasa));
-        } else if (checkBox.checked == false) {
-            var ppn_nilai = 0;
-        }
-
-        var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
-        document.form.ppn_nilai.value = ppn_nilaia;
-
-        var jmla = nilaiBarang + nilaiJasa + ppn_nilai + biayaLain - pph_nilai - pph_nilai2 - potongan;
-        var jml = tandaPemisahTitik(jmla);
-        $("#jml").attr("value", jml);
-        document.form.jml.value = jml;
-
+        hitungTotal();
 
     });
 
-    function hilangkanTitik(data) {
-        var angka = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById(data).value))))); //input ke dalam angka tanpa titik
 
-        return angka;
-    }
 
     function showPph(data) {
 
-        var nilai_barang = hilangkanTitik('nilai_barang')
         var nilai_jasa = hilangkanTitik('nilai_jasa')
-        var ppn_nilai = hilangkanTitik('ppn_nilai')
-        var biaya_lain = hilangkanTitik('biaya_lain')
-        var potongan = hilangkanTitik('potongan')
-
         // var jml = hilangkanTitik('jml')
         var pph_nilai = hilangkanTitik('pph_nilai')
 
@@ -725,14 +720,7 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
             $("#fixed").show();
             $("#progresive").hide();
 
-
-            var jml = (nilai_barang + nilai_jasa + ppn_nilai + biaya_lain) - pph_nilai - potongan;
-            jml = tandaPemisahTitik(jml);
-
-            console.log(jml)
-
             document.form.pph_nilai2.value = 0;
-            document.form.jml.value = jml;
 
             if (pph_nilai > 0) {
                 var persen = (pph_nilai / nilai_jasa) * 100;
@@ -744,87 +732,77 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
             $("#fixed").hide();
             $("#progresive").show();
 
-            var jml = (nilai_barang + nilai_jasa + ppn_nilai + biaya_lain) - pph_nilai2 - potongan;
-            jml = tandaPemisahTitik(jml);
-
             document.form.pph_persen.value = 0;
             document.form.pph_nilai.value = 0;
-            document.form.jml.value = jml;
         } else {
             $("#fixed").hide();
             $("#progresive").hide();
 
-
-            var jml = (nilai_barang + nilai_jasa + ppn_nilai + biaya_lain) - potongan;
-            jml = tandaPemisahTitik(jml);
-
             document.form.pph_persen.value = 0;
             document.form.pph_nilai.value = 0;
             document.form.pph_nilai2.value = 0;
-            document.form.jml.value = jml;
         }
+
+        hitungTotal();
     }
 
+    // check box ppn
     function checkBox() {
         var checkBox = document.getElementById("myCheck");
+
         if (checkBox.checked == true) {
 
             $("#bgn-pembulatan").show();
 
-            // $("#pembulatan").val('kebawah');
+            var ppn_nilai = Math.floor(0.1 * (getDpp()));
 
-            var nilaiJasa = parseInt($("#nilai_jasa").val())
-            var pph_persen = parseInt($("#pph_persen").val())
-            var pph_nilai = Math.floor(nilaiJasa * pph_persen / 100);
-            var pph_nilaia = tandaPemisahTitik(pph_nilai);
-            $("#pph").attr("value", pph_nilaia);
-            document.form.pph_nilai.value = pph_nilaia;
-
-
-            var nilaiBarang = parseInt($("#nilai_barang").val())
-            var biayaLain = parseInt($("#biaya_lain").val())
-            var potongan = parseInt($("#potongan").val())
-
-            var ppn_nilai = Math.floor(0.1 * (nilaiBarang + nilaiJasa));
-            var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
-            $("#ppn").attr("value", ppn_nilaia);
-            document.form.ppn_nilai.value = ppn_nilaia;
-
-            var pph_nilai2 = parseInt($("#pph_nilai2").val())
-
-            var jmla = nilaiBarang + nilaiJasa + ppn_nilai + biayaLain - pph_nilai - pph_nilai2 - potongan;
-            var jml = tandaPemisahTitik(jmla);
-            $("#jml").attr("value", jml);
-            document.form.jml.value = jml;
 
         } else if (checkBox.checked == false) {
 
             $("#bgn-pembulatan").hide();
 
-            var nilaiJasa = parseInt($("#nilai_jasa").val())
-            var pph_persen = parseInt($("#pph_persen").val())
-            var pph_nilai = Math.floor(nilaiJasa * pph_persen / 100);
-            var pph_nilaia = tandaPemisahTitik(pph_nilai);
-            $("#pph").attr("value", pph_nilaia);
-            document.form.pph_nilai.value = pph_nilaia;
-
-
-            var nilaiBarang = parseInt($("#nilai_barang").val())
-            var biayaLain = parseInt($("#biaya_lain").val())
-            var potongan = parseInt($("#potongan").val())
 
             var ppn_nilai = 0;
-            var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
-            $("#ppn").attr("value", ppn_nilaia);
-            document.form.ppn_nilai.value = ppn_nilaia;
-
-            var pph_nilai2 = parseInt($("#pph_nilai2").val())
-
-            var jmla = nilaiBarang + nilaiJasa + ppn_nilai + biayaLain - pph_nilai - pph_nilai2 - potongan;
-            var jml = tandaPemisahTitik(jmla);
-            $("#jml").attr("value", jml);
-            document.form.jml.value = jml;
         }
+
+        // set nilai ppn
+        var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
+        $("#ppn").attr("value", ppn_nilaia);
+        document.form.ppn_nilai.value = ppn_nilaia;
+
+        hitungTotal();
+
+    }
+
+    // check ppn atas
+    function checkPpnAtas() {
+        // ambil cek ppn atas
+        ppn_atas = $("input[name='ppn_atas']:checked").val();
+
+        var ppn_nilai = Math.floor(0.1 * (getDpp()));
+
+        // set nilai ppn
+        var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
+        $("#ppn").attr("value", ppn_nilaia);
+        document.form.ppn_nilai.value = ppn_nilaia;
+
+        hitungTotal();
+
+
+    }
+
+    function getDpp() {
+        // var nilaiDpp = 0;
+
+        if (ppn_atas == 'all') {
+            var nilaiDpp = getNilaiBarang() + getNilaiJasa();
+        } else if (ppn_atas == 'barang') {
+            var nilaiDpp = getNilaiBarang();
+        } else if (ppn_atas == 'jasa') {
+            var nilaiDpp = getNilaiJasa();
+        }
+
+        return nilaiDpp;
     }
 
     // check pembulatan
@@ -832,39 +810,89 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
 
         var pembulatan = $("input[name='pembulatan']:checked").val();
 
-        var nilaiJasa = parseInt($("#nilai_jasa").val())
-        var nilaiBarang = parseInt($("#nilai_barang").val())
-
-        var pph_nilai = hilangkanTitik('pph_nilai')
-        var pph_nilai2 = parseInt($("#pph_nilai2").val())
-        var biayaLain = parseInt($("#biaya_lain").val())
-        var potongan = parseInt($("#potongan").val())
-
 
         if (pembulatan == 'keatas') {
 
             // pembulatan ke atas
-            var ppn_nilai = Math.ceil(0.1 * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.ceil(0.1 * (getDpp()));
 
         } else if (pembulatan == 'kebawah') {
 
             // pembulatan ke bawah
-            var ppn_nilai = Math.floor(0.1 * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(0.1 * (getDpp()));
         }
 
-        if (pph_nilai == 0 && pph_nilai2 == 0) {
-            var jmla = nilaiBarang + nilaiJasa + ppn_nilai + biayaLain - potongan;
-
-            // console.log(biayaLain);
-        } else {
-            var jmla = nilaiBarang + nilaiJasa + ppn_nilai + biayaLain - pph_nilai - pph_nilai2 - potongan;
-        }
-
-        var jml = tandaPemisahTitik(jmla);
-        document.form.jml.value = jml;
-
+        // Set Nilai PPN
         var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
         $("#ppn").attr("value", ppn_nilaia);
         document.form.ppn_nilai.value = ppn_nilaia;
+
+        hitungTotal();
+
+    }
+
+    // hitung total
+    function hitungTotal() {
+        var grandTotal = getNilaiBarang() + getNilaiJasa() + getPpnNilai() + getBiayaLain() - getPphNilai() - getPotongan();
+
+        var jml = tandaPemisahTitik(grandTotal);
+        document.form.jml.value = jml;
+
+        return grandTotal;
+    }
+
+
+    function getNilaiBarang() {
+        return hilangkanTitik('nilai_barang');
+    }
+
+    function getNilaiJasa() {
+        return hilangkanTitik('nilai_jasa');
+    }
+
+    function getPpnNilai() {
+        return hilangkanTitik('ppn_nilai');
+    }
+
+    function getPpnAtas() {
+        return ppn_atas = $("input[name='ppn_atas']:checked").val();
+    }
+
+    function getBiayaLain() {
+        return hilangkanTitik('biaya_lain');
+    }
+
+    function getPotongan() {
+        return hilangkanTitik('potongan');
+    }
+
+    function getPphNilai() {
+
+        if (jenis == 'fixed') {
+
+            // pph nilai 1 untuk tarif fix
+            var pph_nilai = hilangkanTitik('pph_nilai')
+
+        } else if (jenis == 'progresive') {
+
+            // pph nilai 2 untuk tarif progresive
+            var pph_nilai = hilangkanTitik('pph_nilai2')
+
+        } else {
+            var pph_nilai = 0;
+        }
+
+        return pph_nilai;
+
+
+    }
+
+
+
+
+    function hilangkanTitik(idTag) {
+        var angka = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById(idTag).value))))); //input ke dalam angka tanpa titik
+
+        return angka;
     }
 </script>
