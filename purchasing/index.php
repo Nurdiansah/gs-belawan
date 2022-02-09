@@ -89,7 +89,7 @@ $totalKpKs = $dataKp['jumlah'] + $dataKs['jumlah'];
 
 // Lpj kasbon
 // query MT
-$queryKl = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon WHERE status_kasbon IN ('8', '505') AND from_user = '0' AND sr_id IS NULL ");
+$queryKl = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon WHERE status_kasbon IN ('8', '707') AND from_user = '0' AND sr_id IS NULL ");
 $dataKl = mysqli_fetch_assoc($queryKl);
 
 $queryKl2 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon  WHERE status_kasbon = '8' AND sr_id IS NOT NULL ");

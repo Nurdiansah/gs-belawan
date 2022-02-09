@@ -7,7 +7,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                 ON k.id_dbo = dbo.id
                                 LEFT JOIN divisi d
                                 ON d.id_divisi = bo.id_divisi                                            
-                                WHERE k.status_kasbon IN ('8', '505') AND k.from_user = '0' AND sr_id IS NULL
+                                WHERE k.status_kasbon IN ('8', '707') AND k.from_user = '0' AND sr_id IS NULL
                                 ORDER BY k.id_kasbon DESC   ");
 ?>
 <form method="post" enctype="multipart/form-data" action="setuju_kasbon2.php" class="form-horizontal">
@@ -55,7 +55,7 @@ $query = mysqli_query($koneksi, "SELECT *
                             <td> <?= $row['nm_divisi']; ?> </td>
                             <td> <?= $row['nm_barang']; ?> </td>
                             <td> <span class="label label-success"><?= formatRupiah($row['harga_akhir']) ?> </span></td>
-                            <?php if ($row['status_kasbon'] == "505") { ?>
+                            <?php if ($row['status_kasbon'] == "707") { ?>
                                 <td><span class="label label-danger">Ditolak Kasir</span></td>
                             <?php } else { ?>
                                 <td><span class="label label-<?= $notifPending; ?>"><?= $pendingLpj; ?></span></td>
