@@ -14,6 +14,8 @@ $queryMail = mysqli_query($koneksi, "SELECT * FROM queue_email_tempo
                                     ORDER BY created_at ASC");
 $totalMail = mysqli_num_rows($queryMail);
 
+mysqli_query($koneksi, "DELETE FROM queue_email WHERE address_email IN ('indra@ekanuri.com', 'wildan@ekanuri.com', 'roy@grahasegara.com')");
+
 if ($totalMail > 0) {
     while ($dataMail = mysqli_fetch_assoc($queryMail)) {
         $id_queue = $dataMail['id_queue'];
