@@ -20,7 +20,8 @@ $rowUser = mysqli_fetch_assoc($queryUser);
 $Area = $rowUser['area'];
 
 
-$queryDetail =  mysqli_query($koneksi, "SELECT * FROM kasbon k
+$queryDetail =  mysqli_query($koneksi, "SELECT *, k.komentar as kkomentar
+                                        FROM kasbon k
                                         JOIN biaya_ops bo
                                             ON k.kd_transaksi = bo.kd_transaksi
                                         JOIN divisi d
@@ -129,7 +130,7 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
 
                                 <label for="alasan_ditolak" class="col-sm-offset- col-sm-2 control-label">Alasan Ditolak</label>
                                 <div class="col-sm-3">
-                                    <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "> <?= $data['komentar']; ?></textarea>
+                                    <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "> <?= $data['kkomentar']; ?></textarea>
                                 </div>
                             </div>
                             <br>
