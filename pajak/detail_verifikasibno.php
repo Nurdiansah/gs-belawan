@@ -1,6 +1,7 @@
 <?php
-include "../fungsi/koneksi.php";
+
 include "../fungsi/fungsi.php";
+include "../fungsi/VerifikasiPajak.php";
 
 date_default_timezone_set('Asia/Jakarta');
 $tanggal = date("Y-m-d H:i:s");
@@ -17,6 +18,10 @@ if (isset($_POST['simpan'])) {
     $nilai_jasaa = $_POST['nilai_jasa'];
     $nilai_jasa = str_replace(".", "", $nilai_jasaa);
     $ppn_nilaia = $_POST['ppn_nilai'];
+
+    // Opsional
+    $ppn_of = $_POST['ppn_atas'];
+    $rounding = $_POST['pembulatan'];
 
     $biaya_lain = $_POST['biaya_lain'];
 
@@ -35,18 +40,63 @@ if (isset($_POST['simpan'])) {
         $pph_nilai = $_POST['pph_nilai2'];
     }
 
+    if ($ppn_nilai != 0) {
 
-    $queryUbah = mysqli_query($koneksi, "UPDATE bkk SET nilai_barang='$nilai_barang', nilai_jasa='$nilai_jasa', ppn_nilai='$ppn_nilai', pph_persen= '$pph_persent',
+        $with_ppn = 1;
+    } else {
+
+        $with_ppn = 0;
+    }
+
+
+
+    mysqli_begin_transaction($koneksi);
+
+    $data = [
+        'jenispengajuan_id' => '3',
+        'permohonan_id' => $id_bkk,
+        'nilai_barang' => $nilai_barang,
+        'nilai_jasa' => $nilai_jasa,
+        'total_harga' => $nilai_barang + $nilai_jasa,
+        'nilai_dpp' => $nilai_barang,
+        'ppn_nilai' => $ppn_nilai,
+        'id_pph' => $id_pph,
+        'pph_persen' => $pph_persent,
+        'pph_nilai' => $pph_nilai,
+        'biaya_lain' => $biaya_lain,
+        'potongan' => $potongan,
+        'grand_total' => $jml_bkk,
+        'with_ppn' => $with_ppn,
+        'ppn_of' => $ppn_of,
+        'rounding' => $rounding,
+        'created_by' => $Nama,
+        'updated_by' => $Nama,
+        'created_at' => dateNow(),
+        'updated_at' => dateNow()
+    ];
+
+
+
+    // verifikasi pajak
+    $verifikasi = verifikasi($data);
+
+    $update = mysqli_query($koneksi, "UPDATE bkk SET nilai_barang='$nilai_barang', nilai_jasa='$nilai_jasa', ppn_nilai='$ppn_nilai', pph_persen= '$pph_persent',
                                         biaya_lain = '$biaya_lain' ,pph_nilai='$pph_nilai', id_pph='$id_pph', jml_bkk='$jml_bkk', terbilang_bkk='$terbilang_bkk', potongan = '$potongan'
     WHERE id_bkk ='$id_bkk' ");
 
-    if ($queryUbah) {
+
+    if ($update & $verifikasi) {
+        mysqli_commit($koneksi);
+
         setcookie('pesan', 'Data Tersimpan', time() + (3), '/');
 
         header("location:index.php?p=detail_verifikasibno&id=$id_bkk");
     } else {
+        mysqli_rollback($koneksi);
+
         echo 'error' . mysqli_error($koneksi);
     }
+
 
     $queue = "berhasil";
 } else if (isset($_POST['submit'])) {
@@ -183,8 +233,10 @@ $queryNama =  mysqli_query($koneksi, "SELECT nama from user WHERE username  = '$
 $rowNama = mysqli_fetch_assoc($queryNama);
 $Nama = $rowNama['nama'];
 
-$queryBkk = mysqli_query($koneksi, "SELECT * 
+$queryBkk = mysqli_query($koneksi, "SELECT b.*, p.*, a.*,vp.permohonan_id, vp.ppn_of, vp.rounding 
                                             FROM bkk b
+                                            LEFT JOIN verifikasi_pajak vp
+                                            ON vp.permohonan_id = b.id_bkk
                                             LEFT JOIN pph p
                                             ON p.id_pph = b.id_pph
                                             JOIN anggaran a
@@ -424,27 +476,27 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="bgn-pembulatan">
+                                        <div id="bgn-pembulatan" class="bg-warning">
                                             <hr>
                                             <div class="form-group">
-                                                <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPn Atas</label>
+                                                <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN Atas</label>
                                                 <div class="col-sm-3">
-                                                    <input type="radio" name="ppn_atas" value="all" id="ppn_atas" onclick="checkPpnAtas()" checked=" checked"> Barang & Jasa
+                                                    <input type="radio" name="ppn_atas" value="all" id="all" onclick="checkPpnAtas()" checked=" checked"> Barang & Jasa
                                                 </div>
                                                 <div class=" col-sm-3">
-                                                    <input type="radio" name="ppn_atas" value="barang" id="ppn_atas" onclick="checkPpnAtas()"> Hanya Barang
+                                                    <input type="radio" name="ppn_atas" value="barang" id="barang" onclick="checkPpnAtas()"> Hanya Barang
                                                 </div>
                                                 <div class=" col-sm-3">
-                                                    <input type="radio" name="ppn_atas" value="jasa" id="ppn_atas" onclick="checkPpnAtas()"> Hanya Jasa
+                                                    <input type="radio" name="ppn_atas" value="jasa" id="jasa" onclick="checkPpnAtas()"> Hanya Jasa
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Pembulatan</label>
                                                 <div class="col-sm-3">
-                                                    <input type="radio" name="pembulatan" value="keatas" id="pembulatan" onclick="checkPembulatan()"> Ke atas
+                                                    <input type="radio" name="pembulatan" value="keatas" id="keatas" onclick="checkPembulatan()"> Ke atas
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <input type="radio" name="pembulatan" value="kebawah" id="pembulatan" onclick="checkPembulatan()" checked="checked"> Ke bawah
+                                                    <input type="radio" name="pembulatan" value="kebawah" id="kebawah" onclick="checkPembulatan()" checked="checked"> Ke bawah
                                                 </div>
                                             </div>
                                             <hr>
@@ -477,7 +529,8 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
                                                 </select>
                                             </div>
                                         </div>
-                                        <div id="fixed">
+                                        <div id="fixed" class="bg-success">
+                                            <hr>
                                             <div class="form-group">
                                                 <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah"></label>
                                                 <div class="col-sm-5">
@@ -497,8 +550,10 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
                                                     </div>
                                                 </div>
                                             </div>
+                                            <hr>
                                         </div>
-                                        <div id="progresive">
+                                        <div id="progresive" class="bg-success">
+                                            <hr>
                                             <div class="form-group">
                                                 <label id="tes" for="pph_nilai2" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah"></label>
                                                 <div class="col-sm-5">
@@ -509,6 +564,7 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
                                                     <i><span id="pph_ui"></span></i>
                                                 </div>
                                             </div>
+                                            <hr>
                                         </div>
                                         <div class="form-group">
                                             <label id="tes" for="potongan" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Potongan</label>
@@ -634,6 +690,20 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
     // perhitungan pajak
     var np = <?= $np ?>;
 
+    // Deklarasi
+    var id_pph = '<?= $row2['id_pph']; ?>';
+    var jenis = '<?= $row2['jenis']; ?>';
+    var jml_bkk = '<?= $row2['jml_bkk']; ?>';
+    document.form.jml.value = jml_bkk;
+
+    let ppn_of = '<?= $row2['ppn_of']; ?>';
+    let rounding = '<?= $row2['rounding']; ?>';
+
+    $("#" + ppn_of).attr('checked', 'checked');
+    $("#" + rounding).attr('checked', 'checked');
+
+    // ppn_atas = $("input[name='ppn_atas']:checked").val(ppn_of);
+
     $("#bgn-pembulatan").hide();
     if (np > 0) {
         $('#myCheck').attr('checked', 'checked');
@@ -641,18 +711,19 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
         $("#bgn-pembulatan").show();
     }
 
-    // Cek PPH
-    var id_pph = '<?= $row2['id_pph']; ?>';
-    var jenis = '<?= $row2['jenis']; ?>';
 
 
-    var jml_bkk = '<?= $row2['jml_bkk']; ?>';
-    document.form.jml.value = jml_bkk;
-
+    // Tampilkan nilai dengan format titik di bawah
+    showValueInput('nb_ui', <?= $row2['nilai_barang'] ?>);
+    showValueInput('nj_ui', <?= $row2['nilai_jasa'] ?>);
 
     $("#id_pph").val(id_pph);
 
     showPph(jenis);
+
+    /*
+            nilai barang
+    */
 
     // $("#ktk").hide();
 
@@ -666,6 +737,8 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
 
 
     var ppn_atas = $("input[name='ppn_atas']:checked").val();
+
+
 
     $(".perhitungan").keyup(function() {
 
@@ -841,6 +914,10 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
         return grandTotal;
     }
 
+    function showValueInput(idSpan, angka) {
+
+        return $('#' + idSpan).text('Rp.' + tandaPemisahTitik(angka));
+    }
 
     function getNilaiBarang() {
         return hilangkanTitik('nilai_barang');

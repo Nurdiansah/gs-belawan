@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2022 at 04:25 AM
+-- Generation Time: Feb 14, 2022 at 05:26 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.26
 
@@ -24,44 +24,45 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `refill_funds`
+-- Table structure for table `jenis_pengajuan`
 --
 
-CREATE TABLE `refill_funds` (
-  `id_refill` int(11) NOT NULL,
-  `jenis` varchar(20) NOT NULL,
-  `keterangan` text NOT NULL,
-  `nominal` bigint(20) NOT NULL,
-  `doc_pendukung` varchar(255) DEFAULT NULL,
-  `release_at` datetime DEFAULT NULL,
-  `app_mgr` datetime DEFAULT NULL,
-  `app_direksi` datetime DEFAULT NULL,
-  `created_by` varchar(50) DEFAULT NULL,
-  `updated_by` varchar(50) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `status` varchar(3) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `jenis_pengajuan` (
+  `id_jenispengajuan` tinyint(11) NOT NULL,
+  `kd_pengajuan` varchar(15) DEFAULT NULL,
+  `nm_pengajuan` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jenis_pengajuan`
+--
+
+INSERT INTO `jenis_pengajuan` (`id_jenispengajuan`, `kd_pengajuan`, `nm_pengajuan`) VALUES
+(1, 'MR', 'Material Request'),
+(2, 'SR', 'Service Request'),
+(3, 'BU', 'Biaya Umum'),
+(4, 'KS', 'Kasbon'),
+(5, 'TPO', 'Tagihan Purchase Order');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `refill_funds`
+-- Indexes for table `jenis_pengajuan`
 --
-ALTER TABLE `refill_funds`
-  ADD PRIMARY KEY (`id_refill`);
+ALTER TABLE `jenis_pengajuan`
+  ADD PRIMARY KEY (`id_jenispengajuan`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `refill_funds`
+-- AUTO_INCREMENT for table `jenis_pengajuan`
 --
-ALTER TABLE `refill_funds`
-  MODIFY `id_refill` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `jenis_pengajuan`
+  MODIFY `id_jenispengajuan` tinyint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
