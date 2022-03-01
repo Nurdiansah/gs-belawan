@@ -25,7 +25,7 @@ if (isset($_POST['verifikasi'])) {
 
     mysqli_begin_transaction($koneksi);
 
-    $verifikasi = mysqli_query($koneksi, "UPDATE bkm SET status_bkm = '4', app_direktur = NOW()
+    $verifikasi = mysqli_query($koneksi, "UPDATE bkm SET status_bkm = '4', app_manager = NOW()
                                             WHERE id_bkm = '$id_bkm'
                         ");
 
@@ -45,7 +45,7 @@ if (isset($_POST['tolak'])) {
     $id_bkm = $_POST['id_bkm'];
     $komentar = "@" . $Nama . " : " . $_POST['komentar'];
 
-    $reject = mysqli_query($koneksi, "UPDATE bkm SET status_bkm = '202', komentar_direktur = '$komentar'
+    $reject = mysqli_query($koneksi, "UPDATE bkm SET status_bkm = '202', komentar_manager = '$komentar'
                                         WHERE id_bkm = '$id_bkm'
                 ");
 

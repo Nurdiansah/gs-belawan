@@ -257,7 +257,7 @@ if (isset($_POST['release'])) {
                                                                     <br>
                                                                     <div class="mb-3">
                                                                         <label for="validationTextarea">Alasan Ditolak</label>
-                                                                        <textarea rows="8" class="form-control is-invalid" name="ditolak" id="validationTextarea" placeholder="Deskripsi Kas Masuk" disabled><?= $dataBKM['komentar_kasir']; ?>&#13;&#10;<?= $dataBKM['komentar_mgr_fin']; ?>&#13;&#10;<?= $dataBKM['komentar_direktur']; ?></textarea>
+                                                                        <textarea rows="8" class="form-control is-invalid" name="ditolak" id="validationTextarea" placeholder="Deskripsi Kas Masuk" disabled><?= $dataBKM['komentar_kasir']; ?>&#13;&#10;<?= $dataBKM['komentar_costcontrol']; ?>&#13;&#10;<?= $dataBKM['komentar_manager']; ?></textarea>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <h3 class="text-center">Document BKM</h3>
