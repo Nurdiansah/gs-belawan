@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
         $nomorAkhir = substr($nomorBkk, 0, 3);
         // UPDATE BKK
         $query1 = mysqli_query($koneksi, "UPDATE bkk_final
-										SET status_bkk = 4 , v_direktur = '$tanggal', nomor = '$nomorAkhir', no_bkk = '$nomorBkk'
+										SET status_bkk = 4 , v_direktur = '$tanggal' -- , nomor = '$nomorAkhir', no_bkk = '$nomorBkk'
 										WHERE id= '$id' ");
 
         $queue = "berhasil";
@@ -43,7 +43,7 @@ if (isset($_POST['submit'])) {
 
         // UPDATE BKK
         $query1 = mysqli_query($koneksi, "UPDATE bkk_final
-                                SET status_bkk = 4 , v_direktur = '$tanggal', nomor = '$nomorAkhir', no_bkk = '$nomorBkk'
+                                SET status_bkk = 4 , v_direktur = '$tanggal' -- , nomor = '$nomorAkhir', no_bkk = '$nomorBkk'
                                 WHERE id= '$id' ");
         $queue = "berhasil";
 

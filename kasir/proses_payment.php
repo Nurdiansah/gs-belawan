@@ -19,12 +19,12 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
 $tanggal = date("Y-m-d");
 
 $query = mysqli_query($koneksi,  "SELECT * 
-                                FROM bkk b
-                               LEFT JOIN bkk_ke_pusat bk
-                                ON bk.id_kdtransaksi = b.kd_transaksi
-                               LEFT JOIN divisi d
-                                ON d.id_divisi = b.id_divisi
-                                WHERE b.status_bkk='17' AND b.metode_pembayaran='transfer' ORDER BY b.kd_transaksi DESC  ");
+                                    FROM bkk b
+                                    LEFT JOIN bkk_ke_pusat bk
+                                        ON bk.id_kdtransaksi = b.kd_transaksi
+                                    LEFT JOIN divisi d
+                                        ON d.id_divisi = b.id_divisi
+                                    WHERE b.status_bkk='17' AND b.metode_pembayaran='transfer' ORDER BY b.kd_transaksi DESC  ");
 
 $jumlahData = mysqli_num_rows($query);
 ?>

@@ -5,7 +5,8 @@ include "../fungsi/fungsi.php";
 $queryBKM = mysqli_query($koneksi, "SELECT * FROM bkm b
                                     JOIN anggaran a
                                         ON a.id_anggaran = b.id_anggaran
-                                    WHERE status_bkm IN ('2', '3', '4')");
+                                    WHERE status_bkm IN ('2', '3', '4')
+                                    AND b.id_divisi = '$idDivisi'");
 
 $no = 1;
 

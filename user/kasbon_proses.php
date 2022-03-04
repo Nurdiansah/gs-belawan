@@ -28,10 +28,10 @@ $query = mysqli_query($koneksi, "SELECT *
                                             JOIN detail_biayaops dbo
                                             ON k.id_dbo = dbo.id
                                             JOIN divisi d
-                                            ON d.id_divisi = bo.id_divisi                                            
+                                            ON d.id_divisi = dbo.id_divisi
                                             WHERE (k.status_kasbon IN (2, 3, 4, 5, 6, 7, 202, 606)
                                             OR k.status_kasbon IS NULL)
-                                            AND bo.id_divisi = '$idDivisi'
+                                            AND dbo.id_divisi = '$idDivisi'
                                             ORDER BY k.id_kasbon DESC
                 ");
 

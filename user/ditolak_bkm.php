@@ -1,7 +1,7 @@
 <?php
 
 date_default_timezone_set("Asia/Jakarta");
-session_start();
+// session_start();
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
@@ -10,7 +10,8 @@ $tahun = date("Y");
 $queryBKM = mysqli_query($koneksi, "SELECT * FROM bkm b
                                     JOIN anggaran a
                                         ON a.id_anggaran = b.id_anggaran
-                                    WHERE status_bkm IN ('101', '202', '303')");
+                                    WHERE status_bkm IN ('101', '202', '303')
+                                    AND b.id_divisi = '$idDivisi'");
 $no = 1;
 // query create BKM
 if (isset($_POST['buat'])) {
