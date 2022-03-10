@@ -30,7 +30,7 @@
                             <?php if ($row['status_kasbon'] == 2) { ?>
                                 <span class="label label-primary">Verifikasi Pajak</span>
                             <?php  } else if ($row['status_kasbon'] == 4) { ?>
-                                <span class="label label-primary">Verifikasi Manager GA </span>
+                                <span class="label label-primary">Verifikasi Manager</span>
                             <?php  } else if ($row['status_kasbon'] == 3) { ?>
                                 <span class="label label-warning">Approval Cost Control </span>
                             <?php  } else if ($row['status_kasbon'] == 5) { ?>

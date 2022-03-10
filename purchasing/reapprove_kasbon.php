@@ -70,8 +70,10 @@ if (isset($_POST['kirim'])) {
                                             -- $aksi_tolak;   
                                             -- $aksi_reapp; 
                                     ");
-    } else {
+    } elseif ($status == "707") {
         $reapprove = mysqli_query($koneksi, "UPDATE kasbon SET status_kasbon = '9' WHERE id_kasbon = '$id_kasbon'");
+    } else {
+        $reapprove = mysqli_query($koneksi, "UPDATE kasbon SET status_kasbon = '3' WHERE id_kasbon = '$id_kasbon'");
     }
 
     if ($reapprove) {

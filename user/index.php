@@ -94,7 +94,7 @@ $queryKP1 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbo
                                                                       JOIN detail_biayaops dbo 
                                                                       ON k.id_dbo = dbo.id  
                                                                       WHERE dbo.id_divisi = '$idDivisi'
-                                                                      AND (k.status_kasbon BETWEEN 1 AND 9 OR k.status_kasbon IS NULL)
+                                                                      AND (k.status_kasbon IN (2, 3, 4, 5, 6, 7, 202, 606) OR k.status_kasbon IS NULL)
                                                                       AND k.from_user = '0'
                                                                       AND sr_id IS NULL");
 $dataKP1 = mysqli_fetch_assoc($queryKP1);
@@ -208,6 +208,9 @@ $queryProsesSO = mysqli_query($koneksi, "SELECT COUNT(id_so) as jumlah
 $dataProsesSO = mysqli_fetch_assoc($queryProsesSO);
 
 $totalSRSO = $dataProsesSR['jumlah'] + $dataProsesSO['jumlah'];
+
+$queryTolakBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) as jumlah FROM bkm WHERE status_bkm IN ('101', '202', '303') AND id_divisi = '$idDivisi'");
+$dataTolakBKM = mysqli_fetch_assoc($queryTolakBKM);
 
 ?>
 <!DOCTYPE html>
@@ -355,13 +358,13 @@ $totalSRSO = $dataProsesSR['jumlah'] + $dataProsesSO['jumlah'];
                 </span>
                 <!-- <?php } ?> -->
                 <li><a href="index.php?p=proses_bkm"><i class="fa fa-spinner"></i> Proses</a></li>
-                <!-- <?php if ($tolakBKM['jumlah'] > 0) { ?> -->
-                <span class="pull-right-container">
-                  <span class="label label-danger pull-right"></span>
-                </span>
-                <!-- <?php } ?> -->
+                <?php if ($dataTolakBKM['jumlah'] > 0) { ?>
+                  <span class="pull-right-container">
+                    <span class="label label-danger pull-right"><?= $dataTolakBKM['jumlah']; ?></span>
+                  </span>
+                <?php } ?>
                 <li><a href="index.php?p=ditolak_bkm"><i class="fa fa-close"></i> Ditolak</a></li>
-                <!-- <?php if ($transaksiBKM['jumlah'] > 0) { ?> -->
+                <!-- <?php if ($dataTolakBKM['jumlah'] > 0) { ?> -->
                 <span class="pull-right-container">
                   <span class="label label-success pull-right"></span>
                 </span>
