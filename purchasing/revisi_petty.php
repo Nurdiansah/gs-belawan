@@ -81,15 +81,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                             <div class="col-sm-3">
                                 <input name="kd_pettycash" type="text" class="form-control" value="<?= $data['kd_pettycash']; ?>" readonly>
                             </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="nominal" class="col-sm-offset-1 col-sm-1 control-label">Nominal </label>
-                            <div class="col-sm-3">
-                                <div class="input-group">
-                                    <span class="input-group-addon ">Rp.</span>
-                                    <input type="text" class="form-control" value="<?= formatRupiah2($data['total_pettycash']); ?>" name="nominal" autocomplete="off" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" required>
-                                </div>
-                            </div>
+
                             <label for="id_anggaran" class="col-sm-offset- col-sm-2 control-label">Kode Anggaran</label>
                             <div class="col-sm-3">
                                 <select class="form-control select2" name="id_anggaran">
@@ -103,6 +95,26 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                                     <?php endwhile;
                                     } ?>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="nominal" class="col-sm-offset-1 col-sm-1 control-label">Nominal </label>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon ">Rp.</span>
+                                    <input type="text" class="form-control" value="<?= formatRupiah2($data['total_pettycash']); ?>" name="nominal" autocomplete="off" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" required>
+                                </div>
+                            </div>
+
+                            <label for="id_anggaran" class="col-sm-offset- col-sm-2 control-label">Document Pendukung</label>
+                            <div class="col-sm-3">
+                                <div class="input-group input-file" name="doc_penawaran" required>
+                                    <input type="text" class="form-control" required />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default btn-choose" type="button">Browse</button>
+                                    </span>
+                                </div>
+                                <p style="size: 10px; color: red;"><i>Kosongkan jika tidak dirubah</i></p>
                             </div>
                         </div>
                         <div class="form-group">

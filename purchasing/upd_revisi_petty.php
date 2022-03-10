@@ -23,20 +23,20 @@ if (isset($_POST['revisi']) || isset($_POST['simpan'])) {
     $id_divisi = $rowUser['id_divisi'];
     $id_manager = $rowUser['id_manager'];
 
-    // Cek dulu apakah ada submitan ubah lpj
-    // $cek_lpj = ($_FILES['doc_lpj']['name']);
-    // if ($cek_lpj == '') {
-    //     $namabaru = $_POST['doc_lpj_lama'];
+
+    // $cek_penawaran = ($_FILES['doc_penawaran']['name']);
+    // if ($cek_penawaran == '') {
+    //     $namabaru = $_POST['doc_penawaran_lama'];
     // } else {
-    //     $del_lpj = $_POST['doc_lpj_lama'];
+    //     $del_lpj = $_POST['doc_penawaran_lama'];
     //     if (isset($del_lpj)) {
-    //         unlink("../file/doc_lpj/$del_lpj");
+    //         unlink("../file/doc_penawaran/$del_lpj");
     //     }
-    //     $lokasi_doc_lpj = ($_FILES['doc_lpj']['tmp_name']);
-    //     $doc_lpj = ($_FILES['doc_lpj']['name']);
-    //     $ekstensi = pathinfo($doc_lpj, PATHINFO_EXTENSION);
+    //     $lokasi_doc_penawaran = ($_FILES['doc_penawaran']['tmp_name']);
+    //     $doc_penawaran = ($_FILES['doc_penawaran']['name']);
+    //     $ekstensi = pathinfo($doc_penawaran, PATHINFO_EXTENSION);
     //     $namabaru = $kd_pettycash . "-lpj-pettycash-rev-" . time() . "." . $ekstensi;
-    //     move_uploaded_file($lokasi_doc_lpj, "../file/doc_lpj/" . $namabaru);
+    //     move_uploaded_file($lokasi_doc_penawaran, "../file/doc_penawaran/" . $namabaru);
     // }
 
     if ($status_petty == "10") {
