@@ -11,6 +11,7 @@ if (isset($_POST['revisi']) || isset($_POST['simpan'])) {
     $total_pettycash = str_replace(".", "", $_POST['nominal']);
     $status_petty = $_POST['status_petty'];
     $pengajuan = $_POST['pengajuan'];
+    $id_dbo = $_POST['id_dbo'];
 
     date_default_timezone_set('Asia/Jakarta');
     $tanggal = date("Y-m-d H:i:s");
@@ -24,20 +25,22 @@ if (isset($_POST['revisi']) || isset($_POST['simpan'])) {
     $id_manager = $rowUser['id_manager'];
 
 
-    // $cek_penawaran = ($_FILES['doc_penawaran']['name']);
-    // if ($cek_penawaran == '') {
-    //     $namabaru = $_POST['doc_penawaran_lama'];
-    // } else {
-    //     $del_lpj = $_POST['doc_penawaran_lama'];
-    //     if (isset($del_lpj)) {
-    //         unlink("../file/doc_penawaran/$del_lpj");
-    //     }
-    //     $lokasi_doc_penawaran = ($_FILES['doc_penawaran']['tmp_name']);
-    //     $doc_penawaran = ($_FILES['doc_penawaran']['name']);
-    //     $ekstensi = pathinfo($doc_penawaran, PATHINFO_EXTENSION);
-    //     $namabaru = $kd_pettycash . "-lpj-pettycash-rev-" . time() . "." . $ekstensi;
-    //     move_uploaded_file($lokasi_doc_penawaran, "../file/doc_penawaran/" . $namabaru);
-    // }
+    $cek_penawaran = ($_FILES['doc_penawaran']['name']);
+    if ($cek_penawaran == '') {
+        $namabaru = $_POST['doc_penawaran_lama'];
+    } else {
+        $del_penawaran = $_POST['doc_penawaran_lama'];
+        // if (isset($del_penawaran)) {
+        unlink("../file/doc_penawaran/$del_penawaran");
+        // }
+        $lokasi_doc_penawaran = ($_FILES['doc_penawaran']['tmp_name']);
+        $namabaru = ($_FILES['doc_penawaran']['name']);
+        $ekstensi = pathinfo($namabaru, PATHINFO_EXTENSION);
+        $namabaru = $id_dbo . "-doc-penawaran-rev." . $ekstensi;
+        move_uploaded_file($lokasi_doc_penawaran, "../file/doc_penawaran/" . $namabaru);
+
+        $updateDBO = mysqli_query($koneksi, "UPDATE detail_biayaops SET doc_penawaran = '$namabaru' WHERE id = '$id_dbo'");
+    }
 
     if ($status_petty == "10") {
         $status = "1";

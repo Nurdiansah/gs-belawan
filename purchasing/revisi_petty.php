@@ -64,7 +64,8 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                 </div>
                 <form method="post" name="form" action="upd_revisi_petty.php" enctype="multipart/form-data" class="form-horizontal">
                     <input name="id" type="hidden" class="form-control" value="<?= $data['id_pettycash']; ?>" readonly>
-                    <input name="doc_lpj_lama" type="hidden" class="form-control" value="<?= $data['doc_lpj_pettycash']; ?>" readonly>
+                    <input name="id_dbo" type="hidden" class="form-control" value="<?= $data['id_dbo']; ?>" readonly>
+                    <input name="doc_penawaran_lama" type="hidden" class="form-control" value="<?= $data['doc_penawaran_lama']; ?>" readonly>
                     <input name="status_petty" type="hidden" class="form-control" value="<?= $data['status_pettycash']; ?>" readonly>
                     <div class="box-body">
                         <div class="form-group">
@@ -102,14 +103,14 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                             <div class="col-sm-3">
                                 <div class="input-group">
                                     <span class="input-group-addon ">Rp.</span>
-                                    <input type="text" class="form-control" value="<?= formatRupiah2($data['total_pettycash']); ?>" name="nominal" autocomplete="off" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" required>
+                                    <input type="text" class="form-control" value="<?= str_replace(",00", "", formatRupiah2($data['total_pettycash'])); ?>" name="nominal" autocomplete="off" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" required>
                                 </div>
                             </div>
 
                             <label for="id_anggaran" class="col-sm-offset- col-sm-2 control-label">Document Pendukung</label>
                             <div class="col-sm-3">
-                                <div class="input-group input-file" name="doc_penawaran" required>
-                                    <input type="text" class="form-control" required />
+                                <div class="input-group input-file" name="doc_penawaran">
+                                    <input type="text" class="form-control" />
                                     <span class="input-group-btn">
                                         <button class="btn btn-default btn-choose" type="button">Browse</button>
                                     </span>
