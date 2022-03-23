@@ -169,8 +169,14 @@ $data = mysqli_fetch_assoc($query);
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="jenis" value="droping_fund" id="flexRadioDefault1" <?= $data['jenis'] == 'droping_fund' ? 'checked' : '' ?>>
-                                    <label class="form-check-label" for="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" name="jenis" value="transfer_pendapatan" id="transfer_pendapatan" <?= $data['jenis'] == 'transfer_pendapatan' ? 'checked' : '' ?>>
+                                    <label class="form-check-label" for="transfer_pendapatan">
+                                        Transfer Pendapatan
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="jenis" value="droping_fund" id="droping_fund" <?= $data['jenis'] == 'droping_fund' ? 'checked' : '' ?>>
+                                    <label class="form-check-label" for="droping_fund">
                                         Droping Fund
                                     </label>
                                 </div>

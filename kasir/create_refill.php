@@ -255,6 +255,18 @@ $jumlahData = mysqli_num_rows($query);
                                             Kas Besar
                                         </label>
                                     </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="jenis" value="transfer_pendapatan" id="transfer_pendapatan">
+                                        <label class="form-check-label" for="transfer_pendapatan">
+                                            Transfer Pendapatan
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="jenis" value="droping_fund" id="droping_fund" <?= $data['jenis'] == 'droping_fund' ? 'checked' : '' ?>>
+                                        <label class="form-check-label" for="droping_fund">
+                                            Droping Fund
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group ">

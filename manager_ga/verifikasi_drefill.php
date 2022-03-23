@@ -29,7 +29,7 @@ if (isset($_POST['approve'])) {
 
     mysqli_begin_transaction($koneksi);
     // Jika pettycash auto jadi bkk
-    if ($jenis == 'petty_cash') {
+    if ($jenis == 'petty_cash' || $jenis == 'transfer_pendapatan') {
         $status = '5';
         $bkk_lokal = '1';
 
