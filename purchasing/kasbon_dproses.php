@@ -223,7 +223,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                         </div>
                     </div> -->
                 <?php }
-                if (!file_exists("../file/doc_penawaran/" . $data2['doc_penawaran'])) {
+                if (file_exists("../file/doc_penawaran/" . $data2['doc_penawaran'])) {
                 ?>
                     <div class="box-header with-border">
                         <h3 class="text-center">Document Penawaran</h3>

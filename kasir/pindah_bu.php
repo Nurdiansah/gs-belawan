@@ -13,7 +13,7 @@ if (isset($_POST['edit'])) {
 
     mysqli_begin_transaction($koneksi);
 
-    $return = mysqli_query($koneksi,  "UPDATE bkk SET tgl_tempo = '$tgl_tempo' , tgl_payment = '$tgl_payment' , jenis = 'kontrak'
+    $return = mysqli_query($koneksi,  "UPDATE bkk SET tgl_tempo = '$tgl_tempo' , tgl_payment = '$tgl_payment' , jenis = 'kontrak', metode_pembayaran = 'transfer'
                             WHERE id_bkk ='$id_bkk' ");
 
     if ($return) {

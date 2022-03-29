@@ -262,7 +262,7 @@ $jumlahData = mysqli_num_rows($query);
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="jenis" value="droping_fund" id="droping_fund" <?= $data['jenis'] == 'droping_fund' ? 'checked' : '' ?>>
+                                        <input class="form-check-input" type="radio" name="jenis" value="droping_fund" id="droping_fund">
                                         <label class="form-check-label" for="droping_fund">
                                             Droping Fund
                                         </label>

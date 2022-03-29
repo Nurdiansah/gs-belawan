@@ -530,7 +530,7 @@ function nomorBkkNew($tanggal)
     $tahun     = date('Y', strtotime($tanggal));
     $nomor     = "/GS-GK/" . $romawi . "/" . $tahun;
 
-    $queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor) from bkk_final WHERE MONTH(created_on_bkk)='$bulan' OR MONTH(release_on_bkk)='$bulan' AND YEAR(release_on_bkk) = '$tahun'");
+    $queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor) from bkk_final WHERE MONTH(release_on_bkk)='$bulan' AND YEAR(release_on_bkk) = '$tahun'");
 
     $nomorMax = mysqli_fetch_array($queryNomor);
     if ($nomorMax) {

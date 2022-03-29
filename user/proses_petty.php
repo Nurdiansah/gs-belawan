@@ -92,7 +92,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                                 </td>
                                                 <td> <?php if ($row['status_pettycash'] == 1) {
                                                             if ($row['from'] == 'user') {
-                                                                if ($row['id_manager'] == '17') {
+                                                                if ($row['id_manager'] == '17' || $row['id_manager'] == '20') {
                                                                     echo "<span class='label label-primary'>Menunggu Approve Manager </span>";
                                                                 } else {
                                                                     echo "<span class='label label-primary'>Menunggu Approve Supervisor </span>";

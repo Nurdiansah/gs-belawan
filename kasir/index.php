@@ -383,7 +383,7 @@ $dataRP = mysqli_fetch_assoc($queryRP);
                   <span class="label label-info pull-right"><?= $dataPTPN['jumlah']; ?></span>
                 </span>
               <?php } ?>
-              <li><a href="index.php?p=pending_pettycash"><i class="fa fa-hourglass-2"></i> Pending LJP</a></li>
+              <li><a href="index.php?p=pending_pettycash"><i class="fa fa-hourglass-2"></i> Pending LPJ</a></li>
               <?php if ($dataPTV['jumlah'] > 0) { ?>
                 <span class="pull-right-container">
                   <span class="label label-info pull-right"><?= $dataPTV['jumlah']; ?></span>
@@ -411,7 +411,7 @@ $dataRP = mysqli_fetch_assoc($queryRP);
                   <span class="label label-danger pull-right"><?= $dataKPL['jumlah']; ?></span>
                 </span>
               <?php } ?>
-              <li><a href="index.php?p=pending_kasbon&sp=pnk_purchasing"><i class="fa fa-hourglass-2"></i> Pending LJP</a></li>
+              <li><a href="index.php?p=pending_kasbon&sp=pnk_purchasing"><i class="fa fa-hourglass-2"></i> Pending LPJ</a></li>
               <?php if ($dataKL['jumlah'] > 0) { ?>
                 <span class="pull-right-container">
                   <span class="label label-info pull-right"><?= $dataKL['jumlah']; ?></span>
