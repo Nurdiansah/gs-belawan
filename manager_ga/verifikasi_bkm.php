@@ -20,8 +20,8 @@ if (isset($_POST['verifikasi'])) {
     $id_anggaran = $cekData['id_anggaran'];
     $keterangan = $cekData['keterangan'];
 
-    $nomorBkk = nomorBkkNew($tgl_bkm);
-    $nomorAwal = nomorAwal($nomorBkk);
+    // $nomorBkk = nomorBkkNew($tgl_bkm);
+    // $nomorAwal = nomorAwal($nomorBkk);
 
     mysqli_begin_transaction($koneksi);
 
@@ -29,10 +29,10 @@ if (isset($_POST['verifikasi'])) {
                                             WHERE id_bkm = '$id_bkm'
                         ");
 
-    $insertBkk = mysqli_query($koneksi, "INSERT INTO bkk_final (id_jenispengajuan, nomor, no_bkk, created_on_bkk, release_on_bkk, pengajuan, id_kdtransaksi, id_anggaran, nominal, keterangan, status_bkk) VALUES
-                                                            ('1', '$nomorAwal', '$nomorBkk', '$tgl_bkm', '$tgl_bkm' ,'BKM', '$id_bkm', '$id_anggaran', '$nominal', '$keterangan', '1')");
+    // $insertBkk = mysqli_query($koneksi, "INSERT INTO bkk_final (id_jenispengajuan, nomor, no_bkk, created_on_bkk, release_on_bkk, pengajuan, id_kdtransaksi, id_anggaran, nominal, keterangan, status_bkk) VALUES
+    //                                                         ('1', '$nomorAwal', '$nomorBkk', '$tgl_bkm', '$tgl_bkm' ,'BKM', '$id_bkm', '$id_anggaran', '$nominal', '$keterangan', '4')");
 
-    if ($verifikasi && $insertBkk) {
+    if ($verifikasi) {
         mysqli_commit($koneksi);
     } else {
         mysqli_rollback($koneksi);

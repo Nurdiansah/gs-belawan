@@ -17,7 +17,7 @@ $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SE
 $rowUser = mysqli_fetch_assoc($queryUser);
 $id_divisi = $rowUser['id_divisi'];
 
-$query = mysqli_query($koneksi, "SELECT * FROM bkk WHERE id_divisi = '$id_divisi' AND status_bkk IN (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 202, 303, 404) ORDER BY kd_transaksi DESC  ");
+$query = mysqli_query($koneksi, "SELECT * FROM bkk WHERE id_divisi = '$id_divisi' AND status_bkk IN (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 202, 303, 404, 17) ORDER BY kd_transaksi DESC  ");
 
 $jumlahData = mysqli_num_rows($query);
 
@@ -73,7 +73,7 @@ $jumlahData = mysqli_num_rows($query);
                                             <td> <?php if ($row['status_bkk'] == 0) {
                                                         echo "<h4><span class='label label-warning'> Draft </span></h4>";
                                                     } else if ($row['status_bkk'] == 1) {
-                                                        if ($row['id_manager'] == '17') {
+                                                        if ($row['id_manager'] == '17' || $row['id_manager'] == '20') {
                                                             echo "<h4><span class='label label-primary'> Approval Manager </span></h4>";
                                                         } else {
                                                             echo "<h4><span class='label label-primary'> Approval Supervisor </span></h4>";
@@ -99,13 +99,15 @@ $jumlahData = mysqli_num_rows($query);
                                                     <?php   } else if ($row['status_bkk'] == 9) {
                                                         if ($row['metode_pembayaran'] == 'tunai') { ?>
                                                         <a target="_blank" onclick="window.open('cetak_lpd_biayaumum.php?id=<?= enkripRambo($row['id_bkk']); ?>','name','width=800,height=600')" class="btn btn-success"><i class="fa fa-print"></i> LPD </a>
-                                                <?php   }
+                                                    <?php   }
                                                         if ($row['jenis'] == 'umum') {
                                                             echo "<span class='label label-warning'>Proses Payment</span>";
                                                         } else {
                                                             echo "<span class='label label-warning'>Proses Tempo</span>";
                                                         }
-                                                    } ?>
+                                                    } else if ($row['status_bkk'] == 17) { ?>
+                                                    <span class="label label-warning">Outstanding Kasir Jakarta</span>
+                                                <?php } ?>
                                             </td>
                                             <td>
                                                 <?php if ($row['status_bkk'] == 0) { ?>

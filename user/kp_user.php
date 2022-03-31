@@ -90,7 +90,7 @@ $queryKu = mysqli_query($koneksi, "SELECT *
                         </td> -->
                         <td>
                             <?php if ($row['status_kasbon'] == 1) {
-                                if ($row['id_manager'] == '17') {
+                                if ($row['id_manager'] == '17' || $row['id_manager'] == '20') {
                                     echo "<span class='label label-primary'>Verifikasi Manager</span>";
                                 } else {
                                     echo "<span class='label label-primary'>Verifikasi Supervisor</span>";
