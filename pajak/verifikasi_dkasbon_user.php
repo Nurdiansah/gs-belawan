@@ -91,7 +91,7 @@ if (isset($_POST['simpan']) || isset($_POST['submit'])) {
 
 
         #verifikasi antara free approve dan approve
-    
+
         if ($free_approve == '1') {
             $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
                         nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
@@ -365,7 +365,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN 10%</label>
+                                    <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN 11%</label>
                                     <div class="col-sm-1">
                                         <input type="checkbox" name="all" id="myCheck" onclick="checkBox()">
                                     </div>
@@ -638,7 +638,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
 
         var checkBox = document.getElementById("myCheck");
         if (checkBox.checked == true) {
-            var nilai_ppn = Math.floor(0.1 * (nilaiBarang + nilaiJasa));
+            var nilai_ppn = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
         } else if (checkBox.checked == false) {
             var nilai_ppn = 0;
         }
@@ -744,7 +744,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
             var biayaLain = parseInt($("#biaya_lain").val())
             var potongan = parseInt($("#potongan").val())
 
-            var nilai_ppn = Math.floor(0.1 * (nilaiBarang + nilaiJasa));
+            var nilai_ppn = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
             var nilai_ppna = tandaPemisahTitik(nilai_ppn);
             $("#ppn").attr("value", nilai_ppna);
             document.form.nilai_ppn.value = nilai_ppna;
@@ -803,12 +803,12 @@ $totalReapp = mysqli_num_rows($queryReapp);
         if (pembulatan == 'keatas') {
 
             // pembulatan ke atas
-            var nilai_ppn = Math.ceil(0.1 * (nilaiBarang + nilaiJasa));
+            var nilai_ppn = Math.ceil(0.11 * (nilaiBarang + nilaiJasa));
 
         } else if (pembulatan == 'kebawah') {
 
             // pembulatan ke bawah
-            var nilai_ppn = Math.floor(0.1 * (nilaiBarang + nilaiJasa));
+            var nilai_ppn = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
         }
 
         if (nilai_pph == 0 && nilai_pph2 == 0) {

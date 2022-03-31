@@ -465,7 +465,7 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN 10%</label>
+                                            <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN 11%</label>
                                             <div class="col-sm-1">
                                                 <input type="checkbox" name="all" id="myCheck" onclick="checkBox()">
                                             </div>
@@ -827,7 +827,7 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
 
             $("#bgn-pembulatan").show();
 
-            var ppn_nilai = Math.floor(0.1 * (getDpp()));
+            var ppn_nilai = Math.floor(0.11 * (getDpp()));
 
 
         } else if (checkBox.checked == false) {
@@ -852,7 +852,7 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
         // ambil cek ppn atas
         ppn_atas = $("input[name='ppn_atas']:checked").val();
 
-        var ppn_nilai = Math.floor(0.1 * (getDpp()));
+        var ppn_nilai = Math.floor(0.11 * (getDpp()));
 
         // set nilai ppn
         var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
@@ -887,12 +887,12 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
         if (pembulatan == 'keatas') {
 
             // pembulatan ke atas
-            var ppn_nilai = Math.ceil(0.1 * (getDpp()));
+            var ppn_nilai = Math.ceil(0.11 * (getDpp()));
 
         } else if (pembulatan == 'kebawah') {
 
             // pembulatan ke bawah
-            var ppn_nilai = Math.floor(0.1 * (getDpp()));
+            var ppn_nilai = Math.floor(0.11 * (getDpp()));
         }
 
         // Set Nilai PPN

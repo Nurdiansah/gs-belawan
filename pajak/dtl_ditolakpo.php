@@ -195,7 +195,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT *
                         $grandTotal = $total + $data2['nilai_ppn'];
                         ?>
                         <tr style="background-color :#B0C4DE;">
-                            <td colspan="5"><b> PPN 10% </b></td>
+                            <td colspan="5"><b> PPN 11% </b></td>
                             <td style="text-align: right;"><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
                         </tr>
                         <tr style="background-color :#B0C4DE;">
@@ -302,7 +302,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT *
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN 10%</label>
+                                        <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN 11%</label>
                                         <div class="col-sm-1">
                                             <input type="checkbox" name="all" id="myCheck" onclick="checkBox()">
                                         </div>
@@ -599,7 +599,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT *
 
         var checkBox = document.getElementById("myCheck");
         if (checkBox.checked == true) {
-            var ppn_nilai = Math.floor(0.1 * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
         } else if (checkBox.checked == false) {
             var ppn_nilai = 0;
         }
@@ -703,7 +703,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT *
             var nilaiBarang = parseInt($("#nilai_barang").val())
             var biayaLain = parseInt($("#biaya_lain").val())
 
-            var ppn_nilai = Math.floor(0.1 * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
             var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
             $("#ppn").attr("value", ppn_nilaia);
             document.form.ppn_nilai.value = ppn_nilaia;
@@ -755,12 +755,12 @@ $querySbo =  mysqli_query($koneksi, "SELECT *
         if (pembulatan == 'keatas') {
 
             // pembulatan ke atas
-            var ppn_nilai = Math.ceil(0.1 * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.ceil(0.11 * (nilaiBarang + nilaiJasa));
 
         } else if (pembulatan == 'kebawah') {
 
             // pembulatan ke bawah
-            var ppn_nilai = Math.floor(0.1 * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
         }
 
         var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
