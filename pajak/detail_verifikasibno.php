@@ -465,7 +465,12 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN 11%</label>
+                                            <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN
+                                                <select name="pilih_ppn" id="setppn">
+                                                    <option value="0.11">11%</option>
+                                                    <option value="0.1">10%</option>
+                                                </select>
+                                            </label>
                                             <div class="col-sm-1">
                                                 <input type="checkbox" name="all" id="myCheck" onclick="checkBox()">
                                             </div>
@@ -689,6 +694,7 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
 
     // perhitungan pajak
     var np = <?= $np ?>;
+    console.log(np);
 
     // Deklarasi
     var id_pph = '<?= $row2['id_pph']; ?>';
@@ -699,10 +705,35 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
     let ppn_of = '<?= $row2['ppn_of']; ?>';
     let rounding = '<?= $row2['rounding']; ?>';
 
+    var ppn_atas = $("input[name='ppn_atas']:checked").val();
+
     $("#" + ppn_of).attr('checked', 'checked');
     $("#" + rounding).attr('checked', 'checked');
 
-    // ppn_atas = $("input[name='ppn_atas']:checked").val(ppn_of);
+    let persentasePpn = getPersentasePpn();
+
+    // set ppn default 11%
+    let setPpn = 0.11;
+    // set default sesuai dari db
+    if (persentasePpn != 0) {
+        $('#setppn').val(persentasePpn);
+
+        setPpn = persentasePpn;
+    }
+
+    // jika ada perubahan ppn
+    $('#setppn').on('change', function() {
+        let ppnTemp = this.value;
+
+        if (setPpn != ppnTemp) {
+            setPpn = ppnTemp;
+            // cek terlebih dahulu apakah checkbox nya ini aktif
+            checkBox();
+
+        }
+    });
+
+
 
     $("#bgn-pembulatan").hide();
     if (np > 0) {
@@ -734,10 +765,6 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
         showPph(jenis);
 
     });
-
-
-    var ppn_atas = $("input[name='ppn_atas']:checked").val();
-
 
 
     $(".perhitungan").keyup(function() {
@@ -827,7 +854,7 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
 
             $("#bgn-pembulatan").show();
 
-            var ppn_nilai = Math.floor(0.11 * (getDpp()));
+            var ppn_nilai = Math.floor(setPpn * (getDpp()));
 
 
         } else if (checkBox.checked == false) {
@@ -852,7 +879,7 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
         // ambil cek ppn atas
         ppn_atas = $("input[name='ppn_atas']:checked").val();
 
-        var ppn_nilai = Math.floor(0.11 * (getDpp()));
+        var ppn_nilai = Math.floor(setPpn * (getDpp()));
 
         // set nilai ppn
         var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
@@ -878,6 +905,15 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
         return nilaiDpp;
     }
 
+    function getPersentasePpn() {
+
+        // let dpp = parseInt($("#nilai_barang").val()) + parseInt($("#nilai_jasa").val());
+        let percent = np / getDpp();
+        let percentOke = percent.toFixed(2);
+
+        return parseFloat(percent.toFixed(2));
+    }
+
     // check pembulatan
     function checkPembulatan() {
 
@@ -887,12 +923,12 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
         if (pembulatan == 'keatas') {
 
             // pembulatan ke atas
-            var ppn_nilai = Math.ceil(0.11 * (getDpp()));
+            var ppn_nilai = Math.ceil(setPpn * (getDpp()));
 
         } else if (pembulatan == 'kebawah') {
 
             // pembulatan ke bawah
-            var ppn_nilai = Math.floor(0.11 * (getDpp()));
+            var ppn_nilai = Math.floor(setPpn * (getDpp()));
         }
 
         // Set Nilai PPN
