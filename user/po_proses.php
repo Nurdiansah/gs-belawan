@@ -30,7 +30,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                             JOIN divisi d
                                             ON d.id_divisi = bo.id_divisi
                                             WHERE (status_po BETWEEN 1 AND 7
-                                            OR status_po IN ('', '0', '101', '202', '303', '404') )
+                                            OR status_po IN ('', '0', '101', '202', '303', '404') OR status_po IS NULL )
                                             AND bo.id_divisi = '$idDivisi'
                                             ORDER BY p.id_po DESC   ");
 

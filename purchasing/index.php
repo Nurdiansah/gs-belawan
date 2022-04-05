@@ -139,7 +139,7 @@ $totalTolakMR = $dataKasbonTolak['jumlah'] + $dataTolakPO['jumlah'];
 $querySK = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon IS NULL AND from_user = 0");
 $dataSK = mysqli_fetch_assoc($querySK);
 
-$querySPO = mysqli_query($koneksi, "SELECT COUNT(id_po) as jumlah FROM po WHERE status_po = ''");
+$querySPO = mysqli_query($koneksi, "SELECT COUNT(id_po) as jumlah FROM po WHERE status_po IS NULL");
 $dataSPO = mysqli_fetch_assoc($querySPO);
 
 $queryVS =  mysqli_query($koneksi, "SELECT COUNT(id_sr) as jumlah FROM sr WHERE status = '2' ");

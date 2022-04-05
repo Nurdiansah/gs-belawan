@@ -35,7 +35,7 @@ $tanggalCargo = date("Y-m-d");
 
 if (isset($_POST['update'])) {
     $id_subdbo = $_POST['id_subdbo'];
-    $sub_unitprice = str_replace(".", "", $_POST['sub_unitprice']);
+    $sub_unitprice = $_POST['sub_unitprice'];
     $sub_qty = $_POST['sub_qty'];
     $id_dbo = $_POST['id_dbo'];
 
@@ -215,7 +215,7 @@ if (isset($_POST['update'])) {
                                             <td>
                                                 <div class="input-group">
                                                     <span class="input-group-addon ">Rp.</span>
-                                                    <input type="text" class="form-control" value="<?= $row['sub_unitprice']; ?>" name="sub_unitprice" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" autocomplete="off">
+                                                    <input type="text" class="form-control" value="<?= $row['sub_unitprice']; ?>" name="sub_unitprice" autocomplete="off">
                                             </td>
                 </div>
                 <td><?= formatRupiah($row['total_price']); ?></td>

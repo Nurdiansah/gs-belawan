@@ -131,7 +131,7 @@ $queryPP = mysqli_query($koneksi, "SELECT COUNT(id_po) AS jumlah FROM po p
                                                                         JOIN divisi d
                                                                         ON d.id_divisi = bo.id_divisi
                                                                         WHERE (status_po BETWEEN 1 AND 7
-                                                                        OR status_po IN ('', '0', '101', '202', '303', '404'))
+                                                                        OR status_po IN ('', '0', '101', '202', '303', '404') OR status_po IS NULL)
                                                                         AND bo.id_divisi = '$idDivisi' ");
 $dataPP = mysqli_fetch_assoc($queryPP);
 
