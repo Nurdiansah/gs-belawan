@@ -365,7 +365,12 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN 11%</label>
+                                    <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN
+                                        <select name="pilih_ppn" id="setppn">
+                                            <option value="0.11">11%</option>
+                                            <option value="0.10">10%</option>
+                                        </select>
+                                    </label>
                                     <div class="col-sm-1">
                                         <input type="checkbox" name="all" id="myCheck" onclick="checkBox()">
                                     </div>
@@ -582,10 +587,39 @@ $totalReapp = mysqli_num_rows($queryReapp);
     var id_pph = '<?= $data['id_pph']; ?>';
     var jenis = '<?= $data['jenis']; ?>';
 
-
-
     var harga_akhir = '<?= $data['harga_akhir']; ?>';
     document.form.jml.value = harga_akhir;
+
+    // cek dpp
+    let dpp = parseInt($("#nilai_barang").val()) + parseInt($("#nilai_jasa").val());
+
+    let persentasePpn = np / dpp;
+
+    // set ppn default 11%
+    let setPpn = 0.11;
+    if (persentasePpn != 0 && dpp != 0) {
+        $('#setppn').val(persentasePpn);
+
+        setPpn = persentasePpn;
+
+    }
+
+    // jika ada perubahan ppn
+    $('#setppn').on('change', function() {
+        let ppnTemp = parseFloat(this.value);
+
+        if (setPpn != ppnTemp) {
+            setPpn = ppnTemp;
+            // cek terlebih dahulu apakah checkbox nya ini aktif
+            // console.log(setPpn);
+            checkBox();
+
+        }
+
+    });
+
+
+
 
     $("#id_pph").val(id_pph);
 
@@ -615,8 +649,6 @@ $totalReapp = mysqli_num_rows($queryReapp);
         var pph_persen = parseFloat($("#pph_persen").val())
         var nilai_pph = Math.floor(nilaiJasa * pph_persen / 100);
 
-        // console.log(nilai_pph);
-
         var nilai_ppha = tandaPemisahTitik(nilai_pph);
         $("#pph").attr("value", nilai_ppha);
         document.form.nilai_pph.value = nilai_ppha;
@@ -638,7 +670,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
 
         var checkBox = document.getElementById("myCheck");
         if (checkBox.checked == true) {
-            var nilai_ppn = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
+            var nilai_ppn = Math.floor(setPpn * (nilaiBarang + nilaiJasa));
         } else if (checkBox.checked == false) {
             var nilai_ppn = 0;
         }
@@ -675,8 +707,6 @@ $totalReapp = mysqli_num_rows($queryReapp);
         // pph nilai 2 untuk tarif progresive
         var nilai_pph2 = hilangkanTitik('nilai_pph2')
 
-        console.log(nilai_ppn);
-
 
         if (data == 'fixed') {
             $("#fixed").show();
@@ -685,8 +715,6 @@ $totalReapp = mysqli_num_rows($queryReapp);
 
             var jml = (nilai_barang + nilai_jasa + nilai_ppn + biaya_lain) - nilai_pph - potongan;
             jml = tandaPemisahTitik(jml);
-
-            console.log(jml)
 
             document.form.nilai_pph2.value = 0;
             document.form.jml.value = jml;
@@ -724,65 +752,46 @@ $totalReapp = mysqli_num_rows($queryReapp);
 
     }
 
+    function hitungCheckBox(angkaPpn) {
+        var nilaiJasa = parseInt($("#nilai_jasa").val())
+        var pph_persen = parseInt($("#pph_persen").val())
+        var nilai_pph = Math.floor(nilaiJasa * pph_persen / 100);
+        var nilai_ppha = tandaPemisahTitik(nilai_pph);
+        $("#pph").attr("value", nilai_ppha);
+        document.form.nilai_pph.value = nilai_ppha;
+
+
+        var nilaiBarang = parseInt($("#nilai_barang").val())
+        var biayaLain = parseInt($("#biaya_lain").val())
+        var potongan = parseInt($("#potongan").val())
+
+        var nilai_ppn = Math.floor(angkaPpn * (nilaiBarang + nilaiJasa));
+        var nilai_ppna = tandaPemisahTitik(nilai_ppn);
+        $("#ppn").attr("value", nilai_ppna);
+        document.form.nilai_ppn.value = nilai_ppna;
+
+        var nilai_pph2 = parseInt($("#nilai_pph2").val())
+
+        var jmla = nilaiBarang + nilaiJasa + nilai_ppn + biayaLain - nilai_pph - nilai_pph2 - potongan;
+        var jml = tandaPemisahTitik(jmla);
+        $("#jml").attr("value", jml);
+        document.form.jml.value = jml;
+    }
+
     function checkBox() {
         var checkBox = document.getElementById("myCheck");
         if (checkBox.checked == true) {
 
             $("#bgn-pembulatan").show();
 
-            // $("#pembulatan").val('kebawah');
-
-            var nilaiJasa = parseInt($("#nilai_jasa").val())
-            var pph_persen = parseInt($("#pph_persen").val())
-            var nilai_pph = Math.floor(nilaiJasa * pph_persen / 100);
-            var nilai_ppha = tandaPemisahTitik(nilai_pph);
-            $("#pph").attr("value", nilai_ppha);
-            document.form.nilai_pph.value = nilai_ppha;
-
-
-            var nilaiBarang = parseInt($("#nilai_barang").val())
-            var biayaLain = parseInt($("#biaya_lain").val())
-            var potongan = parseInt($("#potongan").val())
-
-            var nilai_ppn = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
-            var nilai_ppna = tandaPemisahTitik(nilai_ppn);
-            $("#ppn").attr("value", nilai_ppna);
-            document.form.nilai_ppn.value = nilai_ppna;
-
-            var nilai_pph2 = parseInt($("#nilai_pph2").val())
-
-            var jmla = nilaiBarang + nilaiJasa + nilai_ppn + biayaLain - nilai_pph - nilai_pph2 - potongan;
-            var jml = tandaPemisahTitik(jmla);
-            $("#jml").attr("value", jml);
-            document.form.jml.value = jml;
+            hitungCheckBox(setPpn);
 
         } else if (checkBox.checked == false) {
 
             $("#bgn-pembulatan").hide();
 
-            var nilaiJasa = parseInt($("#nilai_jasa").val())
-            var pph_persen = parseInt($("#pph_persen").val())
-            var nilai_pph = Math.floor(nilaiJasa * pph_persen / 100);
-            var nilai_ppha = tandaPemisahTitik(nilai_pph);
-            $("#pph").attr("value", nilai_ppha);
-            document.form.nilai_pph.value = nilai_ppha;
+            hitungCheckBox(setPpn);
 
-
-            var nilaiBarang = parseInt($("#nilai_barang").val())
-            var biayaLain = parseInt($("#biaya_lain").val())
-            var potongan = parseInt($("#potongan").val())
-
-            var nilai_ppn = 0;
-            var nilai_ppna = tandaPemisahTitik(nilai_ppn);
-            $("#ppn").attr("value", nilai_ppna);
-            document.form.nilai_ppn.value = nilai_ppna;
-
-            var nilai_pph2 = parseInt($("#nilai_pph2").val())
-
-            var jmla = nilaiBarang + nilaiJasa + nilai_ppn + biayaLain - nilai_pph - nilai_pph2 - potongan;
-            var jml = tandaPemisahTitik(jmla);
-            $("#jml").attr("value", jml);
-            document.form.jml.value = jml;
         }
     }
 
@@ -803,18 +812,17 @@ $totalReapp = mysqli_num_rows($queryReapp);
         if (pembulatan == 'keatas') {
 
             // pembulatan ke atas
-            var nilai_ppn = Math.ceil(0.11 * (nilaiBarang + nilaiJasa));
+            var nilai_ppn = Math.ceil(setPpn * (nilaiBarang + nilaiJasa));
 
         } else if (pembulatan == 'kebawah') {
 
             // pembulatan ke bawah
-            var nilai_ppn = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
+            var nilai_ppn = Math.floor(setPpn * (nilaiBarang + nilaiJasa));
         }
 
         if (nilai_pph == 0 && nilai_pph2 == 0) {
             var jmla = nilaiBarang + nilaiJasa + nilai_ppn + biayaLain - potongan;
 
-            // console.log(biayaLain);
         } else {
             var jmla = nilaiBarang + nilaiJasa + nilai_ppn + biayaLain - nilai_pph - nilai_pph2 - potongan;
         }
