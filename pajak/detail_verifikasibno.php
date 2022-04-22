@@ -823,7 +823,7 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
             document.form.pph_nilai2.value = 0;
 
             if (pph_nilai > 0) {
-                var persen = (pph_nilai / nilai_jasa) * 100;
+                var persen = Math.round((pph_nilai / nilai_jasa) * 100);
 
                 document.form.pph_persen.value = persen;
             }

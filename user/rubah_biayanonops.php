@@ -446,7 +446,7 @@ $tanggalCargo = date("Y-m-d");
 
         var nilaiBarang = parseInt($("#nilai_barang").val())
         var ppn_persen = parseInt($("#ppn_persen").val())
-        var ppn_nilai = (nilaiJasa + nilaiBarang) * ppn_persen / 100;
+        var ppn_nilai = Math.round((nilaiJasa + nilaiBarang) * ppn_persen / 100);
         var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
         $("#ppn").attr("value", ppn_nilaia);
         document.form.ppn_nilai.value = ppn_nilaia;

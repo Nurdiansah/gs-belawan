@@ -232,7 +232,7 @@ $rowTotal = mysqli_fetch_assoc($queryTotal);
                                     </div>
                                 </div>
                                 <div class="form-group ">
-                                    <label for="doc_quotation" class="col-sm-offset-1 col-sm-3 control-label">PPN 10 %</label>
+                                    <label for="doc_quotation" class="col-sm-offset-1 col-sm-3 control-label">PPN 11%</label>
                                     <div class="col-sm-5">
                                         <input type="checkbox" name="all" id="myCheck" onclick="checkBox()">
                                     </div>
@@ -383,7 +383,7 @@ $rowTotal = mysqli_fetch_assoc($queryTotal);
 
             var total_poa = tandaPemisahTitik(total_po);
 
-            var nilai_ppn = Math.floor(0.1 * total_po);
+            var nilai_ppn = Math.floor(0.11 * total_po);
             var nilai_ppna = tandaPemisahTitik(nilai_ppn);
 
             document.form.nilai_ppn.value = nilai_ppna;
