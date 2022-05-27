@@ -8,7 +8,7 @@
                 <th>Deskripsi</th>
                 <th>Verifikasi Pajak</th>
                 <th>Alasan Ditolak</th>
-                <th>Status</th>
+                <!-- <th>Status</th> -->
                 <th>Total</th>
                 <th>Aksi</th>
             </tr>
@@ -31,7 +31,7 @@
                             <td>Setelah LPJ</td>
                         <?php } ?>
                         <td> <?= $row['komentar']; ?>&#13;&#10;<?= $row['komentar_mgr_ga']; ?>&#13;&#10;<?= $row['komentar_mgr_fin']; ?>&#13;&#10;<?= $row['komentar_pajak']; ?>&#13;&#10;<?= $row['komentar_mgr_finjkt']; ?><?= $row['komentar_direktur']; ?></td>
-                        <?php if ($row['status_kasbon'] == '101') { ?>
+                        <!-- <?php if ($row['status_kasbon'] == '101') { ?>
                             <td><span class="label label-danger">Ditolak Manager</span></td>
                         <?php } elseif ($row['status_kasbon'] == '202') { ?>
                             <td><span class="label label-danger">Ditolak Costcontrol</span></td>
@@ -41,7 +41,7 @@
                             <td><span class="label label-danger">Ditolak Direksi</span></td>
                         <?php } elseif ($row['status_kasbon'] == '707') { ?>
                             <td><span class="label label-danger">Ditolak Kasir</span></td>
-                        <?php } ?>
+                        <?php } ?> -->
                         <td> <?= formatRupiah($row['harga_akhir']) ?> </td>
                         <td>
                             <?php if ($row['status_kasbon'] == '707') { ?>

@@ -80,7 +80,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                                     if (mysqli_num_rows($queryAnggaran)) {
                                         while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
                                     ?>
-                                            <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox"><?= $rowAnggaran['id_anggaran']; ?></option>
+                                            <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox" <?= $data['id_anggaran'] == $rowAnggaran['id_anggaran'] ? 'selected' : ''; ?>><?= $rowAnggaran['nm_item']; ?> [<?= $rowAnggaran['kd_anggaran'] ?>]</option>
                                     <?php endwhile;
                                     } ?>
                                 </select>
@@ -192,7 +192,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                                 } ?>
                             </tbody>
                     </table>
-                    <a href="ajukan_kembali_po.php?id=<?= $id; ?>" class="btn btn-success col-sm-offset-10 " onclick="return confirm('Yakin ingin mengajuan kembali pengajuan ini?')"><i class="fa fa-send"></i> Ajukan Kembali</a>
+                    <a href="ajukan_kembali_po.php?id=<?= enkripRambo($id); ?>" class="btn btn-success col-sm-offset-10 " onclick="return confirm('Yakin ingin mengajuan kembali pengajuan ini?')"><i class="fa fa-send"></i> Ajukan Kembali</a>
                 </div>
                 <br>
                 <!-- Modal Tambah -->

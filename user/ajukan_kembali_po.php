@@ -6,14 +6,15 @@ include "../fungsi/fungsi.php";
 if (isset($_GET['id'])) {
     $id = dekripRambo($_GET['id']);
 
-    $query =  mysqli_query($koneksi, "SELECT * FROM po WHERE id_po = '$id'");
+    $query =  mysqli_query($koneksi, "SELECT * FROM po WHERE id_dbo = '$id'");
     $data = mysqli_fetch_assoc($query);
 
     $id_po = $data['id_po'];
     $id_dbo = $data['id_dbo'];
     $kd_transaksi = $data['kd_transaksi'];
 
-    echo $id_po . "<br>" . $id_dbo;
+    // echo $id_po . "<br>" . $id_dbo;
+    // die;
 
     $ajukan = mysqli_multi_query($koneksi, "UPDATE detail_biayaops SET alasan_penolakan = NULL
                                             WHERE id = '$id_dbo';

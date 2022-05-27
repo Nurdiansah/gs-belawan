@@ -62,7 +62,7 @@ $no = 1;
                 </div>
                 <h3 class="text-center">Verifikasi Bukti Kas Masuk</h3>
                 <div class="box-body">
-                    <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal" id="">
+                    <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal" id="material">
                         <div class="table-responsive">
                             <table class="table text-center table table-striped table-hover">
                                 <thead>
@@ -255,3 +255,14 @@ $no = 1;
         </div>
     </div>
 </section>
+
+<script>
+    $(function() {
+        $("#material").DataTable({
+            "language": {
+                "url": "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
+                "sEmptyTable": "Tidak ada data di database"
+            }
+        });
+    });
+</script>

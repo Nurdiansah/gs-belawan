@@ -68,9 +68,9 @@ if ($data['nilai_ppn'] > 0) {
                     <h3 class="text-center">Verifikasi Pajak</h3>
                 </div>
                 <div class="perhitungan">
-                    <form method="post" name="form" action="vrf_item_lpj.php" enctype="multipart/form-data" class="form-horizontal">
 
-                        <div class="box-body">
+                    <div class="box-body">
+                        <form class="form-horizontal">
                             <div class="form-group">
                                 <label id="tes" for="nm_barang" class="col-sm-offset col-sm-2 control-label">Nama Barang</label>
                                 <input type="hidden" required class="form-control is-valid" name="id_kasbon" value="<?= $data['id_kasbon']; ?>">
@@ -138,8 +138,6 @@ if ($data['nilai_ppn'] > 0) {
                                         <input type="text" disabled class="form-control is-valid" name="harga" value="<?= $harga_akhir ?>">
                                     </div>
                                 </div>
-                                <!-- </div>   
-                        <div class="form-group"> -->
                                 <label id="tes" for="supplier" class="col-sm-offset-1 col-sm-1 control-label">Supplier</label>
                                 <div class="col-sm-3">
                                     <input type="text" disabled class="form-control is-valid" name="supplier" value="<?= $data['nm_supplier'] ?>">
@@ -152,193 +150,269 @@ if ($data['nilai_ppn'] > 0) {
                                         <textarea rows="5" type="text" name="keterangan" disabled class="form-control "> <?= $dataReapp['alasan_reapprove_purchasing']; ?></textarea>
                                     </div>
                                 </div>
-                                <?php
-                            }
-                            if ($data['from_user'] == 0) {
-                                $foto = $data['foto_item'];
-                                if ($foto === '0') { ?>
-                                    <h3 class="text-center">Foto Barang</h3>
-                                    <br>
-                                    <div class="row ">
-                                        <div class="col-sm-offset-">
-                                            <h5 class="text-center">Tidak Ada Foto</h5>
-                                        </div>
-                                    </div>
-                                <?php } else { ?>
-                                    <div class="box-header with-border">
-                                        <h3 class="text-center">Foto Barang</h3>
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe class="embed-responsive-item" src="../file/foto/<?php echo $data['foto_item']; ?> "></iframe>
-                                        </div>
-                                    </div>
-                                <?php } ?>
+                            <?php
+                            } ?>
 
-                                <!-- Embed Document               -->
-                                <?php
-                                $doc_penawaran = $data['doc_penawaran'];
+                        </form>
 
-                                if (!is_null($doc_penawaran)) { ?>
-                                    <div class="box-header with-border">
-                                        <h3 class="text-center">Document Penawaran</h3>
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe class="embed-responsive-item" src="../file/doc_penawaran/<?php echo $data['doc_penawaran']; ?> "></iframe>
-                                        </div>
-                                    </div>
-                                <?php    }
-                                if (!is_null($data['doc_lpj'])) { ?>
-                                    <div class="box-header with-border">
-                                        <h3 class="text-center">Document LPJ</h3>
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe class="embed-responsive-item" src="../file/doc_lpj/<?php echo $data['doc_lpj']; ?> "></iframe>
-                                        </div>
-                                    </div>
-                                <?php }  ?>
-
-                                <br><br>
-                                <div class="box-header with-border">
-                                    <h3 class="text-center">Rincian Barang</h3>
-                                </div>
-                                <div class="table-responsive datatab">
-                                    <table class="table text-center table table-striped table-dark table-hover ">
-                                        <thead style="background-color :#B0C4DE;">
-                                            <th>No</th>
-                                            <th>Deskripsi</th>
-                                            <th>QTY</th>
-                                            <th>Unit</th>
-                                            <th>Unit Price</th>
-                                            <th>Total Price</th>
-                                        </thead>
-                                        <tr>
-                                            <tbody>
-                                                <tr>
-                                                    <?php
-                                                    $no = 1;
-                                                    $total = 0;
-                                                    if (mysqli_num_rows($querySbo)) {
-                                                        while ($row = mysqli_fetch_assoc($querySbo)) :
-
-                                                    ?>
-                                                            <td> <?= $no; ?> </td>
-                                                            <td> <?= $row['sub_deskripsi']; ?> </td>
-                                                            <td> <?= $row['sub_qty']; ?> </td>
-                                                            <td> <?= $row['sub_unit']; ?> </td>
-                                                            <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
-                                                            <td><?= formatRupiah($row['total_price']); ?></td>
-                                                </tr>
-                                        <?php
-                                                            $total += $row['total_price'];
-                                                            $no++;
-                                                        endwhile;
-                                                    } ?>
-                                        <tr style="background-color :#B0C4DE;">
-                                            <td colspan="5"><b>Total</b></td>
-                                            <td><b><?= formatRupiah($total); ?></b></td>
-                                        </tr>
-                                            </tbody>
-                                    </table>
-                                </div>
+                        <?php if ($data['from_user'] == 0) {
+                            $foto = $data['foto_item'];
+                            if ($foto === '0') { ?>
+                                <h3 class="text-center">Foto Barang</h3>
                                 <br>
-                                <br>
+                                <div class="row ">
+                                    <div class="col-sm-offset-">
+                                        <h5 class="text-center">Tidak Ada Foto</h5>
+                                    </div>
+                                </div>
                             <?php } else { ?>
-                                <?php if (!is_null($data['doc_lpj'])) { ?>
-                                    <div class="box-header with-border">
-                                        <h3 class="text-center">Document LPJ</h3>
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe class="embed-responsive-item" src="../file/doc_lpj/<?php echo $data['doc_lpj']; ?> "></iframe>
-                                        </div>
+                                <div class="box-header with-border">
+                                    <h3 class="text-center">Foto Barang</h3>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="../file/foto/<?php echo $data['foto_item']; ?> "></iframe>
                                     </div>
-                                <?php }  ?>
+                                </div>
                             <?php } ?>
-                            <!-- Verifikasi Tax  -->
-                            <br>
-                            <div class="box-header with-border">
-                                <h3 class="text-center">Verifikasi Tax</h3>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <label id="tes" for="nilai_bkk" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Nilai Barang</label>
-                                <div class="col-sm-4">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="number" required class="form-control" value="<?= round($data['nilai_barang']); ?>" name="nilai_barang" id="nilai_barang" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="nilai_bkk" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Nilai Jasa</label>
-                                <div class="col-sm-4">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="number" required class="form-control" value="<?= round($data['nilai_jasa']); ?>" name="nilai_jasa" id="nilai_jasa" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah"></label>
-                                <div class="col-sm-2">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">PPN</span>
-                                        <input type="number" required min="0" max="10" class="form-control " name="ppn_persen" value="<?= $ppn_persen; ?>" id="ppn_persen" />
-                                        <span class="input-group-addon">%</span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Rp.</span>
-                                        <input type="text" readonly class="form-control " name="ppn_nilai" id="ppn_nilai" value="<?= $data['nilai_ppn']; ?>" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="id_pph" class="col-sm-offset-1 col-sm-3 control-label">Jenis PPh</label>
-                                <div class="col-sm-2">
-                                    <select name="id_pph" class="form-control">
-                                        <option value="">--Jenis PPh--</option>
-                                        <?php
-                                        $queryPph = mysqli_query($koneksi, "SELECT * FROM pph ORDER BY nm_pph ASC");
-                                        if (mysqli_num_rows($queryPph)) {
-                                            while ($rowPph = mysqli_fetch_assoc($queryPph)) :
-                                        ?>
-                                                <option value="<?= $rowPph['id_pph']; ?>" type="checkbox"><?= $rowPph['nm_pph'] ?></option>
-                                        <?php endwhile;
-                                        } ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah"></label>
-                                <div class="col-sm-4">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">PPh</span>
-                                        <span class="input-group-addon bg-dark">Rp.</span>
-                                        <input type="number" required class="form-control" value="<?= round($data['nilai_pph']); ?>" name="pph_nilai" id="pph_nilai" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <div class="form-group">
-                                    <label id="tes" for="jml_bkk" class="col-sm-offset-1 col-sm-3 control-label">Jumlah</label>
-                                    <div class="col-sm-4">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">Rp.</span>
-                                            <input type="text" required class="form-control" name="jml_bkk" readonly value="<?= $data['harga_akhir']; ?>" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" name="submit" class="btn btn-primary col-sm-offset-5" value="Submit">
-                                    &nbsp;
-                                    <input type="reset" name="hapus" class="btn btn-danger" value="Hapus">
-                                    <!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#tolak">Reject </button></span></a> -->
-                                </div>
-                                <hr>
-                            </div>
-                        </div>
-                    </form>
-                </div>
 
+                            <!-- Embed Document               -->
+                            <?php
+                            $doc_penawaran = $data['doc_penawaran'];
+
+                            if (!is_null($doc_penawaran)) { ?>
+                                <div class="box-header with-border">
+                                    <h3 class="text-center">Document Penawaran</h3>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="../file/doc_penawaran/<?php echo $data['doc_penawaran']; ?> "></iframe>
+                                    </div>
+                                </div>
+                            <?php    } ?>
+
+                            <br><br>
+                            <div class="box-header with-border">
+                                <h3 class="text-center">Rincian Barang</h3>
+                            </div>
+                            <div class="table-responsive datatab">
+                                <table class="table text-center table table-striped table-dark table-hover ">
+                                    <thead style="background-color :#B0C4DE;">
+                                        <th>No</th>
+                                        <th>Deskripsi</th>
+                                        <th>QTY</th>
+                                        <th>Unit</th>
+                                        <th>Unit Price</th>
+                                        <th>Total Price</th>
+                                    </thead>
+                                    <tr>
+                                        <tbody>
+                                            <tr>
+                                                <?php
+                                                $no = 1;
+                                                $total = 0;
+                                                if (mysqli_num_rows($querySbo)) {
+                                                    while ($row = mysqli_fetch_assoc($querySbo)) :
+
+                                                ?>
+                                                        <td> <?= $no; ?> </td>
+                                                        <td> <?= $row['sub_deskripsi']; ?> </td>
+                                                        <td> <?= $row['sub_qty']; ?> </td>
+                                                        <td> <?= $row['sub_unit']; ?> </td>
+                                                        <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
+                                                        <td><?= formatRupiah($row['total_price']); ?></td>
+                                            </tr>
+                                    <?php
+                                                        $total += $row['total_price'];
+                                                        $no++;
+                                                    endwhile;
+                                                } ?>
+                                    <tr style="background-color :#B0C4DE;">
+                                        <td colspan="5"><b>Total</b></td>
+                                        <td><b><?= formatRupiah($total); ?></b></td>
+                                    </tr>
+                                        </tbody>
+                                </table>
+                            </div>
+                            <br>
+                            <br>
+                        <?php } else { ?>
+                            <?php if (!is_null($data['doc_lpj'])) { ?>
+                                <div class="box-header with-border">
+                                    <h3 class="text-center">Document LPJ</h3>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="../file/doc_lpj/<?php echo $data['doc_lpj']; ?> "></iframe>
+                                    </div>
+                                </div>
+                            <?php }  ?>
+                        <?php } ?>
+                        <!-- Verifikasi Tax  -->
+                        <br>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="box box-primary">
+                                    <?php if (!is_null($data['doc_lpj'])) { ?>
+                                        <div class="box-header with-border">
+                                            <h3 class="text-center">Document LPJ</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="embed-responsive embed-responsive-4by3">
+                                                <iframe class="embed-responsive-item" src="../file/doc_lpj/<?php echo $data['doc_lpj']; ?> "></iframe>
+                                            </div>
+                                        </div>
+                                    <?php }  ?>
+                                </div>
+                            </div>
+
+                            <!-- Verifikasi Tax -->
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <h3 class="text-center">Verifikasi Tax</h3>
+                                    </div>
+                                    <!-- action="vrf_item_lpj.php" -->
+                                    <div class="box-body">
+                                        <form method="post" name="form" action="vrf_item_lpj.php" enctype="multipart/form-data" class="form-horizontal">
+                                            <!-- value hidden -->
+                                            <input type="hidden" required name="id_kasbon" value="<?= $data['id_kasbon']; ?>">
+
+                                            <div class="form-group">
+                                                <label id="tes" for="nilai_bkk" class=" col-sm-4 control-label" id="rupiah">Nilai Barang</label>
+                                                <div class="col-sm-5">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Rp.</span>
+                                                        <input type="text" required class="form-control" name="nilai_barang" id="nilai_barang" value="<?= round($data['nilai_barang']); ?>" />
+                                                    </div>
+                                                    <i><span id="nb_ui"></span></i>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label id="tes" for="nilai_bkk" class=" col-sm-4 control-label" id="rupiah">Nilai Jasa</label>
+                                                <div class="col-sm-5">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Rp.</span>
+                                                        <input type="text" required class="form-control" value="<?= round($data['nilai_jasa']); ?>" name="nilai_jasa" id="nilai_jasa" />
+                                                    </div>
+                                                    <i><span id="nj_ui"></span></i>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN
+                                                    <select name="pilih_ppn" id="setppn">
+                                                        <option value="0.11">11%</option>
+                                                        <option value="0.10">10%</option>
+                                                    </select>
+                                                </label>
+                                                <div class="col-sm-1">
+                                                    <input type="checkbox" name="all" id="myCheck" onclick="checkBox()">
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Rp.</span>
+                                                        <input type="text" class="form-control " name="ppn_nilai" id="ppn_nilai" value="<?= formatRibuan($data['nilai_ppn']) ?>" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="bgn-pembulatan">
+                                                <div class="form-group">
+                                                    <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Pembulatan</label>
+                                                    <div class="col-sm-3">
+                                                        <input type="radio" name="pembulatan" value="keatas" id="pembulatan" onclick="checkPembulatan()"> Ke atas
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <input type="radio" name="pembulatan" value="kebawah" id="pembulatan" onclick="checkPembulatan()" checked="checked"> Ke bawah
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label id="tes" for="biaya_lain" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Biaya Lain</label>
+                                                <div class="col-sm-5">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Rp.</span>
+                                                        <input type="text" required class="form-control" value="<?= round($data['biaya_lain']) ?>" name="biaya_lain" id="biaya_lain" autocomplete="off" />
+                                                    </div>
+                                                    <i><span id="bl_ui"></span></i></br>
+                                                    <i><span class="text-danger">*Biaya Materai/lain</span></i>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label id="tes" for="id_pph" class="col-sm-offset-1 col-sm-3 control-label">Jenis PPh</label>
+                                                <div class="col-sm-5">
+                                                    <select name="id_pph" class="form-control" id="id_pph" value="<?= $data['id_pph'] ?>">
+                                                        <option value="">--Jenis PPh--</option>
+                                                        <?php
+                                                        $queryPph = mysqli_query($koneksi, "SELECT * FROM pph ORDER BY nm_pph ASC");
+                                                        if (mysqli_num_rows($queryPph)) {
+                                                            while ($rowPph = mysqli_fetch_assoc($queryPph)) :
+                                                        ?>
+                                                                <option value="<?= $rowPph['id_pph']; ?>" data-id="<?= $rowPph['jenis']; ?>" type="checkbox"><?= $rowPph['nm_pph'] ?></option>
+                                                        <?php endwhile;
+                                                        } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div id="fixed">
+                                                <div class="form-group">
+                                                    <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah"></label>
+                                                    <div class="col-sm-5">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">PPh</span>
+                                                            <input type="text" required class="form-control " name="pph_persen" value="0" id="pph_persen" />
+                                                            <span class="input-group-addon">%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah"></label>
+                                                    <div class="col-sm-5">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">Rp.</span>
+                                                            <input type="text" readonly class="form-control " name="pph_nilai" value="<?= formatRibuan($data['nilai_pph']) ?>" id="pph_nilai" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="progresive">
+                                                <div class="form-group">
+                                                    <label id="tes" for="pph_nilai2" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah"></label>
+                                                    <div class="col-sm-5">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">Rp.</span>
+                                                            <input type="text" class="form-control " name="pph_nilai2" value="<?= round($data['nilai_pph']) ?>" id="pph_nilai2" />
+                                                        </div>
+                                                        <i><span id="pph_ui"></span></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label id="tes" for="jml_bkk" class=" col-sm-4 control-label">Jumlah</label>
+                                                <div class="col-sm-5">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Rp.</span>
+                                                        <input type="text" required class="form-control" name="jml" value="" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="box-footer">
+                                                <div class="form-group">
+                                                    <button type="submit" name="simpan" class="btn btn-primary col-sm-offset-4"><i class="fa fa-save"></i> Simpan</button>
+                                                    &nbsp;
+                                                    <button type="submit" name="submit" class="btn btn-warning "><i class="fa fa-rocket"></i> Submit</button>
+                                                    &nbsp;
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#tolak">Reject </button></span></a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- row -->
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
         </div>
+    </div>
 </section>
 
 <!-- modal tolak -->
@@ -399,24 +473,280 @@ if ($data['nilai_ppn'] > 0) {
     });
 
 
+    // cek apakah ada nilai ppn
+    var np = parseFloat("<?= round($data['nilai_ppn']) ?>");
+
+    if (np > 0) {
+        $('#myCheck').attr('checked', 'checked');
+        $("#bgn-pembulatan").show();
+    } else {
+        $("#bgn-pembulatan").hide();
+    }
+
+    // cek apa kah ada nilai barang
+    var nilaiBarang = <?= $data['nilai_barang'] ?>;
+
+    if (nilaiBarang > 0) {
+        var nb_ui = tandaPemisahTitik(nilaiBarang);
+        $('#nb_ui').text('Rp.' + nb_ui);
+    }
+
+    // cek apa kah ada nilai jasa
+    var nilaiJasa = <?= $data['nilai_jasa'] ?>;
+
+    if (nilaiJasa > 0) {
+        var nb_ui = tandaPemisahTitik(nilaiJasa);
+        $('#nj_ui').text('Rp.' + nb_ui);
+    }
+    // Cek PPH
+    let id_pph = '<?= $data['id_pph'] ?>';
+
+    // DEKLASARI DPP
+
+    let dpp = nilaiBarang + nilaiJasa;
+
+    let persentasePpn = np / dpp;
+    // pembulatan di desimal 2 belakang koma 
+    persentasePpn = persentasePpn.toFixed(2);
+
+    // set ppn default 11%
+    let setPpn = 0.11;
+    if (np != 0 && dpp != 0) {
+
+        $('#setppn').val(persentasePpn);
+
+        setPpn = persentasePpn;
+    }
+
+    // jika ada perubahan ppn
+    $('#setppn').on('change', function() {
+        let ppnTemp = parseFloat(this.value);
+
+        if (setPpn != ppnTemp) {
+            setPpn = ppnTemp;
+            // cek terlebih dahulu apakah checkbox nya ini aktif
+            checkBox();
+
+        }
+
+    });
+
+
+    /* untk melihat ppn
+     var jenis = '<$data['jenis'] ';
+
+     */
+
+    let jenis = ''
+
+    if (id_pph == '1') {
+        jenis = 'progresive'
+    } else if (id_pph == '2' || id_pph == '3') {
+        jenis = 'fixed'
+    }
+    // console.log(jenis);
+
+    showPph(jenis);
+
+
+    $("#id_pph").val(id_pph);
+
+    // $("#ktk").hide();
+
+    $('#id_pph').on('change', function() {
+        let id_pph = this.value;
+        let jenis = $(this).find(':selected').data('id')
+
+        showPph(jenis);
+
+    });
+
+
     $(".perhitungan").keyup(function() {
 
-
         var nilaiJasa = parseInt($("#nilai_jasa").val())
-        var pph_nilai = parseInt($("#pph_nilai").val())
+
+
+        var nj_ui = tandaPemisahTitik(nilaiJasa);
+        $('#nj_ui').text('Rp.' + nj_ui);
+
+        var pph_persen = parseInt($("#pph_persen").val())
+        var pph_nilai = Math.floor(nilaiJasa * pph_persen / 100);
+
+        var pph_nilaia = tandaPemisahTitik(pph_nilai);
+        $("#pph").attr("value", pph_nilaia);
+        document.form.pph_nilai.value = pph_nilaia;
+
 
         var nilaiBarang = parseInt($("#nilai_barang").val())
-        var ppn_persen = parseInt($("#ppn_persen").val())
-        var ppn_nilai = Math.floor((nilaiJasa + nilaiBarang) * ppn_persen / 100);
+        var nb_ui = tandaPemisahTitik(nilaiBarang);
+        $('#nb_ui').text('Rp.' + nb_ui);
+
+        // Biaya lain
+        var biayaLain = parseInt($("#biaya_lain").val())
+        var bl_ui = tandaPemisahTitik(biayaLain);
+        $('#bl_ui').text('Rp.' + bl_ui);
+
+        // nilai pph untuk pajak progresive
+        var pph_nilai2 = parseInt($("#pph_nilai2").val())
+        var pph_ui = tandaPemisahTitik(pph_nilai2);
+        $('#pph_ui').text('Rp.' + pph_ui);
+
+        var checkBox = document.getElementById("myCheck");
+        if (checkBox.checked == true) {
+            var ppn_nilai = Math.floor(setPpn * (nilaiBarang + nilaiJasa));
+        } else if (checkBox.checked == false) {
+            var ppn_nilai = 0;
+        }
+
+        var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
+        document.form.ppn_nilai.value = ppn_nilaia;
+
+        var jmla = nilaiBarang + nilaiJasa + ppn_nilai - pph_nilai - pph_nilai2 + biayaLain;
+        var jml = tandaPemisahTitik(jmla);
+        $("#jml").attr("value", jml);
+
+        document.form.jml.value = jml;
+
+
+    });
+
+    function hilangkanTitik(data) {
+        var angka = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById(data).value))))); //input ke dalam angka tanpa titik
+
+        return angka;
+    }
+
+    function showPph(data) {
+
+        var nilai_barang = parseInt($("#nilai_barang").val())
+        var nilai_jasa = hilangkanTitik('nilai_jasa')
+        var ppn_nilai = hilangkanTitik('ppn_nilai')
+        var biaya_lain = hilangkanTitik('biaya_lain')
+
+
+        // var jml = hilangkanTitik('jml')
+        var pph_nilai = hilangkanTitik('pph_nilai')
+
+        // pph nilai 2 untuk tarif progresive
+        var pph_nilai2 = hilangkanTitik('pph_nilai2')
+
+
+        if (data == 'fixed') {
+            $("#fixed").show();
+            $("#progresive").hide();
+
+
+            var jml = (nilai_barang + nilai_jasa + ppn_nilai + biaya_lain) - pph_nilai;
+
+
+            jml = tandaPemisahTitik(jml);
+
+
+
+            document.form.pph_nilai2.value = 0;
+            document.form.jml.value = jml;
+
+            if (pph_nilai > 0) {
+                var persen = (pph_nilai / nilai_jasa) * 100;
+
+                document.form.pph_persen.value = persen;
+            }
+
+        } else if (data == 'progresive') {
+            $("#fixed").hide();
+            $("#progresive").show();
+
+            var jml = (nilai_barang + nilai_jasa + ppn_nilai + biaya_lain) - pph_nilai2;
+            jml = tandaPemisahTitik(jml);
+
+            document.form.pph_persen.value = 0;
+            document.form.pph_nilai.value = 0;
+            document.form.jml.value = jml;
+        } else {
+            $("#fixed").hide();
+            $("#progresive").hide();
+
+
+            var jml = (nilai_barang + nilai_jasa + ppn_nilai + biaya_lain);
+            jml = tandaPemisahTitik(jml);
+
+            document.form.pph_persen.value = 0;
+            document.form.pph_nilai.value = 0;
+            document.form.pph_nilai2.value = 0;
+            document.form.jml.value = jml;
+        }
+    }
+
+    function hitungCheckBox(angkaPpn) {
+
+        var nilaiJasa = parseInt($("#nilai_jasa").val())
+        var pph_persen = parseInt($("#pph_persen").val())
+        var pph_nilai = Math.floor(nilaiJasa * pph_persen / 100);
+        var pph_nilaia = tandaPemisahTitik(pph_nilai);
+        $("#pph").attr("value", pph_nilaia);
+        document.form.pph_nilai.value = pph_nilaia;
+
+
+        var nilaiBarang = parseInt($("#nilai_barang").val())
+        var biayaLain = parseInt($("#biaya_lain").val())
+
+        var checkBox = document.getElementById("myCheck");
+        if (checkBox.checked == true) {
+            var ppn_nilai = Math.floor(angkaPpn * (nilaiBarang + nilaiJasa));
+        } else if (checkBox.checked == false) {
+            var ppn_nilai = 0;
+        }
         var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
         $("#ppn").attr("value", ppn_nilaia);
         document.form.ppn_nilai.value = ppn_nilaia;
 
+        var pph_nilai2 = parseInt($("#pph_nilai2").val())
 
-        var jmla = nilaiBarang + nilaiJasa + ppn_nilai - pph_nilai;
+        var jmla = nilaiBarang + nilaiJasa + ppn_nilai - pph_nilai - pph_nilai2 + biayaLain;
         var jml = tandaPemisahTitik(jmla);
         $("#jml").attr("value", jml);
-        document.form.jml_bkk.value = jml;
+        document.form.jml.value = jml;
+    }
 
-    });
+    function checkBox() {
+        var checkBox = document.getElementById("myCheck");
+        if (checkBox.checked == true) {
+
+            $("#bgn-pembulatan").show();
+
+            hitungCheckBox(setPpn);
+
+        } else if (checkBox.checked == false) {
+
+            $("#bgn-pembulatan").hide();
+
+            hitungCheckBox(setPpn);
+
+        }
+    }
+
+    // check pembulatan
+    function checkPembulatan() {
+
+        var pembulatan = $("input[name='pembulatan']:checked").val();
+
+        var nilaiJasa = parseInt($("#nilai_jasa").val())
+        var nilaiBarang = parseInt($("#nilai_barang").val())
+
+        if (pembulatan == 'keatas') {
+
+            // pembulatan ke atas
+            var ppn_nilai = Math.ceil(setPpn * (nilaiBarang + nilaiJasa));
+
+        } else if (pembulatan == 'kebawah') {
+
+            // pembulatan ke bawah
+            var ppn_nilai = Math.floor(setPpn * (nilaiBarang + nilaiJasa));
+        }
+
+        var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
+        $("#ppn").attr("value", ppn_nilaia);
+        document.form.ppn_nilai.value = ppn_nilaia;
+    }
 </script>
