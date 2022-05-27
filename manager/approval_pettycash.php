@@ -52,10 +52,11 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                             <thead>
                                 <tr style="background-color :#B0C4DE;">
                                     <th>No</th>
+                                    <th>Kode Pettycash</th>
                                     <th>Tanggal</th>
                                     <th>Divisi</th>
-                                    <th>Keterangan</th>
                                     <th>Kode Anggaran</th>
+                                    <th>Keterangan</th>
                                     <th>Total</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -68,10 +69,11 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                         while ($row = mysqli_fetch_assoc($query)) :
                                     ?>
                                             <td> <?= $no; ?> </td>
+                                            <td><?= $row['kd_pettycash']; ?></td>
                                             <td> <?= formatTanggal($row['created_pettycash_on']); ?> </td>
                                             <td> <?= $row['nm_divisi']; ?> </td>
-                                            <td> <?= $row['keterangan_pettycash']; ?> </td>
                                             <td> <?= $row['kd_anggaran']; ?> </td>
+                                            <td> <?= $row['nm_item'] . ' - [' . $row['kd_anggaran']; ?>]</td>
                                             <td> <button class="btn btn-success"><?= formatRupiah(round($row['total_pettycash'])) ?> </button></td>
                                             <td>
                                                 <a href="?p=approval_pettycash&aksi=lihat&id=<?= $row['id_pettycash']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info"><i class="fa fa-search-plus"></i></button></span></a>

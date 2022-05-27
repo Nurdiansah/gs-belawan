@@ -61,9 +61,10 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                 <thead>
                                     <tr style="background-color :#B0C4DE;">
                                         <th>No</th>
+                                        <th>Kode Pettycash</th>
                                         <th>Tanggal</th>
-                                        <th>Keterangan</th>
                                         <th>Kode Anggaran</th>
+                                        <th>Keterangan</th>
                                         <th>Total</th>
                                         <th>Jenis</th>
                                         <th>Status</th>
@@ -77,9 +78,10 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                             while ($row = mysqli_fetch_assoc($query)) :
                                         ?>
                                                 <td> <?= $no; ?> </td>
+                                                <td><?= $row['kd_pettycash']; ?></td>
                                                 <td> <?= formatTanggal($row['created_pettycash_on']); ?> </td>
+                                                <td> <?= $row['nm_item'] . ' - [' . $row['kd_anggaran']; ?>]</td>
                                                 <td> <?= batasiKata($row['keterangan_pettycash']); ?> </td>
-                                                <td> <?= $row['kd_anggaran']; ?> </td>
                                                 <td> <?= formatRupiah($row['total_pettycash']); ?> </td>
                                                 <td>
                                                     <?php if ($row['from'] == "user") { ?>
@@ -105,7 +107,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                                             <span class="label label-warning">Dana Sudah Bisa diambil</span>
                                                             <br><br>
                                                             <!-- <a href="../html-link.htm" target="popup" onclick="window.open('../html-link.htm','name','width=600,height=400')"></a> -->
-                                                            <a onclick="window.open('cetak_pengambilandana_petty.php?id=<?= enkripRambo($row['id_pettycash']); ?>','name','width=600,height=500')" href="" class="btn btn-success"><i class="fa fa-print"></i> Laporan Pengambilan Dana </a>
+                                                            <a onclick="window.open('cetak_pengambilandana_petty.php?id=<?= enkripRambo($row['id_pettycash']); ?>','name','width=600,height=500')" href="" class="btn btn-success"><i class="fa fa-print"></i> LPD </a>
                                                         <?php } else { ?>
                                                             <span class="label label-warning">Pengajuan Sedang Diproses Purchasing</span>
                                                         <?php }

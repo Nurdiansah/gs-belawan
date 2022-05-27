@@ -45,11 +45,12 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                             <thead>
                                 <tr style="background-color :#B0C4DE;">
                                     <th>No</th>
+                                    <th>Kode Pettycash</th>
                                     <th>Tanggal</th>
                                     <th>Divisi</th>
-                                    <th>Keterangan</th>
                                     <th>Kode Anggaran</th>
-                                    <th>Total</th>                                    
+                                    <th>Keterangan</th>
+                                    <th>Total</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,11 +61,12 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                         while ($row = mysqli_fetch_assoc($query)) :
                                     ?>
                                             <td> <?= $no; ?> </td>
+                                            <td><?= $row['kd_pettycash']; ?></td>
                                             <td> <?= formatTanggal($row['created_pettycash_on']); ?> </td>
                                             <td> <?= $row['nm_divisi']; ?> </td>
+                                            <td> <?= $row['nm_item'] . ' - [' . $row['kd_anggaran']; ?>]</td>
                                             <td> <?= $row['keterangan_pettycash']; ?> </td>
-                                            <td> <?= $row['kd_anggaran']; ?> </td>
-                                            <td> <?= formatRupiah($row['grand_total_pettycash']); ?> </td>                                            
+                                            <td> <?= formatRupiah($row['grand_total_pettycash']); ?> </td>
                                 </tr>
                         <?php
                                             $no++;
