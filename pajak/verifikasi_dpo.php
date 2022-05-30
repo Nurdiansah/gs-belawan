@@ -630,7 +630,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
 
         var checkBox = document.getElementById("myCheck");
         if (checkBox.checked == true) {
-            var ppn_nilai = Math.floor(0.1 * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
         } else if (checkBox.checked == false) {
             var ppn_nilai = 0;
         }
@@ -733,7 +733,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
             var nilaiBarang = parseInt($("#nilai_barang").val())
             var biayaLain = parseInt($("#biaya_lain").val())
 
-            var ppn_nilai = Math.floor(0.1 * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
             var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
             $("#ppn").attr("value", ppn_nilaia);
             document.form.ppn_nilai.value = ppn_nilaia;
@@ -785,12 +785,12 @@ $totalReapp = mysqli_num_rows($queryReapp);
         if (pembulatan == 'keatas') {
 
             // pembulatan ke atas
-            var ppn_nilai = Math.ceil(0.1 * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.ceil(0.11 * (nilaiBarang + nilaiJasa));
 
         } else if (pembulatan == 'kebawah') {
 
             // pembulatan ke bawah
-            var ppn_nilai = Math.floor(0.1 * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
         }
 
         var ppn_nilaia = tandaPemisahTitik(ppn_nilai);

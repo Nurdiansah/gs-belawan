@@ -258,7 +258,7 @@ $tanggalCargo = date("Y-m-d");
                                     <div class="col-sm-2">
                                         <div class="input-group">
                                             <span class="input-group-addon">PPN</span>
-                                            <input type="number" required min="0" max="10" class="form-control " name="ppn_persen" value="<?= round($data['nilai_ppn']) ?>" id="ppn_persen" />
+                                            <input type="number" required min="0" max="11" class="form-control " name="ppn_persen" value="<?= round(($data['nilai_ppn'] / ($data['nilai_barang'] + $data['nilai_jasa'])) * 100) ?>" id="ppn_persen" />
                                             <span class="input-group-addon">%</span>
                                         </div>
                                     </div>

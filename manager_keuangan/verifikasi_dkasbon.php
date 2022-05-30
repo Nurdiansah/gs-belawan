@@ -180,87 +180,87 @@ $totalRealisasi = $data['jumlah_realisasi'];
 
                                         <?php    } ?>
                                         </div>
-                                </div>
+                                        <!-- </div> -->
 
-                                <!-- Rincian Barang -->
-                                <br><br><br><br><br>
-                                <div class="box-header with-border">
-                                    <h3 class="text-center">Rincian Barang</h3>
-                                </div>
-                                <div class="table-responsive datatab">
-                                    <table class="table text-center table table-striped table-dark table-hover ">
-                                        <thead style="background-color :#B0C4DE;">
-                                            <th>No</th>
-                                            <th>Deskripsi</th>
-                                            <th>QTY</th>
-                                            <th>Unit</th>
-                                            <th>Unit Price</th>
-                                            <th>Total Price</th>
-                                        </thead>
-                                        <tr>
-                                            <tbody>
-                                                <tr>
-                                                    <?php
-                                                    $no = 1;
-                                                    $total = 0;
-                                                    if (mysqli_num_rows($querySbo)) {
-                                                        while ($row = mysqli_fetch_assoc($querySbo)) :
-
-                                                    ?>
-                                                            <td> <?= $no; ?> </td>
-                                                            <td> <?= $row['sub_deskripsi']; ?> </td>
-                                                            <td> <?= $row['sub_qty']; ?> </td>
-                                                            <td> <?= $row['sub_unit']; ?> </td>
-                                                            <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
-                                                            <td><?= formatRupiah($row['total_price']); ?></td>
-                                                </tr>
-                                        <?php
-                                                            $total += $row['total_price'];
-                                                            $no++;
-                                                        endwhile;
-                                                    } ?>
-                                        <tr style="background-color :#B0C4DE;">
-                                            <td colspan="5"><b>Total</b></td>
-                                            <td><b><?= formatRupiah($total); ?></b></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="5"><b>PPN</b></td>
-                                            <td><b><?= formatRupiah($data['nilai_ppn']); ?></b></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="5"><b>PPh</b></td>
-                                            <td><b>(<?= formatRupiah($data['nilai_pph']); ?>)</b></td>
-                                        </tr>
-                                        <tr style="background-color :#B0C4DE;">
-                                            <td colspan="5"><b>Grand Total</b></td>
-                                            <td><b><?= formatRupiah($data['harga_akhir']); ?></b></td>
-                                        </tr>
-                                            </tbody>
-                                    </table>
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <label id="tes" for="supplier" class="col-sm-offset-1 col-sm-1 control-label">Supplier</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" disabled class="form-control is-valid" name="supplier" value="<?= $data['nm_supplier'] ?>">
-                                    </div>
-                                    <label id="tes" for="harga" class="col-sm-offset-1 col-sm-1 control-label">Harga</label>
-                                    <div class="col-sm-3">
-                                        <div class="input-group">
-                                            <span class="input-group-addon ">Rp.</span>
-                                            <input type="text" disabled class="form-control is-valid" name="harga" value="<?= number_format($totalPengajuan, 0, ",", ".")  ?>">
+                                        <!-- Rincian Barang -->
+                                        <br><br><br><br><br>
+                                        <div class="box-header with-border">
+                                            <h3 class="text-center">Rincian Barang</h3>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group ">
-                                    <button type="button" class="btn btn-primary col-sm-offset-9" data-toggle="modal" data-target="#freeapprove"> Free Approve </button></span></a>
-                                    &nbsp;
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approve"> Approve </button></span></a>
-                                    &nbsp;
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#tolak">Reject </button></span></a>
+                                        <div class="table-responsive datatab">
+                                            <table class="table text-center table table-striped table-dark table-hover ">
+                                                <thead style="background-color :#B0C4DE;">
+                                                    <th>No</th>
+                                                    <th>Deskripsi</th>
+                                                    <th>QTY</th>
+                                                    <th>Unit</th>
+                                                    <th>Unit Price</th>
+                                                    <th>Total Price</th>
+                                                </thead>
+                                                <tr>
+                                                    <tbody>
+                                                        <tr>
+                                                            <?php
+                                                            $no = 1;
+                                                            $total = 0;
+                                                            if (mysqli_num_rows($querySbo)) {
+                                                                while ($row = mysqli_fetch_assoc($querySbo)) :
+
+                                                            ?>
+                                                                    <td> <?= $no; ?> </td>
+                                                                    <td> <?= $row['sub_deskripsi']; ?> </td>
+                                                                    <td> <?= $row['sub_qty']; ?> </td>
+                                                                    <td> <?= $row['sub_unit']; ?> </td>
+                                                                    <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
+                                                                    <td><?= formatRupiah($row['total_price']); ?></td>
+                                                        </tr>
+                                                <?php
+                                                                    $total += $row['total_price'];
+                                                                    $no++;
+                                                                endwhile;
+                                                            } ?>
+                                                <tr style="background-color :#B0C4DE;">
+                                                    <td colspan="5"><b>Total</b></td>
+                                                    <td><b><?= formatRupiah($total); ?></b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5"><b>PPN</b></td>
+                                                    <td><b><?= formatRupiah($data['nilai_ppn']); ?></b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5"><b>PPh</b></td>
+                                                    <td><b>(<?= formatRupiah($data['nilai_pph']); ?>)</b></td>
+                                                </tr>
+                                                <tr style="background-color :#B0C4DE;">
+                                                    <td colspan="5"><b>Grand Total</b></td>
+                                                    <td><b><?= formatRupiah($data['harga_akhir']); ?></b></td>
+                                                </tr>
+                                                    </tbody>
+                                            </table>
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <label id="tes" for="supplier" class="col-sm-offset-1 col-sm-1 control-label">Supplier</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" disabled class="form-control is-valid" name="supplier" value="<?= $data['nm_supplier'] ?>">
+                                            </div>
+                                            <label id="tes" for="harga" class="col-sm-offset-1 col-sm-1 control-label">Harga</label>
+                                            <div class="col-sm-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon ">Rp.</span>
+                                                    <input type="text" disabled class="form-control is-valid" name="harga" value="<?= number_format($totalPengajuan, 0, ",", ".")  ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <button type="button" class="btn btn-primary col-sm-offset-9" data-toggle="modal" data-target="#freeapprove"> Free Approve </button></span></a>
+                                            &nbsp;
+                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approve"> Approve </button></span></a>
+                                            &nbsp;
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#tolak">Reject </button></span></a>
+                                        </div>
                                 </div>
                             </div>
-                        </div>
                     </form>
                 </div>
             </div>

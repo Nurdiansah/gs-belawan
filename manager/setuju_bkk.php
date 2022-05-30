@@ -4,6 +4,10 @@ session_start();
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
+if (!isset($_SESSION['username']) || $_SESSION['level'] != 'manager') {
+	header("location: ../index.php");
+}
+
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
 
@@ -23,7 +27,7 @@ if (isset($_GET['id'])) {
 									";
 	mysqli_query($koneksi, $queryLog);
 
-	$query1 = mysqli_query($koneksi, "UPDATE bkk SET status_bkk=4, tgl_verifikasimanager ='$tanggal' WHERE id_bkk='$id' ");
+	$query1 = mysqli_query($koneksi, "UPDATE bkk SET status_bkk=4, tgl_verifikasimanager ='$tanggal' WHERE id_bkk='$id' AND status_bkk='1'");
 
 
 	// query data email
