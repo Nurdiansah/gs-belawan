@@ -41,7 +41,7 @@ if (isset($_POST['simpan'])) {
         $lokasi_invoice = ($_FILES['invoice']['tmp_name']);
         $invoice = ($_FILES['invoice']['name']);
         $ekstensi = pathinfo($invoice, PATHINFO_EXTENSION);
-        $namabaru =  $kd_transaksi . "-inv-biaya-non-ops." . $ekstensi;
+        $namabaru =  $kd_transaksi . "-inv-biaya-non-ops-new." . $ekstensi;
         move_uploaded_file($lokasi_invoice, "../file/" . $namabaru);
     }
 
