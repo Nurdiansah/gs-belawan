@@ -137,4 +137,12 @@ if ($page == 'formpesan') {
     include_once "refill_edit.php";
 } else if ($page == "refill_proses") {
     include_once "refill_proses.php";
+} else if ($page == "biaya_umum") {
+    include_once "biaya_umum.php";
+} else if ($page == "biayaumum_create") {
+    include_once "biayaumum_create.php";
+} else if ($page == "rubah_biayanonops") {
+    include_once "rubah_biayanonops.php";
+} else if ($page == "detail_biayaumum") {
+    include_once "detail_biayaumum.php";
 }
