@@ -210,9 +210,9 @@ $jumlahData = mysqli_num_rows($query);
         </div>
     </div>
 
-    <div class="alert alert-warning" role="alert">
+    <!-- <div class="alert alert-warning" role="alert">
         Fitur Refill Fund masih on progress !
-    </div>
+    </div> -->
 </section>
 
 <!-- Modal Create  -->

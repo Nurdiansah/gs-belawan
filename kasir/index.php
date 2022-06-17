@@ -172,8 +172,9 @@ $queryOutstanding = mysqli_query($koneksi, "SELECT COUNT(id) as jumlah FROM bkk_
 $dataOutstanding = mysqli_fetch_assoc($queryOutstanding);
 
 // REFILL FUND PROSES
-$queryRP = mysqli_query($koneksi, "SELECT COUNT(id_refill) AS jumlah FROM refill_funds WHERE status IN ('1', '2')");
+$queryRP = mysqli_query($koneksi, "SELECT COUNT(id_refill) AS jumlah FROM refill_funds WHERE status BETWEEN '0' AND '5'");
 $dataRP = mysqli_fetch_assoc($queryRP);
+
 
 ?>
 <!DOCTYPE html>

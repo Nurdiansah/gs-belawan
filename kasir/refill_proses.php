@@ -17,12 +17,54 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
     }
 }
 
-$query = mysqli_query($koneksi, "SELECT * FROM refill_funds WHERE status BETWEEN '0' AND '4'");
+$query = mysqli_query($koneksi, "SELECT * FROM refill_funds WHERE status BETWEEN '0' AND '5'");
 
 $jumlahData = mysqli_num_rows($query);
 
-// print_r($jumlahData);
-// die;
+
+if (isset($_POST['verifikasi'])) {
+    $id_refill = $_POST['id_refill'];
+    $tgl_bkk = datetimeHtml($_POST['tanggal']);
+
+    mysqli_begin_transaction($koneksi);
+
+    $data = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM refill_funds WHERE id_refill = '$id_refill' "));
+    // $created_at = $data['created_at'];
+    $keterangan = $data['keterangan'];
+    $nominal = $data['nominal'];
+    $app_mgr = $data['app_mgr'] == "" ? "0000-00-00" : $data['app_mgr'];
+    $app_direksi = $data['app_direksi'] == "" ? "0000-00-00" : $data['app_direksi'];
+
+    // Nomor BKK
+    $no_bkk = nomorBkkNew($tgl_bkk);
+    $nomor = nomorAwal($no_bkk);
+
+    $cek_bukti = $_FILES['bukti_pembayaran']['name'];
+    if ($cek_bukti == "") {
+        $nm_baru = NULL;
+    } else {
+        $path = $_FILES['bukti_pembayaran']['tmp_name'];
+        $bukti_pembayaran = $_FILES['bukti_pembayaran']['name'];
+        $ekstensi = pathinfo($bukti_pembayaran, PATHINFO_EXTENSION);
+        $nm_baru = time() . "-bukti-pembayaran-refill-funds." . $ekstensi;
+        move_uploaded_file($path, "../file/bukti_pembayaran/" . $nm_baru);
+    }
+
+    $update = mysqli_query($koneksi, "UPDATE refill_funds SET status = '6', bukti_pembayaran = '$nm_baru'
+                                        WHERE id_refill = '$id_refill' ");
+
+    $insert = mysqli_query($koneksi, "INSERT INTO bkk_final (pengajuan, id_kdtransaksi, nomor, tgl_bkk, no_bkk, nilai_barang, nominal, keterangan,  created_on_bkk, v_mgr_finance, v_direktur, release_on_bkk, status_bkk) VALUES
+                                                            ('REFILL FUND', '$id_refill', '$nomor', '$tgl_bkk', '$no_bkk', '$nominal', '$nominal', '$keterangan', '$tgl_bkk', '$app_mgr', '$app_direksi', '$tgl_bkk', '4')");
+
+    if ($update && $insert) {
+        mysqli_commit($koneksi);
+
+        header('Location: index.php?p=refill_proses');
+    } else {
+        mysqli_rollback($koneksi);
+        echo "Ada error brayy " . mysqli_error($koneksi);
+    }
+}
 ?>
 <!-- Main content -->
 <section class="content">
@@ -72,22 +114,67 @@ $jumlahData = mysqli_num_rows($query);
                                                     # code...
                                                     echo "<span class='label label-warning'>Approval Cost Control</span>";
                                                 } else if ($row['status'] == '2') {
-                                                    echo "<span class='label label-warning'>Approval Manager</span>";
+                                                    echo "<span class='label label-primary'>Approval Manager</span>";
                                                 } else if ($row['status'] == '3') {
-                                                    echo "<span class='label label-warning'>Approval GM Finance</span>";
+                                                    echo "<span class='label label-success'>Approval GM Finance</span>";
                                                 } else if ($row['status'] == '4') {
                                                     echo "<span class='label label-warning'>Approval Direksi</span>";
-                                                }
-
-                                                ?>
-
-                                                <?php if ($row['status'] == 0) { ?>
+                                                } elseif ($row['status'] == '5') { ?>
+                                                    <button type="button" class="btn btn-success modalRelease" data-toggle="modal" data-target="#verifikasiRefill_<?= $row['id_refill']; ?>" data-id="<?= $row['id_refill']; ?>"><i class="fa fa-check-square-o"></i> Verifikasi</button>
+                                                <?php }
+                                                if ($row['status'] == 0) { ?>
                                                     <a href="index.php?p=refill_edit&id=<?= enkripRambo($row['id_refill']) ?>"><button type="button" class="btn btn-success"><i class="fa fa-edit"></i> </button></a>
                                                     <button type="button" class="btn btn-danger modalHapus" data-toggle="modal" data-target="#deleteRefill" data-id="<?= $row['id_refill']; ?>"><i class="fa fa-trash"></i> </button>
                                                     <button type="button" class="btn btn-warning modalRelease" data-toggle="modal" data-target="#releaseRefill" data-id="<?= $row['id_refill']; ?>"><i class="fa fa-rocket"></i> Release</button>
                                                 <?php  } ?>
                                             </td>
                                 </tr>
+
+                                <!-- Modal Release -->
+                                <div id="verifikasiRefill_<?= $row['id_refill']; ?>" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- konten modal-->
+                                        <div class="modal-content">
+                                            <!-- heading modal -->
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Verifikasi</h4>
+                                            </div>
+                                            <!-- body modal -->
+                                            <div class="modal-body">
+                                                <div class="perhitungan">
+                                                    <form method="post" name="form" enctype="multipart/form-data" action="" class="form-horizontal">
+                                                        <div class="box-body">
+                                                            <input type="hidden" name="id_refill" value="<?= $row['id_refill']; ?>">
+                                                            <h4>Apakah anda yakin ingin memverfikasi Refill fund ini <b><?= $row['keterangan']; ?></b>?</h4>
+                                                            <label for="tanggal" class="col-sm-offset- col-sm-3 control-label">Bukti Pembayaran</label>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-6">
+                                                                    <input type="file" class="form-control is-valid" name="bukti_pembayaran" accept="application/pdf">
+                                                                </div>
+                                                                <p style="color: red;"><i>*Opsional</i></p>
+                                                            </div>
+                                                            <br>
+                                                            <label for="tanggal" class="col-sm-offset- col-sm-3 control-label">Tanggal</label>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-6">
+                                                                    <input type="datetime-local" class="form-control " name="tanggal" autocomplete="off" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class=" modal-footer">
+                                                            <button class="btn btn-success" type="submit" name="verifikasi"> Yes</button></span></a>
+                                                            <button class="btn btn-danger" type="reset" data-dismiss="modal"> No</button>
+                                                        </div>
+                                                    </form>
+                                                    <!-- div perhitungan -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Release -->
+
                         <?php
                                             $no++;
                                         endwhile;
@@ -107,9 +194,9 @@ $jumlahData = mysqli_num_rows($query);
         </div>
     </div>
 
-    <div class="alert alert-warning" role="alert">
+    <!-- <div class="alert alert-warning" role="alert">
         Fitur Refill Fund masih on progress !
-    </div>
+    </div> -->
 </section>
 
 
