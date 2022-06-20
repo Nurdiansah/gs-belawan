@@ -261,19 +261,19 @@ $jumlahData = mysqli_num_rows($query);
                                             Transfer Pendapatan
                                         </label>
                                     </div>
-                                    <div class="form-check">
+                                    <!-- <div class="form-check">
                                         <input class="form-check-input" type="radio" name="jenis" value="droping_fund" id="droping_fund">
                                         <label class="form-check-label" for="droping_fund">
                                             Droping Fund
                                         </label>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="form-group ">
                                 <label for="doc_pendukung" class="col-sm-offset-1 col-sm-3 control-label">Document Pendukung </label>
                                 <div class="col-sm-5">
                                     <div class="input-group input-file" name="doc_pendukung">
-                                        <input type="text" class="form-control" placeholder="*Opsional" required />
+                                        <input type="text" class="form-control" required />
                                         <span class="input-group-btn">
                                             <button class="btn btn-default btn-choose" type="button">Browse</button>
                                         </span>

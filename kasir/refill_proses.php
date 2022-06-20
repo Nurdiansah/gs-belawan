@@ -119,9 +119,11 @@ if (isset($_POST['verifikasi'])) {
                                                     echo "<span class='label label-success'>Approval GM Finance</span>";
                                                 } else if ($row['status'] == '4') {
                                                     echo "<span class='label label-warning'>Approval Direksi</span>";
-                                                } elseif ($row['status'] == '5') { ?>
+                                                } elseif ($row['status'] == '5' && $row['jenis'] != 'kas_besar') { ?>
                                                     <button type="button" class="btn btn-success modalRelease" data-toggle="modal" data-target="#verifikasiRefill_<?= $row['id_refill']; ?>" data-id="<?= $row['id_refill']; ?>"><i class="fa fa-check-square-o"></i> Verifikasi</button>
-                                                <?php }
+                                                <?php } elseif ($row['status'] == '5' && $row['jenis'] == "kas_besar") {
+                                                    echo "<span class='label label-info'>Verifikasi Kasir Jakarta</span>";
+                                                }
                                                 if ($row['status'] == 0) { ?>
                                                     <a href="index.php?p=refill_edit&id=<?= enkripRambo($row['id_refill']) ?>"><button type="button" class="btn btn-success"><i class="fa fa-edit"></i> </button></a>
                                                     <button type="button" class="btn btn-danger modalHapus" data-toggle="modal" data-target="#deleteRefill" data-id="<?= $row['id_refill']; ?>"><i class="fa fa-trash"></i> </button>
