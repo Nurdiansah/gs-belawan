@@ -22,7 +22,8 @@ $queryBo =  mysqli_query($koneksi, "SELECT * FROM po p
                                         WHERE p.id_po ='$id' ");
 
 
-$query =  mysqli_query($koneksi, "SELECT * FROM biaya_ops bo
+$query =  mysqli_query($koneksi, "SELECT *, dbo.keterangan AS dbo_keterangan
+                                    FROM biaya_ops bo
                                     JOIN divisi d
                                         ON d.id_divisi = bo.id_divisi 
                                     JOIN po p
@@ -107,7 +108,7 @@ $rowR = mysqli_fetch_assoc($queryRealisasi);
                         <div class="form-group">
                             <label for="keterangan" class="col-sm-offset- col-sm-1 control-label">Keterangan</label>
                             <div class="col-sm-3">
-                                <textarea rows="5" type="text" name="keterangan" disabled class="form-control "> <?= $data2['keterangan']; ?></textarea>
+                                <textarea rows="5" type="text" name="keterangan" disabled class="form-control "> <?= $data2['dbo_keterangan']; ?></textarea>
                             </div>
                             <label for="tgl_pengajuan" class="col-sm-offset-1 col-sm-3 control-label">PO Number</label>
                             <div class="col-sm-3">

@@ -35,7 +35,7 @@ $query =  mysqli_query($koneksi, "SELECT * FROM biaya_ops bo
                                                 ON dbo.id_anggaran = a.id_anggaran
                                             LEFT JOIN pph pp
                                                 ON p.id_pph = pp.id_pph
-                                            JOIN tolak_po
+                                            LEFT JOIN tolak_po
                                                 ON id_po = po_id
                                             WHERE p.id_po ='$id' ");
 $data2 = mysqli_fetch_assoc($query);
@@ -108,7 +108,7 @@ $totalRealisasi = realisasiCoaDivisi($id_divisi, $no_coa, $tahun);
                         <div class="form-group">
                             <label for="alasan_tolak" class="col-sm-offset- col-sm-1 control-label">Alasan Ditolak</label>
                             <div class="col-sm-3">
-                                <textarea rows="5" type="text" name="alasan_tolak" disabled class="form-control "> <?= $data2['komentar_pajak']; ?>&#13;&#10;<?= $data2['komentar_mgr_ga']; ?></textarea>
+                                <textarea rows="5" type="text" name="alasan_tolak" disabled class="form-control "> <?= $data2['komentar_mgr_ga']; ?>&#13;&#10;<?= $data2['komentar_mgr_finjkt']; ?>&#13;&#10;<?= $data2['komentar_direktur']; ?></textarea>
                             </div>
 
                         </div>

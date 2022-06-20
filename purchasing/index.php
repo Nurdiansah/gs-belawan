@@ -103,7 +103,7 @@ $queryQtt = mysqli_query($koneksi, "SELECT COUNT(kd_transaksi) AS jumlah  FROM p
 $dataQtt = mysqli_fetch_assoc($queryQtt);
 
 // Po proses
-$queryPOP = mysqli_query($koneksi, "SELECT COUNT(id_po) AS jumlah FROM po WHERE status_po NOT BETWEEN 6 AND 10 AND status_po NOT IN (0, 1)");
+$queryPOP = mysqli_query($koneksi, "SELECT COUNT(id_po) AS jumlah FROM po WHERE status_po NOT BETWEEN 6 AND 10 AND status_po NOT IN (0, 1, 88)");
 $dataPOP = mysqli_fetch_assoc($queryPOP);
 
 // Po proses

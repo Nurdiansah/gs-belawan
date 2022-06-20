@@ -331,7 +331,12 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN 11%</label>
+                                        <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN
+                                            <select name="pilih_ppn" id="setppn">
+                                                <option value="0.11">11%</option>
+                                                <option value="0.1">10%</option>
+                                            </select>
+                                        </label>
                                         <div class="col-sm-1">
                                             <input type="checkbox" name="all" id="myCheck" onclick="checkBox()">
                                         </div>
@@ -579,8 +584,31 @@ $totalReapp = mysqli_num_rows($queryReapp);
     // Cek PPH
     var id_pph = '<?= $data2['id_pph']; ?>';
     var jenis = '<?= $data2['jenis']; ?>';
+    let dpp = nilaiBarang + nilaiJasa;
 
-    console.log(id_pph);
+    let persentasePpn = np / dpp;
+
+    // set ppn default 11%
+    let setPpn = 0.11;
+    if (np != 0 && dpp != 0) {
+
+        $('#setppn').val(persentasePpn);
+
+        setPpn = persentasePpn;
+    }
+
+    // jika ada perubahan ppn
+    $('#setppn').on('change', function() {
+        let ppnTemp = parseFloat(this.value);
+
+        if (setPpn != ppnTemp) {
+            setPpn = ppnTemp;
+            // cek terlebih dahulu apakah checkbox nya ini aktif
+            checkBox();
+
+        }
+
+    });
 
 
 
@@ -714,63 +742,110 @@ $totalReapp = mysqli_num_rows($queryReapp);
         }
     }
 
+    function hitungCheckBox(angkaPpn) {
+        var nilaiJasa = parseInt($("#nilai_jasa").val())
+        var pph_persen = parseInt($("#pph_persen").val())
+        var pph_nilai = Math.floor(nilaiJasa * pph_persen / 100);
+        var pph_nilaia = tandaPemisahTitik(pph_nilai);
+        $("#pph").attr("value", pph_nilaia);
+        document.form.pph_nilai.value = pph_nilaia;
+
+
+        var nilaiBarang = parseInt($("#nilai_barang").val())
+        var biayaLain = parseInt($("#biaya_lain").val())
+
+        var checkBox = document.getElementById("myCheck");
+        if (checkBox.checked == true) {
+            var ppn_nilai = Math.floor(angkaPpn * (nilaiBarang + nilaiJasa));
+        } else if (checkBox.checked == false) {
+            var ppn_nilai = 0;
+        }
+
+        var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
+        $("#ppn").attr("value", ppn_nilaia);
+        document.form.ppn_nilai.value = ppn_nilaia;
+
+        var pph_nilai2 = parseInt($("#pph_nilai2").val())
+
+        var jmla = nilaiBarang + nilaiJasa + ppn_nilai - pph_nilai - pph_nilai2 + biayaLain;
+        var jml = tandaPemisahTitik(jmla);
+        $("#jml").attr("value", jml);
+        document.form.jml.value = jml;
+    }
+
+    // function checkBox() {
+    //     var checkBox = document.getElementById("myCheck");
+    //     if (checkBox.checked == true) {
+
+    //         $("#bgn-pembulatan").show();
+
+    //         // $("#pembulatan").val('kebawah');
+
+    //         var nilaiJasa = parseInt($("#nilai_jasa").val())
+    //         var pph_persen = parseInt($("#pph_persen").val())
+    //         var pph_nilai = Math.floor(nilaiJasa * pph_persen / 100);
+    //         var pph_nilaia = tandaPemisahTitik(pph_nilai);
+    //         $("#pph").attr("value", pph_nilaia);
+    //         document.form.pph_nilai.value = pph_nilaia;
+
+
+    //         var nilaiBarang = parseInt($("#nilai_barang").val())
+    //         var biayaLain = parseInt($("#biaya_lain").val())
+
+    //         var ppn_nilai = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
+    //         var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
+    //         $("#ppn").attr("value", ppn_nilaia);
+    //         document.form.ppn_nilai.value = ppn_nilaia;
+
+    //         var pph_nilai2 = parseInt($("#pph_nilai2").val())
+
+    //         var jmla = nilaiBarang + nilaiJasa + ppn_nilai - pph_nilai - pph_nilai2 + biayaLain;
+    //         var jml = tandaPemisahTitik(jmla);
+    //         $("#jml").attr("value", jml);
+    //         document.form.jml.value = jml;
+
+    //     } else if (checkBox.checked == false) {
+
+    //         $("#bgn-pembulatan").hide();
+
+    //         var nilaiJasa = parseInt($("#nilai_jasa").val())
+    //         var pph_persen = parseInt($("#pph_persen").val())
+    //         var pph_nilai = Math.floor(nilaiJasa * pph_persen / 100);
+    //         var pph_nilaia = tandaPemisahTitik(pph_nilai);
+    //         $("#pph").attr("value", pph_nilaia);
+    //         document.form.pph_nilai.value = pph_nilaia;
+
+
+    //         var nilaiBarang = parseInt($("#nilai_barang").val())
+    //         var biayaLain = parseInt($("#biaya_lain").val())
+
+    //         var ppn_nilai = 0;
+    //         var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
+    //         $("#ppn").attr("value", ppn_nilaia);
+    //         document.form.ppn_nilai.value = ppn_nilaia;
+
+    //         var pph_nilai2 = parseInt($("#pph_nilai2").val())
+
+    //         var jmla = nilaiBarang + nilaiJasa + ppn_nilai - pph_nilai - pph_nilai2 + biayaLain;
+    //         var jml = tandaPemisahTitik(jmla);
+    //         $("#jml").attr("value", jml);
+    //         document.form.jml.value = jml;
+    //     }
+    // }
+
     function checkBox() {
         var checkBox = document.getElementById("myCheck");
         if (checkBox.checked == true) {
 
             $("#bgn-pembulatan").show();
 
-            // $("#pembulatan").val('kebawah');
-
-            var nilaiJasa = parseInt($("#nilai_jasa").val())
-            var pph_persen = parseInt($("#pph_persen").val())
-            var pph_nilai = Math.floor(nilaiJasa * pph_persen / 100);
-            var pph_nilaia = tandaPemisahTitik(pph_nilai);
-            $("#pph").attr("value", pph_nilaia);
-            document.form.pph_nilai.value = pph_nilaia;
-
-
-            var nilaiBarang = parseInt($("#nilai_barang").val())
-            var biayaLain = parseInt($("#biaya_lain").val())
-
-            var ppn_nilai = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
-            var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
-            $("#ppn").attr("value", ppn_nilaia);
-            document.form.ppn_nilai.value = ppn_nilaia;
-
-            var pph_nilai2 = parseInt($("#pph_nilai2").val())
-
-            var jmla = nilaiBarang + nilaiJasa + ppn_nilai - pph_nilai - pph_nilai2 + biayaLain;
-            var jml = tandaPemisahTitik(jmla);
-            $("#jml").attr("value", jml);
-            document.form.jml.value = jml;
+            hitungCheckBox(setPpn);
 
         } else if (checkBox.checked == false) {
 
             $("#bgn-pembulatan").hide();
 
-            var nilaiJasa = parseInt($("#nilai_jasa").val())
-            var pph_persen = parseInt($("#pph_persen").val())
-            var pph_nilai = Math.floor(nilaiJasa * pph_persen / 100);
-            var pph_nilaia = tandaPemisahTitik(pph_nilai);
-            $("#pph").attr("value", pph_nilaia);
-            document.form.pph_nilai.value = pph_nilaia;
-
-
-            var nilaiBarang = parseInt($("#nilai_barang").val())
-            var biayaLain = parseInt($("#biaya_lain").val())
-
-            var ppn_nilai = 0;
-            var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
-            $("#ppn").attr("value", ppn_nilaia);
-            document.form.ppn_nilai.value = ppn_nilaia;
-
-            var pph_nilai2 = parseInt($("#pph_nilai2").val())
-
-            var jmla = nilaiBarang + nilaiJasa + ppn_nilai - pph_nilai - pph_nilai2 + biayaLain;
-            var jml = tandaPemisahTitik(jmla);
-            $("#jml").attr("value", jml);
-            document.form.jml.value = jml;
+            hitungCheckBox(setPpn);
         }
     }
 

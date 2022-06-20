@@ -19,8 +19,8 @@
          <a href="#" class="list-group-item active">
            Biaya Umum
          </a>
-         <!-- <a href="index.php?p=buat_biayanonops" class="list-group-item"> <i class="fa fa-edit"></i> Create <span class="badge label-danger"></span></a> -->
-         <a href="#" onClick="alert('Untuk Biaya Umum saat ini bisa langsung melalui Kasir\n\nDengan memberikan Invoice & Kode Anggarannya.')" class="list-group-item"> <i class="fa fa-edit"></i> Create <span class="badge label-danger"></span></a>
+         <a href="index.php?p=buat_biayanonops" class="list-group-item"> <i class="fa fa-edit"></i> Create <span class="badge label-danger"></span></a>
+         <!-- <a href="#" onClick="alert('Untuk Biaya Umum saat ini bisa langsung melalui Kasir\n\nDengan memberikan Invoice & Kode Anggarannya.')" class="list-group-item"> <i class="fa fa-edit"></i> Create <span class="badge label-danger"></span></a> -->
          <a href="index.php?p=proses_biayanonops" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"><?php if ($dataProses['jumlah_proses'] >= 1) {
                                                                                                                                                   echo $dataProses['jumlah_proses'];
                                                                                                                                                 } ?></span> </a>

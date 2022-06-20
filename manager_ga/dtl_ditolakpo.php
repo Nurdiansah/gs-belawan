@@ -29,7 +29,7 @@ $query =  mysqli_query($koneksi, "SELECT * FROM biaya_ops bo
                                             ON p.kd_transaksi = bo.kd_transaksi
                                             JOIN detail_biayaops dbo
                                             ON p.id_dbo = dbo.id
-                                            JOIN tolak_po
+                                            LEFT JOIN tolak_po
                                             ON id_po = po_id
                                             WHERE p.id_po ='$id' ");
 $data2 = mysqli_fetch_assoc($query);

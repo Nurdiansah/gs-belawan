@@ -382,8 +382,8 @@ $dataTolakBKM = mysqli_fetch_assoc($queryTolakBKM);
               <span>Biaya Umum</span> <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-              <!-- <li><a href="index.php?p=buat_biayanonops"><i class="fa fa-edit"></i> Create</a></li> -->
-              <li><a href="#" onClick="alert('Untuk Biaya Umum saat ini bisa langsung melalui Kasir\n\nDengan memberikan Invoice & Kode Anggarannya.')"><i class="fa fa-edit"></i> Create</a></li>
+              <li><a href="index.php?p=buat_biayanonops"><i class="fa fa-edit"></i> Create</a></li>
+              <!-- <li><a href="#" onClick="alert('Untuk Biaya Umum saat ini bisa langsung melalui Kasir\n\nDengan memberikan Invoice & Kode Anggarannya.')"><i class="fa fa-edit"></i> Create</a></li> -->
               <?php if ($dataProses['jumlah_proses'] >= 1) { ?>
                 <span class="pull-right-container">
                   <span class="label label-info pull-right"><?= $dataProses['jumlah_proses']; ?></span>

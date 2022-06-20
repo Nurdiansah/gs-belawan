@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\Exception;
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
-$queryMail = mysqli_query($koneksi, "SELECT * FROM queue_email ORDER BY created_at ASC");
+$queryMail = mysqli_query($koneksi, "SELECT * FROM queue_email ORDER BY created_at ASC LIMIT 10");
 $totalMail = mysqli_num_rows($queryMail);
 
 mysqli_query($koneksi, "DELETE FROM gs.queue_email WHERE address_email IN ('indra@ekanuri.com', 'wildan@ekanuri.com', 'roy@grahasegara.com')");
@@ -32,15 +32,15 @@ if ($totalMail > 0) {
 		//Set this to true if SMTP host requires authentication to send email
 		$mail->SMTPAuth = true;
 		//Provide username and password     
-		$mail->Username = "system.ekanuri@gmail.com";		//nama-email smtp          
-		$mail->Password = base64_decode("U3lzdGVtMTM1Nzk=");		//password email smtp
+		$mail->Username = "develop@ekanuri.com";		//nama-email smtp          
+		$mail->Password = base64_decode("VlcxR2RGbHRPSGhOZWxVelQxRTlQUT09");		//password email smtp
 		//If SMTP requires TLS encryption then set it
 		$mail->SMTPSecure = "tls";
 		//Set TCP port to connect to 
 		$mail->Port = 587;
 
-		$mail->From = "system.ekanuri@gmail.com";		//email pengirim
-		$mail->FromName = "System Ekanuri (No Reply)";		//nama pengirim
+		$mail->From = "develop@ekanuri.com";		//email pengirim
+		$mail->FromName = "Develop Ekanuri";		//nama pengirim
 
 		$mail->addAddress($dataMail['address_email'], $dataMail['name_email']);		//email penerima
 
