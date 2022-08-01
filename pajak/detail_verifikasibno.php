@@ -101,6 +101,7 @@ if (isset($_POST['simpan'])) {
     $queue = "berhasil";
 } else if (isset($_POST['submit'])) {
 
+    
     $id_bkk = $_POST['id_bkk'];
     $id_pph = $_POST['id_pph'];
     $nilai_baranga = $_POST['nilai_barang'];
@@ -116,6 +117,8 @@ if (isset($_POST['simpan'])) {
     $jml_bkk = str_replace(".", "", $jml_bkka);
     $terbilang_bkk = Terbilang($jml_bkk);
     $potongan = penghilangTitik($_POST['potongan']);
+
+    
 
     // BEGIN TRAN, mysql
     mysqli_begin_transaction($koneksi);
@@ -221,6 +224,8 @@ if (isset($_POST['simpan'])) {
         #jika ada query yang gagal
         mysqli_rollback($koneksi);
 
+
+
         setcookie('pesan', 'Biaya Umum gagal di Approve!<br>' . mysqli_error($koneksi) . '', time() + (3), '/');
         setcookie('warna', 'alert-danger', time() + (3), '/');
     }
@@ -291,7 +296,7 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
                     <h3 class="text-center">Verifikasi Biaya Non OPS</h3>
                 </div>
 
-                <form method="post" enctype="multipart/form-data" action="approval.php" class="form-horizontal">
+                <form class="form-horizontal">
                     <div class="box-body">
 
                         <div class="form-group ">

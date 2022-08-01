@@ -31,7 +31,7 @@ $query =  mysqli_query($koneksi, "SELECT * FROM biaya_ops bo
                                             ON p.id_dbo = dbo.id
                                             JOIN anggaran a
                                             ON dbo.id_anggaran = a.id_anggaran
-                                            JOIN pph pp
+                                            LEFT JOIN pph pp
                                             ON p.id_pph = pp.id_pph
                                             WHERE p.id_po ='$id' ");
 $data2 = mysqli_fetch_assoc($query);
@@ -226,14 +226,17 @@ $rowR = mysqli_fetch_assoc($queryRealisasi);
                         </div>
                     </div>
                 <?php } else { ?>
-                    <h3 class="text-center">Foto Barang</h3>
-                    <br>
-                    <div class="row ">
-                        <div class="col-sm-offset-2">
-                            <img src="../file/foto/<?= $data2['foto_item']; ?>" width="80%" alt="...">
-                            <!-- <h5 class="text-center">Tidak Ada Foto</h5> -->
+                    <div class="box-header with-border">
+                        <h3 class="text-center">Foto Barang</h3>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="../file/foto/<?php echo $data2['foto_item']; ?> "></iframe>
                         </div>
                     </div>
+                    <!-- <div class="row ">
+                        <div class="col-sm-offset-2">
+                            <img src="../file/foto/<?= $data2['foto_item']; ?>" width="80%" alt="...">
+                        </div>
+                    </div> -->
                 <?php } ?>
                 <br>
                 <!-- Embed Document -->
