@@ -65,6 +65,62 @@ if (isset($_POST['verifikasi'])) {
         echo "Ada error brayy " . mysqli_error($koneksi);
     }
 }
+
+
+// controller delete
+if (isset($_POST['delete'])) {
+    $id_refill = $_POST['id'];
+    mysqli_begin_transaction($koneksi);
+
+    $return = mysqli_query($koneksi, "DELETE FROM refill_funds WHERE id_refill = '$id_refill'");
+
+    if ($return) {
+
+        $del_lpj = $_POST['doc_pendukung'];
+        if (isset($del_lpj)) {
+            unlink("../file/doc_pendukung/$del_lpj");
+        }
+
+
+        mysqli_commit($koneksi);
+
+        setcookie('pesan', 'Refill Fund Berhasil di hapus!', time() + (3), '/');
+        setcookie('warna', 'alert-success', time() + (3), '/');
+    } else {
+
+        mysqli_rollback($koneksI);
+        setcookie('pesan', 'Refill Fund gagal di hapus!', time() + (3), '/');
+        setcookie('warna', 'alert-danger', time() + (3), '/');
+    }
+
+    header("location:index.php?p=refill_proses");
+}
+
+// controller release
+if (isset($_POST['release'])) {
+    $id_refill = $_POST['id'];
+    mysqli_begin_transaction($koneksi);
+
+    $return = mysqli_query($koneksi, "UPDATE refill_funds SET status = '1' WHERE id_refill = '$id_refill'");
+
+    $hapusKomentar = mysqli_query($koneksi, "DELETE FROM tolak_refill WHERE refill_id = '$id_refill'");
+
+    if ($return) {
+
+        mysqli_commit($koneksi);
+
+        setcookie('pesan', 'Refill Fund Berhasil di release!', time() + (3), '/');
+        setcookie('warna', 'alert-success', time() + (3), '/');
+    } else {
+
+        mysqli_rollback($koneksi);
+        setcookie('pesan', 'Refill Fund gagal di release!', time() + (3), '/');
+        setcookie('warna', 'alert-danger', time() + (3), '/');
+    }
+
+    header("location:index.php?p=refill_proses");
+}
+
 ?>
 <!-- Main content -->
 <section class="content">
@@ -123,12 +179,17 @@ if (isset($_POST['verifikasi'])) {
                                                     <button type="button" class="btn btn-success modalRelease" data-toggle="modal" data-target="#verifikasiRefill_<?= $row['id_refill']; ?>" data-id="<?= $row['id_refill']; ?>"><i class="fa fa-check-square-o"></i> Verifikasi</button>
                                                 <?php } elseif ($row['status'] == '5' && $row['jenis'] == "kas_besar") {
                                                     echo "<span class='label label-info'>Verifikasi Kasir Jakarta</span>";
-                                                }
-                                                if ($row['status'] == 0) { ?>
-                                                    <a href="index.php?p=refill_edit&id=<?= enkripRambo($row['id_refill']) ?>"><button type="button" class="btn btn-success"><i class="fa fa-edit"></i> </button></a>
-                                                    <button type="button" class="btn btn-danger modalHapus" data-toggle="modal" data-target="#deleteRefill" data-id="<?= $row['id_refill']; ?>"><i class="fa fa-trash"></i> </button>
-                                                    <button type="button" class="btn btn-warning modalRelease" data-toggle="modal" data-target="#releaseRefill" data-id="<?= $row['id_refill']; ?>"><i class="fa fa-rocket"></i> Release</button>
-                                                <?php  } ?>
+                                                } elseif ($row['status'] == 101) { ?>
+                                                    <span class='label label-danger'>Ditolak Cost Control</span><br><br>
+                                                    <a href="index.php?p=refill_tolak&id=<?= enkripRambo($row['id_refill']) ?>"><button type="button" class="btn btn-success" title="Edit"><i class="fa fa-edit"></i> </button></a>
+                                                    <button type="button" class="btn btn-danger modalHapus" data-toggle="modal" data-target="#deleteRefill" data-id="<?= $row['id_refill']; ?>" title="Delete"><i class="fa fa-trash"></i> </button>
+                                                    <button type="button" class="btn btn-warning modalRelease" data-toggle="modal" data-target="#releaseRefill" data-id="<?= $row['id_refill']; ?>" title="Release"><i class="fa fa-rocket"></i> </button>
+                                                <?php } elseif ($row['status'] == 202) { ?>
+                                                    <span class='label label-danger'>Ditolak Manager</span><br><br>
+                                                    <a href="index.php?p=refill_tolak&id=<?= enkripRambo($row['id_refill']) ?>"><button type="button" class="btn btn-success" title="Edit"><i class="fa fa-edit"></i> </button></a>
+                                                    <button type="button" class="btn btn-danger modalHapus" data-toggle="modal" data-target="#deleteRefill" data-id="<?= $row['id_refill']; ?>" title="Delete"><i class="fa fa-trash"></i> </button>
+                                                    <button type="button" class="btn btn-warning modalRelease" data-toggle="modal" data-target="#releaseRefill" data-id="<?= $row['id_refill']; ?>" title="Release"><i class="fa fa-rocket"></i> </button>
+                                                <?php } ?>
                                             </td>
                                 </tr>
 
@@ -200,6 +261,73 @@ if (isset($_POST['verifikasi'])) {
         Fitur Refill Fund masih on progress !
     </div> -->
 </section>
+
+<!-- Modal hapus -->
+<div id="deleteRefill" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- konten modal-->
+        <div class="modal-content">
+            <!-- heading modal -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Konfirmasi</h4>
+            </div>
+            <!-- body modal -->
+            <div class="modal-body">
+                <div class="perhitungan">
+                    <form method="post" name="form" enctype="multipart/form-data" action="" class="form-horizontal">
+                        <div class="box-body">
+                            <input type="hidden" name="id" value="" id="md_id">
+                            <input type="hidden" name="doc_pendukung" value="" id="md_doc_pendukung">
+                            <h4>Apakah anda yakin ingin menghapus Refill fund ini <b><span id="md_keterangan"></b> ?</span></h4>
+                            <div class=" modal-footer">
+                                <button class="btn btn-danger" type="submit" name="delete"><i class="fa fa-trash"></i> Delete</button></span></a>
+
+                                <button class="btn btn-success" type="reset" data-dismiss="modal"><i class="fa fa-refresh"></i> Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- div perhitungan -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End hapus -->
+
+<!-- Akhir modal hapus -->
+
+<!-- Modal Release -->
+<div id="releaseRefill" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- konten modal-->
+        <div class="modal-content">
+            <!-- heading modal -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Konfirmasi</h4>
+            </div>
+            <!-- body modal -->
+            <div class="modal-body">
+                <div class="perhitungan">
+                    <form method="post" name="form" enctype="multipart/form-data" action="" class="form-horizontal">
+                        <div class="box-body">
+                            <input type="hidden" name="id" value="" id="mr_id">
+                            <h4>Apakah anda yakin ingin merelease Refill fund ini <b><span id="mr_keterangan"></b> ?</span></h4>
+                            <div class=" modal-footer">
+                                <button class="btn btn-warning" type="submit" name="release"><i class="fa fa-rocket"></i> Release</button></span></a>
+
+                                <button class="btn btn-default" type="reset" data-dismiss="modal"><i class="fa fa-refresh"></i> Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- div perhitungan -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Release -->
 
 
 <?php
@@ -284,6 +412,53 @@ $host = host();
     $(function() {
         bs_input_file();
     });
+
+    // Modal Delete
+    $(function() {
+        $('.modalHapus').on('click', function() {
+
+            const id = $(this).data('id');
+
+            $.ajax({
+                url: host + 'api/refill/get_refill.php',
+                data: {
+                    id: id
+                },
+                method: 'post',
+                dataType: 'json',
+                success: function(data) {
+                    // console.log(data.doc_pendukung);
+                    $('#md_id').val(data.id_refill);
+                    $('#md_keterangan').text(data.keterangan);
+                    $('#md_doc_pendukung').val(data.doc_pendukung);
+                }
+            });
+        });
+    });
+
+    // modal release
+    $(function() {
+        $('.modalRelease').on('click', function() {
+
+            const id = $(this).data('id');
+
+            $.ajax({
+                url: host + 'api/refill/get_refill.php',
+                data: {
+                    id: id
+                },
+                method: 'post',
+                dataType: 'json',
+                success: function(data) {
+                    // console.log(data);
+                    $('#mr_id').val(data.id_refill);
+                    $('#mr_keterangan').text(data.keterangan);
+                }
+            });
+        });
+    });
+    // end
+
 
     function formatRibuan(angka) {
         var reverse = angka.toString().split('').reverse().join(''),

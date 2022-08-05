@@ -72,7 +72,7 @@ if (isset($_POST['reject'])) {
 
     // deklarasi
     $id_refill  = $_POST['id_refill'];
-    $komentar  = $Nama . " : " . $_POST['komentar'];
+    $komentar  = "@" . $Nama . " : " . $_POST['komentar'];
     $date  = dateNow();
 
     mysqli_begin_transaction($koneksi);

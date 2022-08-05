@@ -161,6 +161,15 @@ $dataAR = mysqli_fetch_assoc($queryAR);
 $queryBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm = '2'");
 $dataBKM = mysqli_fetch_assoc($queryBKM);
 
+$queryProsesRefill = mysqli_query($koneksi, "SELECT COUNT(id_refill) as jumlah FROM refill_funds WHERE status IN ('2', '3', '4', '5')");
+$dataProsesRefill = mysqli_fetch_assoc($queryProsesRefill);
+
+$queryProsesBno = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk IN ('6', '7', '8', '9')");
+$dataProsesBno = mysqli_fetch_assoc($queryProsesBno);
+
+$queryProsesBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm IN ('3', '4', '5')");
+$dataProsesBKM = mysqli_fetch_assoc($queryProsesBKM);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -380,11 +389,11 @@ $dataBKM = mysqli_fetch_assoc($queryBKM);
                 </span>
               <?php } ?>
               <li><a href="index.php?p=approval_mr"><i class="fa fa-check-square-o"></i> Approval</a></li>
-              <?php if ($dataPMR['jumlah'] >= 1) { ?>
+              <!-- <?php if ($dataPMR['jumlah'] >= 1) { ?>
                 <span class="pull-right-container">
                   <span class="label label-info pull-right"><?= $dataPMR['jumlah']; ?></span>
                 </span>
-              <?php } ?>
+              <?php } ?> -->
               <li><a href="index.php?p=proses_mr"><i class="fa fa-spinner"></i> Proses </a></li>
             </ul>
           </li>

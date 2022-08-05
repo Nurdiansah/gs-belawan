@@ -84,7 +84,7 @@ $data = mysqli_fetch_assoc($query);
 
 
 <section class="content">
-    <a href="index.php?p=verifikasi_refill" class="btn btn-primary"><i class="fa fa-backward"></i> Kembali</a>
+    <a href="index.php?p=proses_refill" class="btn btn-primary"><i class="fa fa-backward"></i> Kembali</a>
     <br><br>
     <div class="row">
 
@@ -150,9 +150,9 @@ $data = mysqli_fetch_assoc($query);
         <!--  -->
     </div>
 
-    <button type="button" class="btn btn-primary col-sm-offset-10" data-toggle="modal" data-target="#approve"><i class="fa fa-check"></i> Approve </button></span></a>
+    <!-- <button type="button" class="btn btn-primary col-sm-offset-10" data-toggle="modal" data-target="#approve"><i class="fa fa-check"></i> Approve </button></span></a>
     &nbsp;
-    <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#tolak"> <i class="fa fa-reply"></i> Reject </button></span></a>
+    <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#tolak"> <i class="fa fa-reply"></i> Reject </button></span></a> -->
 </section>
 
 <!-- Approved tanpa persetujuan direktur -->

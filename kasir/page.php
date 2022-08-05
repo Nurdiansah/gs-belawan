@@ -147,4 +147,6 @@ if ($page == 'formpesan') {
     include_once "detail_biayaumum.php";
 } else if ($page == "refill_transaksi") {
     include_once "refill_transaksi.php";
+} else if ($page == "refill_tolak") {
+    include_once "refill_tolak.php";
 }

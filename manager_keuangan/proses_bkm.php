@@ -3,10 +3,50 @@ include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
 $queryBKM = mysqli_query($koneksi, "SELECT * FROM bkm b
-                                    JOIN bkk_final
-                                        ON id_kdtransaksi = id_bkm
-                                    WHERE status_bkm IN ('5')");
+                                    JOIN anggaran a
+                                        ON a.id_anggaran = b.id_anggaran
+                                    JOIN divisi c
+                                        ON b.id_divisi = c.id_divisi
+                                    WHERE status_bkm IN ('3', '4')");
 
+if (isset($_POST['verifikasi'])) {
+    $id_bkm = $_POST['id_bkm'];
+
+    // buat ngambil data anggaran
+    $cekBKM = mysqli_query($koneksi, "SELECT * FROM bkm WHERE id_bkm = '$id_bkm'");
+    $cekData = mysqli_fetch_assoc($cekBKM);
+    $nominal = $cekData['nominal'];
+    $tgl_bkm = $cekData['tgl_bkm'];
+    $id_anggaran = $cekData['id_anggaran'];
+
+    mysqli_begin_transaction($koneksi);
+
+    $verifikasi = mysqli_query($koneksi, "UPDATE bkm SET status_bkm = '3', app_costcontrol = NOW()
+                                            WHERE id_bkm = '$id_bkm'
+                        ");
+
+
+    if ($verifikasi) {
+        mysqli_commit($koneksi);
+    } else {
+        mysqli_rollback($koneksi);
+        echo mysqli_error($koneksi);
+    }
+    header("Location: index.php?p=verifikasi_bkm");
+}
+
+if (isset($_POST['tolak'])) {
+    $id_bkm = $_POST['id_bkm'];
+    $komentar = "@" . $Nama . " : " . $_POST['komentar'];
+
+    $reject = mysqli_query($koneksi, "UPDATE bkm SET status_bkm = '101', komentar_costcontrol = '$komentar'
+                                        WHERE id_bkm = '$id_bkm'
+                ");
+
+    if ($reject) {
+        header("Location: index.php?p=verifikasi_bkm");
+    }
+}
 
 $no = 1;
 
@@ -22,19 +62,19 @@ $totalBKM = mysqli_num_rows($queryBKM);
                 <div class="col-sm-offset-11">
                     <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#buat"><i class="fa fa-edit"></i> Buat </button></span></a> -->
                 </div>
-                <h3 class="text-center">Transaksi Bukti Kas Masuk</h3>
+                <h3 class="text-center">Proses Bukti Kas Masuk</h3>
                 <div class="box-body">
-                    <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal" id="">
+                    <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
                         <div class="table-responsive">
                             <table class="table text-center table table-striped table-hover" id="<?= $totalBKM > 0 ? 'material' : ''; ?>">
                                 <thead>
                                     <tr style="background-color :#B0C4DE;">
                                         <th>No</th>
                                         <th>Tanggal</th>
-                                        <th>Nomor BKK</th>
                                         <th>Keterangan</th>
                                         <th>Kode Anggaran</th>
                                         <th>Nominal</th>
+                                        <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -42,11 +82,17 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                     <?php while ($dataBKM = mysqli_fetch_assoc($queryBKM)) { ?>
                                         <tr>
                                             <td><?= $no; ?></td>
-                                            <td><?= formatTanggal($dataBKM['created_on_bkk']); ?></td>
-                                            <td><?= $dataBKM['no_bkk']; ?></td>
+                                            <td><?= formatTanggal($dataBKM['tgl_bkm']); ?></td>
                                             <td><?= $dataBKM['keterangan']; ?></td>
                                             <td><?= kodeAnggaran($dataBKM['id_anggaran']); ?>]</td>
-                                            <td><?= formatRupiah($dataBKM['nominal']); ?></td>
+                                            <td><?= formatRupiah($dataBKM['grand_total']); ?></td>
+                                            <td>
+                                                <?php if ($dataBKM['status_bkm'] == "3") { ?>
+                                                    <span class="label label-primary">Verifikasi Manager</span>
+                                                <?php } elseif ($dataBKM['status_bkm'] == "4") { ?>
+                                                    <span class="label label-warning">Verifikasi Kasir Jakarta</span>
+                                                <?php } ?>
+                                            </td>
                                             <td>
                                                 <button type="button" class="btn btn-info " data-toggle="modal" data-target="#lihat_<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-search" title="Lihat" data-toggle="tooltip"></i></button>
                                                 <!-- <button type="button" class="btn btn-success " data-toggle="modal" data-target="#verifikasi_<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-check-square" title="Verifikasi" data-toggle="tooltip"></i></button>
@@ -103,12 +149,12 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                                                             <input type="text" class="form-control text-right" value="<?= formatRupiah($dataBKM['nilai_pph']); ?>" readonly>
                                                                         </div>
                                                                     </div> -->
-                                                                    <!-- <div class="form-group ">
+                                                                    <div class="form-group ">
                                                                         <label for="id_anggaran" class="col-sm-2 control-label">Divisi</label>
                                                                         <div class="col-sm-9">
                                                                             <input type="text" class="form-control text-right" value="<?= $dataBKM['nm_divisi']; ?>" readonly>
                                                                         </div>
-                                                                    </div> -->
+                                                                    </div>
                                                                     <div class="mb-3">
                                                                         <div class="form-group">
                                                                             <label for="validationTextarea" class="col-sm-2 control-label">Keterangan</label>

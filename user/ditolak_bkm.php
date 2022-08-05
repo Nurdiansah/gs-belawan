@@ -13,6 +13,9 @@ $queryBKM = mysqli_query($koneksi, "SELECT * FROM bkm b
                                     WHERE status_bkm IN ('101', '202', '303')
                                     AND b.id_divisi = '$idDivisi'");
 $no = 1;
+
+$totalBKM = mysqli_num_rows($queryBKM);
+
 // query create BKM
 if (isset($_POST['buat'])) {
     $id_anggaran = $_POST['id_anggaran'];
@@ -111,7 +114,7 @@ if (isset($_POST['release'])) {
                 <div class="box-body">
                     <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal" id="">
                         <div class="table-responsive">
-                            <table class="table text-center table table-striped table-hover">
+                            <table class="table text-center table table-striped table-hover" id="<?= $totalBKM > 0 ? 'material' : ''; ?>">
                                 <thead>
                                     <tr style="background-color :#B0C4DE;">
                                         <th>No</th>

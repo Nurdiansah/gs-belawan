@@ -50,6 +50,8 @@ if (isset($_POST['tolak'])) {
 
 $no = 1;
 
+$totalBKM = mysqli_num_rows($queryBKM);
+
 ?>
 
 <section class="content">
@@ -62,9 +64,9 @@ $no = 1;
                 </div>
                 <h3 class="text-center">Verifikasi Bukti Kas Masuk</h3>
                 <div class="box-body">
-                    <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal" id="material">
+                    <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
                         <div class="table-responsive">
-                            <table class="table text-center table table-striped table-hover">
+                            <table class="table text-center table table-striped table-hover" id="<?= $totalBKM > 0 ? 'material' : ''; ?>">
                                 <thead>
                                     <tr style="background-color :#B0C4DE;">
                                         <th>No</th>

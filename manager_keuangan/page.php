@@ -144,4 +144,14 @@ else if ($page == "po_proses") {
     include_once "verifikasi_drefill.php";
 } else if ($page == "verifikasi_bkm") {
     include_once "verifikasi_bkm.php";
+} else if ($page == "proses_refill") {
+    include_once "proses_refill.php";
+} else if ($page == "dtl_prosesrefill") {
+    include_once "dtl_prosesrefill.php";
+} else if ($page == "proses_bno") {
+    include_once "proses_bno.php";
+} else if ($page == "dtl_prosesbno") {
+    include_once "dtl_prosesbno.php";
+} else if ($page == "proses_bkm") {
+    include_once "proses_bkm.php";
 }
