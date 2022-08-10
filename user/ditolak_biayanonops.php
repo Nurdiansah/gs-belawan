@@ -34,8 +34,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM bkk
                                 <th>Tanggal Pengajuan</th>
                                 <th>Keterangan</th>
                                 <th>Alasan Ditolak</th>
-                                <th>Alasan Manager Fin</th>
-                                <th>Alasan Direktur</th>
+                                <th>Alasan Ditolak Cost Control</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -54,7 +53,6 @@ $query = mysqli_query($koneksi, "SELECT * FROM bkk
                                         <td> <?= $row['keterangan']; ?> </td>
                                         <td> <?= $row['komentar']; ?> </td>
                                         <td> <?= $row['komentar_mgrfin']; ?> </td>
-                                        <td> <?= $row['komentar_direktur']; ?> </td>
                                         <td>
                                             <a href="releaselagi_biayanonops.php?id=<?= $row['id_bkk']; ?>" onclick="return confirm('Yakin ajukan kembali pengajuan <?= $row['keterangan']; ?>?')" class="btn btn-warning" title="Release Kembali" data-placement="top" data-toggle="tooltip"><i class="fa fa-rocket"></i></a>
                                             <a href="index.php?p=rubah_biayanonops&id=<?= enkripRambo($row['id_bkk']); ?>&pg=<?= enkripRambo("ditolak_biayanonops"); ?>" class="btn btn-success" title="Rubah" data-placement="top" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>

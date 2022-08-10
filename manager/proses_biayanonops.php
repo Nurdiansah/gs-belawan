@@ -22,7 +22,11 @@ $query = mysqli_query($koneksi, "SELECT *
                                             FROM bkk b
                                             JOIN divisi d
                                             ON d.id_divisi = b.id_divisi
-                                            WHERE b.status_bkk>='2' AND b.status_bkk<='9' AND b.id_manager='$idUser' ORDER BY b.kd_transaksi DESC  ");
+                                            WHERE b.status_bkk>='2' AND b.status_bkk<='9'
+                                            AND b.status_bkk NOT IN ('101', '202')
+                                            AND b.id_manager='$idUser'
+                                            ORDER BY b.kd_transaksi DESC
+                            ");
 
 
 ?>
@@ -79,15 +83,13 @@ $query = mysqli_query($koneksi, "SELECT *
                                                     echo "<h4><span class='label label-primary'> Approval GM Finance </span></h4>";
                                                 } else if ($row['status_bkk'] == '8') {
                                                     echo "<h4><span class='label label-primary'> Approval Direksi </span></h4>";
-                                                } else if ($row['status_bkk'] == 404) { ?>
-                                                <span class="label label-danger">Ditolak Direktur </span>
-                                            <?php   } else if ($row['status_bkk'] == 303) { ?>
-                                                <span class="label label-danger">Ditolak Manager Finance</span>
-                                            <?php   } else if ($row['status_bkk'] == 202) { ?>
-                                                <span class="label label-danger">Ditolak Pajak</span>
-                                            <?php   } else if ($row['status_bkk'] == 101) { ?>
-                                                <span class="label label-danger">Ditolak Manager</span>
-                                            <?php   } else if ($row['status_bkk'] == 9) {
+                                                } else if ($row['status_bkk'] == 505) {
+                                                    echo "<h4><span class='label label-danger'> Ditolak GM Finance </span></h4>";
+                                                } else if ($row['status_bkk'] == 404) {
+                                                    echo "<h4><span class='label label-danger'> Ditolak Manager </span></h4>";
+                                                } else if ($row['status_bkk'] == 303) {
+                                                    echo "<h4><span class='label label-danger'> Ditolak Cost Control </span></h4>";
+                                                } else if ($row['status_bkk'] == 9) {
                                                     if ($row['jenis'] == 'umum') {
                                                         echo "<span class='label label-warning'>Proses Payment</span>";
                                                     } else {

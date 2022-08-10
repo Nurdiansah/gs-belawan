@@ -6,7 +6,7 @@ include "../fungsi/fungsi.php";
 
 if (isset($_POST['submit'])) {
     $id_po = $_POST['id_po'];
-    $id_direktur = $_POST['id_direktur'];
+    // $id_direktur = $_POST['id_direktur'];
 
     $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]' ");
     $rowUser = mysqli_fetch_assoc($queryUser);

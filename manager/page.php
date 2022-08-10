@@ -91,4 +91,6 @@ else if ($page == "approval_sr") {
     include_once "detail_sr.php";
 } else if ($page == "proses_sr") {
     include_once "proses_sr.php";
+} else if ($page == "proses_dkasbon_user") {
+    include_once "proses_dkasbon_user.php";
 }
