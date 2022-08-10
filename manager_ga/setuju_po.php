@@ -6,7 +6,7 @@ include "../fungsi/fungsi.php";
 
 if (isset($_GET['id'])) {
 	$id_po = $_GET['id'];
-
+	$free_approve = dekripRambo($_GET['free_approve']);
 
 	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]' ");
 	$rowUser = mysqli_fetch_assoc($queryUser);
@@ -17,10 +17,18 @@ if (isset($_GET['id'])) {
 
 	mysqli_begin_transaction($koneksi);
 
-	$query1 = mysqli_query($koneksi, "UPDATE po 
-										  SET status_po=4 , app_mgr_ga = '$tanggal' 
+	if ($free_approve == 1) {
+		$query1 = mysqli_query($koneksi, "UPDATE po 
+										  	SET status_po = 6, app_mgr_ga = '$tanggal',
+											  	app_mgr_finance = '$tanggal',
+												app_direksi = '$tanggal',
+												app_direksi2 = '$tanggal'
 										  WHERE id_po = '$id_po' ");
-
+	} else {
+		$query1 = mysqli_query($koneksi, "UPDATE po 
+										  	SET status_po = 4, app_mgr_ga = '$tanggal' 
+										  WHERE id_po = '$id_po' ");
+	}
 	$queryLog = "INSERT INTO log_system (waktu, nama_user, keterangan) VALUES
 									('$tanggal', '$nama', 'Selesai melakukan verifikasi PO id: $id_po');
 

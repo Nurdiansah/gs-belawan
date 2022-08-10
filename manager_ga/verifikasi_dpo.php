@@ -263,7 +263,7 @@ $dataReapp = mysqli_fetch_assoc($queryReapp);
                         <h4 class="text-center">Apakah anda yakin ingin menyetujui ?</h4>
                         <br>
                         <div class=" modal-footer">
-                            <a href="setuju_po.php?id=<?= $data2['id_po']; ?>"><span data-placement='top' data-toggle='tooltip' title='Approve'><button class="btn btn-primary">Yes</button></span></a>
+                            <a href="setuju_po.php?id=<?= $data2['id_po']; ?>&free_approve=<?= enkripRambo($data2['free_approve']); ?>"><span data-placement='top' data-toggle='tooltip' title='Approve'><button class="btn btn-primary">Yes</button></span></a>
                             &nbsp;
                             <input type="reset" class="btn btn-danger" data-dismiss="modal" value="No">
                         </div>

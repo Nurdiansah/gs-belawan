@@ -59,7 +59,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                 <thead>
                                     <tr style="background-color :#B0C4DE;">
                                         <th>No</th>
-                                        <table>Kode Pettycash</table>
+                                        <th>Kode Pettycash</th>
                                         <th>Tanggal</th>
                                         <th>Kode Anggaran</th>
                                         <th>Keterangan</th>
