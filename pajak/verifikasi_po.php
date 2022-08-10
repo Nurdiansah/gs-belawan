@@ -7,7 +7,7 @@ $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SE
 $rowUser = mysqli_fetch_assoc($queryUser);
 $idUser = $rowUser['id_user'];
 
-$query = mysqli_query($koneksi, "SELECT *, bf.id as id_bkk
+$query = mysqli_query($koneksi, "SELECT tgl_po, po_number, nm_divisi, total_po, bf.nominal as nominal, id_po, tp.id_tagihan, bf.id as id_bkk
                                     FROM bkk_final bf
                                     JOIN po po
                                         ON id_po = id_kdtransaksi
@@ -18,10 +18,11 @@ $query = mysqli_query($koneksi, "SELECT *, bf.id as id_bkk
                                     JOIN tagihan_po tp
                                         ON tp.bkk_id = bf.id
                                     WHERE pengajuan = 'PO'
-                                    AND status_bkk = '0' AND tp.status_tagihan = '2'
+                                    AND status_bkk = '0'
+                                    AND tp.status_tagihan = '2'
                                 union all
 
-                                SELECT *, bf.id as id_bkk
+                                SELECT tgl_po, po_number, nm_divisi, total_po, bf.nominal as nominal, id_po, tp.id_tagihan, bf.id as id_bkk
                                     FROM bkk_ke_pusat bf
                                     JOIN po po
                                         ON id_po = id_kdtransaksi
@@ -32,7 +33,8 @@ $query = mysqli_query($koneksi, "SELECT *, bf.id as id_bkk
                                     JOIN tagihan_po tp
                                         ON tp.bkk_id = bf.id
                                     WHERE pengajuan = 'PO'
-                                    AND status_bkk = '0' AND tp.status_tagihan = '2'
+                                    AND status_bkk = '0'
+                                    AND tp.status_tagihan = '2';
                 ");
 
 

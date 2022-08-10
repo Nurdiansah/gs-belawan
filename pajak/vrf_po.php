@@ -9,7 +9,8 @@ if (isset($_POST['submit'])) {
     $id_bkk = $_POST['id_bkk'];
     $id_tagihan = $_POST['id_tagihan'];
     $metode_pembayaran = $_POST['metode_pembayaran'];
-
+    $biaya_lain = $_POST['biaya_lain'];
+    
     $nilai_barang = $_POST['nilai_barang'];
     $nilai_jasa = $_POST['nilai_jasa'];
     $nilai_ppn = str_replace(".", "", $_POST['ppn_nilai']);
@@ -35,8 +36,8 @@ if (isset($_POST['submit'])) {
     if ($metode_pembayaran == 'Transfer') {
         // bkk ke pusat
         $updateBkkPusat = mysqli_query($koneksiPusat, "UPDATE bkk_final SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
-                                                                        nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
-                                                                        id_pph = '$id_pph', nominal = '$harga' , status_bkk = '1'
+                                                                        nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', biaya_lain = '$biaya_lain',
+                                                                        id_pph = '$id_pph', nominal = '$harga', status_bkk = '1'
                                                                     WHERE id_tagihan = '$id_tagihan' AND id_area = '2'
                                                                     ");
 
@@ -47,7 +48,7 @@ if (isset($_POST['submit'])) {
                 ");
     } else {
         $hasil = mysqli_query($koneksi, "UPDATE bkk_final SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
-                                nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
+                                nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', biaya_lain = '$biaya_lain',
                                 id_pph = '$id_pph', nominal = '$harga', status_bkk = '1'
                             WHERE id = '$id_bkk'
                 ");
@@ -87,6 +88,7 @@ if (isset($_POST['submit'])) {
     $nilai_ppn = str_replace(".", "", $_POST['ppn_nilai']);
     $id_pph = $_POST['id_pph'];
     $harga = str_replace(".", "", $_POST['jml']);
+    $biaya_lain = $_POST['biaya_lain'];
 
 
     if ($_POST['pph_nilai2'] == 0) {
@@ -107,7 +109,7 @@ if (isset($_POST['submit'])) {
     if ($metode_pembayaran == 'Transfer') {
         // bkk ke pusat
         $updateBkkPusat = mysqli_query($koneksiPusat, "UPDATE bkk_final SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
-                                                                            nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
+                                                                            nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', biaya_lain = '$biaya_lain',
                                                                             id_pph = '$id_pph', nominal = '$harga'
                                                                         WHERE id_tagihan = '$id_tagihan' AND id_area = '2'
                                                                         ");
@@ -120,7 +122,7 @@ if (isset($_POST['submit'])) {
                                                                         ");
     } else {
         // bkk 
-        $hasil = mysqli_query($koneksi, "UPDATE bkk_final SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+        $hasil = mysqli_query($koneksi, "UPDATE bkk_final SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , biaya_lain = '$biaya_lain',
                                                                         nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
                                                                         id_pph = '$id_pph', nominal = '$harga'
                                                                         WHERE id = '$id_bkk'

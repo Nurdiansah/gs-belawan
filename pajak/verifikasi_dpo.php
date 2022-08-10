@@ -363,7 +363,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                         <div class="col-sm-5">
                                             <div class="input-group">
                                                 <span class="input-group-addon">Rp.</span>
-                                                <input type="text" required class="form-control" value="<?= round($data2['biaya_lain']) ?>" name="biaya_lain" id="biaya_lain" autocomplete="off" />
+                                                <input type="text" required class="form-control" value="<?= round($data2['biaya_lain']); ?>" name="biaya_lain" id="biaya_lain" autocomplete="off" />
                                             </div>
                                             <i><span id="bl_ui"></span></i></br>
                                             <i><span class="text-danger">*Biaya Materai/lain</span></i>

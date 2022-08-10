@@ -38,7 +38,7 @@ $querySelesai = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah_Selesai F
 $dataSelesai = mysqli_fetch_assoc($querySelesai);
 
 
-$queryProses = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah_proses FROM bkk WHERE status_bkk IN (0, 1, 2, 3, 4, 5, 6, 7, 101, 202, 303, 404, 17) AND status_bkk NOT IN ('101', '202') AND id_divisi='$idDivisi' ");
+$queryProses = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah_proses FROM bkk WHERE status_bkk IN (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 202, 303, 404, 17) AND id_divisi='$idDivisi' ");
 $dataProses = mysqli_fetch_assoc($queryProses);
 
 // query data Verifikasi Pajak

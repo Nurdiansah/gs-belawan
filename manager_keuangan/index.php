@@ -103,11 +103,28 @@ $queryKUV = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah  FROM kasb
 $dataKUV = mysqli_fetch_assoc($queryKUV);
 
 // Kasbon proses purchasing
-$queryKPP = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon !=0 AND status_kasbon !=3 AND status_kasbon !=8  AND from_user= '0' ");
+$queryKPP = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah
+                                      FROM kasbon k
+                                      JOIN biaya_ops bo
+                                      ON k.kd_transaksi = bo.kd_transaksi
+                                      JOIN detail_biayaops dbo
+                                      ON k.id_dbo = dbo.id
+                                      JOIN divisi d
+                                      ON d.id_divisi = bo.id_divisi                                            
+                                      WHERE k.status_kasbon IN ('4', '5', '6', '7', '404', '505', '707')  AND from_user= '0'
+                                      ORDER BY k.id_kasbon DESC");
 $dataKPP = mysqli_fetch_assoc($queryKPP);
 
 // Kasbon proses user
-$queryKPU = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah  FROM kasbon WHERE status_kasbon NOT BETWEEN 0 AND 1 AND status_kasbon != 8 AND from_user = '1' AND id_manager='$idUser' ");
+$queryKPU = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah
+                                      FROM kasbon k                                            
+                                      JOIN detail_biayaops dbo
+                                          ON k.id_dbo = dbo.id
+                                      JOIN divisi d
+                                          ON d.id_divisi = dbo.id_divisi                                            
+                                      WHERE k.status_kasbon IN ('4', '5', '6', '7', '404', '505', '707') AND k.status_kasbon != 10
+                                      AND from_user = '1' -- AND id_manager = '$idUser'
+                                      ORDER BY k.id_kasbon DESC ");
 $dataKPU = mysqli_fetch_assoc($queryKPU);
 
 $jumlahKP = $dataKPP['jumlah'] + $dataKPU['jumlah'];
