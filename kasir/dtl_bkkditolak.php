@@ -3,6 +3,7 @@ include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
 $id = $_GET['id'];
+$tabel = $_GET['tabel'];
 
 if (!isset($_GET['id'])) {
     header("location:index.php");
@@ -12,7 +13,7 @@ $queryNama =  mysqli_query($koneksi, "SELECT nama from user WHERE username  = '$
 $rowNama = mysqli_fetch_assoc($queryNama);
 $Nama = $rowNama['nama'];
 
-$query =  mysqli_query($koneksi, "SELECT * FROM bkk_final b     
+$query =  mysqli_query($koneksi, "SELECT * FROM $tabel b     
                                             LEFT JOIN anggaran a
                                                 ON b.id_anggaran = a.id_anggaran 
                                             -- JOIN supplier s
@@ -136,6 +137,7 @@ $jmlReapp = mysqli_num_rows($reApprove);
                 <form method="POST" action="simpan_bkk.php" enctype="multipart/form-data" class="form-horizontal">
                     <input type="hidden" name="id_bkk" value="<?= $_GET['id']; ?>">
                     <input type="hidden" name="doc_pendukung_lama" value="<?= $data2['doc_pendukung'] ?>">
+                    <input type="hidden" name="tabel" value="<?= $tabel; ?>" >
                     <div class="box-body">
                         <div class="form-group">
                             <label for="pengajuan" class="col-sm-offset- col-sm-2 control-label">Pengajuan</label>
@@ -1122,6 +1124,7 @@ $jmlReapp = mysqli_num_rows($reApprove);
                                     <input type="hidden" value="<?= $id; ?>" class="form-control" name="id">
                                     <input type="hidden" name="pg" value="ditolak_bkk">
                                     <input type="hidden" name="pengajuan" value="<?= $data2['pengajuan']; ?>">
+                                    <input type="hidden" name="tabel" value="<?= $tabel; ?>">
                                 </div>
                             </div>
 

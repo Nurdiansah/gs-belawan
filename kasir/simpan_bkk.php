@@ -11,6 +11,7 @@ if (isset($_POST['simpan'])) {
     $keterangan = $_POST['keterangan'];
     $remarks = $_POST['remarks'];
     $total = $nominal - $pengembalian;
+    $tabel = $_POST['tabel'];
 
     $cek_file = $_FILES['doc_pendukung']['name'];
     if ($cek_file == "") {
@@ -25,7 +26,7 @@ if (isset($_POST['simpan'])) {
         move_uploaded_file($path, "../file/doc_pendukung/" . $nm_file);
     }
 
-    $query = mysqli_query($koneksi, "UPDATE bkk_final SET nilai_barang = '$nominal',
+    $query = mysqli_query($koneksi, "UPDATE $tabel SET nilai_barang = '$nominal',
                                                 nominal = '$total',
                                                 pengembalian = '$pengembalian',
                                                 keterangan = '$keterangan',

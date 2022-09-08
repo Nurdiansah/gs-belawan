@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
                                                                     ");
 
         $hasil = mysqli_query($koneksi, "UPDATE bkk_ke_pusat SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
-                                nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
+                                nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', biaya_lain = '$biaya_lain',
                                 id_pph = '$id_pph', nominal = '$harga', status_bkk = '1'
                             WHERE id = '$id_bkk'
                 ");
@@ -115,7 +115,7 @@ if (isset($_POST['submit'])) {
                                                                         ");
 
         // bkk 
-        $hasil = mysqli_query($koneksi, "UPDATE bkk_ke_pusat SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+        $hasil = mysqli_query($koneksi, "UPDATE bkk_ke_pusat SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa', biaya_lain = '$biaya_lain',
                                                                         nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
                                                                         id_pph = '$id_pph', nominal = '$harga'
                                                                         WHERE id = '$id_bkk'

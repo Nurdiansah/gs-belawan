@@ -3,14 +3,23 @@
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
-$query = mysqli_query($koneksi, "SELECT *, b.id as id_bkk_final FROM bkk_final b
+$query = mysqli_query($koneksi, "SELECT *, b.id as id_bkk_final, 'bkk_final' as tabel
+                                    FROM bkk_final b
                                     LEFT JOIN anggaran a
                                         ON b.id_anggaran = a.id_anggaran
                                     LEFT JOIN tolak_bkk_final
                                         ON b.id = id_bkk_final
                                     WHERE b.status_bkk = '101'
                                     -- AND pengajuan != 'PO'
-                                    ORDER BY b.tgl_bkk DESC");
+                                UNION ALL
+                                SELECT *, b.id as id_bkk_final, 'bkk_ke_pusat' as tabel
+                                    FROM bkk_ke_pusat b
+                                    LEFT JOIN anggaran a
+                                        ON b.id_anggaran = a.id_anggaran
+                                    LEFT JOIN tolak_bkk_final
+                                        ON b.id = id_bkk_final
+                                    WHERE b.status_bkk = '101'
+                        ");
 ?>
 <!-- onclick="window.open('bkk_new.php?id=<?= $row['id']; ?>','newwindow','width=700,height=700'); return false;" -->
 <!-- Main content -->
@@ -51,7 +60,7 @@ $query = mysqli_query($koneksi, "SELECT *, b.id as id_bkk_final FROM bkk_final b
                                                 <td> <?= $row['keterangan']; ?> </td>
                                                 <td> <?= $row['kd_anggaran']; ?> </td>
                                                 <td><span class="btn btn-success"> <?= formatRupiah($row['nominal']); ?></span> </td>
-                                                <td><a href="index.php?p=dtl_bkkditolak&id=<?= $row['id_bkk_final']; ?>" class="btn btn-warning"><i class="fa fa-search-plus"></i></a></td>
+                                                <td><a href="index.php?p=dtl_bkkditolak&id=<?= $row['id_bkk_final']; ?>&tabel=<?= $row['tabel']; ?>" class="btn btn-warning"><i class="fa fa-search-plus"></i></a></td>
                                             </tr>
                                     <?php
                                             $no++;

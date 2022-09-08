@@ -34,8 +34,6 @@ if ($metode_pembayaran == 'Transfer') {
     $tableBkk = 'bkk_final';
 }
 
-
-
 $query =  mysqli_query($koneksi, "SELECT *, bf.nilai_barang as n_barang, bf.nilai_jasa as n_jasa, bf.nilai_ppn as n_ppn, bf.id_pph as bf_id_pph, bf.nilai_pph as n_pph
                                     FROM tagihan_po  tp
                                     JOIN po p
@@ -335,6 +333,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                             <select name="pilih_ppn" id="setppn">
                                                 <option value="0.11">11%</option>
                                                 <option value="0.1">10%</option>
+                                                <option value="0.011">1.1%</option>
                                             </select>
                                         </label>
                                         <div class="col-sm-1">
@@ -523,6 +522,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                     <input type="hidden" value="<?= $data2['id_tagihan']; ?>" name="id_tagihan" readonly>
                                     <input type="hidden" value="<?= $bkk; ?>" class="form-control" name="id_bkk" readonly>
                                     <input type="hidden" value="verifikasi_po" class="form-control" name="url" readonly>
+                                    <input type="hidden" value="<?= $tableBkk; ?>" name="tabel_bkk">
                                 </div>
                             </div>
 
@@ -687,6 +687,8 @@ $totalReapp = mysqli_num_rows($queryReapp);
         var nilai_jasa = hilangkanTitik('nilai_jasa')
         var ppn_nilai = hilangkanTitik('ppn_nilai')
         var biaya_lain = hilangkanTitik('biaya_lain')
+
+        // console.log(biaya_lain);
 
 
         // var jml = hilangkanTitik('jml')

@@ -25,7 +25,7 @@ $jumlahData = mysqli_num_rows($query);
 if (isset($_POST['verifikasi'])) {
     $id_refill = $_POST['id_refill'];
     $tgl_bkk = datetimeHtml($_POST['tanggal']);
-
+    
     mysqli_begin_transaction($koneksi);
 
     $data = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM refill_funds WHERE id_refill = '$id_refill' "));
@@ -51,10 +51,12 @@ if (isset($_POST['verifikasi'])) {
     }
 
     $update = mysqli_query($koneksi, "UPDATE refill_funds SET status = '6', bukti_pembayaran = '$nm_baru'
-                                        WHERE id_refill = '$id_refill' ");
+                                        WHERE id_refill = '$id_refill'
+                            ");
 
     $insert = mysqli_query($koneksi, "INSERT INTO bkk_final (pengajuan, id_kdtransaksi, nomor, tgl_bkk, no_bkk, nilai_barang, nominal, keterangan,  created_on_bkk, v_mgr_finance, v_direktur, release_on_bkk, status_bkk) VALUES
                                                             ('REFILL FUND', '$id_refill', '$nomor', '$tgl_bkk', '$no_bkk', '$nominal', '$nominal', '$keterangan', '$tgl_bkk', '$app_mgr', '$app_direksi', '$tgl_bkk', '4')");
+    // $insert = "Berhasil";
 
     if ($update && $insert) {
         mysqli_commit($koneksi);

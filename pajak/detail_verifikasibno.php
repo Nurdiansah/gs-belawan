@@ -474,6 +474,7 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
                                                 <select name="pilih_ppn" id="setppn">
                                                     <option value="0.11">11%</option>
                                                     <option value="0.10">10%</option>
+                                                    <option value="0.011">1.1%</option>
                                                 </select>
                                             </label>
                                             <div class="col-sm-1">

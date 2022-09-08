@@ -84,6 +84,24 @@ $data = mysqli_fetch_assoc($query);
             </div>
         </div>
         <!--  -->
+
+        <!-- Bukti pembayaran -->
+        <?php
+        if (file_exists("../file/bukti_pembayaran/" . $data['bukti_pembayaran'] . "") && $data['bukti_pembayaran'] != NULL) { ?>
+            <div class="col-sm-12 col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="text-center">Bukti Pembayaran</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="embed-responsive embed-responsive-4by3">
+                            <iframe class="embed-responsive-item" src="../file/bukti_pembayaran/<?= $data['bukti_pembayaran']; ?> "></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+        <!--  -->
     </div>
 </section>
 
