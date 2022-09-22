@@ -18,7 +18,7 @@ $query = mysqli_query($koneksi, "SELECT *, bf.id as id_bkk
                                     JOIN tagihan_po tp
                                         ON tp.bkk_id = bf.id
                                     WHERE pengajuan = 'PO'
-                                    AND status_bkk = '0' AND tp.status_tagihan = '2'
+                                    AND status_bkk = '0' AND tp.status_tagihan = '1'
                                 union all
 
                                 SELECT *, bf.id as id_bkk
@@ -32,7 +32,7 @@ $query = mysqli_query($koneksi, "SELECT *, bf.id as id_bkk
                                     JOIN tagihan_po tp
                                         ON tp.bkk_id = bf.id
                                     WHERE pengajuan = 'PO'
-                                    AND status_bkk = '0' AND tp.status_tagihan = '2'
+                                    AND status_bkk = '0' AND tp.status_tagihan = '1'
                 ");
 
 
