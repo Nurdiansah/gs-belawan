@@ -27,7 +27,7 @@ if ($jam != '08' && $jam != '09') {
 
     if ($update) {
         mysqli_close($koneksi);
-        echo "Berhasil";
+        // echo "Berhasil";
     }
 } else {
     echo "Gagal. Sekarang jam $jam";

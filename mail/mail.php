@@ -53,7 +53,7 @@ if ($totalMail > 0) {
 
 
 		if (!$mail->send()) {
-			echo "Mailer Error: " . $mail->ErrorInfo . "<br>";
+			// echo "Mailer Error: " . $mail->ErrorInfo . "<br>";
 		} else {
 			echo "Message has been sent successfully<br>";
 			mysqli_query($koneksi, "DELETE FROM queue_email WHERE id_queue = '$id_queue'");
