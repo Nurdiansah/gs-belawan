@@ -38,6 +38,20 @@
     </div>
     <div class="col-lg-3 col-xs-6">
       <div class="list-group">
+        <a href="#" class="list-group-item label-info">
+          Process
+        </a>
+
+        <a href="index.php?p=proses_refill" class="list-group-item"> <i class="fa fa-refresh"></i> Refill Funds <span class="badge label-info"> <?= $dataProsesRefill['jumlah'] > 0 ? $dataProsesRefill['jumlah'] : '' ?></span> </a>
+        <a href="index.php?p=proses_bno" class="list-group-item"> <i class="fa fa-calendar-check-o"></i> Biaya Umum<span class="badge label-warning"><?= $dataProsesBno['jumlah'] > 0 ? $dataProsesBno['jumlah'] : ''; ?></span></a>
+        <a href="index.php?p=proses_bkm" class="list-group-item"> <i class="fa fa-print"></i> BKM <span class="badge label-warning"><?= $dataProsesBKM['jumlah'] > 0 ? $dataProsesBKM['jumlah'] : ''; ?></span></a>
+        <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-primary"></span></a>
+        <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-primary"></span></a>
+        <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-primary"></span></a>
+      </div>
+    </div>
+    <div class="col-lg-3 col-xs-6">
+      <div class="list-group">
         <a href="#" class="list-group-item label-default">
           Biaya Umum
         </a>
@@ -72,7 +86,7 @@
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
       </div>
     </div>
-    <div class="col-lg-3 col-xs-6">
+    <!-- <div class="col-lg-3 col-xs-6">
       <div class="list-group">
         <a href="#" class="list-group-item label-danger">
           Service Order
@@ -88,7 +102,7 @@
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
       </div>
-    </div>
+    </div> -->
   </div>
   <!-- /row -->
   <!-- row -->

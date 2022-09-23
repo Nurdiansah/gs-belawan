@@ -136,13 +136,13 @@ if (isset($_POST['update'])) {
                         <div class="form-group">
                             <label for="alasan_ditolak" class="col-sm-offset- col-sm-2 control-label">Alasan Ditolak</label>
                             <div class="col-sm-3">
-                                <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "><?= $data['alasan_tolak_mgrga']; ?>&#13;&#10;<?= $data['alasan_tolak_pajak']; ?>&#13;&#10;<?= $data['alasan_tolak_mgrfin']; ?>&#13;&#10;<?= $data['alasan_tolak_direktur']; ?></textarea>
+                            <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "><?= $data['komentar_mgr_fin']; ?>&#13;&#10;<?= $data['komentar_mgr_ga']; ?>&#13;&#10;<?= $data['komentar_mgr_finjkt']; ?>&#13;&#10;<?= $data['komentar_direktur']; ?></textarea>
                             </div>
 
-                            <label for="alasan_ditolak" class="col-sm-offset- col-sm-2 control-label">Waktu Ditolak</label>
+                            <!-- <label for="alasan_ditolak" class="col-sm-offset- col-sm-2 control-label">Waktu Ditolak</label>
                             <div class="col-sm-3">
                                 <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "><?= $data['waktu_tolak_mgrga']; ?>&#13;&#10;<?= $data['waktu_tolak_pajak']; ?>&#13;&#10;<?= $data['waktu_tolak_mgrfin']; ?>&#13;&#10;<?= $data['waktu_tolak_direktur']; ?></textarea>
-                            </div>
+                            </div> -->
                         </div>
                 </form>
                 <!-- <textarea name="" readonly id="" cols="170" rows="10"> Alasan Penolakan : <?= $data['alasan_penolakan']; ?></textarea>                 -->

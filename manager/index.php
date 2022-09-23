@@ -33,7 +33,7 @@ $query = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE s
 $data = mysqli_fetch_assoc($query);
 
 // query data proses
-$queryProsesbno = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah_proses FROM bkk WHERE id_manager='$idUser' AND status_bkk >='2' AND status_bkk <='8' ORDER BY tgl_bkk DESC  ");
+$queryProsesbno = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah_proses FROM bkk WHERE id_manager = '$idUser' AND status_bkk >= '2' AND status_bkk <= '9' AND status_bkk NOT IN ('101', '202') ORDER BY tgl_bkk DESC  ");
 $dataProsesbno = mysqli_fetch_assoc($queryProsesbno);
 
 // query data lihat
@@ -49,7 +49,14 @@ $queryAM = mysqli_query($koneksi, "SELECT COUNT(kd_transaksi) AS jumlah FROM bia
 $dataAM = mysqli_fetch_assoc($queryAM);
 
 // query proses mr
-$queryPMR = mysqli_query($koneksi, "SELECT COUNT(kd_transaksi) AS jumlah FROM biaya_ops WHERE id_manager='$idUser' AND status_biayaops = '2' ORDER BY kd_transaksi DESC");
+$queryPMR = mysqli_query($koneksi, "SELECT COUNT(dbo.kd_transaksi) as jumlah FROM biaya_ops bo
+                                      JOIN detail_biayaops dbo
+                                          ON bo.kd_transaksi = dbo.kd_transaksi
+                                      JOIN divisi d
+                                          ON dbo.id_divisi = d.id_divisi
+                                      WHERE id_manager = '$idUser'
+                                      AND status_biayaops = 2
+                                      AND dbo.status = 2");
 $dataPMR = mysqli_fetch_assoc($queryPMR);
 
 $queryAK = mysqli_query($koneksi, "SELECT COUNT(id_anggaran) AS jumlah FROM kasbon k JOIN detail_biayaops dbo ON k.id_dbo = dbo.id JOIN divisi d ON d.id_divisi = dbo.id_divisi WHERE k.status_kasbon =1 AND from_user = '1' AND id_manager='$idUser' ");
@@ -76,6 +83,35 @@ $dataAP = mysqli_fetch_assoc($queryAP);
 // approval SR
 $querySR = mysqli_query($koneksi, "SELECT COUNT(id_sr) AS jumlah FROM sr WHERE status = '1' AND id_manager = '$idUser'");
 $dataSR = mysqli_fetch_assoc($querySR);
+
+// proses pettycash
+$queryProsesPetty = mysqli_query($koneksi, "SELECT COUNT(id_pettycash) AS jumlah FROM transaksi_pettycash WHERE status_pettycash = '2' AND id_manager = '$idUser'");
+$dataProsesPetty = mysqli_fetch_assoc($queryProsesPetty);
+
+// proses kasbon user
+$queryProsesKU = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon k
+                                          LEFT JOIN detail_biayaops dbo
+                                              ON id_dbo = id
+                                          JOIN divisi d
+                                              ON d.id_divisi = dbo.id_divisi
+                                          WHERE id_manager = '$idUser'
+                                          AND status_kasbon IN ('2', '3', '4', '5', '6', '7', '202', '303', '404', '505')");
+$dataProsesKU = mysqli_fetch_assoc($queryProsesKU);
+
+// proses kasbon purchasing
+$queryProsesKP = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon k
+                                          JOIN biaya_ops bo
+                                              ON k.kd_transaksi = bo.kd_transaksi
+                                          JOIN detail_biayaops dbo
+                                              ON k.id_dbo = dbo.id
+                                          JOIN divisi d
+                                              ON d.id_divisi = dbo.id_divisi
+                                          WHERE (k.status_kasbon IN (2, 3, 4, 5, 6, 7, 202, 606)
+                                          OR k.status_kasbon IS NULL)
+                                          AND bo.id_manager = '$idUser'
+                                          ORDER BY k.id_kasbon DESC");
+$dataProsesKP = mysqli_fetch_assoc($queryProsesKP);
+$totalProsesKasbon = $dataProsesKP['jumlah'] + $dataProsesKP['jumlah'];
 
 ?>
 <!DOCTYPE html>

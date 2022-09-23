@@ -43,7 +43,7 @@ if (isset($_POST['reject'])) {
 
     // deklarasi
     $id_refill  = $_POST['id_refill'];
-    $komentar  = "Manager Finance : " . $_POST['komentar'];
+    $komentar  = "@" . $Nama . " : " . $_POST['komentar'];
     $date  = dateNow();
 
     mysqli_begin_transaction($koneksi);
@@ -62,7 +62,7 @@ if (isset($_POST['reject'])) {
         mysqli_commit($koneksi);
 
         setcookie('pesan', 'Permohonan Berhasil di Reject!', time() + (3), '/');
-        setcookie('warna', 'alert-success', time() + (3), '/');
+        setcookie('warna', 'alert-danger', time() + (3), '/');
     } else {
 
         mysqli_rollback($koneksi);

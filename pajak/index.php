@@ -53,8 +53,48 @@ $dataVK3 = mysqli_fetch_assoc($queryVK3);
 $jvk = $dataVK1['jumlah'] + $dataVK2['jumlah'] + $dataVK3['jumlah'];
 
 // po verifikasi
-$queryPV = mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah  FROM bkk_ke_pusat WHERE status_bkk = '0' AND pengajuan = 'PO' ");
-$dataPV = mysqli_fetch_assoc($queryPV);
+$queryPV = mysqli_query($koneksi, "SELECT COUNT(bf.id) AS total FROM bkk_final bf
+JOIN po po
+    ON id_po = id_kdtransaksi
+JOIN detail_biayaops dbo
+    ON id_dbo = dbo.id
+JOIN divisi dvs
+    ON dvs.id_divisi = dbo.id_divisi
+JOIN tagihan_po tp
+    ON tp.bkk_id = bf.id
+WHERE pengajuan = 'PO'
+AND status_bkk = '0' AND tp.status_tagihan = '2'
+union all
+
+SELECT COUNT(bf.id) AS total
+FROM bkk_ke_pusat bf
+JOIN po po
+    ON id_po = id_kdtransaksi
+JOIN detail_biayaops dbo
+    ON id_dbo = dbo.id
+JOIN divisi dvs
+    ON dvs.id_divisi = dbo.id_divisi
+JOIN tagihan_po tp
+    ON tp.bkk_id = bf.id
+WHERE pengajuan = 'PO'
+AND status_bkk = '0' AND tp.status_tagihan = '2' ");
+// $dataPV = mysqli_fetch_assoc($queryPV);
+
+$totalPV = 0;
+
+// print_r($queryPV);
+// print_r($dataPV['total']);
+
+foreach ($queryPV as $key => $data) {
+  
+
+  // print_r($data);
+  $totalPV += $data['total'];
+}
+
+// print_r($totalPV);
+
+$dataPV['jumlah'] = $totalPV;
 
 // query kasbon ditolak
 $queryKasbonTolak = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon IN ('505') -- AND from_user = '0'

@@ -5,7 +5,7 @@ $queryKu = mysqli_query($koneksi, "SELECT *
                                         ON k.id_dbo = dbo.id
                                     JOIN divisi d
                                         ON d.id_divisi = dbo.id_divisi                                            
-                                    WHERE status_kasbon BETWEEN 1 AND 9
+                                    WHERE status_kasbon BETWEEN 1 AND 606 AND status_kasbon != '10'
                                     AND k.from_user = '1' AND dbo.id_divisi = '$idDivisi'
                                     ORDER BY k.id_kasbon DESC   ");
 ?>
@@ -120,7 +120,7 @@ $queryKu = mysqli_query($koneksi, "SELECT *
                             <?php  } elseif ($row['status_kasbon'] == 303) {  ?>
                                 <span class="label label-danger">Ditolak Manager Finance</span>
                             <?php  } elseif ($row['status_kasbon'] == 404) {  ?>
-                                <span class="label label-danger">Ditolak Direktur</span>
+                                <span class="label label-danger">Ditolak Pajak - Berada di Manager</span>
                             <?php  } elseif ($row['status_kasbon'] == 505) {  ?>
                                 <span class="label label-danger">Ditolak Kasir (LPJ Ulang)</span>
                             <?php } ?>

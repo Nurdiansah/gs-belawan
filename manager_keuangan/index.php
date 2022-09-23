@@ -103,11 +103,28 @@ $queryKUV = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah  FROM kasb
 $dataKUV = mysqli_fetch_assoc($queryKUV);
 
 // Kasbon proses purchasing
-$queryKPP = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon !=0 AND status_kasbon !=3 AND status_kasbon !=8  AND from_user= '0' ");
+$queryKPP = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah
+                                      FROM kasbon k
+                                      JOIN biaya_ops bo
+                                      ON k.kd_transaksi = bo.kd_transaksi
+                                      JOIN detail_biayaops dbo
+                                      ON k.id_dbo = dbo.id
+                                      JOIN divisi d
+                                      ON d.id_divisi = bo.id_divisi                                            
+                                      WHERE k.status_kasbon IN ('4', '5', '6', '7', '404', '505', '707')  AND from_user= '0'
+                                      ORDER BY k.id_kasbon DESC");
 $dataKPP = mysqli_fetch_assoc($queryKPP);
 
 // Kasbon proses user
-$queryKPU = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah  FROM kasbon WHERE status_kasbon NOT BETWEEN 0 AND 1 AND status_kasbon != 8 AND from_user = '1' AND id_manager='$idUser' ");
+$queryKPU = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah
+                                      FROM kasbon k                                            
+                                      JOIN detail_biayaops dbo
+                                          ON k.id_dbo = dbo.id
+                                      JOIN divisi d
+                                          ON d.id_divisi = dbo.id_divisi                                            
+                                      WHERE k.status_kasbon IN ('4', '5', '6', '7', '404', '505', '707') AND k.status_kasbon != 10
+                                      AND from_user = '1' -- AND id_manager = '$idUser'
+                                      ORDER BY k.id_kasbon DESC ");
 $dataKPU = mysqli_fetch_assoc($queryKPU);
 
 $jumlahKP = $dataKPP['jumlah'] + $dataKPU['jumlah'];
@@ -160,6 +177,15 @@ $dataAR = mysqli_fetch_assoc($queryAR);
 //  QUERY BKM
 $queryBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm = '2'");
 $dataBKM = mysqli_fetch_assoc($queryBKM);
+
+$queryProsesRefill = mysqli_query($koneksi, "SELECT COUNT(id_refill) as jumlah FROM refill_funds WHERE status IN ('2', '3', '4', '5')");
+$dataProsesRefill = mysqli_fetch_assoc($queryProsesRefill);
+
+$queryProsesBno = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk IN ('6', '7', '8', '9')");
+$dataProsesBno = mysqli_fetch_assoc($queryProsesBno);
+
+$queryProsesBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm IN ('3', '4', '5')");
+$dataProsesBKM = mysqli_fetch_assoc($queryProsesBKM);
 
 ?>
 <!DOCTYPE html>
@@ -380,11 +406,11 @@ $dataBKM = mysqli_fetch_assoc($queryBKM);
                 </span>
               <?php } ?>
               <li><a href="index.php?p=approval_mr"><i class="fa fa-check-square-o"></i> Approval</a></li>
-              <?php if ($dataPMR['jumlah'] >= 1) { ?>
+              <!-- <?php if ($dataPMR['jumlah'] >= 1) { ?>
                 <span class="pull-right-container">
                   <span class="label label-info pull-right"><?= $dataPMR['jumlah']; ?></span>
                 </span>
-              <?php } ?>
+              <?php } ?> -->
               <li><a href="index.php?p=proses_mr"><i class="fa fa-spinner"></i> Proses </a></li>
             </ul>
           </li>

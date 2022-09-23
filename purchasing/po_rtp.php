@@ -21,7 +21,7 @@ $rowUser = mysqli_fetch_assoc($queryUser);
 $idUser = $rowUser['id_user'];
 $idDivisi = $rowUser['id_divisi'];
 
-$query = mysqli_query($koneksi, "SELECT * 
+$query = mysqli_query($koneksi, "SELECT *
                                     FROM po p 
                                     JOIN biaya_ops bo
                                         ON p.kd_transaksi = bo.kd_transaksi
@@ -29,7 +29,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                         ON p.id_dbo = dbo.id
                                     JOIN divisi d
                                         ON d.id_divisi = bo.id_divisi     
-                                    LEFT JOIN bkk_final
+                                    LEFT JOIN bkk_final bf
 									    ON id_po = id_kdtransaksi
                                         AND status_bkk = '17'
                                     WHERE status_po BETWEEN 6 AND 8 
@@ -79,7 +79,10 @@ $query = mysqli_query($koneksi, "SELECT *
                                             <td> <?= $row['nm_divisi']; ?> </td>
                                             <td> <?= $row['nm_barang']; ?> </td>
                                             <td> <?= formatRupiah($row['grand_totalpo']) ?> </td>
-                                            <td><a target="_blank" href="cetak_po.php?id=<?= $row['id_po']; ?>" class="btn btn-success"><i class="fa fa-print"></i> PO </a></td>
+                                            <td>
+                                                <a target="_blank" href="cetak_po.php?id=<?= $row['id_po']; ?>" class="btn btn-success"><i class="fa fa-print"></i> PO </a>
+                                                <a target="_blank" onclick="window.open('cetak_lpdpo.php?id=<?= enkripRambo($row['id_po']); ?>','name','width=800,height=600')" class="btn btn-primary"><i class="fa fa-print"></i> LPD </a>
+                                            </td>
                                             <td>
 
                                                 <?php if ($row['status_po'] == 6) { ?>

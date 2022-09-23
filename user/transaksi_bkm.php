@@ -10,6 +10,8 @@ $queryBKM = mysqli_query($koneksi, "SELECT * FROM bkm b
 
 $no = 1;
 
+$totalBKM = mysqli_num_rows($queryBKM);
+
 ?>
 
 <section class="content">
@@ -24,7 +26,7 @@ $no = 1;
                 <div class="box-body">
                     <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal" id="">
                         <div class="table-responsive">
-                            <table class="table text-center table table-striped table-hover">
+                            <table class="table text-center table table-striped table-hover" id="<?= $totalBKM > 0 ? 'material' : ''; ?>">
                                 <thead>
                                     <tr style="background-color :#B0C4DE;">
                                         <th>No</th>
@@ -217,3 +219,14 @@ $no = 1;
         </div>
     </div>
 </section>
+
+<script>
+    $(function() {
+        $("#material").DataTable({
+            "language": {
+                "url": "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
+                "sEmptyTable": "Tidak ada data di database"
+            }
+        });
+    });
+</script>

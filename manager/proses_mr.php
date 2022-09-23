@@ -20,10 +20,14 @@ $id_divisi = $rowUser['id_divisi'];
 $idUser = $rowUser['id_user'];
 
 $query = mysqli_query($koneksi, "SELECT * FROM biaya_ops bo
+                                    JOIN detail_biayaops dbo
+                                        ON bo.kd_transaksi = dbo.kd_transaksi
                                     JOIN divisi d
-                                        ON bo.id_divisi = d.id_divisi
-                                    WHERE id_manager='$idUser'
-                                    AND status_biayaops = 2 ORDER BY kd_transaksi DESC");
+                                        ON dbo.id_divisi = d.id_divisi
+                                    WHERE id_manager = '$idUser'
+                                    AND status_biayaops = 2
+                                    AND dbo.status = 2
+                                    ORDER BY dbo.kd_transaksi DESC");
 
 
 ?>

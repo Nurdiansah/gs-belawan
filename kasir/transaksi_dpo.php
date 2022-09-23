@@ -31,7 +31,7 @@ $query =  mysqli_query($koneksi, "SELECT * FROM biaya_ops bo
                                             ON p.id_dbo = dbo.id
                                             JOIN anggaran a
                                             ON dbo.id_anggaran = a.id_anggaran
-                                            JOIN pph pp
+                                            LEFT JOIN pph pp
                                             ON p.id_pph = pp.id_pph
                                             WHERE p.id_po ='$id' ");
 $data2 = mysqli_fetch_assoc($query);
@@ -59,6 +59,22 @@ $queryRealisasi = mysqli_query($koneksi, " SELECT *
                                                 WHERE id_divisi='$id_anggaran' ");
 $rowR = mysqli_fetch_assoc($queryRealisasi);
 
+// query buat nampilin invoice yg trf, tabel bkk_ke_pusat
+$queryBP = mysqli_query($koneksi, "SELECT * FROM bkk_ke_pusat WHERE id_kdtransaksi = '$id' ORDER BY created_on_bkk ASC");
+$totalBP = mysqli_num_rows($queryBP);
+
+// query buat nampilin invoice yg tunai, tabel bkk_final
+$queryBK = mysqli_query($koneksi, "SELECT * FROM bkk_final WHERE id_kdtransaksi = '$id'");
+$dataBK = mysqli_fetch_assoc($queryBK);
+$totalBK = mysqli_num_rows($queryBK);
+
+// query buat nampilin dokumen faktur
+$queryTagihan = mysqli_query($koneksi, "SELECT * FROM tagihan_po WHERE po_id = '$id' ORDER BY tgl_buat ASC");
+$totalTagihan = mysqli_num_rows($queryTagihan);
+
+// query untuk ambil kondisi Transfer atau bukan
+$queryTagihan1 = mysqli_query($koneksi, "SELECT * FROM tagihan_po WHERE po_id = '$id' ORDER BY tgl_buat ASC");
+$dataTagihan1 = mysqli_fetch_assoc($queryTagihan1);
 
 ?>
 <section class="content">
@@ -226,14 +242,17 @@ $rowR = mysqli_fetch_assoc($queryRealisasi);
                         </div>
                     </div>
                 <?php } else { ?>
-                    <h3 class="text-center">Foto Barang</h3>
-                    <br>
-                    <div class="row ">
-                        <div class="col-sm-offset-2">
-                            <img src="../file/foto/<?= $data2['foto_item']; ?>" width="80%" alt="...">
-                            <!-- <h5 class="text-center">Tidak Ada Foto</h5> -->
+                    <div class="box-header with-border">
+                        <h3 class="text-center">Foto Barang</h3>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="../file/foto/<?php echo $data2['foto_item']; ?> "></iframe>
                         </div>
                     </div>
+                    <!-- <div class="row ">
+                        <div class="col-sm-offset-2">
+                            <img src="../file/foto/<?= $data2['foto_item']; ?>" width="80%" alt="...">
+                        </div>
+                    </div> -->
                 <?php } ?>
                 <br>
                 <!-- Embed Document -->
@@ -253,16 +272,65 @@ $rowR = mysqli_fetch_assoc($queryRealisasi);
                     </div>
                 </div>
                 <br>
+                <!-- transfer  -->
+                <?php if ($dataTagihan1['metode_pembayaran'] == "Transfer") { ?>
+                    <div class="row">
+                        <?php if ($totalTagihan > 0) { ?>
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="box box-primary">
+                                    <h3 class="text-center">Invoice/Faktur</h3>
+                                    <?php while ($dataTagihan = mysqli_fetch_assoc($queryTagihan)) { ?>
+                                        <div class="embed-responsive embed-responsive-4by3">
+                                            <iframe class="embed-responsive-item" src="../file/invoice/<?= $dataTagihan['doc_faktur']; ?>"></iframe>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        <?php
+                        }
+
+                        if ($totalBP > 0) {
+                        ?>
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="box box-primary">
+                                    <h3 class="text-center">Bukti Pembayaran</h3>
+                                    <?php while ($dataBP = mysqli_fetch_assoc($queryBP)) { ?>
+                                        <div class="embed-responsive embed-responsive-4by3">
+                                            <iframe class="embed-responsive-item" src="../../gs-system/file/bukti_pembayaran/<?= $dataBP['bukti_pembayaran']; ?>"></iframe>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        <br>
+                        <br>
+                    </div>
+                    <!-- BUkan transfer, hanya nampilin doc pembayaran (folder bukti pembayaran) tabel bkk_final -->
+                    <?php } else {
+                    if ($totalTagihan > 0) { ?>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="box box-primary">
+                                    <h3 class="text-center">Invoice/Faktur</h3>
+                                    <?php while ($dataTagihan = mysqli_fetch_assoc($queryTagihan)) { ?>
+                                        <div class="embed-responsive embed-responsive-4by3">
+                                            <iframe class="embed-responsive-item" src="../file/bukti_pembayaran/<?= $dataTagihan['doc_faktur']; ?>"></iframe>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                <?php }
+                }
+                ?>
+                <!--  -->
+                <div class="col-sm-offset-11">
+                    <a target="_blank" href="cetak_po.php?id=<?= $id; ?>" class="btn btn-success"><i class="fa fa-print"></i> PO </a>
+                </div>
+                <!--  -->
                 <br>
             </div>
-            <br>
-            <!--  -->
-            <div class="col-sm-offset-11">
-                <a target="_blank" href="cetak_po.php?id=<?= $id; ?>" class="btn btn-success"><i class="fa fa-print"></i> PO </a>
-            </div>
-            <!--  -->
         </div>
-    </div>
     </div>
 
     <!--  -->

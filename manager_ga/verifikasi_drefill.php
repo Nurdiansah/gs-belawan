@@ -37,9 +37,10 @@ if (isset($_POST['approve'])) {
         $no_bkk = nomorBkkNew($created_at);
         $nomor = nomorAwal($no_bkk);
 
-        $insert = mysqli_query($koneksi, "INSERT INTO bkk_final (pengajuan, id_kdtransaksi, nomor, tgl_bkk, no_bkk, nilai_barang, nominal, keterangan,  created_on_bkk, v_mgr_finance, v_direktur, release_on_bkk,  status_bkk) VALUES
-                                                            ('REFILL FUND', '$id_refill', '$nomor', '$created_at', '$no_bkk', '$nominal', '$nominal', '$keterangan' , '$created_at', '$app_mgr' , '$date', '$created_at', '4')");
+        // $insert = mysqli_query($koneksi, "INSERT INTO bkk_final (pengajuan, id_kdtransaksi, nomor, tgl_bkk, no_bkk, nilai_barang, nominal, keterangan,  created_on_bkk, v_mgr_finance, v_direktur, release_on_bkk,  status_bkk) VALUES
+        //                                                     ('REFILL FUND', '$id_refill', '$nomor', '$created_at', '$no_bkk', '$nominal', '$nominal', '$keterangan' , '$created_at', '$app_mgr' , '$date', '$created_at', '4')");
 
+        $insert = 'Berhasil';
         // jika non pettycash lanjut ke gm finance
     } else {
         $status = '3';
@@ -72,7 +73,7 @@ if (isset($_POST['reject'])) {
 
     // deklarasi
     $id_refill  = $_POST['id_refill'];
-    $komentar  = $Nama . " : " . $_POST['komentar'];
+    $komentar  = "@" . $Nama . " : " . $_POST['komentar'];
     $date  = dateNow();
 
     mysqli_begin_transaction($koneksi);

@@ -56,7 +56,7 @@
            Petty Cash
          </a>
          <a href="index.php?p=approval_pettycash" class="list-group-item"> <i class="fa fa-check-square-o"></i> Approval <span class="badge label-warning"><?php echo $dataAP['jumlah'] >= 1 ? $dataAP['jumlah'] : ''; ?></span></a>
-         <a href="index.php?p=proses_pettycash" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"></span> </a>
+         <a href="index.php?p=proses_pettycash" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"><?= $dataProsesPetty['jumlah'] > 0 ? $dataProsesPetty['jumlah'] : ''; ?></span> </a>
          <a href="index.php?p=transaksi_pettycash" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi <span class="badge label-success"></span></a>
          <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"> </i> <span class="badge label-success"></span></a>
        </div>
@@ -84,7 +84,7 @@
            Kasbon
          </a>
          <a href="index.php?p=approval_kasbon" class="list-group-item"> <i class="fa fa-check-square-o"></i> Approval <span class="badge label-info"><?php echo $dataAK['jumlah'] >= 1 ? $dataAK['jumlah'] : ''; ?></span></a>
-         <a href="index.php?p=proses_kasbon" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"></span> </a>
+         <a href="index.php?p=proses_kasbon&sp=kp_purchasing" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"><?= $totalProsesKasbon > 0 ? $totalProsesKasbon : ''; ?></span> </a>
          <a href="index.php?p=ditolak_kasbon&sp=tolak_purchasing" class="list-group-item"> <i class="fa fa-close"></i> Ditolak <span class="badge label-danger"><?php if ($total_tolak > 0) {
                                                                                                                                                                   echo $total_tolak;
                                                                                                                                                                 } ?></span> </a>
