@@ -29,7 +29,9 @@ $query = mysqli_query($koneksi, "SELECT *
                                             ON p.id_dbo = dbo.id
                                             JOIN divisi d
                                             ON d.id_divisi = bo.id_divisi                                            
-                                            WHERE status_po <=7 AND bo.id_manager = '$idUser'
+                                            -- WHERE status_po <=7 AND bo.id_manager = '$idUser'
+                                            WHERE (status_po BETWEEN 3 AND 7
+                                            OR status_po IN ('101', '202', '303', '404') OR status_po IS NULL )
                                             ORDER BY p.id_po DESC   ");
 
 $jumlahData  = mysqli_num_rows($query);
@@ -75,20 +77,24 @@ $jumlahData  = mysqli_num_rows($query);
                                             <td> <?= $row['nm_barang']; ?> </td>
                                             <td> <?= formatRupiah($row['total_po']) ?> </td>
                                             <td>
-                                                <?php if ($row['status_po'] == 1) { ?>
-                                                    <span class="label label-primary">Verifikasi Pajak</span>
-                                                <?php  } else if ($row['status_po'] == 2) { ?>
-                                                    <span class="label label-primary">Verifikasi Manager GA </span>
-                                                <?php  } else if ($row['status_po'] == 3) { ?>
-                                                    <span class="label label-success">Approval Manager Finance </span>
+                                                <?php if ($row['status_po'] == 3) { ?>
+                                                    <span class="label label-success">Approval Manager</span>
                                                 <?php  } else if ($row['status_po'] == 4) { ?>
-                                                    <span class="label label-success">Approval Direktur </span>
+                                                    <span class="label label-success">Approval GM Finance</span>
                                                 <?php  } else if ($row['status_po'] == 5) { ?>
-                                                    <span class="label label-info"> Menunggu Pembayaran </span>
+                                                    <span class="label label-info">Approvel Direktur</span>
                                                 <?php  } else if ($row['status_po'] == 6) { ?>
-                                                    <span class="label label-info">Pengajuan sedang di belikan </span>
+                                                    <span class="label label-info">Proses Pembayaran Kasir</span>
                                                 <?php  } else if ($row['status_po'] == 7) { ?>
-                                                    <span class="label label-info">Pengajuan sedang di belikan </span>
+                                                    <span class="label label-info">Pengajuan sedang di belikan</span>
+                                                <?php  } else if ($row['status_po'] == 101) { ?>
+                                                    <span class="label label-danger">Ditolak Manager GA</span>
+                                                <?php  } else if ($row['status_po'] == 202) { ?>
+                                                    <span class="label label-danger">Ditolak Pajak</span>
+                                                <?php  } else if ($row['status_po'] == 303) { ?>
+                                                    <span class="label label-danger">Ditolak Manager Finance</span>
+                                                <?php  } else if ($row['status_po'] == 404) { ?>
+                                                    <span class="label label-danger">Ditolak Direktur</span>
                                                 <?php  }  ?>
                                             </td>
                                             <td>

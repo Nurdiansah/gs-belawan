@@ -138,7 +138,7 @@
         <a href="#" class="list-group-item label-primary">
           PO
         </a>
-        <a href="index.php?p=po_proses" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"></span> </a>
+        <a href="index.php?p=po_proses" class="list-group-item"> <i class="fa fa-spinner"></i> Proses <span class="badge label-info"><?= $dataProsesPO['jumlah'] > 0 ? $dataProsesPO['jumlah'] : ''; ?></span> </a>
         <a href="index.php?p=ditolak_po" class="list-group-item"> <i class="fa fa-close"></i> Ditolak <span class="badge label-danger"><?php if ($dataTolakPO['jumlah'] > 0) {
                                                                                                                                           echo $dataTolakPO['jumlah'];
                                                                                                                                         } ?></span> </a>
