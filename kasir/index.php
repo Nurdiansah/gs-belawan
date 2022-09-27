@@ -165,6 +165,11 @@ $dataTolakPK = mysqli_fetch_assoc($queryTolakPK);
 $queryTolakBKK = mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah  FROM bkk_final WHERE status_bkk = '101' -- AND pengajuan != 'PO'");
 $dataTolakBKK = mysqli_fetch_assoc($queryTolakBKK);
 
+$queryTolakBKKBelawan = mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah  FROM gs_belawan.bkk_ke_pusat WHERE status_bkk = '101' -- AND pengajuan != 'PO'");
+$dataTolakBKKBelawan = mysqli_fetch_assoc($queryTolakBKKBelawan);
+
+$totalTolakBKK = $dataTolakBKK['jumlah'] + $dataTolakBKKBelawan['jumlah'];
+
 $querySO = mysqli_query($koneksi, "SELECT COUNT(id_so) as jumlah FROM so WHERE status = '5' -- AND tgl_tempo <= '$tanggal'");
 $dataSO = mysqli_fetch_assoc($querySO);
 

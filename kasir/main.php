@@ -36,9 +36,7 @@
         <a href="index.php?p=proses_bkk" class="list-group-item"><i class="fa fa-spinner"></i> Proses<span class="badge label-info"><?php if ($dataBP['jumlah'] >= 1) {
                                                                                                                                       echo $dataBP['jumlah'];
                                                                                                                                     } ?></span> </a>
-        <a href="index.php?p=ditolak_bkk" class="list-group-item"><i class="fa fa-close"></i> Ditolak<span class="badge label-info"><?php if ($dataTolakBKK['jumlah'] >= 1) {
-                                                                                                                                      echo $dataTolakBKK['jumlah'];
-                                                                                                                                    } ?></span> </a>
+        <a href="index.php?p=ditolak_bkk" class="list-group-item"><i class="fa fa-close"></i> Ditolak<span class="badge label-info"><?= $totalTolakBKK > 0 ? $totalTolakBKK : ''; ?></span> </a>
         <a href="index.php?p=transaksi_bkk" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi<span class="badge label-success"></span></a>
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
         <a href="#" class="list-group-item"> <i class="fa fa-window-minimize"></i> <span class="badge label-success"></span></a>
