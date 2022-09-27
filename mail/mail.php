@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\Exception;
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
-$queryMail = mysqli_query($koneksi, "SELECT * FROM queue_email ORDER BY created_at ASC LIMIT 10");
+$queryMail = mysqli_query($koneksi, "SELECT * FROM queue_email ORDER BY created_at ASC -- LIMIT 10");
 $totalMail = mysqli_num_rows($queryMail);
 
 mysqli_query($koneksi, "DELETE FROM gs.queue_email WHERE address_email IN ('indra@ekanuri.com', 'wildan@ekanuri.com', 'roy@grahasegara.com')");
@@ -53,7 +53,7 @@ if ($totalMail > 0) {
 
 
 		if (!$mail->send()) {
-			echo "Mailer Error: " . $mail->ErrorInfo . "<br>";
+			// echo "Mailer Error: " . $mail->ErrorInfo . "<br>";
 		} else {
 			echo "Message has been sent successfully<br>";
 			mysqli_query($koneksi, "DELETE FROM queue_email WHERE id_queue = '$id_queue'");

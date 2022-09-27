@@ -33,8 +33,12 @@ $query = mysqli_query($koneksi, "SELECT tgl_po, po_number, nm_divisi, total_po, 
                                     JOIN tagihan_po tp
                                         ON tp.bkk_id = bf.id
                                     WHERE pengajuan = 'PO'
+<<<<<<< HEAD
+                                    AND status_bkk = '0' AND tp.status_tagihan = '1'
+=======
                                     AND status_bkk = '0'
                                     AND tp.status_tagihan = '2';
+>>>>>>> 5c2b6cb6d844a7cbdedc03f8934aca3030bed865
                 ");
 
 

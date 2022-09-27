@@ -187,6 +187,19 @@ $dataProsesBno = mysqli_fetch_assoc($queryProsesBno);
 $queryProsesBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm IN ('3', '4', '5')");
 $dataProsesBKM = mysqli_fetch_assoc($queryProsesBKM);
 
+$queryProsesPO = mysqli_query($koneksi, "SELECT COUNT(id_po) as jumlah
+                                          FROM po p 
+                                          JOIN biaya_ops bo
+                                          ON p.kd_transaksi = bo.kd_transaksi
+                                          JOIN detail_biayaops dbo
+                                          ON p.id_dbo = dbo.id
+                                          JOIN divisi d
+                                          ON d.id_divisi = bo.id_divisi
+                                          WHERE (status_po BETWEEN 3 AND 7
+                                          OR status_po IN ('101', '202', '303', '404') OR status_po IS NULL )
+                                          ORDER BY p.id_po DESC");
+$dataProsesPO = mysqli_fetch_assoc($queryProsesPO);
+
 ?>
 <!DOCTYPE html>
 <html>
