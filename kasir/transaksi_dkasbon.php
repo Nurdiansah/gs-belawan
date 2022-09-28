@@ -20,7 +20,7 @@ $rowUser = mysqli_fetch_assoc($queryUser);
 $Area = $rowUser['area'];
 
 
-$queryDetail =  mysqli_query($koneksi, "SELECT * FROM kasbon k
+$queryDetail =  mysqli_query($koneksi, "SELECT *, k.penerima_dana as kpenerima_dana FROM kasbon k
                                                          JOIN biaya_ops bo
                                                          ON k.kd_transaksi = bo.kd_transaksi
                                                          JOIN divisi d
@@ -144,6 +144,16 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                 <label id="tes" for="harga" class="col-sm-offset-1 col-sm-1 control-label">Harga</label>
                                 <div class="col-sm-3">
                                     <input type="text" disabled class="form-control is-valid" name="harga" value="<?= formatRupiah($totalPengajuan) ?>">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="penerima_dana" class="col-sm-offset-4 col-sm-3 control-label">Penerima Dana</label>
+                                <div class="col-sm-3">
+                                    <input type="text" disabled class="form-control is-valid" name="penerima_dana" value="<?= $data['kpenerima_dana']; ?>">
+                                </div>
+                                <label for="tgl_penerima" class="col-sm-offset-4 col-sm-3 control-label">Tanggal Penerima Dana</label>
+                                <div class="col-sm-3">
+                                    <input type="text" disabled class="form-control is-valid" name="tgl_penerima" value="<?= $data['waktu_penerima_dana']; ?>">
                                 </div>
                             </div>
                             <br>

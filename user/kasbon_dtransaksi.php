@@ -72,9 +72,9 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                 <form method="post" name="form" action="#" enctype="multipart/form-data" class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group">
-                            <label id="tes" for="divisi" class="col-sm-offset col-sm-1 control-label">Divisi</label>
+                            <label for="tgl_pengajuan" class="col-sm-offset- col-sm-1 control-label">Kode </label>
                             <div class="col-sm-3">
-                                <input type="text" disabled class="form-control is-valid" name="divisi" value="<?= $data2['nm_divisi'];  ?>">
+                                <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= $data2['id_kasbon']; ?>">
                             </div>
                             <label for="tgl_pengajuan" class="col-sm-offset-2 col-sm-3 control-label">Tanggal Pengajuan</label>
                             <div class="col-sm-3">
@@ -82,13 +82,18 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="tgl_pengajuan" class="col-sm-offset- col-sm-1 control-label">Kode </label>
+                            <label id="tes" for="divisi" class="col-sm-offset col-sm-1 control-label">Divisi</label>
                             <div class="col-sm-3">
-                                <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= $data2['id_kasbon']; ?>">
+                                <input type="text" disabled class="form-control is-valid" name="divisi" value="<?= $data2['nm_divisi'];  ?>">
                             </div>
-                            <!-- <div class="col-sm-offset-5 col-sm-3">
-                                        <a target="_blank" href="cetak_kasbon.php?id=<?= $id; ?>" class="btn btn-success"><i class="fa fa-print"></i> Kasbon </a>                                         
-                                    </div> -->
+                            <label for="penerima_dana" class="col-sm-offset-2 col-sm-3 control-label">Penerima Dana</label>
+                            <div class="col-sm-3">
+                                <input type="text" disabled class="form-control is-valid" name="penerima_dana" value="<?= ucwords($data2['penerima_dana']); ?>">
+                            </div>
+                            <label for="tgl_penerima" class="col-sm-offset-6 col-sm-3 control-label">Tanggal Penerima Dana</label>
+                            <div class="col-sm-3">
+                                <input type="text" disabled class="form-control is-valid" name="tgl_penerima" value="<?= $data2['waktu_penerima_dana']; ?>">
+                            </div>
                         </div>
                         <div class="mb-2">
                             <label for="validationTextarea">Keterangan :</label>
