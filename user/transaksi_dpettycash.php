@@ -86,6 +86,16 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                 <b><input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= formatRupiah($data2['total_pettycash']); ?>"> </b>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="penerima_dana" class="col-sm-offset-6 col-sm-3 control-label">Penerima Dana</label>
+                            <div class="col-sm-3">
+                                <input type="text" disabled class="form-control is-valid" name="penerima_dana" value="<?= ucwords($data2['penerima_dana']); ?>">
+                            </div>
+                            <label for="tgl_penerima" class="col-sm-offset-6 col-sm-3 control-label">Tanggal Penerima Dana</label>
+                            <div class="col-sm-3">
+                                <input type="text" disabled class="form-control is-valid" name="tgl_penerima" value="<?= $data2['pym_ksr']; ?>">
+                            </div>
+                        </div>
                         <br>
                     </div>
                 </form>

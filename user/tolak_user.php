@@ -561,7 +561,7 @@ $host = host();
                     $('#me_id_dbo').val(data.id_dbo);
                     $('#me_doc_pendukung_lama').val(data.doc_pendukung);
                     $('#me_id_anggaran').val(data.id_anggaran);
-                    $('#me_nominal').val(formatRibuan(data.harga_akhir));
+                    $('#me_nominal').val(tandaPemisahTitik(data.harga_akhir.substring(0, data.harga_akhir.length - 3)));
                     $('#me_keterangan').val(data.keterangan);
                     $('#me_vrf_pajak').val(data.vrf_pajak);
                     $('#me_doc').attr('src', '../file/doc_pendukung/' + data.doc_pendukung);
