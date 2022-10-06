@@ -396,20 +396,21 @@ $tanggal = date("Y-m-d H:i:s");
                                     </div>
                                 </div>
                                 <?php
-                                if ($data2['metode_pembayaran'] == 'Transfer') {
+                                // if ($data2['metode_pembayaran'] == 'Transfer') {
                                 ?>
-                                    <div class="form-group">
-                                        <label for="doc_faktur" class="col-sm-offset-1 col-sm-3 control-label">Invoice/Faktur </label>
-                                        <div class="col-sm-5">
-                                            <div class="input-group input-file" name="doc_faktur">
-                                                <input type="text" class="form-control" <?php echo $data2['metode_pembayaran'] = 'Transfer' ? 'required' : ''; ?> />
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default btn-choose" type="button">Browse</button>
-                                                </span>
-                                            </div>
+                                <div class="form-group">
+                                    <label for="doc_faktur" class="col-sm-offset-1 col-sm-3 control-label">Invoice/Faktur </label>
+                                    <div class="col-sm-5">
+                                        <div class="input-group input-file" name="doc_faktur">
+                                            <input type="text" class="form-control" <?php echo $data2['metode_pembayaran'] = 'Transfer' ? 'required' : ''; ?> />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default btn-choose" type="button">Browse</button>
+                                            </span>
                                         </div>
                                     </div>
-                                <?php } ?>
+                                </div>
+                                <?php // } 
+                                ?>
 
                                 <div class="mb-3">
                                     <label for="validationTextarea">Redaksi : </label>

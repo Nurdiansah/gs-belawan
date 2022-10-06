@@ -16,7 +16,7 @@ if (!isset($_SESSION['username']) || $_SESSION['level'] != 'purchasing') {
 
 $query =  mysqli_query($koneksi, "SELECT * FROM po p
                                     LEFT JOIN detail_biayaops db
-                                        ON id = id_po
+                                        ON id = id_dbo
                                     LEFT JOIN supplier s
                                         ON s.id_supplier = IFNULL(db.id_supplier, '0')
                                     WHERE id_po = '$id'
