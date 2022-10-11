@@ -298,6 +298,7 @@ if ($data['nilai_ppn'] > 0) {
                                                     <select name="pilih_ppn" id="setppn">
                                                         <option value="0.11">11%</option>
                                                         <option value="0.10">10%</option>
+                                                        <option value="0.011">1.1%</option>
                                                     </select>
                                                 </label>
                                                 <div class="col-sm-1">
@@ -310,7 +311,20 @@ if ($data['nilai_ppn'] > 0) {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div id="bgn-pembulatan">
+                                            <div id="bgn-pembulatan" class="bg-warning">
+                                                <hr>
+                                                <div class="form-group">
+                                                    <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN Atas</label>
+                                                    <div class="col-sm-3">
+                                                        <input type="radio" name="ppn_atas" value="all" id="all" onclick="checkPpnAtas()" checked=" checked"> Barang & Jasa
+                                                    </div>
+                                                    <div class=" col-sm-3">
+                                                        <input type="radio" name="ppn_atas" value="barang" id="barang" onclick="checkPpnAtas()"> Hanya Barang
+                                                    </div>
+                                                    <div class=" col-sm-3">
+                                                        <input type="radio" name="ppn_atas" value="jasa" id="jasa" onclick="checkPpnAtas()"> Hanya Jasa
+                                                    </div>
+                                                </div>
                                                 <div class="form-group">
                                                     <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Pembulatan</label>
                                                     <div class="col-sm-3">
@@ -320,6 +334,7 @@ if ($data['nilai_ppn'] > 0) {
                                                         <input type="radio" name="pembulatan" value="kebawah" id="pembulatan" onclick="checkPembulatan()" checked="checked"> Ke bawah
                                                     </div>
                                                 </div>
+                                                <hr>
                                             </div>
                                             <div class="form-group">
                                                 <label id="tes" for="biaya_lain" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Biaya Lain</label>
@@ -386,7 +401,7 @@ if ($data['nilai_ppn'] > 0) {
                                                 <div class="col-sm-5">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">Rp.</span>
-                                                        <input type="text" required class="form-control" name="jml" value="" readonly />
+                                                        <input type="text" required class="form-control" name="jml" readonly />
                                                     </div>
                                                 </div>
                                             </div>
@@ -609,6 +624,7 @@ if ($data['nilai_ppn'] > 0) {
         document.form.jml.value = jml;
 
 
+
     });
 
     function hilangkanTitik(data) {
@@ -675,7 +691,10 @@ if ($data['nilai_ppn'] > 0) {
             document.form.pph_nilai.value = 0;
             document.form.pph_nilai2.value = 0;
             document.form.jml.value = jml;
+
         }
+
+        // hitungTotal();
     }
 
     function hitungCheckBox(angkaPpn) {
@@ -707,6 +726,7 @@ if ($data['nilai_ppn'] > 0) {
         var jml = tandaPemisahTitik(jmla);
         $("#jml").attr("value", jml);
         document.form.jml.value = jml;
+
     }
 
     function checkBox() {
@@ -724,6 +744,53 @@ if ($data['nilai_ppn'] > 0) {
             hitungCheckBox(setPpn);
 
         }
+
+        hitungTotal();
+    }
+
+    // check ppn atas
+    function checkPpnAtas() {
+        // ambil cek ppn atas
+        ppn_atas = $("input[name='ppn_atas']:checked").val();
+
+        var ppn_nilai = Math.floor(setPpn * (getDpp()));
+
+        // set nilai ppn
+        var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
+        $("#ppn").attr("value", ppn_nilaia);
+        document.form.ppn_nilai.value = ppn_nilaia;
+
+
+        // var grandTotal = getNilaiBarang() + getNilaiJasa() + ppn_nilai + getBiayaLain() - getPphNilai() - getPotongan();
+
+        // var jml = tandaPemisahTitik(grandTotal);
+        // console.log('jumlah ', jml)
+
+        // document.form.jml.value = jml;
+        hitungTotal()
+    }
+
+    function getDpp() {
+        // var nilaiDpp = 0;
+
+        if (ppn_atas == 'all') {
+            var nilaiDpp = getNilaiBarang() + getNilaiJasa();
+        } else if (ppn_atas == 'barang') {
+            var nilaiDpp = getNilaiBarang();
+        } else if (ppn_atas == 'jasa') {
+            var nilaiDpp = getNilaiJasa();
+        }
+
+        return nilaiDpp;
+    }
+
+    function getPersentasePpn() {
+
+        // let dpp = parseInt($("#nilai_barang").val()) + parseInt($("#nilai_jasa").val());
+        let percent = np / getDpp();
+        let percentOke = percent.toFixed(2);
+
+        return parseFloat(percent.toFixed(2));
     }
 
     // check pembulatan
@@ -731,22 +798,98 @@ if ($data['nilai_ppn'] > 0) {
 
         var pembulatan = $("input[name='pembulatan']:checked").val();
 
-        var nilaiJasa = parseInt($("#nilai_jasa").val())
-        var nilaiBarang = parseInt($("#nilai_barang").val())
+        // var nilaiJasa = parseInt($("#nilai_jasa").val())
+        // var nilaiBarang = parseInt($("#nilai_barang").val())
+
+        // if (pembulatan == 'keatas') {
+
+        //     // pembulatan ke atas
+        //     var ppn_nilai = Math.ceil(setPpn * (nilaiBarang + nilaiJasa));
+
+        // } else if (pembulatan == 'kebawah') {
+
+        //     // pembulatan ke bawah
+        //     var ppn_nilai = Math.floor(setPpn * (nilaiBarang + nilaiJasa));
+        // }
 
         if (pembulatan == 'keatas') {
-
             // pembulatan ke atas
-            var ppn_nilai = Math.ceil(setPpn * (nilaiBarang + nilaiJasa));
-
+            var ppn_nilai = Math.ceil(setPpn * (getDpp()));
         } else if (pembulatan == 'kebawah') {
-
             // pembulatan ke bawah
-            var ppn_nilai = Math.floor(setPpn * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(setPpn * (getDpp()));
         }
 
-        var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
-        $("#ppn").attr("value", ppn_nilaia);
-        document.form.ppn_nilai.value = ppn_nilaia;
+        // var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
+        // $("#ppn").attr("value", ppn_nilaia);
+        // document.form.ppn_nilai.value = ppn_nilaia;
+
+        hitungTotal();
+    }
+
+    // hitung total
+    function hitungTotal() {
+        var grandTotal = getNilaiBarang() + getNilaiJasa() + getPpnNilai() + getBiayaLain() - getPphNilai(); // - getPotongan();
+
+        var jml = tandaPemisahTitik(grandTotal);
+        document.form.jml.value = jml;
+
+        return grandTotal;
+    }
+
+    function showValueInput(idSpan, angka) {
+
+        return $('#' + idSpan).text('Rp.' + tandaPemisahTitik(angka));
+    }
+
+    function getNilaiBarang() {
+        return hilangkanTitik('nilai_barang');
+    }
+
+    function getNilaiJasa() {
+        return hilangkanTitik('nilai_jasa');
+    }
+
+    function getPpnNilai() {
+        return hilangkanTitik('ppn_nilai');
+    }
+
+    function getPpnAtas() {
+        return ppn_atas = $("input[name='ppn_atas']:checked").val();
+    }
+
+    function getBiayaLain() {
+        return hilangkanTitik('biaya_lain');
+    }
+
+    function getPotongan() {
+        return hilangkanTitik('potongan');
+    }
+
+    function getPphNilai() {
+
+        if (jenis == 'fixed') {
+
+            // pph nilai 1 untuk tarif fix
+            var pph_nilai = hilangkanTitik('pph_nilai')
+
+        } else if (jenis == 'progresive') {
+
+            // pph nilai 2 untuk tarif progresive
+            var pph_nilai = hilangkanTitik('pph_nilai2')
+
+        } else {
+            var pph_nilai = 0;
+        }
+
+        return pph_nilai;
+
+
+    }
+
+    function hilangkanTitik(idTag) {
+        var angka = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById(idTag).value))))); //input ke dalam angka tanpa titik
+
+        return angka;
     }
 </script>
