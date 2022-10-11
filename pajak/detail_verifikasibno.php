@@ -101,7 +101,7 @@ if (isset($_POST['simpan'])) {
     $queue = "berhasil";
 } else if (isset($_POST['submit'])) {
 
-    
+
     $id_bkk = $_POST['id_bkk'];
     $id_pph = $_POST['id_pph'];
     $nilai_baranga = $_POST['nilai_barang'];
@@ -118,7 +118,7 @@ if (isset($_POST['simpan'])) {
     $terbilang_bkk = Terbilang($jml_bkk);
     $potongan = penghilangTitik($_POST['potongan']);
 
-    
+
 
     // BEGIN TRAN, mysql
     mysqli_begin_transaction($koneksi);
