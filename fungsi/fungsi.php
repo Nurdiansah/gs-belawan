@@ -277,6 +277,48 @@ function getNotRomawi($bln)
     }
 }
 
+function getNumberRomawi($bln)
+{
+    switch ($bln) {
+        case "I":
+            return "01";
+            break;
+        case "II":
+            return "02";
+            break;
+        case "III":
+            return "03";
+            break;
+        case "IV":
+            return "04";
+            break;
+        case "V":
+            return "05";
+            break;
+        case "VI":
+            return "06";
+            break;
+        case "VII":
+            return "07";
+            break;
+        case "VIII":
+            return "08";
+            break;
+        case "IX":
+            return "09";
+            break;
+        case "X":
+            return "10";
+            break;
+        case "XI":
+            return "11";
+            break;
+        case "XII":
+            return "12";
+            break;
+    }
+}
+
 function fieldRealisasi($bln)
 {
     switch ($bln) {
