@@ -221,7 +221,7 @@ try {
     $html2pdf = new HTML2PDF('l', 'A5', 'en', false, 'UTF-8', array(10, 10, 10, 10));
     $html2pdf->pdf->SetDisplayMode('fullpage');
     $html2pdf->writeHTML($content);
-    $html2pdf->Output('Laporan-Pengambilan-Dana-' . $id . '.pdf');
+    $html2pdf->Output('Laporan-Pengambilan-Dana-PO-' . $id . '.pdf');
     $html2pdf->setDefaultFont("roboto");
 } catch (HTML2PDF_exception $e) {
     echo $e;

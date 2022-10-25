@@ -137,7 +137,7 @@ $jmlReapp = mysqli_num_rows($reApprove);
                 <form method="POST" action="simpan_bkk.php" enctype="multipart/form-data" class="form-horizontal">
                     <input type="hidden" name="id_bkk" value="<?= $_GET['id']; ?>">
                     <input type="hidden" name="doc_pendukung_lama" value="<?= $data2['doc_pendukung'] ?>">
-                    <input type="hidden" name="tabel" value="<?= $tabel; ?>" >
+                    <input type="hidden" name="tabel" value="<?= $tabel; ?>">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="pengajuan" class="col-sm-offset- col-sm-2 control-label">Pengajuan</label>
@@ -145,7 +145,7 @@ $jmlReapp = mysqli_num_rows($reApprove);
                                 <input type="text" class="form-control is-valid" name="pengajuan" value="<?= $data2['pengajuan']; ?>" readonly>
                             </div>
 
-                            <label for="tgl_pengajuan" class="col-sm-offset-1 col-sm-1 control-label">Kode Anggaran</label>
+                            <label for="tgl_pengajuan" class="col-sm-offset-2 col-sm-1 control-label">Kode Anggaran</label>
                             <div class="col-sm-3">
                                 <select class="form-control select2" name="id_anggaran" disabled>
                                     <?php
@@ -162,22 +162,6 @@ $jmlReapp = mysqli_num_rows($reApprove);
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="nominal" class="col-sm-offset- col-sm-2 control-label">Nominal</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control is-valid" name="nominal" value="<?= formatRupiah2($data2['nominal']); ?>" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);">
-                            </div>
-
-                            <label for="pengembalian" class="col-sm-offset- col-sm-2 control-label">Pengembalian</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control is-valid" name="pengembalian" value="<?= formatRupiah2($data2['pengembalian']); ?>" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="keterangan" class="col-sm-offset-1 col-sm-1 control-label">Keterangan</label>
-                            <div class="col-sm-3">
-                                <textarea rows="5" type="text" name="keterangan" class="form-control "> <?= $data2['keterangan']; ?></textarea>
-                            </div>
-
                             <label for="remarks" class="col-sm-offset-1 col-sm-1 control-label">Remarks</label>
                             <div class="col-sm-3">
                                 <textarea rows="5" type="text" name="remarks" class="form-control "><?php
@@ -186,6 +170,26 @@ $jmlReapp = mysqli_num_rows($reApprove);
                                                                                                     }
                                                                                                     ?></textarea>
                             </div>
+
+                            <label for="pengembalian" class="col-sm-offset-1 col-sm-2 control-label">Pengembalian</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control is-valid" name="pengembalian" value="<?= formatRupiah2($data2['pengembalian']); ?>" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);">
+                            </div>
+                            <label for="penambahan" class="col-sm-offset-1 col-sm-2 control-label">Penambahan</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control is-valid" name="penambahan" value="<?= formatRupiah2($data2['penambahan']); ?>" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);">
+                            </div>
+                            <label for="nominal" class="col-sm-offset-1 col-sm-2 control-label">Nominal</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control is-valid" name="nominal" value="<?= formatRupiah2($data2['nominal']); ?>" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="keterangan" class="col-sm-offset-1 col-sm-1 control-label">Keterangan</label>
+                            <div class="col-sm-3">
+                                <textarea rows="5" type="text" name="keterangan" class="form-control "> <?= $data2['keterangan']; ?></textarea>
+                            </div>
+
                         </div>
                         <div class="form-group">
                             <label for="alasan_penolakan" class="col-sm-offset-1 col-sm-1 control-lable">Alasan Penolakan</label>
@@ -193,7 +197,7 @@ $jmlReapp = mysqli_num_rows($reApprove);
                                 <textarea rows="5" type="text" name="remarks" class="form-control " disabled><?= $data2['alasan_tolak_pajak'] ?>&#13;&#10;<?= $data2['alasan_tolak_mgrfin'] ?>&#13;&#10;<?= $data2['alasan_tolak_direktur'] ?></textarea>
                             </div>
 
-                            <label for="" class="col-sm-offset-1 col-sm-1 control-lable">Dokumen Pendukung</label>
+                            <label for="" class="col-sm-offset-2 col-sm-1 control-lable">Dokumen Pendukung</label>
                             <div class="col-sm-3">
                                 <div class="input-group input-file" name="doc_pendukung">
                                     <input type="text" class="form-control" />

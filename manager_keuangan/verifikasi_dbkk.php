@@ -190,9 +190,17 @@ $jmlReapp = mysqli_num_rows($reApprove);
                             <div class="col-sm-3">
                                 <input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= $data2['kd_anggaran'] . ' [' . $data2['nm_item'] . ']'; ?>">
                             </div>
-                            <label for="tgl_pengajuan" class="col-sm-offset-2 col-sm-3 control-label">Total </label>
+                            <label for="pengembalian" class="col-sm-offset-2 col-sm-3 control-label">Pengembalian </label>
                             <div class="col-sm-3">
-                                <b><input type="text" disabled class="form-control is-valid" name="tgl_pengajuan" value="<?= formatRupiah($data2['nominal']); ?>"> </b>
+                                <input type="text" disabled class="form-control is-valid" name="pengembalian" value="<?= formatRupiah($data2['pengembalian']); ?>">
+                            </div>
+                            <label for="penambahan" class="col-sm-offset-5 col-sm-3 control-label">Penambahan</label>
+                            <div class="col-sm-3">
+                                <input type="text" disabled class="form-control is-valid" name="penambahan" value="<?= formatRupiah($data2['penambahan']); ?>">
+                            </div>
+                            <label for="total" class="col-sm-offset-6 col-sm-3 control-label">Total </label>
+                            <div class="col-sm-3">
+                                <b><input type="text" disabled class="form-control is-valid" name="total" value="<?= formatRupiah($data2['nominal']); ?>"> </b>
                             </div>
                         </div>
                         <div class="form-group">

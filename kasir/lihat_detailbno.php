@@ -185,7 +185,7 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                                     <!-- Kalo BKK Belawan -->
 
                                     <?php
-                                    if ($row2['metode_pembayaran'] == 'Tunai') {
+                                    if ($row2['metode_pembayaran'] == 'tunai') {
                                         # code...
                                         echo "<iframe class='embed-responsive-item' src='../file/bukti_pembayaran/" . $row2['doc_lpj'] . " '></iframe>";
                                     } else {
