@@ -363,7 +363,8 @@ if ($data['nilai_ppn'] > 0) {
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div id="fixed">
+                                            <div id="fixed" class="bg-success">
+                                                <hr>
                                                 <div class="form-group">
                                                     <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah"></label>
                                                     <div class="col-sm-5">
@@ -383,8 +384,10 @@ if ($data['nilai_ppn'] > 0) {
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <hr>
                                             </div>
-                                            <div id="progresive">
+                                            <div id="progresive" class="bg-success">
+                                                <hr>
                                                 <div class="form-group">
                                                     <label id="tes" for="pph_nilai2" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah"></label>
                                                     <div class="col-sm-5">
@@ -395,6 +398,7 @@ if ($data['nilai_ppn'] > 0) {
                                                         <i><span id="pph_ui"></span></i>
                                                     </div>
                                                 </div>
+                                                <hr>
                                             </div>
                                             <div class="form-group">
                                                 <label id="tes" for="jml_bkk" class=" col-sm-4 control-label">Jumlah</label>

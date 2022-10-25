@@ -382,16 +382,30 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                         </div>
                                     </div>
                                 </div>
-                                <div id="bgn-pembulatan">
+                                <div id="bgn-pembulatan" class="bg-warning">
+                                    <hr>
+                                    <div class="form-group">
+                                        <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN Atas</label>
+                                        <div class="col-sm-3">
+                                            <input type="radio" name="ppn_atas" value="all" id="all" onclick="checkPpnAtas()" checked=" checked"> Barang & Jasa
+                                        </div>
+                                        <div class=" col-sm-3">
+                                            <input type="radio" name="ppn_atas" value="barang" id="barang" onclick="checkPpnAtas()"> Hanya Barang
+                                        </div>
+                                        <div class=" col-sm-3">
+                                            <input type="radio" name="ppn_atas" value="jasa" id="jasa" onclick="checkPpnAtas()"> Hanya Jasa
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Pembulatan</label>
                                         <div class="col-sm-3">
-                                            <input type="radio" name="pembulatan" value="keatas" id="pembulatan" onclick="checkPembulatan()"> Ke atas
+                                            <input type="radio" name="pembulatan" value="keatas" id="keatas" onclick="checkPembulatan()"> Ke atas
                                         </div>
                                         <div class="col-sm-3">
-                                            <input type="radio" name="pembulatan" value="kebawah" id="pembulatan" onclick="checkPembulatan()" checked="checked"> Ke bawah
+                                            <input type="radio" name="pembulatan" value="kebawah" id="kebawah" onclick="checkPembulatan()" checked="checked"> Ke bawah
                                         </div>
                                     </div>
+                                    <hr>
                                 </div>
                                 <div class="form-group">
                                     <label id="tes" for="biaya_lain" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Biaya Lain</label>
@@ -420,7 +434,8 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                         </select>
                                     </div>
                                 </div>
-                                <div id="fixed">
+                                <div id="fixed" class="bg-success">
+                                    <hr>
                                     <div class="form-group">
                                         <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah"></label>
                                         <div class="col-sm-5">
@@ -440,8 +455,10 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                             </div>
                                         </div>
                                     </div>
+                                    <hr>
                                 </div>
-                                <div id="progresive">
+                                <div id="progresive" class="bg-success">
+                                    <hr>
                                     <div class="form-group">
                                         <label id="tes" for="nilai_pph2" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Nilai PPh</label>
                                         <div class="col-sm-5">
@@ -452,6 +469,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                             <i><span id="pph_ui"></span></i>
                                         </div>
                                     </div>
+                                    <hr>
                                 </div>
                                 <div class="form-group">
                                     <label id="tes" for="potongan" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Potongan</label>
@@ -578,10 +596,13 @@ $totalReapp = mysqli_num_rows($queryReapp);
 
 
     // perhitungan pajak
-    var np = <?= $data['nilai_ppn'] ?>;
+    var np = parseFloat("<?= round($data['nilai_ppn']) ?>");
 
     if (np > 0) {
         $('#myCheck').attr('checked', 'checked');
+        $("#bgn-pembulatan").show();
+    } else {
+        $("#bgn-pembulatan").hide();
     }
 
     // Cek PPH
@@ -794,6 +815,53 @@ $totalReapp = mysqli_num_rows($queryReapp);
             hitungCheckBox(setPpn);
 
         }
+
+        hitungTotal();
+    }
+
+    // check ppn atas
+    function checkPpnAtas() {
+        // ambil cek ppn atas
+        ppn_atas = $("input[name='ppn_atas']:checked").val();
+
+        var nilai_ppn = Math.floor(setPpn * (getDpp()));
+
+        // set nilai ppn
+        var nilai_ppna = tandaPemisahTitik(nilai_ppn);
+        $("#ppn").attr("value", nilai_ppna);
+        document.form.nilai_ppn.value = nilai_ppna;
+
+
+        // var grandTotal = getNilaiBarang() + getNilaiJasa() + nilai_ppn + getBiayaLain() - getPphNilai() - getPotongan();
+
+        // var jml = tandaPemisahTitik(grandTotal);
+        // console.log('jumlah ', jml)
+
+        // document.form.jml.value = jml;
+        hitungTotal()
+    }
+
+    function getDpp() {
+        // var nilaiDpp = 0;
+
+        if (ppn_atas == 'all') {
+            var nilaiDpp = getNilaiBarang() + getNilaiJasa();
+        } else if (ppn_atas == 'barang') {
+            var nilaiDpp = getNilaiBarang();
+        } else if (ppn_atas == 'jasa') {
+            var nilaiDpp = getNilaiJasa();
+        }
+
+        return nilaiDpp;
+    }
+
+    function getPersentasePpn() {
+
+        // let dpp = parseInt($("#nilai_barang").val()) + parseInt($("#nilai_jasa").val());
+        let percent = np / getDpp();
+        let percentOke = percent.toFixed(2);
+
+        return parseFloat(percent.toFixed(2));
     }
 
     // check pembulatan
@@ -834,5 +902,69 @@ $totalReapp = mysqli_num_rows($queryReapp);
         var nilai_ppna = tandaPemisahTitik(nilai_ppn);
         $("#ppn").attr("value", nilai_ppna);
         document.form.nilai_ppn.value = nilai_ppna;
+    }
+
+    // hitung total
+    function hitungTotal() {
+        var grandTotal = getNilaiBarang() + getNilaiJasa() + getPpnNilai() + getBiayaLain() - getPphNilai(); // - getPotongan();
+
+        var jml = tandaPemisahTitik(grandTotal);
+        document.form.jml.value = jml;
+
+        return grandTotal;
+    }
+
+    function showValueInput(idSpan, angka) {
+
+        return $('#' + idSpan).text('Rp.' + tandaPemisahTitik(angka));
+    }
+
+    function getNilaiBarang() {
+        return hilangkanTitik('nilai_barang');
+    }
+
+    function getNilaiJasa() {
+        return hilangkanTitik('nilai_jasa');
+    }
+
+    function getPpnNilai() {
+        return hilangkanTitik('nilai_ppn');
+    }
+
+    function getPpnAtas() {
+        return ppn_atas = $("input[name='ppn_atas']:checked").val();
+    }
+
+    function getBiayaLain() {
+        return hilangkanTitik('biaya_lain');
+    }
+
+    function getPotongan() {
+        return hilangkanTitik('potongan');
+    }
+
+    function getPphNilai() {
+
+        if (jenis == 'fixed') {
+
+            // pph nilai 1 untuk tarif fix
+            var pph_nilai = hilangkanTitik('pph_nilai')
+
+        } else if (jenis == 'progresive') {
+
+            // pph nilai 2 untuk tarif progresive
+            var pph_nilai = hilangkanTitik('pph_nilai2')
+
+        } else {
+            var pph_nilai = 0;
+        }
+
+        return pph_nilai;
+    }
+
+    function hilangkanTitik(idTag) {
+        var angka = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById(idTag).value))))); //input ke dalam angka tanpa titik
+
+        return angka;
     }
 </script>
