@@ -177,9 +177,14 @@ $tgl_sekarang = date("Y-m-d");
         <td style="width=400px;">
             Untuk Pembelian <?= $data['nm_barang']; ?>
         </td>
-        <td align="right" rowspan="8">
+        <td align="right" rowspan="9">
             <qrcode value="[ E-Finance GS ] | Kode Kasbon : <?= $data['id_kasbon']; ?> | Sebesar :  <?= formatRupiah($data['harga_akhir']); ?> " ec="H" style="width: 40mm; background-color: white; color: black;"></qrcode>
         </td>
+    </tr>
+    <tr>
+        <td><b>Kode Anggaran</b></td>
+        <td>:</td>
+        <td><?= $data['kd_anggaran'] . " [" . $data['nm_item'] . "]"; ?></td>
     </tr>
     <tr>
         <td><b>Divisi</b></td>
@@ -224,7 +229,7 @@ $tgl_sekarang = date("Y-m-d");
     <tr>
         <td><b>Direktur</b></td>
         <td>:</td>
-        <td>APPROVED (<?= $data['app_direktur2'] . formatTanggalWaktu($data['app_direktur2']); ?>)</td>
+        <td>APPROVED (<?= formatTanggalWaktu($data['app_direktur2']); ?>)</td>
         <td>Medan, <?= date('d', strtotime($tgl_sekarang)) . ' ' . ($bln_tgl[date('m', strtotime($tgl_sekarang))]) . ' ' . date('Y', strtotime($tgl_sekarang)); ?></td>
     </tr>
 </table>

@@ -13,12 +13,14 @@ if (!isset($_SESSION['username']) || $_SESSION['level'] != 'admin_divisi') {
     header("location: ../index.php");
 }
 
-$query =  mysqli_query($koneksi, "SELECT * FROM kasbon k
-                                            JOIN detail_biayaops dbo
-                                            ON dbo.id = k.id_dbo                                             
-                                            JOIN divisi d
-                                            ON d.id_divisi = dbo.id_divisi
-                                            WHERE k.id_kasbon = '$id'  ");
+$query =  mysqli_query($koneksi, "SELECT * FROM kasbon  k
+                                    JOIN detail_biayaops dbo
+                                        ON dbo.id = k.id_dbo
+                                    JOIN divisi d
+                                        ON d.id_divisi = dbo.id_divisi
+                                    JOIN anggaran a
+                                        ON a.id_anggaran = dbo.id_anggaran
+                                    WHERE k.id_kasbon = '$id'  ");
 $data = mysqli_fetch_assoc($query);
 $nm_barang = $data['nm_barang'];
 
@@ -174,9 +176,14 @@ include "../fungsi/koneksi.php";
         <td style="width=400px;">
             <?= $data['keterangan']; ?>
         </td>
-        <td align="right" rowspan="8">
+        <td align="right" rowspan="9">
             <qrcode value="[ E-Finance GS ] | Kode Kasbon : <?= $data['id_kasbon']; ?> | Sebesar :  <?= formatRupiah($data['harga_akhir']); ?> " ec="H" style="width: 40mm; background-color: white; color: black;"></qrcode>
         </td>
+    </tr>
+    <tr>
+        <td><b>Kode Anggaran</b></td>
+        <td>:</td>
+        <td><?= $data['kd_anggaran'] . " [" . $data['nm_item'] . "]"; ?></td>
     </tr>
     <tr>
         <td><b>Divisi</b></td>

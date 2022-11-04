@@ -7,8 +7,10 @@ if (isset($_GET['id'])) {
     $id = dekripRambo($_GET['id']);
 }
 
-$query =  mysqli_query($koneksi, "SELECT * FROM bkk
-                                            WHERE id_bkk = '$id'  ");
+$query =  mysqli_query($koneksi, "SELECT * FROM bkk b
+                                    JOIN anggaran a
+                                        ON a.id_anggaran = b.id_anggaran
+                                    WHERE id_bkk = '$id'  ");
 $data = mysqli_fetch_assoc($query);
 
 $bln_tgl = array(
@@ -163,9 +165,14 @@ include "../fungsi/koneksi.php";
         <td style="width=400px;">
             <?= $data['keterangan']; ?>
         </td>
-        <td align="right" rowspan="7    ">
+        <td align="right" rowspan="7">
             <qrcode value="[ E-Finance GS ] | Kode Biaya Umum : <?= $data['kd_transaksi']; ?> | Sebesar :  <?= formatRupiah($data['jml_bkk']); ?> " ec="H" style="width: 40mm; background-color: white; color: black;"></qrcode>
         </td>
+    </tr>
+    <tr>
+        <td><b>Kode Anggaran</b></td>
+        <td>:</td>
+        <td><?= $data['kd_anggaran'] . " [" . $data['nm_item'] . "]"; ?></td>
     </tr>
     <tr>
         <td><b>Nominal</b></td>
@@ -192,13 +199,13 @@ include "../fungsi/koneksi.php";
         <td>:</td>
         <td>APPROVED (<?= formatTanggal($data['tgl_verifikasimanagerkeuangan']); ?>)</td>
     </tr>
-    <tr>
+    <!-- <tr>
         <td><b>Direktur 1 </b></td>
         <td>:</td>
         <td>APPROVED (<?= formatTanggal($data['tgl_verifikasidireksi']); ?>)</td>
-    </tr>
+    </tr> -->
     <tr>
-        <td><b>Direktur 2</b></td>
+        <td><b>Direktur</b></td>
         <td>:</td>
         <td>APPROVED (<?= formatTanggal($data['tgl_verifikasidireksi2']); ?>)</td>
         <td>Jakarta, <?= date('d', strtotime($tgl_sekarang)) . ' ' . ($bln_tgl[date('m', strtotime($tgl_sekarang))]) . ' ' . date('Y', strtotime($tgl_sekarang)); ?></td>

@@ -390,14 +390,14 @@ $tanggalCargo = date("Y-m-d");
         var nilaiBarang = parseInt($("#nilai_barang").val())
         var ppn_persen = parseInt($("#ppn_persen").val())
         var ppn_nilai = (nilaiJasa + nilaiBarang) * ppn_persen / 100;
-        var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
+        var ppn_nilaia = tandaPemisahTitik(Math.round(ppn_nilai));
         $("#ppn").attr("value", ppn_nilaia);
         document.form.ppn_nilai.value = ppn_nilaia;
 
 
-        var jmla = nilaiBarang + nilaiJasa + ppn_nilai - pph_nilai;
-        var jml = tandaPemisahTitik(jmla);
-        $("#jml").attr("value", jml);
+        var jmla = Math.round(nilaiBarang) + Math.round(nilaiJasa) + Math.round(ppn_nilai) - Math.round(pph_nilai);
+        var jml = tandaPemisahTitik(Math.round(jmla));
+        $("#jml").attr("value", Math.round(jml));
         document.form.jml_bkk.value = jml;
 
     });

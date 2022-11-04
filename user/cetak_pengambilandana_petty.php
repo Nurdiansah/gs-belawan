@@ -8,8 +8,12 @@ if (isset($_GET['id'])) {
     $id = dekripRambo($id);
 }
 
-$query =  mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash
-                                            WHERE id_pettycash = '$id'  ");
+$query =  mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
+                                    JOIN anggaran a
+                                        ON a.id_anggaran = tp.id_anggaran
+                                    JOIN divisi d
+                                        ON d.id_divisi = tp.id_divisi
+                                    WHERE id_pettycash = '$id'  ");
 $data = mysqli_fetch_assoc($query);
 
 
@@ -148,9 +152,19 @@ include "../fungsi/koneksi.php";
             <td style="width=400px;">
                 <?= $data['keterangan_pettycash']; ?>
             </td>
-            <td align="right" rowspan="5 ">
+            <td align="right" rowspan="7">
                 <qrcode value="[ E-Finance GS ] | Kode Pettycash : <?= $data['kd_pettycash']; ?> | Sebesar :  <?= formatRupiah($data['total_pettycash']); ?> " ec="H" style="width: 40mm; background-color: white; color: black;"></qrcode>
             </td>
+        </tr>
+        <tr>
+            <td><b>Kode Anggaran</b></td>
+            <td>:</td>
+            <td><?= $data['kd_anggaran'] . " [" . $data['nm_item'] . "]"; ?></td>
+        </tr>
+        <tr>
+            <td><b>Divisi</b></td>
+            <td>:</td>
+            <td><?= $data['nm_divisi']; ?></td>
         </tr>
         <tr>
             <td><b>Nominal</b></td>

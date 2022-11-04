@@ -937,6 +937,8 @@ $totalReapp = mysqli_num_rows($queryReapp);
         var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
         $("#ppn").attr("value", ppn_nilaia);
         document.form.ppn_nilai.value = ppn_nilaia;
+
+        hitungTotal();
     }
 
     // hitung total

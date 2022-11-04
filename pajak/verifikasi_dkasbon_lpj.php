@@ -802,31 +802,31 @@ if ($data['nilai_ppn'] > 0) {
 
         var pembulatan = $("input[name='pembulatan']:checked").val();
 
-        // var nilaiJasa = parseInt($("#nilai_jasa").val())
-        // var nilaiBarang = parseInt($("#nilai_barang").val())
-
-        // if (pembulatan == 'keatas') {
-
-        //     // pembulatan ke atas
-        //     var ppn_nilai = Math.ceil(setPpn * (nilaiBarang + nilaiJasa));
-
-        // } else if (pembulatan == 'kebawah') {
-
-        //     // pembulatan ke bawah
-        //     var ppn_nilai = Math.floor(setPpn * (nilaiBarang + nilaiJasa));
-        // }
+        var nilaiJasa = parseInt($("#nilai_jasa").val())
+        var nilaiBarang = parseInt($("#nilai_barang").val())
 
         if (pembulatan == 'keatas') {
+
             // pembulatan ke atas
-            var ppn_nilai = Math.ceil(setPpn * (getDpp()));
+            var ppn_nilai = Math.ceil(setPpn * (nilaiBarang + nilaiJasa));
+
         } else if (pembulatan == 'kebawah') {
+
             // pembulatan ke bawah
-            var ppn_nilai = Math.floor(setPpn * (getDpp()));
+            var ppn_nilai = Math.floor(setPpn * (nilaiBarang + nilaiJasa));
         }
 
-        // var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
-        // $("#ppn").attr("value", ppn_nilaia);
-        // document.form.ppn_nilai.value = ppn_nilaia;
+        // if (pembulatan == 'keatas') {
+        //     // pembulatan ke atas
+        //     var ppn_nilai = Math.ceil(setPpn * (getDpp()));
+        // } else if (pembulatan == 'kebawah') {
+        //     // pembulatan ke bawah
+        //     var ppn_nilai = Math.floor(setPpn * (getDpp()));
+        // }
+
+        var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
+        $("#ppn").attr("value", ppn_nilaia);
+        document.form.ppn_nilai.value = ppn_nilaia;
 
         hitungTotal();
     }
