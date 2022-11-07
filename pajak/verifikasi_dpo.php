@@ -415,7 +415,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                             <div class="col-sm-5">
                                                 <div class="input-group">
                                                     <span class="input-group-addon">Rp.</span>
-                                                    <input type="text" readonly class="form-control " name="pph_nilai" value="<?= formatRibuan($data2['n_pph']) ?>" id="pph_nilai" />
+                                                    <input type="text" readonly class="form-control " name="pph_nilai" value="<?= formatRibuan($data2['n_pph']); ?>" id="pph_nilai" />
                                                 </div>
                                             </div>
                                         </div>
@@ -428,12 +428,22 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                             <div class="col-sm-5">
                                                 <div class="input-group">
                                                     <span class="input-group-addon">Rp.</span>
-                                                    <input type="text" class="form-control " name="pph_nilai2" value="<?= round($data2['n_pph']) ?>" id="pph_nilai2" />
+                                                    <input type="text" class="form-control " name="pph_nilai2" value="<?= round($data2['n_pph']); ?>" id="pph_nilai2" />
                                                 </div>
                                                 <i><span id="pph_ui"></span></i>
                                             </div>
                                         </div>
                                         <hr>
+                                    </div>
+                                    <div class="form-group">
+                                        <label id="tes" for="potongan" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Potongan</label>
+                                        <div class="col-sm-5">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Rp.</span>
+                                                <input type="text" required class="form-control" value="<?= $data2['potongan']; ?>" name="potongan" id="potongan" autocomplete="off" />
+                                            </div>
+                                            <i><span id="np_ui"></span></i>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label id="tes" for="jml_bkk" class=" col-sm-4 control-label">Jumlah</label>
@@ -674,6 +684,11 @@ $totalReapp = mysqli_num_rows($queryReapp);
         var pph_ui = tandaPemisahTitik(pph_nilai2);
         $('#pph_ui').text('Rp.' + pph_ui);
 
+        // nilai potongan
+        var potongan = parseInt($("#potongan").val())
+        var np_ui = tandaPemisahTitik(potongan);
+        $('#np_ui').text('Rp.' + np_ui);
+
         var checkBox = document.getElementById("myCheck");
         if (checkBox.checked == true) {
             var ppn_nilai = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
@@ -690,7 +705,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
 
         document.form.jml.value = jml;
 
-
+        hitungTotal();
     });
 
     function hilangkanTitik(data) {
@@ -760,6 +775,8 @@ $totalReapp = mysqli_num_rows($queryReapp);
             document.form.pph_nilai2.value = 0;
             document.form.jml.value = jml;
         }
+
+        hitungTotal();
     }
 
     function hitungCheckBox(angkaPpn) {
@@ -943,7 +960,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
 
     // hitung total
     function hitungTotal() {
-        var grandTotal = getNilaiBarang() + getNilaiJasa() + getPpnNilai() + getBiayaLain() - getPphNilai(); // - getPotongan();
+        var grandTotal = getNilaiBarang() + getNilaiJasa() + getPpnNilai() + getBiayaLain() - getPphNilai() - getPotongan();
 
         var jml = tandaPemisahTitik(grandTotal);
         document.form.jml.value = jml;
