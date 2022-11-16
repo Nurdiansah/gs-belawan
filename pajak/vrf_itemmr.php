@@ -8,7 +8,7 @@ if (isset($_POST['submit']) || isset($_POST['simpan'])) {
     $from_user = $_POST['from_user'];
     $vrf_pajak = $_POST['vrf_pajak'];
     $free_approve = $_POST['free_approve'];
-
+    $potongan = $_POST['potongan'];
     // print_r('Test');
     // die;
 
@@ -23,8 +23,8 @@ if (isset($_POST['submit']) || isset($_POST['simpan'])) {
     $harga = str_replace(".", "", $_POST['jml_bkk']);
 
     if (isset($_POST['simpan'])) {
-        $querySimpan = mysqli_query($koneksi, "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
-                                                    nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
+        $querySimpan = mysqli_query($koneksi, "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa', 
+                                                    nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', potongan = '$potongan',
                                                     id_pph = '$id_pph', harga_akhir = '$harga'
                                                 WHERE id_kasbon ='$id_kasbon'
                         ");
