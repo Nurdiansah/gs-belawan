@@ -22,6 +22,8 @@ $query = mysqli_query($koneksi, "SELECT *
                                             FROM kasbon k                                            
                                             JOIN detail_biayaops dbo
                                             ON k.id_dbo = dbo.id
+                                            join anggaran ag    
+                                            on dbo.id_anggaran = ag.id_anggaran
                                             JOIN divisi d
                                             ON d.id_divisi = dbo.id_divisi                                            
                                             WHERE k.status_kasbon = 0
@@ -100,6 +102,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                 </tr>
                         <?php
                                             $no++;
+                                            $idPK = $row['programkerja_id'];
                                         endwhile;
                                     } ?>
                             </tbody>
@@ -140,6 +143,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                                                                 JOIN cost_center cc
                                                                                     ON pk.costcenter_id = cc.id_costcenter
                                                                                 WHERE cc.divisi_id = '$idDivisi'
+                                                                                AND tahun = '$tahun'
                                                                                 ORDER BY pk.nm_programkerja ASC
                                                                                 ");
                                     if (mysqli_num_rows($queryProgramKerja)) {
@@ -218,20 +222,68 @@ $query = mysqli_query($koneksi, "SELECT *
                     <div class="box-body">
                         <input type="hidden" name="id" id="me_id">
                         <input type="hidden" name="id_dbo" id="me_id_dbo">
-                        <div class="form-group ">
-                            <label for="id_anggaran" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
+                        <div class="form-group">
+                            <label id="tes" for="id_programkerja" class="col-sm-offset-1 col-sm-3 control-label">Program Kerja</label>
                             <div class="col-sm-5">
-                                <select class="form-control select2" name="id_anggaran" id="me_id_anggaran" required>
-                                    <option value="">--Kode Anggaran--</option>
+                                <select class="form-control select2 programkerja_id_edit" name="id_programkerja" id="id_programkerja_edit" required>
+                                    <!-- <option value="">--Program Kerja--</option> -->
                                     <?php
-                                    $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_divisi ='$idDivisi' AND tahun = '$tahun' ORDER BY nm_item ASC");
-                                    if (mysqli_num_rows($queryAnggaran)) {
-                                        while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
+
+                                    $queryProgramKerja = mysqli_query($koneksi, "SELECT id_programkerja, id_costcenter, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi) AS cost_center, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_programkerja
+                                                                                                    FROM cost_center
+                                                                                                    JOIN pt
+                                                                                                        ON id_pt = pt_id
+                                                                                                    JOIN divisi
+                                                                                                        ON id_divisi = divisi_id
+                                                                                                    JOIN parent_divisi
+                                                                                                        ON id_parent = parent_id
+                                                                                                    JOIN program_kerja
+                                                                                                        ON id_costcenter = costcenter_id
+                                                                                                    WHERE divisi_id = '$idDivisi'
+                                                                                                    AND tahun = '$tahun'
+                                                                                                    ORDER BY program_kerja ASC
+                                                                                ");
+                                    if (mysqli_num_rows($queryProgramKerja)) {
+                                        while ($rowPK = mysqli_fetch_assoc($queryProgramKerja)) :
                                     ?>
-                                            <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox"><?= $rowAnggaran['nm_item'] . ' ' . $rowAnggaran['kd_anggaran']; ?></option>
+                                            <option value="<?= $rowPK['id_programkerja']; ?>" <?= $rowPK['id_programkerja'] == $idPK ? 'selected' : ''; ?>><?= $rowPK['program_kerja'] . " [" . $rowPK['nm_programkerja']; ?>]</option>
                                     <?php endwhile;
                                     } ?>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="kotakAnggaran_edit">
+                            <div class="form-group ">
+                                <label for="id_anggaran" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control select2 id_anggaran_edit" name="id_anggaran" id="id_anggaran_edit" required>
+                                        <!-- <option value="">--Kode Anggaran--</option> -->
+                                        <?php
+                                        $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_item
+                                                                                    FROM anggaran agg
+                                                                                    JOIN program_kerja
+                                                                                        ON programkerja_id = id_programkerja
+                                                                                    JOIN cost_center cc
+                                                                                        ON costcenter_id = id_costcenter
+                                                                                    JOIN pt pt
+                                                                                        ON pt_id = id_pt
+                                                                                    JOIN divisi dvs
+                                                                                        ON divisi_id = dvs.id_divisi
+                                                                                    JOIN parent_divisi pd
+                                                                                        ON parent_id = id_parent
+                                                                                    JOIN segmen sg
+                                                                                        ON sg.id_segmen = agg.id_segmen
+                                                                                    WHERE id_programkerja = '$idPK'
+                                                                                    ORDER BY nm_item ASC
+                                                                                ");
+                                        if (mysqli_num_rows($queryAnggaran)) {
+                                            while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
+                                        ?>
+                                                <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox"><?= $rowAnggaran['nm_item'] . ' - [' . $rowAnggaran['program_kerja']; ?>]</option>
+                                        <?php endwhile;
+                                        } ?>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group ">

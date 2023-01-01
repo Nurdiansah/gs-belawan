@@ -12,7 +12,9 @@ $queryUser = mysqli_query($koneksi, "SELECT *
                                         JOIN detail_biayaops dbo
                                             ON k.id_dbo = dbo.id
                                         JOIN divisi d
-                                            ON d.id_divisi = dbo.id_divisi                                            
+                                            ON d.id_divisi = dbo.id_divisi 
+                                        LEFT JOIN anggaran ag
+                                            ON dbo.id_anggaran = ag.id_anggaran                                           
                                         WHERE k.status_kasbon IN ('101', '202', '303', '707', '606')
                                         AND from_user = '1'
                                         AND dbo.id_divisi = '$idDivisi'");

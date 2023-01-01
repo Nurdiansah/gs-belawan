@@ -372,6 +372,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                                                                                 JOIN cost_center cc
                                                                                     ON pk.costcenter_id = cc.id_costcenter
                                                                                 WHERE cc.divisi_id = '$idDivisi'
+                                                                                AND tahun = '$tahun'
                                                                                 ORDER BY pk.nm_programkerja ASC
                                                                                 ");
                                                     if (mysqli_num_rows($queryProgramKerja)) {
