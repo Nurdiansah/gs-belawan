@@ -108,6 +108,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                     </tr>
                             <?php
                                                 $no++;
+                                                $idPK = $row['programkerja_id'];
                                             endwhile;
                                         } ?>
                                 </tbody>
@@ -143,11 +144,12 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                         <?php
 
                                         $queryProgramKerja = mysqli_query($koneksi, "SELECT *
-                                                                                FROM program_kerja pk
-                                                                                JOIN cost_center cc
-                                                                                    ON pk.costcenter_id = cc.id_costcenter
-                                                                                WHERE cc.divisi_id = '$idDivisi'
-                                                                                ORDER BY pk.nm_programkerja ASC
+                                                                                    FROM program_kerja pk
+                                                                                    JOIN cost_center cc
+                                                                                        ON pk.costcenter_id = cc.id_costcenter
+                                                                                    WHERE cc.divisi_id = '$idDivisi'
+                                                                                    AND tahun = '$tahun'
+                                                                                    ORDER BY pk.nm_programkerja ASC
                                                                                 ");
                                         if (mysqli_num_rows($queryProgramKerja)) {
                                             while ($rowPK = mysqli_fetch_assoc($queryProgramKerja)) :
@@ -279,13 +281,45 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                             <input type="hidden" name="id" value="" id="me_id_pettycash">
                             <input type="hidden" name="kd_pettycash" value="" id="me_kd_pettycash">
                             <input type="hidden" name="doc_lpj_lama" value="" id="me_doc_lpj_lama">
-                            <div class="form-group ">
-                                <label for="id_anggaran" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
+                            <div class="form-group">
+
+                                <label id="tes" for="id_programkerja" class="col-sm-offset-1 col-sm-3 control-label">Program Kerja</label>
                                 <div class="col-sm-5">
-                                    <select class="form-control select2" name="id_anggaran" id="me_id_anggaran" required>
-                                        <option value="">--Kode Anggaran--</option>
+                                    <select class="form-control select2 programkerja_id_edit" name="id_programkerja" id="id_programkerja_edit" required>
+                                        <!-- <option value="">--Program Kerja--</option> -->
                                         <?php
-                                        $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_item
+
+                                        $queryProgramKerja = mysqli_query($koneksi, "SELECT id_programkerja, id_costcenter, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi) AS cost_center, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_programkerja
+                                                                                                    FROM cost_center
+                                                                                                    JOIN pt
+                                                                                                        ON id_pt = pt_id
+                                                                                                    JOIN divisi
+                                                                                                        ON id_divisi = divisi_id
+                                                                                                    JOIN parent_divisi
+                                                                                                        ON id_parent = parent_id
+                                                                                                    JOIN program_kerja
+                                                                                                        ON id_costcenter = costcenter_id
+                                                                                                    WHERE divisi_id = '$idDivisi'
+                                                                                                    AND tahun = '$tahun'
+                                                                                                    ORDER BY program_kerja ASC
+                                                                                ");
+                                        if (mysqli_num_rows($queryProgramKerja)) {
+                                            while ($rowPK = mysqli_fetch_assoc($queryProgramKerja)) :
+                                        ?>
+                                                <option value="<?= $rowPK['id_programkerja']; ?>" <?= $rowPK['id_programkerja'] == $idPK ? 'selected' : ''; ?>><?= $rowPK['program_kerja'] . " [" . $rowPK['nm_programkerja']; ?>]</option>
+                                        <?php endwhile;
+                                        } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="kotakAnggaran_edit">
+                                <div class="form-group ">
+                                    <label for="id_anggaran" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control select2 id_anggaran_edit" name="id_anggaran" id="id_anggaran_edit" required>
+                                            <option value="">--Kode Anggaran--</option>
+                                            <?php
+                                            $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_item
                                                                                     FROM anggaran agg
                                                                                     JOIN program_kerja
                                                                                         ON programkerja_id = id_programkerja
@@ -299,18 +333,17 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                                                                         ON parent_id = id_parent
                                                                                     JOIN segmen sg
                                                                                         ON sg.id_segmen = agg.id_segmen
-                                                                                    WHERE agg.id_divisi = '$idDivisi'
-                                                                                    AND jenis_anggaran = 'BIAYA'
-                                                                                    AND tahun = '$tahun'
+                                                                                    WHERE id_programkerja = '$idPK'
                                                                                     ORDER BY nm_item ASC
                                                                                 ");
-                                        if (mysqli_num_rows($queryAnggaran)) {
-                                            while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
-                                        ?>
-                                                <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox"><?= $rowAnggaran['nm_item'] . ' - [' . $rowAnggaran['program_kerja']; ?>]</option>
-                                        <?php endwhile;
-                                        } ?>
-                                    </select>
+                                            if (mysqli_num_rows($queryAnggaran)) {
+                                                while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
+                                            ?>
+                                                    <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox"><?= $rowAnggaran['nm_item'] . ' - [' . $rowAnggaran['program_kerja']; ?>]</option>
+                                            <?php endwhile;
+                                            } ?>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group ">
@@ -391,14 +424,11 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
 </div>
 <!-- End hapus -->
 
-<?php
-$host = host();
-
-?>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="../assets/plugins/alertify/lib/alertify.min.js"></script>
 <script>
-    var host = '<?= $host ?>';
+    var host = '<?= host(); ?>'
+
     $(function() {
         $("#material").DataTable({
             "language": {
@@ -483,7 +513,7 @@ $host = host();
                     // console.log(data);
                     $('#me_id_pettycash').val(data.id_pettycash);
                     $('#me_kd_pettycash').val(data.kd_pettycash);
-                    $('#me_id_anggaran').val(data.id_anggaran);
+                    $('#id_anggaran_edit').val(data.id_anggaran);
                     $('#me_doc_lpj_lama').val(data.doc_lpj_pettycash);
                     $('#me_nominal').val(formatRibuan(data.total_pettycash));
                     $('#me_keterangan').val(data.keterangan_pettycash);

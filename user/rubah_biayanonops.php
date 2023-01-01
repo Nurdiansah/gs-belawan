@@ -70,9 +70,14 @@ if (isset($_POST['simpan'])) {
 if (isset($_GET['id'])) {
     $id_bkk = dekripRambo($_GET['id']);
 
-    $queryBKK = mysqli_query($koneksi, "SELECT * FROM bkk WHERE id_bkk = '$id_bkk'");
+    $queryBKK = mysqli_query($koneksi, "SELECT * FROM bkk bk
+                                        JOIN anggaran ag
+                                            ON bk.id_anggaran = ag.id_anggaran
+                                        WHERE id_bkk = '$id_bkk'
+                            ");
     $dataBKK = mysqli_fetch_assoc($queryBKK);
 }
+$idPk = $dataBKK['programkerja_id'];
 
 $tanggalCargo = date("Y-m-d");
 ?>
@@ -116,13 +121,43 @@ $tanggalCargo = date("Y-m-d");
                                 <input type="text" required class="form-control" name="keterangan" value="<?= $dataBKK['keterangan']; ?>">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label id="tes" for="id_anggaran" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
+                        <div class="form-group"><label id="tes" for="id_programkerja" class="col-sm-offset-1 col-sm-3 control-label">Program Kerja</label>
                             <div class="col-sm-4">
-                                <select class="form-control select2" name="id_anggaran">
-                                    <option value="">--Kode Anggaran--</option>
+                                <select class="form-control select2 programkerja_id_edit" name="id_programkerja" id="id_programkerja_edit" required>
+                                    <!-- <option value="">--Program Kerja--</option> -->
                                     <?php
-                                    $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_item
+
+                                    $queryProgramKerja = mysqli_query($koneksi, "SELECT id_programkerja, id_costcenter, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi) AS cost_center, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_programkerja
+                                                                                                    FROM cost_center
+                                                                                                    JOIN pt
+                                                                                                        ON id_pt = pt_id
+                                                                                                    JOIN divisi
+                                                                                                        ON id_divisi = divisi_id
+                                                                                                    JOIN parent_divisi
+                                                                                                        ON id_parent = parent_id
+                                                                                                    JOIN program_kerja
+                                                                                                        ON id_costcenter = costcenter_id
+                                                                                                    WHERE divisi_id = '$idDivisi'
+                                                                                                    AND tahun = '$tahun'
+                                                                                                    ORDER BY program_kerja ASC
+                                                                                ");
+                                    if (mysqli_num_rows($queryProgramKerja)) {
+                                        while ($rowPK = mysqli_fetch_assoc($queryProgramKerja)) :
+                                    ?>
+                                            <option value="<?= $rowPK['id_programkerja']; ?>" <?= $rowPK['id_programkerja'] == $idPk ? 'selected' : ''; ?>><?= $rowPK['program_kerja'] . " [" . $rowPK['nm_programkerja']; ?>]</option>
+                                    <?php endwhile;
+                                    } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="kotakAnggaran_edit">
+                            <div class="form-group">
+                                <label id="tes" for="id_anggaran" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control select2 id_anggaran_edit" name="id_anggaran" id="id_anggaran_edit" required>
+                                        <option value="">--Kode Anggaran--</option>
+                                        <?php
+                                        $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_item
                                                                                 FROM anggaran agg
                                                                                 JOIN program_kerja
                                                                                     ON programkerja_id = id_programkerja
@@ -136,20 +171,19 @@ $tanggalCargo = date("Y-m-d");
                                                                                     ON parent_id = id_parent
                                                                                 JOIN segmen sg
                                                                                     ON sg.id_segmen = agg.id_segmen
-                                                                                WHERE agg.id_divisi = '$Divisi'
-                                                                                AND jenis_anggaran = 'BIAYA'
-                                                                                AND tahun = '$tahun'
+                                                                                WHERE id_programkerja = '$idPk'
                                                                                 ORDER BY nm_item ASC
                                                                             ");
-                                    if (mysqli_num_rows($queryAnggaran)) {
-                                        while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
-                                    ?>
-                                            <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox" <?php if ($rowAnggaran['id_anggaran'] == $dataBKK['id_anggaran']) {
-                                                                                                                    echo "selected=selected";
-                                                                                                                } ?>><?= $rowAnggaran['nm_item'] . ' - [' . $rowAnggaran['program_kerja']; ?>]</option>
-                                    <?php endwhile;
-                                    } ?>
-                                </select>
+                                        if (mysqli_num_rows($queryAnggaran)) {
+                                            while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
+                                        ?>
+                                                <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox" <?php if ($rowAnggaran['id_anggaran'] == $dataBKK['id_anggaran']) {
+                                                                                                                        echo "selected=selected";
+                                                                                                                    } ?>><?= $rowAnggaran['nm_item'] . ' - [' . $rowAnggaran['program_kerja']; ?>]</option>
+                                        <?php endwhile;
+                                        } ?>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="perhitungan">
@@ -316,6 +350,8 @@ $tanggalCargo = date("Y-m-d");
 </section>
 
 <script>
+    var host = '<?= host(); ?>';
+
     $(document).ready(function() {
         $('.tanggal').datepicker({
             format: "yyyy-mm-dd",

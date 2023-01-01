@@ -29,6 +29,7 @@ $queryDetail =  mysqli_query($koneksi, "SELECT *
                                             ON db.id = ks.id_dbo
                                         WHERE id_kasbon = '$id'");
 $data = mysqli_fetch_assoc($queryDetail);
+$idPK = $data['programkerja_id'];
 
 $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo WHERE id_dbo='$data[id_dbo]'");
 
@@ -42,6 +43,8 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo WHERE id_dbo='$data[i
 //         header("location:?p=hapus_sdbo&id=$id&url=dtl_kasbonditolak");
 //     }
 // }
+$tahun = date("Y");
+
 ?>
 <!-- index.php?p=dtl_kasbonditolak&id= -->
 <section class="content">
@@ -69,11 +72,41 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo WHERE id_dbo='$data[i
                             </div>
                             <!-- </div>
                             <div class="form-group"> -->
-                            <label for="id_anggaran" class="col-sm-offset- col-sm-2 control-label">Kode Anggaran</label>
+                            <label id="tes" for="id_programkerja" class="col-sm-offset- col-sm-2 control-label">Program Kerja</label>
                             <div class="col-sm-3">
-                                <select class="form-control select2" name="id_anggaran">
+                                <select class="form-control select2 programkerja_id_edit" name="id_programkerja" id="id_programkerja_edit" required>
+                                    <!-- <option value="">--Program Kerja--</option> -->
                                     <?php
-                                    $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_item
+
+                                    $queryProgramKerja = mysqli_query($koneksi, "SELECT id_programkerja, id_costcenter, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi) AS cost_center, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_programkerja
+                                                                                                    FROM cost_center
+                                                                                                    JOIN pt
+                                                                                                        ON id_pt = pt_id
+                                                                                                    JOIN divisi
+                                                                                                        ON id_divisi = divisi_id
+                                                                                                    JOIN parent_divisi
+                                                                                                        ON id_parent = parent_id
+                                                                                                    JOIN program_kerja
+                                                                                                        ON id_costcenter = costcenter_id
+                                                                                                    WHERE divisi_id = '$idDivisi'
+                                                                                                    AND tahun = '$tahun'
+                                                                                                    ORDER BY program_kerja ASC
+                                                                                ");
+                                    if (mysqli_num_rows($queryProgramKerja)) {
+                                        while ($rowPK = mysqli_fetch_assoc($queryProgramKerja)) :
+                                    ?>
+                                            <option value="<?= $rowPK['id_programkerja']; ?>" <?= $rowPK['id_programkerja'] == $idPK ? 'selected' : ''; ?>><?= $rowPK['program_kerja'] . " [" . $rowPK['nm_programkerja']; ?>]</option>
+                                    <?php endwhile;
+                                    } ?>
+                                </select>
+                            </div>
+                            <br><br>
+                            <div class="kotakAnggaran_edit">
+                                <label for="id_anggaran" class="col-sm-offset-5 col-sm-2 control-label">Kode Anggaran</label>
+                                <div class="col-sm-3">
+                                    <select class="form-control select2 id_anggaran_edit" name="id_anggaran" id="id_anggaran_edit" required>
+                                        <?php
+                                        $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_item
                                                                                 FROM anggaran agg
                                                                                 JOIN program_kerja
                                                                                     ON programkerja_id = id_programkerja
@@ -87,18 +120,17 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo WHERE id_dbo='$data[i
                                                                                     ON parent_id = id_parent
                                                                                 JOIN segmen sg
                                                                                     ON sg.id_segmen = agg.id_segmen
-                                                                                WHERE agg.id_divisi = '$idDivisi'
-                                                                                AND jenis_anggaran = 'BIAYA'
-                                                                                AND tahun = '$tahun'
+                                                                                WHERE id_programkerja = '$idPK'
                                                                                 ORDER BY nm_item ASC
                                                                             ");
-                                    if (mysqli_num_rows($queryAnggaran)) {
-                                        while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
-                                    ?>
-                                            <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox" <?= $rowAnggaran['id_anggaran'] == $data['id_anggaran'] ? 'selected=selected' : ''; ?>><?= $rowAnggaran['nm_item'] . ' - [' . $rowAnggaran['program_kerja']; ?>]</option>
-                                    <?php endwhile;
-                                    } ?>
-                                </select>
+                                        if (mysqli_num_rows($queryAnggaran)) {
+                                            while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
+                                        ?>
+                                                <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox" <?= $rowAnggaran['id_anggaran'] == $data['id_anggaran'] ? 'selected=selected' : ''; ?>><?= $rowAnggaran['nm_item'] . ' - [' . $rowAnggaran['program_kerja']; ?>]</option>
+                                        <?php endwhile;
+                                        } ?>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -269,6 +301,8 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo WHERE id_dbo='$data[i
 </section>
 
 <script>
+    var host = '<?= host(); ?>'
+
     function bs_input_file() {
         $(".input-file").before(
             function() {

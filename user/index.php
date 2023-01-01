@@ -587,6 +587,38 @@ $dataTolakBKM = mysqli_fetch_assoc($queryTolakBKM);
       });
     </script>
 
+    <!-- option anggaran edit -->
+    <script>
+      // $('.kotakAnggaran').hide();
+      $('.programkerja_id_edit').on('change', function() {
+        let programKerjaId = this.value;
+        // if (programKerjaId == '') {
+        //   $('.kotakAnggaran').hide();
+        // } else {
+        $('.kotakAnggaran_edit').show();
+        $.ajax({
+          url: host + 'api/anggaran/getanggaranprogramkerja_edit.php',
+          data: {
+            id: programKerjaId
+          },
+          method: 'post',
+          dataType: 'json',
+          success: function(data) {
+
+            $('#id_anggaran_edit').empty();
+            $.each(data, function(i, value) {
+              $('.id_anggaran_edit').append($('<option>').text(value.nm_item + " - [" + value.program_kerja + "]").attr('value', value.id_anggaran));
+            });
+          }
+        });
+        // }
+      });
+
+      $('.id_anggaran_edit').on('change', function() {
+        let anggaranId = this.value;
+      });
+    </script>
+
     <!-- jQuery UI 1.11.4 -->
     <script src="../assets/plugins/jQueryUI/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
