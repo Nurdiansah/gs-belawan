@@ -42,21 +42,28 @@ $dataDivisi = mysqli_fetch_assoc($queryDivisi);
 
 <section class="content">
     <div class="row">
+        <div class="col-sm-6">
+            <a href="#" class="btn btn-default btn-lg"><i class="fa fa-bar-chart-o"></i> Anggaran</a>
+            <a href="index.php?p=laporan_programkerja" class="btn btn-success btn-lg"><i class="fa fa-signal"></i> Program Kerja</a>
+        </div>
+        <br>
+    </div>
+    <div class="row">
         <h3 class="text-center">Grafik Laporan Anggaran</h3>
-        <h4 class="text-center">(Divisi <?php echo $dataDivisi['nm_divisi'] . " " . $tahun ?>)</h4>
+        <h4 class="text-center">(Divisi <?= $dataDivisi['nm_divisi'] . " " . $tahun ?>)</h4>
         <form action="" method="POST">
             <div class="form-group">
                 <div class="col-sm-offset- col-sm-2">
                     <select name="tahun" class="form-control" required>
                         <?php
                         if (isset($_POST['cari'])) {
-                            foreach (range(2019, $tahunSekarang) as $tahun) { ?>
+                            foreach (range(2021, $tahunSekarang) as $tahun) { ?>
                                 <option value="<?= $tahun; ?>" <?php if ($tahun == $_POST['tahun']) {
                                                                     echo "selected=selected";
                                                                 } ?>><?= $tahun; ?></option>
                             <?php }
                         } else {
-                            foreach (range(2019, $tahunSekarang) as $tahun) { ?>
+                            foreach (range(2021, $tahunSekarang) as $tahun) { ?>
                                 <option value="<?= $tahun; ?>" <?php if ($tahun == $tahunSekarang) {
                                                                     echo "selected=selected";
                                                                 } ?>><?= $tahun; ?></option>
@@ -71,20 +78,20 @@ $dataDivisi = mysqli_fetch_assoc($queryDivisi);
         <br>
         <!-- AMCHART -->
         <div id="chartdiv"></div>
-        <br><br>
+        <br>
         <!-- TABEL -->
         <div class="col-sm-12 ">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="text-center">Table Laporan Anggaran</h3>
-                    <h4 class="text-center">(Divisi <?php echo $dataDivisi['nm_divisi'] . " " . $tahun ?>)</h4>
-                    <?php if (isset($_POST['cari'])) { ?>
-                        <a href="cetak_excel_summary.php?tahun=<?= enkripRambo($_POST['tahun']); ?>" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Excel</a>
-                        <!-- <a href="cetak_excel_detail.php?tahun=<?= enkripRambo($_POST['tahun']); ?>" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Detail</a> -->
-                    <?php } else { ?>
-                        <a href="cetak_excel_summary.php" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Excel</a>
-                        <!-- <a href="cetak_excel_detail.php" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Detail</a> -->
-                    <?php } ?>
+                    <h4 class="text-center">(Divisi <?= $dataDivisi['nm_divisi'] . " " . $tahun ?>)</h4>
+                    <!-- <?php if (isset($_POST['cari'])) { ?>
+                        <a href="cetak_excel_summary.php?tahun=<?= enkripRambo($_POST['tahun']); ?>" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Excel</a> -->
+                    <!-- <a href="cetak_excel_detail.php?tahun=<?= enkripRambo($_POST['tahun']); ?>" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Detail</a> -->
+                    <!-- <?php } else { ?>
+                        <a href="cetak_excel_summary.php" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Excel</a> -->
+                    <!-- <a href="cetak_excel_detail.php" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Detail</a> -->
+                    <!-- <?php } ?> -->
                 </div>
                 <div class="box-body">
                     <table class="table table-striped">
@@ -94,80 +101,93 @@ $dataDivisi = mysqli_fetch_assoc($queryDivisi);
                                 <th>Bulan</th>
                                 <th>Nominal</th>
                                 <th>Realisasi</th>
+                                <th>Surplus (Defisit)</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr <?= warnaSurplus($dataChart['januari_realisasi'], $dataChart['januari_nominal']); ?>>
                                 <td>1</td>
                                 <td>Januari</td>
                                 <td><?= formatRupiah($dataChart['januari_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['januari_realisasi']); ?></td>
+                                <td><?= kurungSurplus($dataChart['januari_nominal'], $dataChart['januari_realisasi']); ?></td>
                             </tr>
-                            <tr>
+                            <tr <?= warnaSurplus($dataChart['februari_realisasi'], $dataChart['februari_nominal']); ?>>
                                 <td>2</td>
                                 <td>Februari</td>
                                 <td><?= formatRupiah($dataChart['februari_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['februari_realisasi']); ?></td>
+                                <td><?= kurungSurplus($dataChart['februari_nominal'], $dataChart['februari_realisasi']); ?></td>
                             </tr>
-                            <tr>
+                            <tr <?= warnaSurplus($dataChart['maret_realisasi'], $dataChart['maret_nominal']); ?>>
                                 <td>3</td>
                                 <td>Maret</td>
                                 <td><?= formatRupiah($dataChart['maret_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['maret_realisasi']); ?></td>
+                                <td><?= kurungSurplus($dataChart['maret_nominal'], $dataChart['maret_realisasi']); ?></td>
                             </tr>
-                            <tr>
+                            <tr <?= warnaSurplus($dataChart['april_realisasi'], $dataChart['april_nominal']); ?>>
                                 <td>4</td>
                                 <td>April</td>
                                 <td><?= formatRupiah($dataChart['april_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['april_realisasi']); ?></td>
+                                <td><?= kurungSurplus($dataChart['april_nominal'], $dataChart['april_realisasi']); ?></td>
                             </tr>
-                            <tr>
+                            <tr <?= warnaSurplus($dataChart['mei_realisasi'], $dataChart['mei_nominal']); ?>>
                                 <td>5</td>
                                 <td>Mei</td>
                                 <td><?= formatRupiah($dataChart['mei_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['mei_realisasi']); ?></td>
+                                <td><?= kurungSurplus($dataChart['mei_nominal'], $dataChart['mei_realisasi']); ?></td>
                             </tr>
-                            <tr>
+                            <tr <?= warnaSurplus($dataChart['juni_realisasi'], $dataChart['juni_nominal']); ?>>
                                 <td>6</td>
                                 <td>Juni</td>
                                 <td><?= formatRupiah($dataChart['juni_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['juni_realisasi']); ?></td>
+                                <td><?= kurungSurplus($dataChart['juni_nominal'], $dataChart['juni_realisasi']); ?></td>
                             </tr>
-                            <tr>
+                            <tr <?= warnaSurplus($dataChart['juli_realisasi'], $dataChart['juli_nominal']); ?>>
                                 <td>7</td>
                                 <td>Juli</td>
                                 <td><?= formatRupiah($dataChart['juli_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['juli_realisasi']); ?></td>
+                                <td><?= kurungSurplus($dataChart['juli_nominal'], $dataChart['juli_realisasi']); ?></td>
                             </tr>
-                            <tr>
+                            <tr <?= warnaSurplus($dataChart['agustus_realisasi'], $dataChart['agustus_nominal']); ?>>
                                 <td>8</td>
                                 <td>Agustus</td>
                                 <td><?= formatRupiah($dataChart['agustus_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['agustus_realisasi']); ?></td>
+                                <td><?= kurungSurplus($dataChart['agustus_nominal'], $dataChart['agustus_realisasi']); ?></td>
                             </tr>
-                            <tr>
+                            <tr <?= warnaSurplus($dataChart['september_realisasi'], $dataChart['september_nominal']); ?>>
                                 <td>9</td>
                                 <td>September</td>
                                 <td><?= formatRupiah($dataChart['september_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['september_realisasi']); ?></td>
+                                <td><?= kurungSurplus($dataChart['september_nominal'], $dataChart['september_realisasi']); ?></td>
                             </tr>
-                            <tr>
+                            <tr <?= warnaSurplus($dataChart['oktober_realisasi'], $dataChart['oktober_nominal']); ?>>
                                 <td>10</td>
                                 <td>Oktober</td>
                                 <td><?= formatRupiah($dataChart['oktober_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['oktober_realisasi']); ?></td>
+                                <td><?= kurungSurplus($dataChart['oktober_nominal'], $dataChart['oktober_realisasi']); ?></td>
                             </tr>
-                            <tr>
+                            <tr <?= warnaSurplus($dataChart['november_realisasi'], $dataChart['november_nominal']); ?>>
                                 <td>11</td>
                                 <td>November</td>
                                 <td><?= formatRupiah($dataChart['november_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['november_realisasi']); ?></td>
+                                <td><?= kurungSurplus($dataChart['november_nominal'], $dataChart['november_realisasi']); ?></td>
                             </tr>
-                            <tr>
+                            <tr <?= warnaSurplus($dataChart['desember_realisasi'], $dataChart['desember_nominal']); ?>>
                                 <td>12</td>
                                 <td>Desember</td>
                                 <td><?= formatRupiah($dataChart['desember_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['desember_realisasi']); ?></td>
+                                <td><?= kurungSurplus($dataChart['desember_nominal'], $dataChart['desember_realisasi']); ?></td>
                             </tr>
                             <tr>
                                 <td>
@@ -181,6 +201,11 @@ $dataDivisi = mysqli_fetch_assoc($queryDivisi);
                                 </td>
                                 <td>
                                     <h3><?= formatRupiah($dataChart['total_realisasi']); ?></h3>
+                                </td>
+                                <td>
+                                    <h3>
+                                        <?= kurungSurplus($dataChart['total_nominal'], $dataChart['total_realisasi']); ?>
+                                    </h3>
                                 </td>
                             </tr>
                         </tbody>

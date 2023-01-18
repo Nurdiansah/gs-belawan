@@ -128,4 +128,6 @@
         include_once "ditolak_bkm.php";
     } else if ($page == "transaksi_bkm") {
         include_once "transaksi_bkm.php";
+    } else if ($page == "laporan_programkerja") {
+        include_once "laporan_programkerja.php";
     }
