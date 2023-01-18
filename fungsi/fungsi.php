@@ -693,3 +693,18 @@ function kodeAnggaran($id_anggaran)
 
     return $hasil;
 }
+
+function warnaSurplus($nominal, $realisasi)
+{
+    $warna = $nominal > $realisasi ? "style='color: red;'" : "";
+
+    return $warna;
+}
+
+function kurungSurplus($nominal, $realisasi)
+{
+    $total = $nominal - $realisasi;
+    $kurung = $nominal > $realisasi ?  formatRupiah($total) : "(" . formatRupiah($total) . ")";
+
+    return $kurung;
+}
