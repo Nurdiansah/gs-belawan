@@ -33,7 +33,8 @@ $queryChart = mysqli_query($koneksi, "SELECT SUM(januari_nominal) as januari_nom
                                                     SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) as total_realisasi
                                             FROM anggaran
                                             WHERE tahun = '$tahun'
-                                            AND id_divisi = '$divisi'");
+                                            AND id_divisi = '$divisi'
+                                            AND jenis_anggaran = 'BIAYA'");
 $dataChart = mysqli_fetch_assoc($queryChart);
 
 $queryDivisi = mysqli_query($koneksi, "SELECT * FROM divisi WHERE id_divisi = '$divisi'");
