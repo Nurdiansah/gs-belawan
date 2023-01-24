@@ -78,3 +78,28 @@ function dataAnggaran($id_anggaran)
 
     return $rowAnggaran;
 }
+
+
+function getSaldoAnggaran($id_anggaran)
+{
+    global $koneksi;
+
+    $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggaran = '$id_anggaran'");
+    $rowAnggaran = mysqli_fetch_assoc($queryAnggaran);
+
+    $programKerjaID = $rowAnggaran['programkerja_id'];
+    $tahunAnggaran = $rowAnggaran['tahun'];
+
+    $dProgramKerja = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT sum(jumlah_nominal) AS jumlah_nominal,  sum(jumlah_realisasi) AS jumlah_realisasi FROM anggaran WHERE programkerja_id = '$programKerjaID' AND tahun = '$tahunAnggaran' GROUP BY programkerja_id "));
+
+    $jumlahNominal = $dProgramKerja['jumlah_nominal'];
+    $jumlahRealisasi = $dProgramKerja['jumlah_realisasi'];
+
+    // kalo bukan 2022 ke bawah realiasi di nol kan 
+    if ($rowAnggaran['tahun'] < 2023) {
+        $jumlahRealisasi = 0;
+    }
+
+    // return $rowAnggaran['jumlah_nominal'] - $rowAnggaran['jumlah_realisasi'];
+    return $jumlahNominal - $jumlahRealisasi;
+}
