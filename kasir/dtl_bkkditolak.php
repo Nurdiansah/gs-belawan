@@ -23,25 +23,22 @@ $query =  mysqli_query($koneksi, "SELECT * FROM $tabel b
                                             WHERE b.id ='$id' ");
 $data2 = mysqli_fetch_assoc($query);
 $id_kdtransaksi = $data2['id_kdtransaksi'];
-
+$id_anggaran = $data2['id_anggaran'];
 $id_tagihan = $data2['id_tagihan'];
 
 
 // query jika pengajuan bkk kasbon
 if ($data2['pengajuan'] == 'KASBON') {
-    $queryKasbon =  mysqli_query($koneksi, "SELECT *
-                                                    FROM kasbon k
-                                                         JOIN biaya_ops bo
-                                                         ON k.kd_transaksi = bo.kd_transaksi
-                                                         JOIN divisi d
-                                                         ON bo.id_divisi = d.id_divisi
-                                                         JOIN detail_biayaops db 
-                                                         ON k.id_dbo = db.id
-                                                         LEFT JOIN anggaran a
-                                                         ON db.id_anggaran = a.id_anggaran 
-                                                         JOIN supplier s
-                                                         ON s.id_supplier = db.id_supplier
-                                                         WHERE k.id_kasbon = '$id_kdtransaksi' ");
+    $queryKasbon =  mysqli_query($koneksi, "SELECT * FROM kasbon k
+                                                JOIN detail_biayaops db 
+                                                    ON k.id_dbo = db.id
+                                                JOIN divisi d
+                                                    ON bo.id_divisi = d.id_divisi
+                                                LEFT JOIN anggaran a
+                                                    ON db.id_anggaran = a.id_anggaran 
+                                                JOIN supplier s
+                                                    ON s.id_supplier = db.id_supplier
+                                                WHERE k.id_kasbon = '$id_kdtransaksi' ");
     $data = mysqli_fetch_assoc($queryKasbon);
     $id_dbo = $data['id'];
 
@@ -149,7 +146,7 @@ $jmlReapp = mysqli_num_rows($reApprove);
                             <div class="col-sm-3">
                                 <select class="form-control select2" name="id_anggaran" disabled>
                                     <?php
-                                    $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_divisi ='20' AND tahun='$tahun' ORDER BY nm_item ASC");
+                                    $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggaran = '$id_anggaran'");
                                     if (mysqli_num_rows($queryAnggaran)) {
                                         while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
                                     ?>

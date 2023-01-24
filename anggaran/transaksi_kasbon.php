@@ -59,48 +59,54 @@ $query = mysqli_query($koneksi, "SELECT *
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($query)) {
-                                        while ($row = mysqli_fetch_assoc($query)) :
+                                <?php
+                                $no = 1;
+                                if (mysqli_num_rows($query)) {
+                                    while ($row = mysqli_fetch_assoc($query)) :
 
-                                    ?>
-                                            <td> <?= $no; ?> </td>
-                                            <td> <?= $row['id_kasbon']; ?> </td>
-                                            <td>
-                                                <?php
-                                                if ($row['from_user'] == '0') {
-                                                    echo  formatTanggal($row['tgl_pengajuan']);
-                                                } else {
-                                                    echo  formatTanggal($row['tgl_kasbon']);
-                                                }
+                                        if ($row['tahun'] == '2025') {
+                                            # code...
+                                            echo "<tr style='background-color :#ff751a;'>";
+                                        } else {
+                                            # code...
+                                            echo "<tr>";
+                                        }
+                                ?>
+                                        <td> <?= $no; ?> </td>
+                                        <td> <?= $row['id_kasbon']; ?> </td>
+                                        <td>
+                                            <?php
+                                            if ($row['from_user'] == '0') {
+                                                echo  formatTanggal($row['tgl_pengajuan']);
+                                            } else {
+                                                echo  formatTanggal($row['tgl_kasbon']);
+                                            }
 
-                                                ?>
-                                            </td>
+                                            ?>
+                                        </td>
 
-                                            <td> <?= $row['nm_divisi']; ?> </td>
-                                            <td> <?= $row['kd_anggaran'] . ' [' . $row['nm_item'] . ']'; ?> </td>
+                                        <td> <?= $row['nm_divisi']; ?> </td>
+                                        <td> <?= $row['kd_anggaran'] . ' [' . $row['nm_item'] . ']'; ?> </td>
 
-                                            <td>
-                                                <?php
-                                                if ($row['from_user'] == '0') {
-                                                    echo   $row['nm_barang'];
-                                                } else {
-                                                    echo   $row['keterangan'];
-                                                }
+                                        <td>
+                                            <?php
+                                            if ($row['from_user'] == '0') {
+                                                echo   $row['nm_barang'];
+                                            } else {
+                                                echo   $row['keterangan'];
+                                            }
 
-                                                ?>
-                                            </td>
-                                            <td> <button class="btn btn-success"><?= formatRupiah($row['harga_akhir']) ?> </button></td>
-                                            <td>
-                                                <a href="?p=transaksi_kasbon&aksi=lihat&id=<?= $row['id_kasbon']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button type="button" class="btn btn-warning"><i class="fa fa-search-plus"></i></button></span></a>
-                                            </td>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    } ?>
+                                            ?>
+                                        </td>
+                                        <td> <button class="btn btn-success"><?= formatRupiah($row['harga_akhir']) ?> </button></td>
+                                        <td>
+                                            <a href="?p=transaksi_kasbon&aksi=lihat&id=<?= $row['id_kasbon']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button type="button" class="btn btn-warning"><i class="fa fa-search-plus"></i></button></span></a>
+                                        </td>
+                                        </tr>
+                                <?php
+                                        $no++;
+                                    endwhile;
+                                } ?>
                             </tbody>
                         </table>
                     </div>

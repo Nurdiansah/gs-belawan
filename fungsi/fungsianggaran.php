@@ -78,3 +78,63 @@ function dataAnggaran($id_anggaran)
 
     return $rowAnggaran;
 }
+
+function bulanRealisasi($bln)
+{
+    switch ($bln) {
+        case 1:
+            return "januari_realisasi";
+            break;
+        case 2:
+            return "februari_realisasi";
+            break;
+        case 3:
+            return "maret_realisasi";
+            break;
+        case 4:
+            return "april_realisasi";
+            break;
+        case 5:
+            return "mei_realisasi";
+            break;
+        case 6:
+            return "juni_realisasi";
+            break;
+        case 7:
+            return "juli_realisasi";
+            break;
+        case 8:
+            return "agustus_realisasi";
+            break;
+        case 9:
+            return "september_realisasi";
+            break;
+        case 10:
+            return "oktober_realisasi";
+            break;
+        case 11:
+            return "november_realisasi";
+            break;
+        case 12:
+            return "desember_realisasi";
+            break;
+    }
+}
+
+// fungsi untuk update realisasi anggaran
+function updateRealisasi($id_anggaran, $qty, $DPP, $bulan)
+{
+    global $koneksi;
+
+    $fieldRealisasi = bulanRealisasi($bulan);
+    $queryJumlahAwal = mysqli_query($koneksi, "SELECT $fieldRealisasi as bulan , jumlah_realisasi, realisasi_kuantitas  from anggaran WHERE id_anggaran = '$id_anggaran' ");
+    $rowJA = mysqli_fetch_assoc($queryJumlahAwal);
+    $jml_akhir = $rowJA['bulan'] + $DPP;
+    $jumlah_realisasi = $rowJA['jumlah_realisasi'] + $DPP;
+    $qty_akhir = $rowJA['realisasi_kuantitas'] + $qty;
+
+
+    $realisasi = mysqli_query($koneksi, "UPDATE anggaran SET $fieldRealisasi = '$jml_akhir' , jumlah_realisasi = $jumlah_realisasi ,realisasi_kuantitas = $qty_akhir
+												WHERE id_anggaran ='$id_anggaran' ");
+    return $realisasi;
+}

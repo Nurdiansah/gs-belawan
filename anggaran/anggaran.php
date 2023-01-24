@@ -43,7 +43,7 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, nm_item, nm_pt, nm_
                                                 ON parent_id = id_parent
                                             LEFT JOIN segmen sg
                                                 ON sg.id_segmen = agg.id_segmen
-                                            WHERE tahun = '$tahun'
+                                            WHERE agg.tahun = '$tahun'
                                             AND agg.id_divisi = '$divisi'");
 
 $totalData = mysqli_num_rows($queryAnggaran);

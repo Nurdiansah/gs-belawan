@@ -708,3 +708,33 @@ function kurungSurplus($nominal, $realisasi)
 
     return $kurung;
 }
+
+function nomorBKM($tanggal)
+{
+    global $koneksi;
+
+    $bulan    = date('n', strtotime($tanggal));
+    $romawi    = getRomawi($bulan);
+    $tahun     = date('Y', strtotime($tanggal));
+    $nomor     = "/GS-GM/" . $romawi . "/" . $tahun;
+
+    $queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor) from bkm WHERE month(tgl_bkm)='$bulan' ");
+
+    $nomorMax = mysqli_fetch_array($queryNomor);
+    if ($nomorMax) {
+
+        $nilaikode = substr($nomorMax[0], 0);
+        $kode = (int) $nilaikode;
+
+        //setiap kode ditambah 1
+        $kode = $kode + 1;
+        $nomorAkhir = "" . str_pad($kode, 3, "0", STR_PAD_LEFT);
+    } else {
+        $nomorAkhir = "001";
+    }
+
+    $nomorBKM = $nomorAkhir . $nomor;
+
+    return $nomorBKM;
+    // return $nomorAkhir;
+}
