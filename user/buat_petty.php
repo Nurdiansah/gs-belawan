@@ -2,6 +2,7 @@
 
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
+include "../fungsi/fungsianggaran.php";
 
 
 if (isset($_GET['aksi']) && isset($_GET['id'])) {
@@ -73,6 +74,8 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                         $no = 1;
                                         if (mysqli_num_rows($query)) {
                                             while ($row = mysqli_fetch_assoc($query)) :
+
+                                                $sisaAnggaran = getSaldoAnggaran($row['id_anggaran']) - $row['total_pettycash'];
                                         ?>
                                                 <td> <?= $no; ?> </td>
                                                 <td><?= $row['kd_pettycash']; ?></td>
@@ -80,8 +83,50 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                                 <td> <?= $row['nm_item'] . ' - [' . $row['kd_anggaran']; ?>]</td>
                                                 <td> <?= batasiKata($row['keterangan_pettycash']); ?> </td>
                                                 <td> <?= formatRupiah($row['total_pettycash']); ?> </td>
-                                                <td> <?php if ($row['status_pettycash'] == 0) { ?>
-                                                        <a href="?p=buat_petty&aksi=release&id=<?= base64_encode($row['id_pettycash']); ?>"><span data-placement='top' data-toggle='tooltip' title='Release'><button type="button" class="btn btn-warning"><i class="fa fa-rocket"> </i> Release</button></span></a>
+                                                <td> <?php if ($row['status_pettycash'] == 0) {
+
+                                                            if ($sisaAnggaran < 0) {
+                                                                # code...
+                                                                echo "<button type='button' class='btn btn-dark ' data-toggle='modal' data-target='#notifBudget' data-id='" . $row['id_pettycash'] . "'><i class='fa fa-rocket'></i> Release </button>";
+                                                            } else {
+                                                                # code...
+                                                                echo "<a href='?p=buat_petty&aksi=release&id=" . base64_encode($row['id_pettycash']) . "'><span data-placement='top' data-toggle='tooltip' title='Release'><button type='button' class='btn btn-warning'><i class='fa fa-rocket'> </i> Release</button></span></a>";
+                                                            }
+                                                        ?>
+
+                                                        <!-- Modal notif -->
+                                                        <div id="notifBudget" class="modal fade" role="dialog">
+                                                            <div class="modal-dialog">
+                                                                <!-- konten modal-->
+                                                                <div class="modal-content">
+                                                                    <!-- heading modal -->
+                                                                    <div class="modal-header bg-danger ">
+                                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                        <h4 class="modal-title">Informasi !</h4>
+                                                                    </div>
+                                                                    <!-- body modal -->
+                                                                    <div class="modal-body">
+                                                                        <div class="perhitungan">
+                                                                            <form class="form-horizontal">
+                                                                                <div class="box-body">
+                                                                                    <input type="hidden" name="id" value="" id="mr_id_kasbon">
+                                                                                    <input type="hidden" name="id_dbo" value="" id="mr_id_dbo">
+
+                                                                                    <h4> <span class="text-red"><i> Pengajuan pettycash ini tidak bisa di release karena saldo anggaran tersebut sudah terlimit! </i></span> silahkan kordinasi dengan team anggaran. </h4>
+
+                                                                                    <div class=" modal-footer">
+                                                                                        <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Tutup">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                            <!-- div perhitungan -->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End notif -->
+
                                                         <button type="button" class="btn btn-primary modalLihat" data-toggle="modal" data-target="#lihatPetty" data-id="<?= $row['id_pettycash']; ?>"><i class="fa fa-binoculars"></i> Show</button>
                                                         <button type="button" class="btn btn-success modalEdit" data-toggle="modal" data-target="#editPetty" data-id="<?= $row['id_pettycash']; ?>"><i class="fa fa-edit"></i> Edit</button>
                                                         <button type="button" class="btn btn-danger modalHapus" data-toggle="modal" data-target="#hapusPetty" data-id="<?= $row['id_pettycash']; ?>"><i class="fa fa-trash"></i> Delete</button>

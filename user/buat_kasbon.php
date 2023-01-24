@@ -2,6 +2,7 @@
 
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
+include "../fungsi/fungsianggaran.php";
 
 $tahun = tahunSekarang();
 
@@ -73,14 +74,26 @@ $query = mysqli_query($koneksi, "SELECT *
                                     if (mysqli_num_rows($query)) {
                                         while ($row = mysqli_fetch_assoc($query)) :
 
+
+                                            $sisaAnggaran = getSaldoAnggaran($row['id_anggaran']) - $row['harga_akhir'];
+
                                     ?>
                                             <td> <?= $no; ?> </td>
                                             <td> <?= $row['id_kasbon']; ?> </td>
                                             <td> <?= formatTanggal($row['tgl_kasbon']); ?> </td>
                                             <td> <?= $row['keterangan']; ?> </td>
                                             <td> <?= formatRupiah($row['harga_akhir']) ?> </td>
-                                            <td><?php if ($row['status_kasbon'] == 0) { ?>
-                                                    <button type="button" class="btn btn-warning modalRelease" data-toggle="modal" data-target="#releaseKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-rocket"></i> Release</button>
+                                            <td><?php if ($row['status_kasbon'] == 0) {
+
+                                                    if ($sisaAnggaran < 0) {
+                                                        # code...
+                                                        echo "<button type='button' class='btn btn-dark modalRelease' data-toggle='modal' data-target='#notifKasbon' data-id='" . $row['id_kasbon'] . "'><i class='fa fa-rocket'></i> </button>";
+                                                    } else {
+                                                        # code...
+                                                        echo "<button type='button' class='btn btn-warning modalRelease' data-toggle='modal' data-target='#releaseKasbon' data-id='" . $row['id_kasbon'] . "'><i class='fa fa-rocket'></i> </button>";
+                                                    }
+
+                                                ?>
                                                     <button type="button" class="btn btn-success modalEdit" data-toggle="modal" data-target="#editKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-edit"></i> Edit</button>
                                                     <button type="button" class="btn btn-danger modalHapus" data-toggle="modal" data-target="#hapusKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-trash"></i> Delete</button>
                                                 <?php } else if ($row['status_kasbon'] == 1) { ?>
@@ -113,6 +126,36 @@ $query = mysqli_query($koneksi, "SELECT *
         </div>
     </div>
 </section>
+
+<!-- Modal notif -->
+<div id="notifKasbon" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- konten modal-->
+        <div class="modal-content">
+            <!-- heading modal -->
+            <div class="modal-header bg-danger ">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Informasi !</h4>
+            </div>
+            <!-- body modal -->
+            <div class="modal-body">
+                <div class="perhitungan">
+                    <form class="form-horizontal">
+                        <div class="box-body">
+                            <h4> <span class="text-red"><i> Pengajuan kasbon ini tidak bisa di release karena saldo anggaran tersebut sudah terlimit! </i></span> silahkan kordinasi dengan team anggaran. </h4>
+
+                            <div class=" modal-footer">
+                                <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Tutup">
+                            </div>
+                        </div>
+                    </form>
+                    <!-- div perhitungan -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End notif -->
 
 <!-- Modal Tambah  -->
 <div id="tambahKasbon" class="modal fade" role="dialog">

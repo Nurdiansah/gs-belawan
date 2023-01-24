@@ -1,6 +1,7 @@
 <?php
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
+include "../fungsi/fungsianggaran.php";
 
 
 if (isset($_GET['aksi']) && isset($_GET['id'])) {
@@ -110,8 +111,52 @@ $jumlahData = mysqli_num_rows($query);
                                                 <?php } ?>
                                             </td>
                                             <td>
-                                                <?php if ($row['status_bkk'] == 0) { ?>
-                                                    <a href="release_bu.php?id=<?= base64_encode($row['id_bkk']); ?>" class="btn btn-warning" title="Release" data-placement="top" data-toggle="tooltip"><i class="fa fa-rocket"></i></a>
+                                                <?php
+                                                $sisaAnggaran = getSaldoAnggaran($row['id_anggaran']) - $row['jml_bkk'];
+                                                if ($row['status_bkk'] == 0) {
+
+                                                    if ($sisaAnggaran < 0) {
+                                                        # code...
+                                                        echo "<button type='button' class='btn btn-dark ' data-toggle='modal' data-target='#notifBudget' data-id='" . $row['id_bkk'] . "'><i class='fa fa-rocket'></i> </button>";
+                                                    } else {
+                                                        # code...
+                                                        echo "<a href='release_bu.php?id=" . base64_encode($row['id_bkk']) . "' class='btn btn-warning' title='Release' data-placement='top' data-toggle='tooltip'><i class='fa fa-rocket'></i></a>";
+                                                    }
+
+                                                ?>
+
+                                                    <!-- Modal notif -->
+                                                    <div id="notifBudget" class="modal fade" role="dialog">
+                                                        <div class="modal-dialog">
+                                                            <!-- konten modal-->
+                                                            <div class="modal-content">
+                                                                <!-- heading modal -->
+                                                                <div class="modal-header bg-danger ">
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                    <h4 class="modal-title">Informasi !</h4>
+                                                                </div>
+                                                                <!-- body modal -->
+                                                                <div class="modal-body">
+                                                                    <div class="perhitungan">
+                                                                        <form class="form-horizontal">
+                                                                            <div class="box-body">
+                                                                                <input type="hidden" name="id" value="" id="mr_id_kasbon">
+                                                                                <input type="hidden" name="id_dbo" value="" id="mr_id_dbo">
+
+                                                                                <h4> <span class="text-red"><i> Pengajuan biaya umum ini tidak bisa di release karena saldo anggaran tersebut sudah terlimit! </i></span> silahkan kordinasi dengan team anggaran. </h4>
+
+                                                                                <div class=" modal-footer">
+                                                                                    <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Tutup">
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                        <!-- div perhitungan -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End notif -->
                                                     <a href="index.php?p=rubah_biayanonops&id=<?= enkripRambo($row['id_bkk']); ?>&pg=<?= enkripRambo("proses_biayanonops"); ?>" class="btn btn-success" title="Rubah" data-placement="top" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>
                                                     <a href="hapus_biayanonops.php?id=<?= enkripRambo($row['id_bkk']); ?>&inv=<?= enkripRambo($row['invoice']); ?>&pg=<?= enkripRambo("proses_biayanonops"); ?>" class="btn btn-danger" onclick="javascript: return confirm('Yakin biaya umum <?= $row['keterangan']; ?> dihapus ?')" title="Hapus" data-placement="top" data-toggle="tooltip"><i class="fa fa-trash"></i></a>
                                                 <?php } ?>
