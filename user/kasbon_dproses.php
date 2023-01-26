@@ -152,7 +152,11 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                 <br>
                 <div class="row ">
                     <div class="col-sm-offset-">
-                        <h5 class="text-center">Tidak Ada Foto</h5>
+                        <div class="box-header with-border">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="../file/foto/<?= $data2['foto_item']; ?>"></iframe>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

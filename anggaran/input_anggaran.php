@@ -52,7 +52,7 @@ $tahunAyeuna = date("Y");
                             <label id="tes" for="tahun" class="col-sm-offset-2 col-sm-2 control-label">Anggaran Tahun</label>
                             <div class="col-sm-5">
                                 <select name="tahun" class="form-control" required>
-                                    <?php foreach (range(2019, $tahunAyeuna) as $tahunLoop) { ?>
+                                    <?php foreach (range(2019, $tahunAyeuna + 1) as $tahunLoop) { ?>
                                         <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $tahunAyeuna ? "selected=selected" : ''; ?>><?= $tahunLoop; ?></option>
                                     <?php } ?>
                                 </select>

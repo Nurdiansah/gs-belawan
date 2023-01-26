@@ -231,7 +231,7 @@ if (isset($_POST['release'])) {
                                                                                                                                 ON sg.id_segmen = agg.id_segmen
                                                                                                                             WHERE agg.id_divisi = '$idDivisi'
                                                                                                                             AND jenis_anggaran = 'PENDAPATAN'
-                                                                                                                            AND tahun = '$tahun'
+                                                                                                                            AND agg.tahun = '$tahun'
                                                                                                                             ORDER BY nm_item ASC
                                                                                 ");
                                                                                 if (mysqli_num_rows($queryAnggaran)) {
@@ -331,6 +331,7 @@ if (isset($_POST['release'])) {
                                                                                             ON id_programkerja = programkerja_id
                                                                                         WHERE cc.divisi_id = '$idDivisi'
                                                                                         AND jenis_anggaran = 'PENDAPATAN'
+                                                                                        AND pk.tahun = '$tahun'
                                                                                         ORDER BY pk.nm_programkerja ASC
                                                                                 ");
                                         if (mysqli_num_rows($queryProgramKerja)) {

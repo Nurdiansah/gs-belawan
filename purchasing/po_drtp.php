@@ -221,8 +221,12 @@ $queryTagihan =  mysqli_query($koneksi, "SELECT * FROM tagihan_po tp
                                     <td colspan="5" style="text-align: right;"><b>Total </b></td>
                                     <td style="text-align: right;"><b> <?= formatRupiah($data2['total_po']); ?></b></td>
                                 </tr>
+                                <?php
+                                $persentase = ($data2['nilai_ppn'] / $data2['total_po']) * 100;
+
+                                ?>
                                 <tr>
-                                    <td colspan="5" style="text-align: right;"><b> PPN 10% </b></td>
+                                    <td colspan="5" style="text-align: right;"><b> PPN <?= round($persentase) ?>% </b></td>
                                     <td style="text-align: right;"><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
                                 </tr>
                                 <tr style="background-color :#B0C4DE;">
