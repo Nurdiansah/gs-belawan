@@ -10,6 +10,7 @@ $query = mysqli_query($koneksi, "SELECT *
 $no = 0;
 while ($row = mysqli_fetch_array($query)) {
     $data[$no]['id_anggaran'] = $row['id_anggaran'];
+    $data[$no]['kd_anggaran'] = $row['no_coa'];
     $data[$no]['nm_item'] = $row['nm_item'];
 
     $no++;
