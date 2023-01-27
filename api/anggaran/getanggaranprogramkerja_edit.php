@@ -1,7 +1,7 @@
 <?php
 include "../../fungsi/koneksi.php";
 $id = $_POST['id'];
-
+$tahun = date("Y");
 
 $query = mysqli_query($koneksi, "SELECT id_anggaran, kd_anggaran, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_item
                                     FROM anggaran agg
@@ -18,6 +18,7 @@ $query = mysqli_query($koneksi, "SELECT id_anggaran, kd_anggaran, CONCAT(kd_pt, 
                                     JOIN segmen sg
                                         ON sg.id_segmen = agg.id_segmen
                                     WHERE id_programkerja = '$id'
+                                    AND add.tahun = '$tahun'
                                     ORDER BY nm_item ASC");
 
 $no = 0;
