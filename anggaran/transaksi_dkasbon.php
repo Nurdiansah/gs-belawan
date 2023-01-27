@@ -51,6 +51,8 @@ $queryRealisasi = mysqli_query($koneksi, " SELECT *
 $rowR = mysqli_fetch_assoc($queryRealisasi);
 $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $rowR['maret_realisasi'] + $rowR['april_realisasi'] + $rowR['mei_realisasi'] + $rowR['juni_realisasi'] + $rowR['juli_realisasi'] + $rowR['agustus_realisasi'] + $rowR['september_realisasi'] + $rowR['oktober_realisasi'] + $rowR['november_realisasi'] + $rowR['desember_realisasi'];
 
+$tahun = date("Y");
+
 ?>
 
 
@@ -80,7 +82,7 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                 <label for="id_anggaran" class="col-sm-offset- col-sm-2 control-label">Kode Anggaran</label>
                                 <div class="col-sm-3">
                                     <select class="form-control select2" name="id_anggaran" disabled>
-                                        <option value="<?= $data['id_anggaran']; ?>"><?= $data['kd_anggaran'] . ' ' . $data['nm_item']; ?></option>
+                                        <option value="<?= $data['id_anggaran']; ?>"><?= $data['kd_anggaran'] . ' [' . $data['nm_item']; ?>]</option>
                                     </select>
                                 </div>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#rubah">Rubah</button></span></a>
@@ -197,15 +199,14 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
 
                             <div class="form-group">
                                 <label id="tes" for="id_anggaran" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <select name="id_anggaran" class="form-control">
-                                        <option value="">--Kode Anggaran--</option>
                                         <?php
-                                        $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_divisi = '$Divisi' ORDER BY nm_item ASC");
+                                        $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_divisi = '$Divisi' AND tahun IN ('$tahun', '2025') ORDER BY nm_item ASC");
                                         if (mysqli_num_rows($queryAnggaran)) {
                                             while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
                                         ?>
-                                                <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox"><?= $rowAnggaran['kd_anggaran'] . ' ' . $rowAnggaran['nm_item']; ?></option>
+                                                <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox" <?= $data['id_anggaran'] == $rowAnggaran['id_anggaran'] ? "selected" : ""; ?>><?= $rowAnggaran['kd_anggaran'] . ' [' . $rowAnggaran['nm_item']; ?>]<?= $rowAnggaran['row_version'] == 2 ? " - <b>NEW!</b>" : ""; ?></option>
                                         <?php endwhile;
                                         } ?>
                                     </select>

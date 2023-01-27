@@ -43,7 +43,7 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, nm_item, nm_pt, nm_
                                                 ON parent_id = id_parent
                                             LEFT JOIN segmen sg
                                                 ON sg.id_segmen = agg.id_segmen
-                                            WHERE tahun = '$tahun'
+                                            WHERE agg.tahun = '$tahun'
                                             AND agg.id_divisi = '$divisi'");
 
 $totalData = mysqli_num_rows($queryAnggaran);
@@ -78,7 +78,7 @@ $tahunAyeuna = date("Y");
                         <div class="form-group">
                             <div class="col-sm-offset- col-sm-2">
                                 <select name="tahun" class="form-control" required>
-                                    <?php foreach (range(2019, $tahunAyeuna) as $tahunLoop) { ?>
+                                    <?php foreach (range(2019, $tahunAyeuna + 1) as $tahunLoop) { ?>
                                         <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $tahun ? "selected=selected" : ''; ?>><?= $tahunLoop; ?></option>
                                     <?php } ?>
                                 </select>

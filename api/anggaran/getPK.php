@@ -1,6 +1,7 @@
 <?php
 include "../../fungsi/koneksi.php";
 $id = $_POST['id'];
+$tahun = date("Y");
 
 // $query = mysqli_query($koneksi, "SELECT id_programkerja, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi) AS cost_center, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_programkerja
 // FROM cost_center
@@ -34,7 +35,8 @@ $query = mysqli_query($koneksi, "SELECT id_programkerja, CONCAT(kd_pt, '.', kd_p
                                         ON id_parent = parent_id
                                     JOIN program_kerja
                                         ON id_costcenter = costcenter_id
-                                    WHERE id_divisi = '$id'");
+                                    WHERE id_divisi = '$id'
+                                    AND tahun = '$tahun'");
 
 $no = 0;
 while ($row = mysqli_fetch_array($query)) {

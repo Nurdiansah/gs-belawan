@@ -572,7 +572,8 @@ $dataTolakBKM = mysqli_fetch_assoc($queryTolakBKM);
 
               $('#id_anggaran').empty();
               $.each(data, function(i, value) {
-                $('#id_anggaran').append($('<option>').text(value.nm_item).attr('value', value.id_anggaran));
+                // $('#id_anggaran').append($('<option>').text(value.nm_item).attr('value', value.id_anggaran));
+                $('#id_anggaran').append($('<option>').text(value.kd_anggaran + " [" + value.nm_item + "]").attr('value', value.id_anggaran));
               });
 
             }

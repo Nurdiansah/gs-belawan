@@ -23,7 +23,7 @@ if (isset($_POST['simpan'])) {
 
 	$jenis = $_POST['jenis'];
 
-	$DPP = $nilai_barang + $nilai_barang;
+	$DPP = $nilai_barang + $nilai_jasa;
 
 	if ($metode_pembayaran === 'transfer') {
 		$nocek_bkk = $_POST['nocek_bkk'];

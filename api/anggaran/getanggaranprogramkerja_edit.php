@@ -18,7 +18,7 @@ $query = mysqli_query($koneksi, "SELECT id_anggaran, kd_anggaran, CONCAT(kd_pt, 
                                     JOIN segmen sg
                                         ON sg.id_segmen = agg.id_segmen
                                     WHERE id_programkerja = '$id'
-                                    AND add.tahun = '$tahun'
+                                    AND agg.tahun = '$tahun'
                                     ORDER BY nm_item ASC");
 
 $no = 0;

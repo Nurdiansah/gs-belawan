@@ -53,7 +53,7 @@ $queryRealisasi = mysqli_query($koneksi, " SELECT *
 $rowR = mysqli_fetch_assoc($queryRealisasi);
 $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $rowR['maret_realisasi'] + $rowR['april_realisasi'] + $rowR['mei_realisasi'] + $rowR['juni_realisasi'] + $rowR['juli_realisasi'] + $rowR['agustus_realisasi'] + $rowR['september_realisasi'] + $rowR['oktober_realisasi'] + $rowR['november_realisasi'] + $rowR['desember_realisasi'];
 
-
+$tahun = date("Y");
 ?>
 <section class="content">
     <div class="row">
@@ -190,11 +190,11 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                     <select name="id_anggaran" class="form-control">
                                         <option value="<?= $data2['id_anggaram']; ?>"><?= $data2['kd_anggaran'] . ' ' . $data2['nm_item'];  ?></option>
                                         <?php
-                                        $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_divisi = '$Divisi' ORDER BY nm_item ASC");
+                                        $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_divisi = '$Divisi' AND tahun IN ('$tahun', '2025') ORDER BY nm_item ASC");
                                         if (mysqli_num_rows($queryAnggaran)) {
                                             while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
                                         ?>
-                                                <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox"><?= $rowAnggaran['kd_anggaran'] . ' ' . $rowAnggaran['nm_item']; ?></option>
+                                                <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox" <?= $data2['id_anggaran'] == $rowAnggaran['id_anggaran'] ? "selected" : ""; ?>><?= $rowAnggaran['kd_anggaran'] . ' [' . $rowAnggaran['nm_item']; ?>]<?= $rowAnggaran['row_version'] == 2 ? " - <b>NEW!</b>" : ""; ?></option>
                                         <?php endwhile;
                                         } ?>
                                     </select>

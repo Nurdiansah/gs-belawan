@@ -25,15 +25,15 @@ $jumlahData = mysqli_num_rows($query);
 if (isset($_POST['verifikasi'])) {
     $id_refill = $_POST['id_refill'];
     $tgl_bkk = datetimeHtml($_POST['tanggal']);
-    
+
     mysqli_begin_transaction($koneksi);
 
     $data = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM refill_funds WHERE id_refill = '$id_refill' "));
     // $created_at = $data['created_at'];
     $keterangan = $data['keterangan'];
     $nominal = $data['nominal'];
-    $app_mgr = $data['app_mgr'] == "" ? "0000-00-00" : $data['app_mgr'];
-    $app_direksi = $data['app_direksi'] == "" ? "0000-00-00" : $data['app_direksi'];
+    $app_mgr = $data['app_cc'] == "" ? "0000-00-00" : $data['app_cc'];
+    $app_direksi = $data['app_mgr'] == "" ? "0000-00-00" : $data['app_mgr'];
 
     // Nomor BKK
     $no_bkk = nomorBkkNew($tgl_bkk);

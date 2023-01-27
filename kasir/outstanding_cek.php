@@ -24,7 +24,7 @@ $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SE
 $rowUser = mysqli_fetch_assoc($queryUser);
 $idUser = $rowUser['id_user'];
 
-$query = mysqli_query($koneksi, "SELECT b.id , b.created_on_bkk, b.pengajuan, b.keterangan, a.kd_anggaran, b.nominal, b.status_bkk
+$query = mysqli_query($koneksi, "SELECT b.id, id_kdtransaksi, b.created_on_bkk, b.pengajuan, b.keterangan, a.kd_anggaran, b.nominal, b.status_bkk
                                                 FROM bkk_final b    
                                                 JOIN anggaran a
                                                 ON b.id_anggaran = a.id_anggaran                                                
@@ -60,6 +60,7 @@ $jumlahData = mysqli_num_rows($query);
                                     <th>No</th>
                                     <th>Tanggal</th>
                                     <th>Jenis</th>
+                                    <th>Kode Transaksi</th>
                                     <th>Keterangan</th>
                                     <th>Kode Anggaran</th>
                                     <th>Total</th>
@@ -77,6 +78,7 @@ $jumlahData = mysqli_num_rows($query);
                                             <td> <?= $no; ?> </td>
                                             <td> <?= formatTanggal($row['created_on_bkk']); ?> </td>
                                             <td> <?= $row['pengajuan']; ?> </td>
+                                            <td><?= $row['id_kdtranskasi']; ?></td>
                                             <td> <?= $row['keterangan']; ?> </td>
                                             <td> <?= $row['kd_anggaran']; ?> </td>
                                             <td> <?= formatRupiah($row['nominal']); ?> </td>
