@@ -9,8 +9,9 @@ $tahun = date("Y");
 $queryBKM = mysqli_query($koneksi, "SELECT * FROM bkm b
                                     JOIN anggaran a
                                         ON a.id_anggaran = b.id_anggaran
-                                    WHERE status_bkm = '1'
+                                    WHERE status_bkm = '0'
                                     AND b.id_divisi = '$idDivisi'
+                                    ORDER BY id_bkm DESC
                 ");
 $no = 1;
 
@@ -25,8 +26,8 @@ if (isset($_POST['buat'])) {
     $ekstensi = pathinfo($doc_bkm, PATHINFO_EXTENSION);
     $doc_bkm = time() . "-bkm." . $ekstensi;
 
-    $querySimpan = mysqli_query($koneksi, "INSERT INTO bkm (id_anggaran, id_divisi, tgl_bkm, keterangan, nominal, grand_total, doc_bkm, waktu_dibuat_bkm) VALUES
-                                            ('$id_anggaran', $idDivisi, NOW(), '$keterangan', '$nominal', '$nominal', '$doc_bkm', NOW())
+    $querySimpan = mysqli_query($koneksi, "INSERT INTO bkm (id_anggaran, id_divisi, tgl_bkm, keterangan, nominal, grand_total, doc_bkm, waktu_dibuat_bkm, status_bkm) VALUES
+                                            ('$id_anggaran', $idDivisi, NOW(), '$keterangan', '$nominal', '$nominal', '$doc_bkm', NOW(), '0')
                         ");
 
     if ($querySimpan) {
@@ -88,7 +89,7 @@ if (isset($_POST['hapus'])) {
 if (isset($_POST['release'])) {
     $id_bkm = $_POST['id_bkm'];
 
-    $queryRelease = mysqli_query($koneksi, "UPDATE bkm SET status_bkm = '2' WHERE id_bkm = '$id_bkm'");
+    $queryRelease = mysqli_query($koneksi, "UPDATE bkm SET status_bkm = '1' WHERE id_bkm = '$id_bkm'");
 
     if ($queryRelease) {
         header('Location: index.php?p=buat_bkm');

@@ -86,7 +86,7 @@ $totalPV = 0;
 // print_r($dataPV['total']);
 
 foreach ($queryPV as $key => $data) {
-  
+
 
   // print_r($data);
   $totalPV += $data['total'];
@@ -109,6 +109,9 @@ $dataSO = mysqli_fetch_assoc($querySO);
 
 $queryLPJ = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '707' AND sr_id IS NULL");
 $dataLPJ = mysqli_fetch_assoc($queryLPJ);
+
+$queryBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm = '1'");
+$dataBKM = mysqli_fetch_assoc($queryBKM);
 
 ?>
 <!DOCTYPE html>
@@ -338,7 +341,13 @@ $dataLPJ = mysqli_fetch_assoc($queryLPJ);
                   <span class="label label-warning pull-right"><?= $dataLPJ['jumlah']; ?></span>
                 </span>
               <?php } ?>
-              <li><a href="index.php?p=verifikasi_sr"><i class="fa fa-tags"></i> LPJ</a></li>
+              <li><a href="index.php?p=verifikasi_lpj"><i class="fa fa-tags"></i> LPJ</a></li>
+              <?php if ($dataBKM['jumlah'] > 0) { ?>
+                <span class="pull-right-container">
+                  <span class="label label-warning pull-right"><?= $dataBKM['jumlah']; ?></span>
+                </span>
+              <?php } ?>
+              <li><a href="index.php?p=verifikasi_bkm"><i class="fa fa-print"></i> BKM</a></li>
             </ul>
           </li>
 

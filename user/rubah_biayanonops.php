@@ -172,6 +172,7 @@ $tanggalCargo = date("Y-m-d");
                                                                                 JOIN segmen sg
                                                                                     ON sg.id_segmen = agg.id_segmen
                                                                                 WHERE id_programkerja = '$idPk'
+                                                                                AND agg.tahun = '$tahun'
                                                                                 ORDER BY nm_item ASC
                                                                             ");
                                         if (mysqli_num_rows($queryAnggaran)) {

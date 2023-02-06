@@ -175,7 +175,7 @@ $queryAR = mysqli_query($koneksi, "SELECT COUNT(id_refill) as jumlah FROM refill
 $dataAR = mysqli_fetch_assoc($queryAR);
 
 //  QUERY BKM
-$queryBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm = '2'");
+$queryBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm = '3'");
 $dataBKM = mysqli_fetch_assoc($queryBKM);
 
 $queryProsesRefill = mysqli_query($koneksi, "SELECT COUNT(id_refill) as jumlah FROM refill_funds WHERE status IN ('2', '3', '4', '5')");
