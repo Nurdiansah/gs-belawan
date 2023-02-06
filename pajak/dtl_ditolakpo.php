@@ -22,6 +22,15 @@ $queryBo =  mysqli_query($koneksi, "SELECT * FROM po p
                                         ON s.id_supplier = dbo.id_supplier
                                     WHERE p.id_po ='$id' ");
 
+$queryCek = mysqli_query($koneksi, "SELECT * FROM tagihan_po WHERE id_tagihan = '$id_tagihan'");
+$dataCek = mysqli_fetch_assoc($queryCek);
+$metode_pembayaran = $dataCek['metode_pembayaran'];
+
+if ($metode_pembayaran == 'Transfer') {
+    $tableBkk = 'bkk_ke_pusat';
+} else {
+    $tableBkk = 'bkk_final';
+}
 
 $query =  mysqli_query($koneksi, "SELECT *, bf.nilai_barang as n_barang, bf.nilai_jasa as n_jasa, bf.nilai_ppn as n_ppn, bf.id_pph as bf_id_pph, bf.nilai_pph as n_pph, bf.id_pph as idpph
                                     FROM biaya_ops bo
@@ -29,7 +38,7 @@ $query =  mysqli_query($koneksi, "SELECT *, bf.nilai_barang as n_barang, bf.nila
                                         ON d.id_divisi = bo.id_divisi 
                                     JOIN po p
                                         ON p.kd_transaksi = bo.kd_transaksi
-                                    JOIN bkk_final bf
+                                    JOIN $tableBkk bf
                                         ON id_kdtransaksi = id_po
                                     LEFT JOIN pph ph
                                         ON ph.id_pph = p.id_pph
@@ -488,6 +497,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT *
                                     <input type="hidden" value="<?= $data2['id_po']; ?>" class="form-control" name="id_po" readonly>
                                     <input type="hidden" value="<?= $bkk; ?>" class="form-control" name="id_bkk" readonly>
                                     <input type="hidden" value="ditolak_po" class="form-control" name="url" readonly>
+                                    <input type="hidden" value="<?= $tableBkk; ?>" name="tabel_bkk">
                                 </div>
                             </div>
 

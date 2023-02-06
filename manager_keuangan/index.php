@@ -122,7 +122,7 @@ $queryKPU = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah
                                           ON k.id_dbo = dbo.id
                                       JOIN divisi d
                                           ON d.id_divisi = dbo.id_divisi                                            
-                                      WHERE k.status_kasbon IN ('4', '5', '6', '7', '404', '505', '707') AND k.status_kasbon != 10
+                                      WHERE k.status_kasbon IN ('2', '4', '5', '6', '7', '404', '505', '707') AND k.status_kasbon != 10
                                       AND from_user = '1' -- AND id_manager = '$idUser'
                                       ORDER BY k.id_kasbon DESC ");
 $dataKPU = mysqli_fetch_assoc($queryKPU);
@@ -181,7 +181,7 @@ $dataBKM = mysqli_fetch_assoc($queryBKM);
 $queryProsesRefill = mysqli_query($koneksi, "SELECT COUNT(id_refill) as jumlah FROM refill_funds WHERE status IN ('2', '3', '4', '5')");
 $dataProsesRefill = mysqli_fetch_assoc($queryProsesRefill);
 
-$queryProsesBno = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk IN ('6', '7', '8', '9')");
+$queryProsesBno = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk IN ('4', '6', '7', '8', '9')");
 $dataProsesBno = mysqli_fetch_assoc($queryProsesBno);
 
 $queryProsesBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm IN ('3', '4', '5')");

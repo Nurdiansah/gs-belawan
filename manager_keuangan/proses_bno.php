@@ -24,7 +24,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                 FROM bkk b
                                 JOIN divisi d
                                 ON d.id_divisi = b.id_divisi
-                                WHERE b.status_bkk IN ('6', '7', '8', '9')
+                                WHERE b.status_bkk IN ('4', '6', '7', '8', '9')
                                 ORDER BY b.kd_transaksi DESC  ");
 
 
@@ -81,7 +81,9 @@ $query = mysqli_query($koneksi, "SELECT *
                                             <td> <?= $row['keterangan']; ?> </td>
                                             <td> <?= $row['nm_vendor']; ?> </td>
                                             <td>
-                                                <?php if ($row['status_bkk'] == '6') {
+                                                <?php if ($row['status_bkk'] == '4') {
+                                                    echo "<h4><span class='label label-success'> Verifikasi Pajak </span></h4>";
+                                                } else if ($row['status_bkk'] == '6') {
                                                     echo "<h4><span class='label label-primary'> Approval Manager </span></h4>";
                                                 } else if ($row['status_bkk'] == '7') {
                                                     echo "<h4><span class='label label-primary'> Approval GM Finance </span></h4>";

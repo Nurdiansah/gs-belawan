@@ -90,13 +90,13 @@ if (isset($_GET['id'])) {
         # jika semua query berhasil di jalankan
         mysqli_commit($koneksi);
 
-        setcookie('pesan', 'Kasbon berhasil di release!', time() + (3), '/');
+        setcookie('pesan', 'Biaya Umum berhasil di release!', time() + (3), '/');
         setcookie('warna', 'alert-success', time() + (3), '/');
     } else {
         #jika ada query yang gagal
         mysqli_rollback($koneksi);
 
-        setcookie('pesan', 'Kasbon Gagal di release  !<br>' . mysqli_error($koneksi) . '', time() + (3), '/');
+        setcookie('pesan', 'Biaya Umum Gagal di release  !<br>' . mysqli_error($koneksi) . '', time() + (3), '/');
         setcookie('warna', 'alert-danger', time() + (3), '/');
     }
     header("location:index.php?p=$pg");

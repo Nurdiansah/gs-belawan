@@ -6,7 +6,8 @@ if (isset($_POST['tolak'])) {
     $id_po = $_POST['id_po'];
     $id_bkk = $_POST['id_bkk'];
     $komentar = $_POST['komentar'];
-    
+    $tabelBKk = $_POST['tabel_bkk'];
+
     // ngecek jika udh ada datanya maka update aja
     $cekTolak = mysqli_query($koneksi, "SELECT * FROM tolak_bkk_final WHERE id_bkk_final = '$id_bkk'");
     $dataCek = mysqli_num_rows($cekTolak);
@@ -20,7 +21,7 @@ if (isset($_POST['tolak'])) {
     }
     // selesai
 
-    $queryTolak = mysqli_multi_query($koneksi, "UPDATE bkk_ke_pusat SET status_bkk = '101' WHERE id = '$id_bkk';
+    $queryTolak = mysqli_multi_query($koneksi, "UPDATE $tabelBKk SET status_bkk = '101' WHERE id = '$id_bkk';
 
                                                 -- DELETE FROM reapprove_bkk_final WHERE id_bkk_final = '$id_bkk';
 

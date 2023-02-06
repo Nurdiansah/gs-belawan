@@ -60,7 +60,7 @@ $query = mysqli_query($koneksi, "SELECT *, bf.id as id_bkk
                                             <td> <?= $row['nm_divisi']; ?> </td>
                                             <!-- <td> <?= 'Rp. ' . number_format($row['total_po'], 0, ",", "."); ?></td>                                         -->
                                             <td> <?= formatRupiah($row['nominal']); ?> </td>
-                                            <td><span class="label label-danger">Ditolak Manager Finance</span></td>
+                                            <td><span class="label label-danger">Ditolak Cost Control</span></td>
                                             <td>
                                                 <a href="index.php?p=dtl_ditolakpo&id=<?= enkripRambo($row['id_po']); ?>&bkk=<?= enkripRambo($row['id_bkk']); ?>" class="btn btn-info">Lihat</a>
                                             </td>

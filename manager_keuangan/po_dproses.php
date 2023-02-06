@@ -155,6 +155,16 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                         <iframe class="embed-responsive-item" src="../file/foto/<?= $data2['foto_item']; ?>"></iframe>
                     </div>
 
+                <?php }
+                if (!empty($data2['doc_penawaran'])) { ?>
+                    <div class="form-group ">
+                        <div class="box-header with-border">
+                            <h3 class="text-center">Document Penawaran </h3>
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="../file/doc_penawaran/<?= $data2['doc_penawaran']; ?>" id=""></iframe>
+                            </div>
+                        </div>
+                    </div>
                 <?php } ?>
                 <br>
                 <!--  -->

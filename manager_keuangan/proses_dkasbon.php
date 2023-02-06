@@ -113,16 +113,28 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
                                     <textarea rows="5" type="text" name="keterangan" disabled class="form-control "> <?= $data['keterangan']; ?></textarea>
                                 </div>
                             </div>
-                            <div class="form-group ">
-                                <?php if (!empty($data['doc_pendukung'])) {; ?>
+                            <?php if (!empty($data['foto_item'])) { ?>
+                                <div class="form-group ">
                                     <div class="box-header with-border">
                                         <h3 class="text-center">Document Pendukung </h3>
                                         <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe class="embed-responsive-item" src="../file/doc_pendukung/<?= $data['doc_pendukung']; ?>" id="ml_doc"></iframe>
+                                            <iframe class="embed-responsive-item" src="../file/foto/<?= $data['foto_item']; ?>" id=""></iframe>
                                         </div>
                                     </div>
-                                <?php }; ?>
-                            </div>
+                                </div>
+                            <?php }
+
+                            if (!empty($data['doc_penawaran'])) { ?>
+                                <div class="form-group ">
+                                    <div class="box-header with-border">
+                                        <h3 class="text-center">Document Penawaran </h3>
+                                        <div class="embed-responsive embed-responsive-16by9">
+                                            <iframe class="embed-responsive-item" src="../file/doc_penawaran/<?= $data['doc_penawaran']; ?>" id=""></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+
 
                             <!-- Rincian Harga -->
                             <?php if ($vrf_pajak == 'bp') { ?>

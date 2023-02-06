@@ -7,7 +7,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                         ON k.id_dbo = dbo.id
                                         JOIN divisi d
                                         ON d.id_divisi = bo.id_divisi                                            
-                                        WHERE k.status_kasbon IN ('4', '5', '6', '7', '404', '505', '707')  AND from_user= '0'
+                                        WHERE k.status_kasbon IN ('2', '4', '5', '6', '7', '404', '505', '707')  AND from_user= '0'
                                         ORDER BY k.id_kasbon DESC   ");
 
 $jumlahData  = mysqli_num_rows($query);
@@ -44,7 +44,9 @@ $jumlahData  = mysqli_num_rows($query);
                         <td> <?= $row['nm_barang']; ?> </td>
                         <td> <?= formatRupiah($row['harga_akhir']) ?> </td>
                         <td>
-                            <?php if ($row['status_kasbon'] == 4) {
+                            <?php if ($row['status_kasbon'] == 2) {
+                                echo "<span class='label label-success'>Verifikasi Pajak</span>";
+                            } else if ($row['status_kasbon'] == 4) {
                                 echo "<span class='label label-primary'>Approval Manager </span>";
                             } else if ($row['status_kasbon'] == 5) {
                                 echo "<span class='label label-primary'>Approval GM Finance </span>";

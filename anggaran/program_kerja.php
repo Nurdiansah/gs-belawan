@@ -2,6 +2,8 @@
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
+$tahun = date("Y");
+
 if (isset($_POST['tambah'])) {
     $cost_center = $_POST['cost_center'];
     $nm_programkerja = $_POST['nm_programkerja'];
@@ -46,6 +48,7 @@ if (isset($_POST['cari'])) {
                                         JOIN program_kerja
                                             ON id_costcenter = costcenter_id
                                         WHERE divisi_id = '$divisi'
+                                        AND tahun = '$tahun'
                                         ORDER BY program_kerja ASC
                             ");
 } else {
