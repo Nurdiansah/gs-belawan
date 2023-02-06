@@ -5,10 +5,52 @@ include "../fungsi/fungsi.php";
 $queryBKM = mysqli_query($koneksi, "SELECT * FROM bkm b
                                     JOIN anggaran a
                                         ON a.id_anggaran = b.id_anggaran
-                                    WHERE status_bkm IN ('5')
-                                    AND b.id_divisi = '$idDivisi'
+                                    JOIN divisi c
+                                        ON b.id_divisi = c.id_divisi
+                                    WHERE status_bkm IN ('2')
                                     ORDER BY id_bkm DESC");
 
+if (isset($_POST['verifikasi'])) {
+    $id_bkm = $_POST['id_bkm'];
+    $rekening_koran = $_POST['rekening_koran'];
+
+    $path = $_FILES['bukti_pembayaran']['tmp_name'];
+    $bukti_pembayaran = $_FILES['bukti_pembayaran']['name'];
+    $ekstensi = pathinfo($bukti_pembayaran, PATHINFO_EXTENSION);
+    $nm_baru = time() . "-slip-setoran-bkm." . $ekstensi;
+
+    mysqli_begin_transaction($koneksi);
+
+    $verifikasi = mysqli_query($koneksi, "UPDATE bkm SET status_bkm = '3',
+                                                remarks = '$rekening_koran',
+                                                bukti_pembayaran = '$nm_baru',
+                                                v_kasir = NOW()
+                                            WHERE id_bkm = '$id_bkm'
+                        ");
+
+    if ($verifikasi) {
+        mysqli_commit($koneksi);
+
+        move_uploaded_file($path, "../file/bkm/$nm_baru");
+    } else {
+        mysqli_rollback($koneksi);
+        echo mysqli_error($koneksi);
+    }
+    header("Location: index.php?p=verifikasi_bkm");
+}
+
+if (isset($_POST['tolak'])) {
+    $id_bkm = $_POST['id_bkm'];
+    $komentar = "@" . $Nama . " : " . $_POST['komentar'];
+
+    $reject = mysqli_query($koneksi, "UPDATE bkm SET status_bkm = '101', komentar_kasir = '$komentar'
+                                        WHERE id_bkm = '$id_bkm'
+                ");
+
+    if ($reject) {
+        header("Location: index.php?p=verifikasi_bkm");
+    }
+}
 
 $no = 1;
 
@@ -24,16 +66,15 @@ $totalBKM = mysqli_num_rows($queryBKM);
                 <div class="col-sm-offset-11">
                     <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#buat"><i class="fa fa-edit"></i> Buat </button></span></a> -->
                 </div>
-                <h3 class="text-center">Transaksi Bukti Kas Masuk</h3>
+                <h3 class="text-center">Verifikasi Bukti Kas Masuk</h3>
                 <div class="box-body">
-                    <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal" id="">
+                    <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
                         <div class="table-responsive">
                             <table class="table text-center table table-striped table-hover" id="<?= $totalBKM > 0 ? 'material' : ''; ?>">
                                 <thead>
                                     <tr style="background-color :#B0C4DE;">
                                         <th>No</th>
                                         <th>Tanggal</th>
-                                        <th>Nomor BKK</th>
                                         <th>Keterangan</th>
                                         <th>Kode Anggaran</th>
                                         <th>Nominal</th>
@@ -45,101 +86,15 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                         <tr>
                                             <td><?= $no; ?></td>
                                             <td><?= formatTanggal($dataBKM['tgl_bkm']); ?></td>
-                                            <td><?= $dataBKM['no_bkm']; ?></td>
                                             <td><?= batasiKata($dataBKM['keterangan']); ?></td>
                                             <td><?= kodeAnggaran($dataBKM['id_anggaran']); ?>]</td>
                                             <td><?= formatRupiah($dataBKM['grand_total']); ?></td>
                                             <td>
                                                 <button type="button" class="btn btn-info modalLihat" data-toggle="modal" data-target="#modalLihat" data-id="<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-search" title="Lihat" data-toggle="tooltip"></i></button>
-                                                <!-- <button type="button" class="btn btn-info " data-toggle="modal" data-target="#lihat_<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-search" title="Lihat" data-toggle="tooltip"></i></button> -->
-                                                <!-- <button type="button" class="btn btn-success " data-toggle="modal" data-target="#verifikasi_<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-check-square" title="Verifikasi" data-toggle="tooltip"></i></button>
-                                                <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#reject_<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-close" title="Reject" data-toggle="tooltip"></i></button> -->
+                                                <button type="button" class="btn btn-success " data-toggle="modal" data-target="#verifikasi_<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-check-square" title="Verifikasi" data-toggle="tooltip"></i></button>
+                                                <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#reject_<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-close" title="Reject" data-toggle="tooltip"></i></button>
                                             </td>
                                         </tr>
-
-                                        <!-- Modal Lihat -->
-                                        <div id="lihat_<?= $dataBKM['id_bkm']; ?>" class="modal fade" role="dialog">
-                                            <div class="modal-dialog modal-lg">
-                                                <!-- konten modal-->
-                                                <div class="modal-content">
-                                                    <!-- heading modal -->
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        <h4 class="modal-title">Detail Bukti Kas Masuk</h4>
-                                                    </div>
-                                                    <!-- body modal -->
-                                                    <form class="form-horizontal">
-                                                        <div class="modal-body">
-                                                            <div class="perhitungan">
-                                                                <div class="box-body">
-                                                                    <!-- <div class="form-group">
-                                                                        <label for="id_anggaran" class="col-sm-2 control-label"></label>
-                                                                        <div class="col-sm-9">
-                                                                            <fieldset class="form-control">
-                                                                                <div class="col-sm-4">
-                                                                                    <input type="checkbox" id="accounting" disabled checked> <label for="accounting"> Verifikasi Accounting<br>2021-11-22 17:17</label>
-                                                                                </div>ml_pengajuan"
-                                                                    </div> -->
-                                                                    <div class="form-group ">
-                                                                        <label for="id_anggaran" class="col-sm-2 control-label">Tanggal</label>
-                                                                        <div class="col-sm-4">
-                                                                            <input type="text" class="form-control" value="<?= formatTanggal($dataBKM['tgl_bkm']); ?>" readonly>
-                                                                        </div>
-                                                                        <label for="id_anggaran" class="col-sm-1 control-label">Kode Anggaran</label>
-                                                                        <div class="col-sm-4">
-                                                                            <input type="text" class="form-control" value="<?= kodeAnggaran($dataBKM['id_anggaran']); ?>" readonly>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group ">
-                                                                        <label for="id_anggaran" class="col-sm-2 control-label">Nominal</label>
-                                                                        <div class="col-sm-9">
-                                                                            <input type="text" class="form-control text-right" value="<?= formatRupiah($dataBKM['nominal']); ?>" readonly>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- <div class="form-group ">
-                                                                        <label for="id_anggaran" class="col-sm-2 control-label">PPN</label>
-                                                                        <div class="col-sm-4">
-                                                                            <input type="text" class="form-control text-right" value="<?= formatRupiah($dataBKM['nilai_ppn']); ?>" readonly>
-                                                                        </div>
-                                                                        <label for="id_anggaran" class="col-sm-1 control-label">PPh</label>
-                                                                        <div class="col-sm-4">
-                                                                            <input type="text" class="form-control text-right" value="<?= formatRupiah($dataBKM['nilai_pph']); ?>" readonly>
-                                                                        </div>
-                                                                    </div> -->
-                                                                    <!-- <div class="form-group ">
-                                                                        <label for="id_anggaran" class="col-sm-2 control-label">Divisi</label>
-                                                                        <div class="col-sm-9">
-                                                                            <input type="text" class="form-control text-right" value="<?= $dataBKM['nm_divisi']; ?>" readonly>
-                                                                        </div>
-                                                                    </div> -->
-                                                                    <div class="mb-3">
-                                                                        <div class="form-group">
-                                                                            <label for="validationTextarea" class="col-sm-2 control-label">Keterangan</label>
-                                                                            <div class="col-sm-9">
-                                                                                <textarea rows="8" class="form-control is-invalid" placeholder="Deskripsi" readonly><?= $dataBKM['keterangan']; ?></textarea>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div id="doc">
-                                                                        <div class="form-group">
-                                                                            <h3 class="text-center">Document BKM</h3>
-                                                                            <div class="embed-responsive embed-responsive-16by9">
-                                                                                <iframe class="embed-responsive-item" src="../file/bkm/<?= $dataBKM['doc_bkm']; ?>"></iframe>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class=" modal-footer">
-                                                                    <!-- <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal"> -->
-                                                                    <button type="button" class="btn btn-info modalLihat" data-toggle="modal" data-target="#modalLihat" data-id="<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-search" title="Lihat" data-toggle="tooltip"></i></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Akhir modal lihat -->
 
                                         <!-- Modal approve -->
                                         <div id="verifikasi_<?= $dataBKM['id_bkm']; ?>" class="modal fade" role="dialog">
@@ -159,6 +114,18 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                                                     <div class="form-group">
                                                                         <h4 class="text-center">Apakah anda yakin ingin memverifikasi pengajuan <b><?= $dataBKM['keterangan']; ?>?</b></h4>
                                                                         <input type="hidden" value="<?= $dataBKM['id_bkm']; ?>" class="form-control" name="id_bkm">
+                                                                    </div>
+                                                                    <div class="form-group ">
+                                                                        <label for="tanggal" class="col-sm-offset-1 col-sm-3 control-label ">Rekening Koran</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" name="rekening_koran" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group ">
+                                                                        <label for="tanggal" class="col-sm-offset-1 col-sm-3 control-label ">Slip Setoran</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="file" name="bukti_pembayaran" class="form-control" accept="application/pdf">
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class=" modal-footer">
@@ -262,12 +229,6 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                         <input type="text" class="form-control " value="" id="me_nm_divisi" readonly>
                                     </div>
                                 </div>
-                                <div class="form-group ">
-                                    <label for="id_anggaran" class="col-sm-offset- col-sm-3 control-label">Rekening Koran</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control " value="" id="me_remarks" readonly>
-                                    </div>
-                                </div>
                                 <div class="mb-3">
                                     <div class="form-group">
                                         <label for="validationTextarea" class="col-sm-offset- col-sm-3 control-label">Keterangan</label>
@@ -320,15 +281,6 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                     </div>
                                 </div>
                             </div>
-
-                            <div id="slip_setoran">
-                                <div class="form-group">
-                                    <h3 class="text-center">Slip Setoran</h3>
-                                    <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item" src="" id="me_slip"></iframe>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class=" modal-footer">
                             <!-- <button class="btn btn-success" type="submit" name="verifikasi">Simpan</button></span></a> -->
@@ -371,7 +323,6 @@ $totalBKM = mysqli_num_rows($queryBKM);
                     $('#me_nm_item').val(data.nm_item);
                     $('#me_nominal').val(formatRibuan(Math.round(data.nominal)));
                     $('#me_nm_divisi').val(data.nm_divisi);
-                    $('#me_remarks').val(data.remarks);
                     $('#me_keterangan').val(data.keterangan);
                     $('#dpp').text(formatRibuan(Math.round(data.nominal)));
                     $('#ppn_nilai').text(formatRibuan(Math.round(data.nilai_ppn)));
@@ -383,20 +334,12 @@ $totalBKM = mysqli_num_rows($queryBKM);
 
                     let doc_bkm = '../file/bkm/' + data.doc_bkm;
                     $("#me_doc").attr("src", doc_bkm);
-                    let bukti_pembayaran = '../file/bkm/' + data.bukti_pembayaran;
-                    $("#me_slip").attr("src", bukti_pembayaran);
 
-                    // if (!file_exists('../file/bkm/' + data.bukti_pembayaran)) {
-                    //     $("#slip_setoran").hide();
-                    // } else {
-                    //     $("#slip_setoran").show();
-                    // }
 
                 }
             });
         });
     });
-
 
     function formatRibuan(angka) {
         var reverse = angka.toString().split('').reverse().join(''),

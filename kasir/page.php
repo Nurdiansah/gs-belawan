@@ -149,4 +149,10 @@ if ($page == 'formpesan') {
     include_once "refill_transaksi.php";
 } else if ($page == "refill_tolak") {
     include_once "refill_tolak.php";
+} else if ($page == "verifikasi_bkm") {
+    include_once "verifikasi_bkm.php";
+} else if ($page == "proses_bkm") {
+    include_once "proses_bkm.php";
+} else if ($page == "transaksi_bkm") {
+    include_once "transaksi_bkm.php";
 }

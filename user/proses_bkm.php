@@ -5,8 +5,9 @@ include "../fungsi/fungsi.php";
 $queryBKM = mysqli_query($koneksi, "SELECT * FROM bkm b
                                     JOIN anggaran a
                                         ON a.id_anggaran = b.id_anggaran
-                                    WHERE status_bkm IN ('2', '3', '4')
-                                    AND b.id_divisi = '$idDivisi'");
+                                    WHERE status_bkm IN ('1', '2', '3', '4')
+                                    AND b.id_divisi = '$idDivisi'
+                                    ORDER BY id_bkm DESC");
 
 $no = 1;
 
@@ -47,12 +48,14 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                             <td><?= kodeAnggaran($dataBKM['id_anggaran']); ?></td>
                                             <td><?= formatRupiah($dataBKM['grand_total']); ?></td>
                                             <td>
-                                                <?php if ($dataBKM['status_bkm'] == "2") { ?>
-                                                    <span class="label label-success">Approval Cost Control</span>
+                                                <?php if ($dataBKM['status_bkm'] == "1") { ?>
+                                                    <span class="label label-info">Verifikasi Pajak</span>
+                                                <?php } elseif ($dataBKM['status_bkm'] == "2") { ?>
+                                                    <span class="label label-warning">Verifikasi Kasir</span>
                                                 <?php } elseif ($dataBKM['status_bkm'] == "3") { ?>
-                                                    <span class="label label-warning">Approval Manager</span>
+                                                    <span class="label label-success">Approval Cost Control</span>
                                                 <?php } elseif ($dataBKM['status_bkm'] == "4") { ?>
-                                                    <span class="label label-primary">Verifikasi Kasir Jakarta</span>
+                                                    <span class="label label-primary">Approval Manager</span>
                                                 <?php } ?>
                                             </td>
                                             <td>

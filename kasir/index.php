@@ -180,6 +180,9 @@ $dataOutstanding = mysqli_fetch_assoc($queryOutstanding);
 $queryRP = mysqli_query($koneksi, "SELECT COUNT(id_refill) AS jumlah FROM refill_funds WHERE status BETWEEN '0' AND '5'");
 $dataRP = mysqli_fetch_assoc($queryRP);
 
+//  QUERY BKM
+$queryBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm = '2'");
+$dataBKM = mysqli_fetch_assoc($queryBKM);
 
 ?>
 <!DOCTYPE html>
