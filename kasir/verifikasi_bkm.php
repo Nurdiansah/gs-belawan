@@ -258,7 +258,7 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                                 <th id="dpp"></th>
                                             </tr>
                                             <tr>
-                                                <th>PPN </th>
+                                                <th id="nm_ppn"></th>
                                                 <th id="ppn_nilai"></th>
                                             </tr>
                                             <tr>
@@ -327,10 +327,17 @@ $totalBKM = mysqli_num_rows($queryBKM);
                     $('#dpp').text(formatRibuan(Math.round(data.nominal)));
                     $('#ppn_nilai').text(formatRibuan(Math.round(data.nilai_ppn)));
                     $('#id_pph').text(data.id_pph);
-                    $('#pph_nilai').text(formatRibuan(Math.round(data.nilai_pph)));
+                    $('#pph_nilai').text('(' + formatRibuan(Math.round(data.nilai_pph)) + ')');
                     $('#potongan').text(formatRibuan(Math.round(data.potongan)));
                     $('#biaya_lain').text(formatRibuan(Math.round(data.biaya_lain)));
                     $('#total').text(formatRibuan(Math.round(data.grand_total)));
+
+                    var persentase = Math.round(data.nilai_ppn / data.nominal * 100)
+                    if (persentase > 0) {
+                        $('#nm_ppn').text('PPN (' + persentase + '%)')
+                    } else {
+                        $('#nm_ppn').text('PPN')
+                    }
 
                     let doc_bkm = '../file/bkm/' + data.doc_bkm;
                     $("#me_doc").attr("src", doc_bkm);

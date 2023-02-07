@@ -126,7 +126,7 @@ if (isset($_POST['release'])) {
                                         <tr>
                                             <td><?= $no; ?></td>
                                             <td><?= formatTanggal($dataBKM['tgl_bkm']); ?></td>
-                                            <td><?= $dataBKM['keterangan']; ?></td>
+                                            <td><?= batasiKata($dataBKM['keterangan']); ?></td>
                                             <td><?= kodeAnggaran($dataBKM['id_anggaran']); ?>]</td>
                                             <td><?= formatRupiah($dataBKM['grand_total']); ?></td>
                                             <td>
