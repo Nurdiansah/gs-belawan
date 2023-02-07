@@ -52,7 +52,6 @@ if (isset($_POST['tolak'])) {
 if (isset($_POST['verifikasi'])) {
     $id_bkm = $_POST['id_bkm'];
     $nominal = $_POST['nominal'];
-    $ppn_persen = $_POST['ppn_persen'];
     $ppn_nilai = penghilangTitik($_POST['ppn_nilai']);
     $id_pph = $_POST['id_pph'];
     $pph_nilai = $_POST['pph_nilai'] > 0 ? penghilangTitik($_POST['pph_nilai']) : $_POST['pph_nilai2'];
@@ -109,7 +108,7 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                         <tr>
                                             <td><?= $no; ?></td>
                                             <td><?= formatTanggal($dataBKM['tgl_bkm']); ?></td>
-                                            <td><?= $dataBKM['keterangan']; ?></td>
+                                            <td><?= batasiKata($dataBKM['keterangan']); ?></td>
                                             <td><?= kodeAnggaran($dataBKM['id_anggaran']); ?>]</td>
                                             <td><?= formatRupiah($dataBKM['grand_total']); ?></td>
                                             <td>
@@ -272,7 +271,7 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-4 control-label" id="rupiah">PPN
+                                <!-- <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-4 control-label" id="rupiah">PPN
                                     <select name="ppn_persen" id="ppn_persen">
                                         <option value="0.12">12%</option>
                                         <option value="0.11">11%</option>
@@ -281,12 +280,14 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                 </label>
                                 <div class="col-sm-1">
                                     <input type="checkbox" name="all" id="myCheck" onclick="checkBox()">
-                                </div>
-                                <div class="col-sm-2">
+                                </div> -->
+                                <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-4 control-label">PPN</label>
+                                <div class="col-sm-3">
                                     <div class="input-group">
                                         <span class="input-group-addon">Rp.</span>
-                                        <input type="text" class="form-control " name="ppn_nilai" id="ppn_nilai" value="0" readonly />
+                                        <input type="text" class="form-control " name="ppn_nilai" id="ppn_nilai" value="0" autocomplete="off">
                                     </div>
+                                    <i><span id="ppn_ui"></span></i>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -415,7 +416,7 @@ $totalBKM = mysqli_num_rows($queryBKM);
                     $('#me_nm_divisi').val(data.nm_divisi);
                     $('#me_keterangan').val(data.keterangan);
                     $('#dpp').val(Math.round(data.nominal));
-                    $('#ppn_nilai').val(formatRibuan(Math.round(data.nilai_ppn)));
+                    $('#ppn_nilai').val(Math.round(data.nilai_ppn));
                     $('#id_pph').val(data.id_pph);
                     $('#pph_nilai').val(formatRibuan(Math.round(data.nilai_pph)));
                     $('#potongan').val(Math.round(data.potongan));
@@ -426,18 +427,18 @@ $totalBKM = mysqli_num_rows($queryBKM);
                     $("#me_doc").attr("src", doc_bkm);
 
 
-                    if (data.nilai_ppn != 0) {
+                    // if (data.nilai_ppn != 0) {
 
-                        var persentase = data.nilai_ppn / data.nominal * 100
-                        var nilai_persentase = persentase / 100
+                    //     var persentase = data.nilai_ppn / data.nominal * 100
+                    //     var nilai_persentase = persentase / 100
 
-                        if (nilai_persentase > 0) {
-                            $('#myCheck').prop('checked', true);
-                            $("#ppn_persen").val(nilai_persentase);
-                        } else {
-                            $("#ppn_persen").val("0.11");
-                        }
-                    }
+                    //     if (nilai_persentase > 0) {
+                    // $('#myCheck').prop('checked', true);
+                    //         $("#ppn_persen").val(nilai_persentase);
+                    //     } else {
+                    //         $("#ppn_persen").val("0.11");
+                    //     }
+                    // }
 
 
                     if (data.id_pph == '1') {
@@ -465,9 +466,9 @@ $totalBKM = mysqli_num_rows($queryBKM);
         });
     });
 
-    function ppnPersen() {
-        return $('#ppn_persen').val();
-    }
+    // function ppnPersen() {
+    //     return $('#ppn_persen').val();
+    // }
 
     // function checkBox() {
     //     var checkBox = document.getElementById("myCheck");
@@ -484,9 +485,9 @@ $totalBKM = mysqli_num_rows($queryBKM);
         hitungYuk()
     });
 
-    $('#ppn_persen').on('change', function() {
-        hitungYuk();
-    });
+    // $('#ppn_persen').on('change', function() {
+    //     hitungYuk();
+    // });
 
     function hitungYuk() {
 
@@ -494,16 +495,20 @@ $totalBKM = mysqli_num_rows($queryBKM);
         let dpp_ui = tandaPemisahTitik(dpp);
         $('#dpp_ui').text('Rp.' + dpp_ui);
 
-        var checkBox = document.getElementById("myCheck");
-        if (checkBox.checked == true) {
-            ppnNilai = dpp * ppnPersen();
-            $('#ppn_nilai').val(formatRibuan(Math.round(ppnNilai)));
-        } else {
-            ppnNilai = 0
-        }
+        // var checkBox = document.getElementById("myCheck");
+        // if (checkBox.checked == true) {
+        // ppnNilai = dpp * ppnPersen();
+        // $('#ppn_nilai').val(formatRibuan(Math.round(ppnNilai)));
+        // } else {
+        //     ppnNilai = 0
+        // }
+
+        let ppnNilai = parseInt($("#ppn_nilai").val())
+        let ppn_ui = tandaPemisahTitik(Math.round(ppnNilai))
+        $('#ppn_ui').text('Rp.' + ppn_ui)
 
         let pph_nilai2 = parseInt($("#pph_nilai2").val())
-        let pph_ui = tandaPemisahTitik(Math.round(pph_nilai2));
+        let pph_ui = tandaPemisahTitik(Math.round(pph_nilai2))
         $('#pph_ui').text('Rp.' + pph_ui);
 
         var pph_persen = parseFloat($("#pph_persen").val())
@@ -515,7 +520,7 @@ $totalBKM = mysqli_num_rows($queryBKM);
         $('#np_ui').text('Rp.' + np_ui);
 
         let biaya_lain = parseInt($("#biaya_lain").val())
-        let bl_ui = tandaPemisahTitik(biaya_lain);
+        let bl_ui = tandaPemisahTitik(biaya_lain)
         $('#bl_ui').text('Rp.' + bl_ui);
 
 
@@ -572,20 +577,20 @@ $totalBKM = mysqli_num_rows($queryBKM);
     }
 
 
-    function checkBox() {
-        var checkBox = document.getElementById("myCheck");
-        if (checkBox.checked == true) {
+    // function checkBox() {
+    //     var checkBox = document.getElementById("myCheck");
+    //     if (checkBox.checked == true) {
 
-            hitungYuk();
+    //         hitungYuk();
 
 
-        } else if (checkBox.checked == false) {
+    //     } else if (checkBox.checked == false) {
 
-            $('#ppn_nilai').val(0);
+    //         $('#ppn_nilai').val(0);
 
-            hitungYuk();
-        }
-    }
+    //         hitungYuk();
+    //     }
+    // }
 
     function formatRibuan(angka) {
         var reverse = angka.toString().split('').reverse().join(''),

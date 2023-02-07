@@ -258,7 +258,7 @@ $no = 1;
                                                 <th id="dpp"></th>
                                             </tr>
                                             <tr>
-                                                <th id="nm_ppn">PPN </th>
+                                                <th id="nm_ppn">PPN</th>
                                                 <th id="ppn_nilai"></th>
                                             </tr>
                                             <tr>
@@ -342,12 +342,12 @@ $no = 1;
                     $('#biaya_lain').text(formatRibuan(Math.round(data.biaya_lain)));
                     $('#total').text(formatRibuan(Math.round(data.grand_total)));
 
-                    var persentase = Math.round(data.nilai_ppn / data.nominal * 100)
-                    if (persentase > 0) {
-                        $('#nm_ppn').text('PPN (' + persentase + '%)')
-                    } else {
-                        $('#nm_ppn').text('PPN')
-                    }
+                    // var persentase = Math.round(data.nilai_ppn / data.nominal * 100)
+                    // if (persentase > 0) {
+                    //     $('#nm_ppn').text('PPN (' + persentase + '%)')
+                    // } else {
+                    //     $('#nm_ppn').text('PPN')
+                    // }
 
                     let doc_bkm = '../file/bkm/' + data.doc_bkm;
                     $("#me_doc").attr("src", doc_bkm);

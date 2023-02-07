@@ -406,7 +406,7 @@ $totalBKM = mysqli_num_rows($queryBKM);
                     $('#dpp').text(formatRibuan(Math.round(data.nominal)));
                     $('#ppn_nilai').text(formatRibuan(Math.round(data.nilai_ppn)));
                     $('#id_pph').text(data.id_pph);
-                    $('#pph_nilai').text(formatRibuan(Math.round(data.nilai_pph)));
+                    $('#pph_nilai').text('(' + formatRibuan(Math.round(data.nilai_pph)) + ')');
                     $('#potongan').text(formatRibuan(Math.round(data.potongan)));
                     $('#biaya_lain').text(formatRibuan(Math.round(data.biaya_lain)));
                     $('#total').text(formatRibuan(Math.round(data.grand_total)));
