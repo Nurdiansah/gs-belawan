@@ -87,7 +87,7 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                             <td><?= $no; ?></td>
                                             <td><?= formatTanggal($dataBKM['tgl_bkm']); ?></td>
                                             <td><?= batasiKata($dataBKM['keterangan']); ?></td>
-                                            <td><?= kodeAnggaran($dataBKM['id_anggaran']); ?>]</td>
+                                            <td><?= kodeAnggaran($dataBKM['id_anggaran']); ?></td>
                                             <td><?= formatRupiah($dataBKM['grand_total']); ?></td>
                                             <td>
                                                 <button type="button" class="btn btn-info modalLihat" data-toggle="modal" data-target="#modalLihat" data-id="<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-search" title="Lihat" data-toggle="tooltip"></i></button>
@@ -118,7 +118,7 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                                                     <div class="form-group ">
                                                                         <label for="tanggal" class="col-sm-offset-1 col-sm-3 control-label ">Rekening Koran</label>
                                                                         <div class="col-sm-6">
-                                                                            <input type="text" name="rekening_koran" class="form-control">
+                                                                            <input type="text" name="rekening_koran" class="form-control" autocomplete="off">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group ">

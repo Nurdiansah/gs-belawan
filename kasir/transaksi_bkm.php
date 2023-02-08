@@ -2,17 +2,29 @@
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
-$queryBKM = mysqli_query($koneksi, "SELECT * FROM bkm b
+$queryBKM = mysqli_query($koneksi, "SELECT * -- id_bkm, no_bkm, tgl_bkm, nm_divisi, keterangan, a.id_anggaran, nominal, nilai_ppn, nilai_pph, grand_total, doc_bkm, 'BKM Jakarta' AS bkm_from, 'success' AS warna
+                                    FROM bkm b
                                     JOIN anggaran a
                                         ON a.id_anggaran = b.id_anggaran
+                                    JOIN divisi c
+                                        ON b.id_divisi = c.id_divisi
                                     WHERE status_bkm IN ('5')
-                                    AND b.id_divisi = '$idDivisi'
-                                    ORDER BY id_bkm DESC");
+                                    ORDER BY tgl_bkm DESC
 
+                                    -- UNION ALL
 
-$no = 1;
+                                    -- SELECT id_bkm, no_bkm, tgl_bkm, nm_divisi, keterangan, a.id_anggaran, nominal, nilai_ppn, nilai_pph, grand_total, doc_bkm, 'BKM Belawan' AS bkm_from, 'primary' AS warna
+                                    -- FROM gs_belawan.bkm b
+                                    -- JOIN gs_belawan.anggaran a
+                                    --     ON a.id_anggaran = b.id_anggaran
+                                    -- JOIN gs_belawan.divisi c
+                                    --     ON b.id_divisi = c.id_divisi
+                                    -- WHERE status_bkm IN ('7')
+                                    ");
 
 $totalBKM = mysqli_num_rows($queryBKM);
+
+$no = 1;
 
 ?>
 
@@ -33,10 +45,11 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                     <tr style="background-color :#B0C4DE;">
                                         <th>No</th>
                                         <th>Tanggal</th>
-                                        <th>Nomor BKK</th>
+                                        <th>Nomor BKM</th>
                                         <th>Keterangan</th>
                                         <th>Kode Anggaran</th>
                                         <th>Nominal</th>
+                                        <!-- <th>Area</th> -->
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -47,8 +60,9 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                             <td><?= formatTanggal($dataBKM['tgl_bkm']); ?></td>
                                             <td><?= $dataBKM['no_bkm']; ?></td>
                                             <td><?= batasiKata($dataBKM['keterangan']); ?></td>
-                                            <td><?= kodeAnggaran($dataBKM['id_anggaran']); ?></td>
+                                            <td><?= $dataBKM['kd_anggaran'] . " [" . $dataBKM['nm_item'] . "]"; ?></td>
                                             <td><?= formatRupiah($dataBKM['grand_total']); ?></td>
+                                            <!-- <td><span class="label label-<?= $dataBKM['warna']; ?>"><?= $dataBKM['bkm_from']; ?></span></td> -->
                                             <td>
                                                 <button type="button" class="btn btn-info modalLihat" data-toggle="modal" data-target="#modalLihat" data-id="<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-search" title="Lihat" data-toggle="tooltip"></i></button>
                                                 <!-- <button type="button" class="btn btn-info " data-toggle="modal" data-target="#lihat_<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-search" title="Lihat" data-toggle="tooltip"></i></button> -->
@@ -91,9 +105,15 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group ">
-                                                                        <label for="id_anggaran" class="col-sm-2 control-label">Nominal</label>
+                                                                        <label for="id_anggaran" class="col-sm-2 control-label">Divisi</label>
                                                                         <div class="col-sm-9">
-                                                                            <input type="text" class="form-control text-right" value="<?= formatRupiah($dataBKM['nominal']); ?>" readonly>
+                                                                            <input type="text" class="form-control " value="<?= $dataBKM['nm_divisi']; ?>" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group ">
+                                                                        <label for="id_anggaran" class="col-sm-2 control-label">DPP</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control " value="<?= formatRupiah2($dataBKM['nominal']); ?>" readonly>
                                                                         </div>
                                                                     </div>
                                                                     <!-- <div class="form-group ">
@@ -106,12 +126,84 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                                                             <input type="text" class="form-control text-right" value="<?= formatRupiah($dataBKM['nilai_pph']); ?>" readonly>
                                                                         </div>
                                                                     </div> -->
-                                                                    <!-- <div class="form-group ">
-                                                                        <label for="id_anggaran" class="col-sm-2 control-label">Divisi</label>
-                                                                        <div class="col-sm-9">
-                                                                            <input type="text" class="form-control text-right" value="<?= $dataBKM['nm_divisi']; ?>" readonly>
+                                                                    <div class="form-group">
+                                                                        <label id="tes" for="nilai_ppn" class="col-sm-2 control-label">PPN 11%</label>
+                                                                        <div class="col-sm-2">
+                                                                            <input type="checkbox" name="all" id="myCheck" onclick="checkBox()" <?= $dataBKM['nilai_ppn'] != 0 && !is_null($dataBKM['nilai_ppn']) ? 'checked' : ''; ?> disabled>
+                                                                            <!-- <input type="checkbox" name="all" id="myCheck" onclick="checkBox()"> -->
                                                                         </div>
-                                                                    </div> -->
+                                                                        <div class="col-sm-7">
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-addon">Rp.</span>
+                                                                                <input type="text" class="form-control " name="nilai_ppn" id="nilai_ppn" value="<?= formatRupiah2(round($dataBKM['nilai_ppn'])); ?>" readonly />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label id="tes" for="id_pph" class="col-sm-2 control-label">Jenis PPh</label>
+                                                                        <div class="col-sm-9">
+                                                                            <select name="id_pph" class="form-control" id="id_pph" value="<?= $dataBKM['id_pph'] ?>" disabled>
+                                                                                <option value="">--Jenis PPh--</option>
+                                                                                <?php
+                                                                                $queryPph = mysqli_query($koneksi, "SELECT * FROM pph ORDER BY nm_pph ASC");
+                                                                                if (mysqli_num_rows($queryPph)) {
+                                                                                    while ($rowPph = mysqli_fetch_assoc($queryPph)) :
+                                                                                ?>
+                                                                                        <option value="<?= $rowPph['id_pph']; ?>" data-id="<?= $rowPph['jenis']; ?>" <?= $dataBKM['id_pph'] == $rowPph['id_pph'] ? 'selected' : ''; ?>><?= $rowPph['nm_pph'] ?></option>
+                                                                                <?php endwhile;
+                                                                                } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <?php if ($dataBKM['id_pph'] == "2" || $dataBKM['id_pph'] == "3") {
+                                                                        $pph_persen = ($dataBKM['nilai_pph'] / $dataBKM['grand_total']) * 100;
+                                                                    ?>
+                                                                        <div id="fixed">
+                                                                            <div class="form-group">
+                                                                                <!-- <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah"></label> -->
+                                                                                <label id="tes" for="nilai_ppn" class=" col-sm-2 control-label" id="rupiah">Nilai PPh</label>
+                                                                                <div class="col-sm-3">
+                                                                                    <div class="input-group">
+                                                                                        <span class="input-group-addon">PPh</span>
+                                                                                        <input type="text" required class="form-control " name="pph_persen" value="<?= round($pph_persen); ?>" id="pph_persen" />
+                                                                                        <span class="input-group-addon">%</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <!-- </div>
+                            <div class="form-group"> -->
+                                                                                <div class="col-sm-6">
+                                                                                    <div class="input-group">
+                                                                                        <span class="input-group-addon">Rp.</span>
+                                                                                        <input type="text" readonly class="form-control " name="nilai_pph" value="<?= formatRupiah2($dataBKM['nilai_pph']); ?>" id="nilai_pph" />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <?php } elseif ($dataBKM['id_pph'] == "1") { ?>
+                                                                        <div id="progresive">
+                                                                            <div class="form-group">
+                                                                                <label id="tes" for="nilai_pph2" class="col-sm-2 control-label" id="rupiah">Nilai PPh</label>
+                                                                                <div class="col-sm-9">
+                                                                                    <div class="input-group">
+                                                                                        <span class="input-group-addon">Rp.</span>
+                                                                                        <input type="text" class="form-control " name="nilai_pph2" value="<?= $dataBKM['nilai_pph']; ?>" id="nilai_pph2">
+                                                                                    </div>
+                                                                                    <i><span id="pph_ui"></span></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <?php } ?>
+                                                                    <div class="col-auto">
+                                                                        <div class="form-group">
+                                                                            <label id="tes" for="grand_total" class=" col-sm-2 control-label">Grand Total</label>
+                                                                            <div class="col-sm-9">
+                                                                                <div class="input-group">
+                                                                                    <span class="input-group-addon">Rp.</span>
+                                                                                    <input type="text" required class="form-control" name="grand_total" id="grand_total" readonly value="<?= formatRupiah2($dataBKM['grand_total']); ?>" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                     <div class="mb-3">
                                                                         <div class="form-group">
                                                                             <label for="validationTextarea" class="col-sm-2 control-label">Keterangan</label>
@@ -130,8 +222,8 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                                                     </div>
                                                                 </div>
                                                                 <div class=" modal-footer">
-                                                                    <!-- <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal"> -->
-                                                                    <button type="button" class="btn btn-info modalLihat" data-toggle="modal" data-target="#modalLihat" data-id="<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-search" title="Lihat" data-toggle="tooltip"></i></button>
+                                                                    <!-- <button class="btn btn-success" type="submit" name="buat">Simpan</button></span></a> -->
+                                                                    <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -340,9 +432,8 @@ $totalBKM = mysqli_num_rows($queryBKM);
         </div>
     </div>
 </section>
-
 <script>
-    let host = "<?= host() ?>"
+    let host = "<?= host(); ?>"
 
     $(function() {
         $("#material").DataTable({
@@ -381,23 +472,10 @@ $totalBKM = mysqli_num_rows($queryBKM);
                     $('#biaya_lain').text(formatRibuan(Math.round(data.biaya_lain)));
                     $('#total').text(formatRibuan(Math.round(data.grand_total)));
 
-                    // var persentase = Math.round(data.nilai_ppn / data.nominal * 100)
-                    // if (persentase > 0) {
-                    //     $('#nm_ppn').text('PPN (' + persentase + '%)')
-                    // } else {
-                    //     $('#nm_ppn').text('PPN')
-                    // }
-
                     let doc_bkm = '../file/bkm/' + data.doc_bkm;
                     $("#me_doc").attr("src", doc_bkm);
                     let bukti_pembayaran = '../file/bkm/' + data.bukti_pembayaran;
                     $("#me_slip").attr("src", bukti_pembayaran);
-
-                    // if (!file_exists('../file/bkm/' + data.bukti_pembayaran)) {
-                    //     $("#slip_setoran").hide();
-                    // } else {
-                    //     $("#slip_setoran").show();
-                    // }
 
                 }
             });
