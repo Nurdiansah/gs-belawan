@@ -56,7 +56,7 @@ if (isset($_POST['login'])) {
 
 	if (mysqli_num_rows($hasil) == 0) {
 		$err = "
-		<div class='row' style='margin-top: 15px';>
+		<div class='row animate__animated animate__flipInY' style='margin-top: 15px';>
 	       <div class='col-md-12'>
 	        	<div class='box box-solid bg-red'>
 	        		<div class='box-header'>
@@ -155,6 +155,9 @@ if (isset($_POST['login'])) {
 	<link href="assets/dist/css/AdminLTE.min.css" rel="stylesheet">
 	<link href="assets/plugins/iCheck/square/blue.css" rel="stylesheet">
 	<link href="assets/fa/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 
 <body class="body">
