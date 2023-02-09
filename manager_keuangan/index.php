@@ -184,7 +184,7 @@ $dataProsesRefill = mysqli_fetch_assoc($queryProsesRefill);
 $queryProsesBno = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk IN ('4', '6', '7', '8', '9')");
 $dataProsesBno = mysqli_fetch_assoc($queryProsesBno);
 
-$queryProsesBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm IN ('3', '4', '5')");
+$queryProsesBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm IN ('4')");
 $dataProsesBKM = mysqli_fetch_assoc($queryProsesBKM);
 
 $queryProsesPO = mysqli_query($koneksi, "SELECT COUNT(id_po) as jumlah

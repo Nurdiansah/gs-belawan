@@ -7,7 +7,7 @@ $queryBKM = mysqli_query($koneksi, "SELECT * FROM bkm b
                                         ON a.id_anggaran = b.id_anggaran
                                     JOIN divisi c
                                         ON b.id_divisi = c.id_divisi
-                                    WHERE status_bkm IN ('3', '4')
+                                    WHERE status_bkm IN ('4')
                                     ORDER BY id_bkm DESC");
 
 if (isset($_POST['verifikasi'])) {
@@ -88,10 +88,8 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                             <td><?= kodeAnggaran($dataBKM['id_anggaran']); ?>]</td>
                                             <td><?= formatRupiah($dataBKM['grand_total']); ?></td>
                                             <td>
-                                                <?php if ($dataBKM['status_bkm'] == "3") { ?>
-                                                    <span class="label label-primary">Verifikasi Manager</span>
-                                                <?php } elseif ($dataBKM['status_bkm'] == "4") { ?>
-                                                    <span class="label label-warning">Verifikasi Kasir Jakarta</span>
+                                                <?php if ($dataBKM['status_bkm'] == "4") { ?>
+                                                    <span class="label label-primary">Approval Manager</span>
                                                 <?php } ?>
                                             </td>
                                             <td>
