@@ -11,6 +11,8 @@ if (isset($_GET['id'])) {
 
 $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggaran = '$id'");
 $dataAnggaran = mysqli_fetch_assoc($queryAnggaran);
+$idPK = $dataAnggaran['programkerja_id'];
+$idDivisi = $dataAnggaran['id_divisi'];
 
 $queryUser =  mysqli_query($koneksi, "SELECT area, nama from user WHERE username  = '$_SESSION[username]'");
 $rowUser = mysqli_fetch_assoc($queryUser);
@@ -116,7 +118,23 @@ if (isset($_POST['simpan'])) {
                                 <label id="tes" for="divisi" class="col-sm-offset-2 col-sm-2 control-label">Program Kerja</label>
                                 <div class="col-sm-5">
                                     <select name="program_kerja" id="id_programkerja" class="form-control" required>
-                                        <option value="<?= $dataAnggaran['programkerja_id']; ?>"><?= kodeProgramKerja($dataAnggaran['id_anggaran']); ?></option>
+                                        <?php $queryPK = mysqli_query($koneksi, "SELECT *
+                                                                                    FROM cost_center
+                                                                                    JOIN pt
+                                                                                        ON id_pt = pt_id
+                                                                                    JOIN divisi
+                                                                                        ON id_divisi = divisi_id
+                                                                                    JOIN parent_divisi
+                                                                                        ON id_parent = parent_id
+                                                                                    JOIN program_kerja
+                                                                                        ON id_costcenter = costcenter_id
+                                                                                    WHERE id_divisi = '$idDivisi'
+                                                                                    AND tahun = '$tahunAyeuna'
+                                                                                    ORDER BY nm_programkerja ASC");
+
+                                        while ($dataPK = mysqli_fetch_assoc($queryPK)) { ?>
+                                            <option value="<?= $dataPK['id_programkerja']; ?>" <?= $dataPK['id_programkerja'] == $idPK ? "selected" : ""; ?>><?= $dataPK['nm_programkerja']; ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                             </div>

@@ -296,7 +296,7 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
 
             $('#id_programkerja').empty();
             $.each(data, function(i, value) {
-              $('#id_programkerja').append($('<option>').text(value.program_kerja + " - [" + value.nm_programkerja + "]").attr('value', value.id_programkerja));
+              $('#id_programkerja').append($('<option>').text(value.nm_programkerja).attr('value', value.id_programkerja));
             });
           }
         });
