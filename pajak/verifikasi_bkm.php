@@ -454,7 +454,7 @@ $totalBKM = mysqli_num_rows($queryBKM);
                         $('#pph_nilai').val(formatRibuan(Math.round(data.nilai_pph)));
 
                         if (data.nilai_pph != 0) {
-                            let pphPersen = (data.nilai_pph / data.nominal) * 100;
+                            let pphPersen = Math.round((data.nilai_pph / data.nominal) * 100);
                             $('#pph_persen').val(pphPersen);
                         }
                     } else {
