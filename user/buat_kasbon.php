@@ -172,30 +172,89 @@ $query = mysqli_query($koneksi, "SELECT *
                 <form method="post" enctype="multipart/form-data" action="create_kasbon.php" class="form-horizontal">
                     <div class="box-body">
                         <input type="hidden" name="id_divisi" value="<?= $idDivisi ?>">
-
-
-                        <div class="form-group">
-                            <label id="tes" for="id_programkerja" class="col-sm-offset-1 col-sm-3 control-label">Program Kerja</label>
-                            <div class="col-sm-5">
-                                <select class="form-control select2 programkerja_id" name="id_programkerja" required>
-                                    <option value="">--Program Kerja--</option>
-                                    <?php
-
-                                    $queryProgramKerja = mysqli_query($koneksi, "SELECT *
-                                                                                FROM program_kerja pk
-                                                                                JOIN cost_center cc
-                                                                                    ON pk.costcenter_id = cc.id_costcenter
-                                                                                WHERE cc.divisi_id = '$idDivisi'
-                                                                                AND tahun = '$tahun'
-                                                                                ORDER BY pk.nm_programkerja ASC
+                        <!-- jika dia divisi HRD maka pilih anggaran SPJ -->
+                        <?php if ($idDivisi == "6") { ?>
+                            <div class="form-group">
+                                <label id="tes" for="pengajuan" class="col-sm-offset-1 col-sm-3 control-label"></label>
+                                <div class="col-sm-5">
+                                    <input type="checkbox" name="spj" id="mySPJ" onclick="checkBox()"><label for="mySPJ">&nbsp;&nbsp;Pengajuan SPJ</label>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        <!-- PILIHAN SPJ -->
+                        <div class="kotakSPJ">
+                            <div class="form-group">
+                                <label id="tes" for="divisi" class="col-sm-offset-1 col-sm-3 control-label">Divisi</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control select2 divisi_id" name="">
+                                        <option value="">--Divisi--</option>
+                                        <?php
+                                        $queryDivsi = mysqli_query($koneksi, "SELECT *
+                                                                                FROM divisi
+                                                                                WHERE id_divisi <> '0'
+                                                                                ORDER BY nm_divisi ASC
                                                                                 ");
-                                    if (mysqli_num_rows($queryProgramKerja)) {
-                                        while ($rowPK = mysqli_fetch_assoc($queryProgramKerja)) :
-                                    ?>
-                                            <option value="<?= $rowPK['id_programkerja']; ?>" type="checkbox"><?= $rowPK['nm_programkerja']; ?></option>
-                                    <?php endwhile;
-                                    } ?>
-                                </select>
+                                        if (mysqli_num_rows($queryDivsi)) {
+                                            while ($rowPK = mysqli_fetch_assoc($queryDivsi)) :
+                                        ?>
+                                                <option value="<?= $rowPK['id_divisi']; ?>" type="checkbox"><?= $rowPK['nm_divisi']; ?></option>
+                                        <?php endwhile;
+                                        } ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="kotakPkSPJ">
+                                <div class="form-group">
+                                    <label id="tes" for="id_programkerja" class="col-sm-offset-1 col-sm-3 control-label">Program Kerja</label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control select2 programkerja_id_spj" name="id_programkerja" id="id_programkerja">
+                                            <option>--Program Kerja--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="kotakAnggaranSPJ">
+                                <div class="form-group">
+                                    <label id="tes" for="id_anggaran_spj" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control select2 id_anggaran_spj" name="id_anggaran_spj" id="id_anggaran_spj">
+                                            <option>--Kode Anggaran--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END PILIHAN SPJ -->
+
+                        <div class="kotakNonSPJ">
+                            <div class="form-group">
+                                <label id="tes" for="id_programkerja" class="col-sm-offset-1 col-sm-3 control-label">Program Kerja</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control select2 programkerja_id" name="id_programkerja">
+                                        <option value="">--Program Kerja--</option>
+                                        <?php
+
+                                        $queryProgramKerja = mysqli_query($koneksi, "SELECT DISTINCT id_programkerja, nm_programkerja
+                                                                                    FROM program_kerja pk
+                                                                                    JOIN cost_center cc
+                                                                                        ON pk.costcenter_id = cc.id_costcenter
+                                                                                    INNER JOIN anggaran
+                                                                                        ON id_programkerja = programkerja_id
+                                                                                    WHERE cc.divisi_id = '$idDivisi'
+                                                                                    AND jenis_anggaran = 'BIAYA'
+                                                                                    AND pk.tahun = '$tahun'
+                                                                                    ORDER BY pk.nm_programkerja ASC
+                                                                                ");
+                                        if (mysqli_num_rows($queryProgramKerja)) {
+                                            while ($rowPK = mysqli_fetch_assoc($queryProgramKerja)) :
+                                        ?>
+                                                <option value="<?= $rowPK['id_programkerja']; ?>" type="checkbox"><?= $rowPK['nm_programkerja']; ?></option>
+                                        <?php endwhile;
+                                        } ?>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
@@ -203,8 +262,8 @@ $query = mysqli_query($koneksi, "SELECT *
                             <div class="form-group">
                                 <label id="tes" for="id_anggaran" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
                                 <div class="col-sm-5">
-                                    <select class="form-control select2 id_anggaran" name="id_anggaran" id="id_anggaran" required>
-                                        <option value="">--Kode Anggaran--</option>
+                                    <select class="form-control select2 id_anggaran" name="id_anggaran" id="id_anggaran">
+                                        <option>--Kode Anggaran--</option>
                                     </select>
                                 </div>
                             </div>
@@ -475,6 +534,91 @@ $host = host();
     $(function() {
         bs_input_file();
     });
+
+
+    // JS perdin
+    $('.kotakSPJ').hide();
+    $('.kotakNonSPJ').show();
+    $('.kotakPkSPJ').hide();
+
+    function checkBox() {
+        var checkBox = document.getElementById("mySPJ");
+        $('.kotakPkSPJ').hide();
+        $('.kotakAnggaran').hide();
+        $('.kotakAnggaranSPJ').hide();
+
+        if (checkBox.checked == true) {
+            $('.kotakSPJ').show();
+            $('.kotakNonSPJ').hide();
+            $('#id_anggaran').empty();
+        } else {
+            $('.kotakSPJ').hide();
+            $('.kotakNonSPJ').show();
+            $('#id_anggaran_spj').empty();
+        }
+    }
+
+    // get PK by divisi (PERDIN)
+    $('.divisi_id').on('change', function() {
+        let divisiId = this.value;
+
+        $('.kotakPkSPJ').show();
+        $('.kotakAnggaran').hide();
+        $('.kotakAnggaranSPJ').hide();
+
+        $.ajax({
+            url: host + 'api/anggaran/getprogramkerjaspj.php',
+            data: {
+                id: divisiId
+            },
+            method: 'post',
+            dataType: 'json',
+            success: function(data) {
+
+
+                $('#id_programkerja').empty();
+                $('#id_programkerja').append($('<option>').text('--Pilih Program Kerja--').attr('value', ''));
+                $.each(data, function(i, value) {
+                    $('#id_programkerja').append($('<option>').text(value.nm_programkerja).attr('value', value.id_programkerja));
+                });
+            }
+        });
+    });
+
+    $('.programkerja_id_spj').on('change', function() {
+        let programKerjaId = this.value;
+        // console.log(programKerjaId)
+        if (programKerjaId == '') {
+
+            $('.kotakAnggaranSPJ').hide();
+
+        } else {
+
+            $('.kotakAnggaranSPJ').show();
+
+            $.ajax({
+                url: host + 'api/anggaran/getanggaranprogramkerjaspj.php',
+                data: {
+                    id: programKerjaId
+                },
+                method: 'post',
+                dataType: 'json',
+                success: function(data) {
+
+                    $('#id_anggaran_spj').empty();
+                    // $('#id_anggaran_spj').append($('<option>').text('--Pilih Anggaran--').attr('value', ''));
+                    $.each(data, function(i, value) {
+                        $('#id_anggaran_spj').append($('<option>').text(value.nm_item).attr('value', value.id_anggaran));
+                    });
+                }
+            });
+        }
+    });
+
+    $('.id_anggaran_spj').on('change', function() {
+        let anggaranId = this.value;
+    });
+
 
     // Modal Lihat
     $(function() {

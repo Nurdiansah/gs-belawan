@@ -42,7 +42,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        <table class="table text-center table table-striped table-hover" id=" ">
+                        <table class="table text-center table table-striped table-hover" id="material">
                             <thead>
                                 <tr style="background-color :#B0C4DE;">
                                     <th>No</th>

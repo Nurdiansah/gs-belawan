@@ -7,7 +7,7 @@ include "../fungsi/fungsi.php";
 
 if (isset($_POST['submit'])) {
     $id_divisi = $_POST['id_divisi'];
-    $id_anggaran = $_POST['id_anggaran'];
+    $id_anggaran = $_POST['id_anggaran'] == "" ? $_POST['id_anggaran_spj'] : $_POST['id_anggaran'];
     $totalPengajuan = penghilangTitik($_POST['nominal']);
     $keterangan = $_POST['keterangan'];
 
