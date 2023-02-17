@@ -3,3 +3,5 @@
 file/*
 index_OLD.php
 index_new.php
+fungsi/koneksi.php
+fungsi/koneksipusat.php

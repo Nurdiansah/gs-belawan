@@ -35,6 +35,8 @@ if (isset($_POST['simpan'])) {
     $jenis_anggaran = $_POST['jenis_anggaran'];
     $deskripsi = $_POST['deskripsi'];
     $kd_anggaran = $_POST['kd_anggaran'];
+    $perdin = $_POST['perdin'] == "1" ? $_POST['perdin'] : "0";
+    $unlock = $_POST['unlock'] == "1" ? $_POST['unlock'] : "0";
     $nominal_januari = str_replace(".", "", $_POST['nominal_januari']);
     $nominal_februari = str_replace(".", "", $_POST['nominal_februari']);
     $nominal_maret = str_replace(".", "", $_POST['nominal_maret']);
@@ -59,6 +61,8 @@ if (isset($_POST['simpan'])) {
                                             jenis_anggaran = '$jenis_anggaran',
                                             nm_item = '$deskripsi',
                                             kd_anggaran = '$kd_anggaran',
+                                            spj = '$perdin',
+                                            `unlock` = '$unlock',
                                             januari_nominal = '$nominal_januari',
                                             februari_nominal = '$nominal_februari',
                                             maret_nominal = '$nominal_maret',
@@ -98,7 +102,7 @@ if (isset($_POST['simpan'])) {
                     <input type="hidden" name="id" value="<?= $id; ?>">
                     <div class="box-body">
                         <div class="form-group">
-                            <label id="tes" for="divisi" class="col-sm-offset-2 col-sm-2 control-label">Divisi</label>
+                            <label id="tes" for="divisi" class="col-sm-offset-1 col-sm-3 control-label">Divisi</label>
                             <div class="col-sm-5">
                                 <select name="id_divisi" id="id_divisi" class="form-control id_divisi" required>
                                     <option value="">-- Pilih Divisi --</option>
@@ -115,7 +119,7 @@ if (isset($_POST['simpan'])) {
                         </div>
                         <div class="ktkPK">
                             <div class="form-group">
-                                <label id="tes" for="divisi" class="col-sm-offset-2 col-sm-2 control-label">Program Kerja</label>
+                                <label id="tes" for="divisi" class="col-sm-offset-1 col-sm-3 control-label">Program Kerja</label>
                                 <div class="col-sm-5">
                                     <select name="program_kerja" id="id_programkerja" class="form-control" required>
                                         <?php $queryPK = mysqli_query($koneksi, "SELECT *
@@ -140,10 +144,10 @@ if (isset($_POST['simpan'])) {
                             </div>
                         </div>
                         <div class="form-group">
-                            <label id="tes" for="tahun" class="col-sm-offset-2 col-sm-2 control-label">Anggaran Tahun</label>
+                            <label id="tes" for="tahun" class="col-sm-offset-1 col-sm-3 control-label">Anggaran Tahun</label>
                             <div class="col-sm-5">
                                 <select name="tahun" class="form-control" required>
-                                    <?php foreach (range(2019, $tahunAyeuna + 1) as $tahunLoop) { ?>
+                                    <?php foreach (range(2021, $tahunAyeuna + 1) as $tahunLoop) { ?>
                                         <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $dataAnggaran['tahun'] ? "selected=selected" : ''; ?>><?= $tahunLoop; ?></option>
                                     <?php } ?>
                                 </select>
@@ -151,7 +155,7 @@ if (isset($_POST['simpan'])) {
 
                         </div>
                         <div class="form-group">
-                            <label id="tes" for="tahun" class="col-sm-offset-2 col-sm-2 control-label">Segmen/Job Code</label>
+                            <label id="tes" for="tahun" class="col-sm-offset-1 col-sm-3 control-label">Segmen/Job Code</label>
                             <div class="col-sm-5">
                                 <select name="segmen" class="form-control">
                                     <?php $querySegmen = mysqli_query($koneksi, "SELECT * FROM segmen ORDER BY nm_segmen ASC");
@@ -164,19 +168,19 @@ if (isset($_POST['simpan'])) {
                         </div>
                         <input type="hidden" name="waktu" value="<?php echo $waktuSekarang; ?>">
                         <div class="form-group">
-                            <label id="tes" for="no_coa" class="col-sm-offset-2 col-sm-2 control-label">Nomor Coa</label>
+                            <label id="tes" for="no_coa" class="col-sm-offset-1 col-sm-3 control-label">Nomor Coa</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" name="no_coa" value="<?= $dataAnggaran['no_coa']; ?>">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label id="tes" for="nm_coa" class="col-sm-offset-2 col-sm-2 control-label">Nama Coa</label>
+                            <label id="tes" for="nm_coa" class="col-sm-offset-1 col-sm-3 control-label">Nama Coa</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" name="nm_coa" value="<?= $dataAnggaran['nm_coa']; ?>">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label id="tes" for="id_golongan" class="col-sm-offset-2 col-sm-2 control-label">Tipe Anggaran</label>
+                            <label id="tes" for="id_golongan" class="col-sm-offset-1 col-sm-3 control-label">Tipe Anggaran</label>
                             <div class="col-sm-5">
                                 <select name="tipe_anggaran" class="form-control">
                                     <option value="OPEX" <?= $dataAnggaran['tipe_anggaran'] == "OPEX" ? 'selected' : ''; ?>>OPEX</option>
@@ -185,7 +189,7 @@ if (isset($_POST['simpan'])) {
                             </div>
                         </div>
                         <div class="form-group">
-                            <label id="tes" for="id_subgolongan" class=" col-sm-offset-2 col-sm-2 control-label">Jenis Anggaran</label>
+                            <label id="tes" for="id_subgolongan" class=" col-sm-offset-1 col-sm-3 control-label">Jenis Anggaran</label>
                             <div class="col-sm-5">
                                 <select name="jenis_anggaran" class="form-control">
                                     <option value="BIAYA" <?= $dataAnggaran['jenis_anggaran'] == "BIAYA" ? 'selected' : ''; ?>>BIAYA</option>
@@ -195,15 +199,27 @@ if (isset($_POST['simpan'])) {
                         </div>
                         <!-- <div class="perhitungan"> -->
                         <div class="form-group">
-                            <label id="tes" for="deskripsi" class="col-sm-offset-2 col-sm-2 control-label">Deskripsi</label>
+                            <label id="tes" for="deskripsi" class="col-sm-offset-1 col-sm-3 control-label">Deskripsi</label>
                             <div class="col-sm-5">
-                                <input type="text" required class="form-control" name="deskripsi" value="<?= $dataAnggaran['nm_item']; ?>">
+                                <!-- <input type="text" required class="form-control" name="deskripsi" value="<?= $dataAnggaran['nm_item']; ?>"> -->
+                                <textarea name="deskripsi" id="deskripsi" rows="2" class="form-control"><?= $dataAnggaran['nm_item']; ?></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label id="tes" for="kd_anggaran" class="col-sm-offset-2 col-sm-2 control-label">Kode Anggaran</label>
+                            <label id="tes" for="kd_anggaran" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" name="kd_anggaran" value="<?= $dataAnggaran['kd_anggaran']; ?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="kd_anggaran" class="col-sm-offset-1 col-sm-3 control-label"></label>
+                            <div class="col-sm-5">
+                                <input type="checkbox" name="perdin" id="perdin" value="1" <?= $dataAnggaran['spj'] == "1" ? "checked" : ""; ?>>&nbsp;<label for="perdin">SPJ/Perjalanan Dinas</label>
+                            </div>
+
+                            <label id="tes" for="kd_anggaran" class="col-sm-offset-1 col-sm-3 control-label"></label>
+                            <div class="col-sm-5">
+                                <input type="checkbox" name="unlock" id="unlock" value="1" <?= $dataAnggaran['unlock'] == "1" ? "checked" : ""; ?>>&nbsp;<label for="unlock">Unlock Anggaran</label>
                             </div>
                         </div>
                         <hr>

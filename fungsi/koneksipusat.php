@@ -1,9 +1,9 @@
 <?php
 
 $host = "localhost";
-$username = "usr_gs_jakarta";
+$username = "root";
 // $password = "";
-$password = "K@mbingjawir";
+$password = "kambingjawa";
 $database = "gs";
 
 $koneksiPusat = mysqli_connect($host, $username, $password, $database);
