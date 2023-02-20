@@ -108,7 +108,7 @@ $tahunAyeuna = date("Y");
                                 <th>No</th>
                                 <th>Nama PT</th>
                                 <th>Nama User</th>
-                                <th>Cost Center</th>
+                                <!-- <th>Cost Center</th> -->
                                 <th>Program Kerja</th>
                                 <th>Segmen</th>
                                 <th>No COA</th>
@@ -128,8 +128,8 @@ $tahunAyeuna = date("Y");
                                         <td> <?= $no; ?> </td>
                                         <td> <?= $row['nm_pt']; ?> </td>
                                         <td> <?= $row['nm_user']; ?> </td>
-                                        <td> <?= $row['cost_center']; ?> </td>
-                                        <td> <?= $row['program_kerja']; ?> </td>
+                                        <!-- <td> <?= $row['cost_center']; ?> </td> -->
+                                        <td> <?= $row['nm_programkerja']; ?> </td>
                                         <td> <?= $row['kd_segmen']; ?> </td>
                                         <td> <?= $row['no_coa']; ?> </td>
                                         <td> <?= $row['nm_coa']; ?> </td>
