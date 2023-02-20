@@ -175,9 +175,9 @@ $data = mysqli_fetch_assoc($query);
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="jenis" value="droping_fund" id="droping_fund" <?= $data['jenis'] == 'droping_fund' ? 'checked' : '' ?>>
-                                    <label class="form-check-label" for="droping_fund">
-                                        Droping Fund
+                                    <input class="form-check-input" type="radio" name="jenis" value="restitusi" id="restitusi" <?= $data['jenis'] == 'restitusi' ? 'checked' : '' ?>>
+                                    <label class="form-check-label" for="restitusi">
+                                        Restitusi
                                     </label>
                                 </div>
                             </div>

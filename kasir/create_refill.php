@@ -244,14 +244,14 @@ $jumlahData = mysqli_num_rows($query);
                                 <label for="doc_pendukung" class="col-sm-offset-1 col-sm-3 control-label">Jenis </label>
                                 <div class="col-sm-5">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="jenis" value="petty_cash" id="flexRadioDefault2" checked>
-                                        <label class="form-check-label" for="flexRadioDefault2">
+                                        <input class="form-check-input" type="radio" name="jenis" value="petty_cash" id="petty_cash" checked>
+                                        <label class="form-check-label" for="petty_cash">
                                             Petty Cash
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="jenis" value="kas_besar" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
+                                        <input class="form-check-input" type="radio" name="jenis" value="kas_besar" id="kas_besar">
+                                        <label class="form-check-label" for="kas_besar">
                                             Kas Besar
                                         </label>
                                     </div>
@@ -261,12 +261,12 @@ $jumlahData = mysqli_num_rows($query);
                                             Transfer Pendapatan
                                         </label>
                                     </div>
-                                    <!-- <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="jenis" value="droping_fund" id="droping_fund">
-                                        <label class="form-check-label" for="droping_fund">
-                                            Droping Fund
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="jenis" value="restitusi" id="restitusi">
+                                        <label class="form-check-label" for="restitusi">
+                                            Restitusi
                                         </label>
-                                    </div> -->
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group ">
