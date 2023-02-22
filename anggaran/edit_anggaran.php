@@ -13,6 +13,7 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
 $dataAnggaran = mysqli_fetch_assoc($queryAnggaran);
 $idPK = $dataAnggaran['programkerja_id'];
 $idDivisi = $dataAnggaran['id_divisi'];
+$tahun = $dataAnggaran['tahun'];
 
 $queryUser =  mysqli_query($koneksi, "SELECT area, nama from user WHERE username  = '$_SESSION[username]'");
 $rowUser = mysqli_fetch_assoc($queryUser);
@@ -96,6 +97,11 @@ if (isset($_POST['simpan'])) {
         <form method="post" name="form" action="" enctype="multipart/form-data" class="form-horizontal">
             <div class="col-sm-6 col-xs-12">
                 <div class="box box-primary">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <a href="index.php?p=anggaran&tahun=<?= enkripRambo($tahun); ?>&divisi=<?= enkripRambo($idDivisi); ?>" class="btn btn-primary"><i class="fa fa-backward"></i> Kembali</a>
+                        </div>
+                    </div>
                     <div class="box-header with-border">
                         <h3 class="text-center">Edit Anggaran</h3>
                     </div>

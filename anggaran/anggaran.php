@@ -26,7 +26,7 @@ if (isset($_POST['tahun']) && isset($_POST['divisi'])) {
     $divisi = dekripRambo($_GET['divisi']);
 } else {
     $tahun = date("Y");
-    $divisi = "";
+    $divisi = "1";
 }
 
 $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, nm_item, nm_pt, nm_user, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi) AS cost_center, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_programkerja, kd_segmen, no_coa, nm_coa, kd_anggaran, nm_item, januari_nominal, januari_realisasi, februari_nominal, februari_realisasi, maret_nominal, maret_realisasi, april_nominal, april_realisasi, mei_nominal, mei_realisasi, juni_nominal, juni_realisasi, juli_nominal, juli_realisasi, agustus_nominal, agustus_realisasi, september_nominal, september_realisasi, november_nominal, november_realisasi, desember_nominal, desember_realisasi, jumlah_nominal, jumlah_realisasi
@@ -167,4 +167,12 @@ $tahunAyeuna = date("Y");
             }
         });
     });
+
+    $('tr[data-href]').on("click", function() {
+        document.location = $(this).data('href');
+    });
+
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
 </script>
