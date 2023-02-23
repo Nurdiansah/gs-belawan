@@ -16,15 +16,28 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
     }
 }
 
+if (isset($_POST['tahun']) && isset($_POST['bulan'])) {
+    $bulan = $_POST['bulan'];
+    $tahun = $_POST['tahun'];
+} elseif (isset($_GET['tahun']) && isset($_GET['bulan'])) {
+    $bulan = dekripRambo($_GET['bulan']);
+    $tahun = dekripRambo($_GET['tahun']);
+} else {
+    $bulan = date("m");
+    $tahun = date("Y");
+}
+
 $query = mysqli_query($koneksi,  "SELECT * 
-                                FROM bkk b
-                                JOIN divisi d
-                                ON d.id_divisi = b.id_divisi
-                                LEFT JOIN anggaran a
-                                ON b.id_anggaran = a.id_anggaran
-                                ORDER BY b.kd_transaksi DESC  ");
+                                    FROM bkk b
+                                    JOIN divisi d
+                                        ON d.id_divisi = b.id_divisi
+                                    LEFT JOIN anggaran a
+                                        ON b.id_anggaran = a.id_anggaran
+                                    WHERE MONTH(tgl_pengajuan) = '$bulan'
+                                    AND YEAR(tgl_pengajuan) = '$tahun'
+                                    ORDER BY b.kd_transaksi DESC  ");
 
-
+$tahunAyeuna = date("Y");
 
 ?>
 <!-- Main content -->
@@ -37,7 +50,29 @@ $query = mysqli_query($koneksi,  "SELECT *
                     <h3 class="text-center">Biaya Umum</h3>
                 </div>
                 <div class="box-body">
-
+                    <form method="POST" action="">
+                        <div class="form-group">
+                            <div class="col-sm-offset- col-sm-2">
+                                <select name="bulan" class="form-control" required>
+                                    <?php foreach (bulanLoop() as $no_bln => $bln) { ?>
+                                        <option value="<?= $no_bln; ?>" <?= $no_bln == $bulan ? "selected" : ""; ?>><?= $bln; ?></option>;
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset- col-sm-2">
+                                <select name="tahun" class="form-control" required>
+                                    <?php foreach (range(2019, $tahunAyeuna) as $tahunLoop) { ?>
+                                        <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $tahun ? "selected" : ''; ?>><?= $tahunLoop; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" name="cari" class="btn btn-primary"><i class="fa fa-search"></i> Cari</button>
+                    </form>
+                </div>
+                <div class="box-body">
                     <div class="table-responsive">
                         <table class="table text-center table table-striped table-hover" id="material">
                             <thead>

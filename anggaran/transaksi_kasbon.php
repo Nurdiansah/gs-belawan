@@ -20,18 +20,32 @@ $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SE
 $rowUser = mysqli_fetch_assoc($queryUser);
 $idUser = $rowUser['id_user'];
 
-$query = mysqli_query($koneksi, "SELECT * 
-                                            FROM kasbon k
-                                            LEFT JOIN biaya_ops bo
-                                                ON k.kd_transaksi = bo.kd_transaksi
-                                            LEFT JOIN detail_biayaops dbo
-                                                ON k.id_dbo = dbo.id
-                                            LEFT JOIN divisi d
-                                                ON d.id_divisi = dbo.id_divisi  
-                                            LEFT JOIN anggaran a
-                                                ON dbo.id_anggaran = a.id_anggaran                                                                                      
-                                            ORDER BY k.id_kasbon DESC   ");
+if (isset($_POST['tahun']) && isset($_POST['bulan'])) {
+    $bulan = $_POST['bulan'];
+    $tahun = $_POST['tahun'];
+} elseif (isset($_GET['tahun']) && isset($_GET['bulan'])) {
+    $bulan = dekripRambo($_GET['bulan']);
+    $tahun = dekripRambo($_GET['tahun']);
+} else {
+    $bulan = date("m");
+    $tahun = date("Y");
+}
 
+$query = mysqli_query($koneksi, "SELECT * 
+                                    FROM kasbon k
+                                    LEFT JOIN biaya_ops bo
+                                        ON k.kd_transaksi = bo.kd_transaksi
+                                    LEFT JOIN detail_biayaops dbo
+                                        ON k.id_dbo = dbo.id
+                                    LEFT JOIN divisi d
+                                        ON d.id_divisi = dbo.id_divisi  
+                                    LEFT JOIN anggaran a
+                                        ON dbo.id_anggaran = a.id_anggaran
+                                    WHERE MONTH(tgl_kasbon) = '$bulan'
+                                    AND YEAR(tgl_kasbon) = '$tahun'
+                                    ORDER BY k.id_kasbon DESC   ");
+
+$tahunAyeuna = date("Y");
 
 ?>
 <!-- Main content -->
@@ -42,6 +56,29 @@ $query = mysqli_query($koneksi, "SELECT *
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="text-center">Transaksi Kasbon</h3>
+                </div>
+                <div class="box-body">
+                    <form method="POST" action="">
+                        <div class="form-group">
+                            <div class="col-sm-offset- col-sm-2">
+                                <select name="bulan" class="form-control" required>
+                                    <?php foreach (bulanLoop() as $no_bln => $bln) { ?>
+                                        <option value="<?= $no_bln; ?>" <?= $no_bln == $bulan ? "selected" : ""; ?>><?= $bln; ?></option>;
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset- col-sm-2">
+                                <select name="tahun" class="form-control" required>
+                                    <?php foreach (range(2019, $tahunAyeuna) as $tahunLoop) { ?>
+                                        <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $tahun ? "selected" : ''; ?>><?= $tahunLoop; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" name="cari" class="btn btn-primary"><i class="fa fa-search"></i> Cari</button>
+                    </form>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">

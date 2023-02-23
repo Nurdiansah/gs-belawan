@@ -11,6 +11,8 @@ if (!isset($_SESSION['username']) || $_SESSION['level'] != "anggaran") {
 // $query = mysqli_query($koneksi, "SELECT COUNT(id_jenis) AS jumlah FROM jenis_barang ");
 // $data = mysqli_fetch_assoc($query);
 
+$bulan = date("m");
+$tahun = date("Y");
 
 $jmlV = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk='3' ");
 $dataV = mysqli_fetch_assoc($jmlV);
@@ -25,14 +27,14 @@ $idUser = $rowNama['id_user'];
 $pwUser = $rowNama['password'];
 
 // query jumlah data verifikasi biaya non ops 
-$query = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah FROM bkk ");
+$query = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE MONTH(tgl_pengajuan) = '$bulan' AND YEAR(tgl_pengajuan) = '$tahun'");
 $data = mysqli_fetch_assoc($query);
 
-$queryKs = mysqli_query($koneksi, "SELECT COUNT(kd_transaksi) AS jumlah FROM kasbon ");
+$queryKs = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon WHERE MONTH(tgl_kasbon) = '$bulan' AND YEAR(tgl_kasbon) = '$tahun'");
 $dataKs = mysqli_fetch_assoc($queryKs);
 
 
-$queryPo = mysqli_query($koneksi, "SELECT COUNT(id_po) AS jumlah FROM po ");
+$queryPo = mysqli_query($koneksi, "SELECT COUNT(id_po) AS jumlah FROM po WHERE MONTH(tgl_po) = '$bulan' AND YEAR(tgl_po) = '$tahun'");
 $dataPo = mysqli_fetch_assoc($queryPo);
 
 // print_r($dataPo);
