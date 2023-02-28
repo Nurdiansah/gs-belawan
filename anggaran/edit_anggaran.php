@@ -247,7 +247,7 @@ if (isset($_POST['simpan'])) {
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <span class="input-group-addon">Rp.</span>
-                                    <input type="text" class="form-control" value="<?= formatRupiah2($dataAnggaran['januari_nominal']); ?>" name="nominal_januari" id="nominal_januari" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                    <input type="text" class="form-control" value="<?= formatRupiah2($dataAnggaran['januari_nominal']); ?>" name="nominal_januari" id="nominal_januari" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" readonly />
                                 </div>
                                 <input type="checkbox" name="all" id="myCheck" onclick="checkBox()"><label for="myCheck">&nbsp;&nbsp;Semua Bulan</label>
                             </div>
@@ -257,7 +257,7 @@ if (isset($_POST['simpan'])) {
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <span class="input-group-addon">Rp.</span>
-                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['februari_nominal']); ?>" name="nominal_februari" id="nominal_februari" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['februari_nominal']); ?>" name="nominal_februari" id="nominal_februari" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" readonly />
                                 </div>
                             </div>
                         </div>
@@ -266,7 +266,7 @@ if (isset($_POST['simpan'])) {
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <span class="input-group-addon">Rp.</span>
-                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['maret_nominal']); ?>" name="nominal_maret" id="nominal_maret" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['maret_nominal']); ?>" name="nominal_maret" id="nominal_maret" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" readonly />
                                 </div>
                             </div>
                         </div>
@@ -275,7 +275,7 @@ if (isset($_POST['simpan'])) {
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <span class="input-group-addon">Rp.</span>
-                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['april_nominal']); ?>" name="nominal_april" id="nominal_april" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['april_nominal']); ?>" name="nominal_april" id="nominal_april" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" readonly />
                                 </div>
                             </div>
                         </div>
@@ -284,7 +284,7 @@ if (isset($_POST['simpan'])) {
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <span class="input-group-addon">Rp.</span>
-                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['mei_nominal']); ?>" name="nominal_mei" id="nominal_mei" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['mei_nominal']); ?>" name="nominal_mei" id="nominal_mei" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" readonly />
                                 </div>
                             </div>
                         </div>
@@ -293,7 +293,7 @@ if (isset($_POST['simpan'])) {
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <span class="input-group-addon">Rp.</span>
-                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['juni_nominal']); ?>" name="nominal_juni" id="nominal_juni" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['juni_nominal']); ?>" name="nominal_juni" id="nominal_juni" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" readonly />
                                 </div>
                             </div>
                         </div>
@@ -302,7 +302,7 @@ if (isset($_POST['simpan'])) {
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <span class="input-group-addon">Rp.</span>
-                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['juli_nominal']); ?>" name="nominal_juli" id="nominal_juli" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['juli_nominal']); ?>" name="nominal_juli" id="nominal_juli" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" readonly />
                                 </div>
                             </div>
                         </div>
@@ -311,7 +311,7 @@ if (isset($_POST['simpan'])) {
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <span class="input-group-addon">Rp.</span>
-                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['agustus_nominal']); ?>" name="nominal_agustus" id="nominal_agustus" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['agustus_nominal']); ?>" name="nominal_agustus" id="nominal_agustus" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" readonly />
                                 </div>
                             </div>
                         </div>
@@ -320,7 +320,7 @@ if (isset($_POST['simpan'])) {
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <span class="input-group-addon">Rp.</span>
-                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['september_nominal']); ?>" name="nominal_september" id="nominal_september" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['september_nominal']); ?>" name="nominal_september" id="nominal_september" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" readonly />
                                 </div>
                             </div>
                         </div>
@@ -329,7 +329,7 @@ if (isset($_POST['simpan'])) {
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <span class="input-group-addon">Rp.</span>
-                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['oktober_nominal']); ?>" name="nominal_oktober" id="nominal_oktober" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['oktober_nominal']); ?>" name="nominal_oktober" id="nominal_oktober" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" readonly />
                                 </div>
                             </div>
                         </div>
@@ -338,7 +338,7 @@ if (isset($_POST['simpan'])) {
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <span class="input-group-addon">Rp.</span>
-                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['november_nominal']); ?>" name="nominal_november" id="nominal_november" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['november_nominal']); ?>" name="nominal_november" id="nominal_november" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" readonly />
                                 </div>
                             </div>
                         </div>
@@ -347,7 +347,7 @@ if (isset($_POST['simpan'])) {
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <span class="input-group-addon">Rp.</span>
-                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['desember_nominal']); ?>" name="nominal_desember" id="nominal_desember" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" />
+                                    <input type="text" required class="form-control" value="<?= formatRupiah2($dataAnggaran['desember_nominal']); ?>" name="nominal_desember" id="nominal_desember" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" readonly />
                                 </div>
                             </div>
                         </div>
