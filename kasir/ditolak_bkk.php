@@ -58,7 +58,7 @@ $query = mysqli_query($koneksi, "SELECT *, b.id as id_bkk_final, 'bkk_final' as 
                                                 <td> <?= formatTanggal($row['created_on_bkk']); ?> </td>
                                                 <td> <?= $row['pengajuan']; ?> </td>
                                                 <td> <?= $row['keterangan']; ?> </td>
-                                                <td> <?= $row['kd_anggaran']; ?> </td>
+                                                <td> <?= $row['kd_anggaran'] . " [" . $row['nm_item']; ?>]</td>
                                                 <td><span class="btn btn-success"> <?= formatRupiah($row['nominal']); ?></span> </td>
                                                 <td><a href="index.php?p=dtl_bkkditolak&id=<?= $row['id_bkk_final']; ?>&tabel=<?= $row['tabel']; ?>" class="btn btn-warning"><i class="fa fa-search-plus"></i></a></td>
                                             </tr>
