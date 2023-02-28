@@ -17,7 +17,8 @@ if (isset($_POST['cari'])) {
     $tahun = $tahunSekarang;
 }
 
-$queryChart = mysqli_query($koneksi, "SELECT nm_programkerja, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_nominal,
+// OPEX
+$queryChart = mysqli_query($koneksi, "SELECT nm_programkerja, tipe_anggaran, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_nominal,
                                             SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) AS total_realisasi
                                         FROM anggaran a
                                         JOIN program_kerja p
@@ -26,6 +27,21 @@ $queryChart = mysqli_query($koneksi, "SELECT nm_programkerja, nm_user, SUM(janua
                                         AND id_divisi = '$divisi'
                                         AND id_programkerja <> 0
                                         AND jenis_anggaran = 'BIAYA'
+                                        AND tipe_anggaran = 'OPEX'
+                                        GROUP BY nm_programkerja, nm_user
+                                        ORDER BY nm_programkerja ASC");
+
+// CAPEX
+$queryChartCapex = mysqli_query($koneksi, "SELECT nm_programkerja, tipe_anggaran, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_nominal,
+                                            SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) AS total_realisasi
+                                        FROM anggaran a
+                                        JOIN program_kerja p
+                                            ON programkerja_id = id_programkerja
+                                        WHERE a.tahun = '$tahun'
+                                        AND id_divisi = '$divisi'
+                                        AND id_programkerja <> 0
+                                        AND jenis_anggaran = 'BIAYA'
+                                        AND tipe_anggaran = 'CAPEX'
                                         GROUP BY nm_programkerja, nm_user
                                         ORDER BY nm_programkerja ASC");
 
@@ -108,6 +124,11 @@ $no = 1;
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <th colspan="7" class="text-center">
+                                    <h4><b>OPEX</b></h4>
+                                </th>
+                            </tr>
                             <?php while ($dataChart = mysqli_fetch_assoc($queryChart)) { ?>
                                 <tr <?= warnaSurplus($dataChart['total_realisasi'], $dataChart['total_nominal']); ?>>
                                     <td><?= $no; ?></td>
@@ -125,6 +146,33 @@ $no = 1;
                             }
                             ?>
                             <tr>
+                                <th colspan="7" class="text-center">
+                                    <h4><b>CAPEX</b></h4>
+                                </th>
+                            </tr>
+
+                            <?php while ($dataChartCapex = mysqli_fetch_assoc($queryChartCapex)) { ?>
+                                <tr <?= warnaSurplus($dataChartCapex['total_realisasi'], $dataChartCapex['total_nominal']); ?>>
+                                    <td><?= $no; ?></td>
+                                    <td><?= $dataChartCapex['nm_programkerja']; ?></td>
+                                    <td><?= $dataChartCapex['nm_user']; ?></td>
+                                    <td><?= formatRupiah($dataChartCapex['total_nominal']); ?></td>
+                                    <td><?= formatRupiah($dataChartCapex['total_realisasi']); ?></td>
+                                    <td><?= kurungSurplus($dataChartCapex['total_nominal'], $dataChartCapex['total_realisasi']); ?></td>
+                                </tr>
+                            <?php
+                                $no++;
+                                $grand_nominal_capex += $dataChartCapex['total_nominal'];
+                                $grand_realisasi_capex += $dataChartCapex['total_realisasi'];
+                                $grand_total_capex += $dataChartCapex['total_nominal'] - $dataChartCapex['total_realisasi'];
+                            }
+
+                            $total_nominal = $grand_nominal + $grand_nominal_capex;
+                            $total_realisasi = $grand_realisasi + $grand_realisasi_capex;
+                            $total_total = $grand_total + $grand_total_capex;
+
+                            ?>
+                            <tr>
                                 <td>
                                     <h3>#</h3>
                                 </td>
@@ -132,14 +180,14 @@ $no = 1;
                                     <h3>Total</h3>
                                 </td>
                                 <td>
-                                    <h3><?= formatRupiah($grand_nominal); ?></h3>
+                                    <h3><?= formatRupiah($total_nominal); ?></h3>
                                 </td>
                                 <td>
-                                    <h3><?= formatRupiah($grand_realisasi); ?></h3>
+                                    <h3><?= formatRupiah($total_realisasi); ?></h3>
                                 </td>
                                 <td>
                                     <h3>
-                                        <?= formatRupiah($grand_total); ?>
+                                        <?= formatRupiah($total_total); ?>
                                     </h3>
                                 </td>
                             </tr>
