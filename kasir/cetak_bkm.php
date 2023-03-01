@@ -183,15 +183,15 @@ include "../fungsi/koneksi.php";
     <tr>
         <td><b>Manager Finance</b></td>
         <td style="text-align: ; width=5%;">:</td>
-        <td>APPROVED (<?= formatTanggalWaktu($data['app_mgr_fin']); ?>)</td>
+        <td>APPROVED (<?= formatTanggalWaktu($data['app_costcontrol']); ?>)</td>
     </tr>
     <tr>
         <td><b>Direktur</b></td>
         <td style="text-align: ; width=5%;">:</td>
-        <?php if ($data['app_direktur'] == "" || $data['app_direktur'] == "0000-00-00 00:00:00") { ?>
+        <?php if ($data['app_manager'] == "" || $data['app_manager'] == "0000-00-00 00:00:00") { ?>
             <td>-</td>
         <?php } else { ?>
-            <td>APPROVED (<?= formatTanggalWaktu($data['app_direktur']); ?>)</td>
+            <td>APPROVED (<?= formatTanggalWaktu($data['app_manager']); ?>)</td>
         <?php } ?>
         <td style="text-align: right; width=150px; ">Jakarta, <?= formatTanggal($data['release_bkm']) ?></td>
     </tr>
