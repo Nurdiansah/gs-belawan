@@ -64,6 +64,7 @@ $no = 1;
                                             <td><?= formatRupiah($dataBKM['grand_total']); ?></td>
                                             <!-- <td><span class="label label-<?= $dataBKM['warna']; ?>"><?= $dataBKM['bkm_from']; ?></span></td> -->
                                             <td>
+                                                <a target="_blank" title="Cetak BKM" onclick="window.open('cetak_bkm.php?id=<?= enkripRambo($dataBKM['id_bkm']); ?>','name','width=800,height=600')" class="btn btn-success"><i class="fa fa-print"></i> </a>
                                                 <button type="button" class="btn btn-info modalLihat" data-toggle="modal" data-target="#modalLihat" data-id="<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-search" title="Lihat" data-toggle="tooltip"></i></button>
                                                 <!-- <button type="button" class="btn btn-info " data-toggle="modal" data-target="#lihat_<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-search" title="Lihat" data-toggle="tooltip"></i></button> -->
                                                 <!-- <button type="button" class="btn btn-success " data-toggle="modal" data-target="#verifikasi_<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-check-square" title="Verifikasi" data-toggle="tooltip"></i></button>
