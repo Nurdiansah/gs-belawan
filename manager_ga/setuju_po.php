@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
 	$id_po = $_GET['id'];
 	$free_approve = dekripRambo($_GET['free_approve']);
 
-	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]' ");
+	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]' ");
 	$rowUser = mysqli_fetch_assoc($queryUser);
 	$nama = $rowUser['nama'];
 

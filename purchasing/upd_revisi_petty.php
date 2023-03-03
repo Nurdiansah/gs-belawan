@@ -17,7 +17,7 @@ if (isset($_POST['revisi']) || isset($_POST['simpan'])) {
     $tanggal = date("Y-m-d H:i:s");
 
     // Query User
-    $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]'");
+    $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]'");
     $rowUser = mysqli_fetch_assoc($queryUser);
     $id_user = $rowUser['id_user'];
     $nama = $rowUser['nama'];

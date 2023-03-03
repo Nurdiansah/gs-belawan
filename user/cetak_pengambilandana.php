@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
 
-if (!isset($_SESSION['username']) || $_SESSION['level'] != 'admin_divisi') {
+if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != 'admin_divisi') {
     header("location: ../index.php");
 }
 

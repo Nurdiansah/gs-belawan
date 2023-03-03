@@ -8,7 +8,7 @@ if (isset($_POST['approve'])) {
 	$id = $_POST['id_bkk'];
 	$tanggal = date('Y-m-d');
 
-	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]' ");
+	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]' ");
 	$rowUser = mysqli_fetch_assoc($queryUser);
 	$nama = $rowUser['nama'];
 
@@ -16,8 +16,8 @@ if (isset($_POST['approve'])) {
 	$tanggal = date("Y-m-d H:i:s");
 
 	// BEGIN TRAN, mysql
-    mysqli_begin_transaction($koneksi);
-    
+	mysqli_begin_transaction($koneksi);
+
 
 	$queryLog = "INSERT INTO log_system (waktu, nama_user, keterangan) VALUES
 									('$tanggal', '$nama', 'Menyetujui Pengajuan Biaya Non OPS id: $id');

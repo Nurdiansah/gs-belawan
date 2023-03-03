@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
     $nominal = $_POST['nominal'];
     $id_anggaran = $_POST['id_anggaran'];
 
-    $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]' ");
+    $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]' ");
     $rowUser = mysqli_fetch_assoc($queryUser);
     $nama = $rowUser['nama'];
 

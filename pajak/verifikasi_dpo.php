@@ -7,7 +7,7 @@ $id_tagihan = dekripRambo($_GET['id_tagihan']);
 $bkk = dekripRambo($_GET['bkk']);
 
 
-$queryNama =  mysqli_query($koneksi, "SELECT nama from user WHERE username  = '$_SESSION[username]'");
+$queryNama =  mysqli_query($koneksi, "SELECT nama from user WHERE username  = '$_SESSION[username_blw]'");
 $rowNama = mysqli_fetch_assoc($queryNama);
 $Nama = $rowNama['nama'];
 

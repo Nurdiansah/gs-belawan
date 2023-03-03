@@ -21,7 +21,7 @@ session_start();
 		}
 					
 		
-		$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]' ");
+		$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]' ");
 		$rowUser=mysqli_fetch_assoc($queryUser);	
 		$nama=$rowUser['nama'];
 
@@ -52,6 +52,3 @@ session_start();
 
 	}
 	}
-
-
-?>

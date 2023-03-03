@@ -4,7 +4,7 @@ session_start();
 //include "cekuser.php";
 include "../fungsi/koneksi.php";
 
-if (!isset($_SESSION['username']) || $_SESSION['level'] != "anggaran") {
+if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
   header("location: ../index.php");
 }
 
@@ -20,7 +20,7 @@ $dataV = mysqli_fetch_assoc($jmlV);
 $jmlAll = mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah FROM bkk WHERE status_bkk='7'  ");
 $dataAll = mysqli_fetch_assoc($jmlAll);
 
-$queryNama =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]'");
+$queryNama =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]'");
 $rowNama = mysqli_fetch_assoc($queryNama);
 $Nama = $rowNama['nama'];
 $idUser = $rowNama['id_user'];

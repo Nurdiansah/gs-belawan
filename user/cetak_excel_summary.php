@@ -5,12 +5,12 @@ include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 $tahunSekarang = date('Y');
 
-if (!isset($_SESSION['username']) || $_SESSION['level'] != 'admin_divisi') {
+if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != 'admin_divisi') {
     header("location: ../index.php");
 }
 
 // ngambil id divisi dari user terkait
-$user = $_SESSION['username'];
+$user = $_SESSION['username_blw'];
 $queryUser = mysqli_query($koneksi, "SELECT * FROM user WHERE username = '$user'");
 $dataUser = mysqli_fetch_assoc($queryUser);
 

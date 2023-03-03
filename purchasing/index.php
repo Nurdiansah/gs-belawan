@@ -4,12 +4,12 @@ session_start();
 //include "cekuser.php";
 include "../fungsi/koneksi.php";
 
-if (!isset($_SESSION['username']) || $_SESSION['level'] != 'purchasing') {
+if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != 'purchasing') {
   header("location: ../index.php");
 }
 
 // biar langsung masuk ke URL pas login klik dari email
-if (isset($_COOKIE['url']) && $_SESSION['level'] == $_COOKIE['lvl']) {
+if (isset($_COOKIE['url']) && $_SESSION['level_blw'] == $_COOKIE['lvl']) {
   if (isset($_COOKIE['sp'])) {
     header('Location: ' . $_COOKIE['url'] . '&sp=' . $_COOKIE['sp']);
   } else {
@@ -23,7 +23,7 @@ if (isset($_COOKIE['url']) && $_SESSION['level'] == $_COOKIE['lvl']) {
 
 // $query = mysqli_query($koneksi, "SELECT COUNT(id_jenis) AS jumlah FROM jenis_barang ");
 // $data = mysqli_fetch_assoc($query);
-$queryNama =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]'");
+$queryNama =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]'");
 $rowNama = mysqli_fetch_assoc($queryNama);
 $Nama = $rowNama['nama'];
 $idUser = $rowNama['id_user'];

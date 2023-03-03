@@ -4,7 +4,7 @@ include "../fungsi/fungsi.php";
 
 $id = $_GET['id'];
 
-$queryNama =  mysqli_query($koneksi, "SELECT nama from user WHERE username  = '$_SESSION[username]'");
+$queryNama =  mysqli_query($koneksi, "SELECT nama from user WHERE username  = '$_SESSION[username_blw]'");
 $rowNama = mysqli_fetch_assoc($queryNama);
 $Nama = $rowNama['nama'];
 
@@ -187,9 +187,9 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                                 </div>
                             </div>
                             <div class="form-group">
-                            <label for="" class="control-label col-sm-offset-3">Apakah anda yakin ingin menyetujui pengajuan ini ? </label>
+                                <label for="" class="control-label col-sm-offset-3">Apakah anda yakin ingin menyetujui pengajuan ini ? </label>
                             </div>
-                            
+
                             <div class=" modal-footer">
                                 <button class="btn btn-success" type="submit" name="approve">Ya, saya yakin</button></span></a>
                                 &nbsp;
