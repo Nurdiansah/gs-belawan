@@ -16,7 +16,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
     }
 }
 
-$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]'");
+$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]'");
 $rowUser = mysqli_fetch_assoc($queryUser);
 $idUser = $rowUser['id_user'];
 $idDivisi = $rowUser['id_divisi'];
@@ -69,7 +69,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                             <td> <?= $row['kd_anggaran']; ?> </td>
                                             <td> <?= formatRupiah($row['total_pettycash']); ?> </td>
                                             <td>
-                                                <span class="label label-warning">Belum di LPJ</span>                                                
+                                                <span class="label label-warning">Belum di LPJ</span>
                                             </td>
                                 </tr>
                         <?php

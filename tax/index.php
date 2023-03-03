@@ -4,13 +4,13 @@ session_start();
 //include "cekuser.php";
 include "../fungsi/koneksi.php";
 
-if (!isset($_SESSION['username']) || $_SESSION['level'] != 'tax') {
+if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != 'tax') {
   header("location: ../index.php");
 }
 
 // $query = mysqli_query($koneksi, "SELECT COUNT(id_jenis) AS jumlah FROM jenis_barang ");
 // $data = mysqli_fetch_assoc($query);
-$queryNama =  mysqli_query($koneksi, "SELECT nama from user WHERE username  = '$_SESSION[username]'");
+$queryNama =  mysqli_query($koneksi, "SELECT nama from user WHERE username  = '$_SESSION[username_blw]'");
 $rowNama = mysqli_fetch_assoc($queryNama);
 $Nama = $rowNama['nama'];
 

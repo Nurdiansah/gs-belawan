@@ -8,7 +8,7 @@ $queryUser =  mysqli_query($koneksi, "SELECT *
                                                      from user u
                                                      JOIN divisi d
                                                      ON u.id_divisi=d.id_divisi
-                                                     WHERE username  = '$_SESSION[username]'");
+                                                     WHERE username  = '$_SESSION[username_blw]'");
 $rowUser = mysqli_fetch_assoc($queryUser);
 $Area = $rowUser['area'];
 
@@ -136,7 +136,7 @@ if (isset($_POST['update'])) {
                         <div class="form-group">
                             <label for="alasan_ditolak" class="col-sm-offset- col-sm-2 control-label">Alasan Ditolak</label>
                             <div class="col-sm-3">
-                            <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "><?= $data['komentar_mgr_fin']; ?>&#13;&#10;<?= $data['komentar_mgr_ga']; ?>&#13;&#10;<?= $data['komentar_mgr_finjkt']; ?>&#13;&#10;<?= $data['komentar_direktur']; ?></textarea>
+                                <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "><?= $data['komentar_mgr_fin']; ?>&#13;&#10;<?= $data['komentar_mgr_ga']; ?>&#13;&#10;<?= $data['komentar_mgr_finjkt']; ?>&#13;&#10;<?= $data['komentar_direktur']; ?></textarea>
                             </div>
 
                             <!-- <label for="alasan_ditolak" class="col-sm-offset- col-sm-2 control-label">Waktu Ditolak</label>

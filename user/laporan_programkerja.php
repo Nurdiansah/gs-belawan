@@ -6,7 +6,7 @@ include "../fungsi/fungsi.php";
 $tahunSekarang = date('Y');
 
 // ngambil id divisi dari user terkait
-$user = $_SESSION['username'];
+$user = $_SESSION['username_blw'];
 $queryUser = mysqli_query($koneksi, "SELECT * FROM user WHERE username = '$user'");
 $dataUser = mysqli_fetch_assoc($queryUser);
 

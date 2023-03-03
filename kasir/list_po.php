@@ -21,7 +21,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
 date_default_timezone_set('Asia/Jakarta');
 $tanggal = date("Y-m-d");
 
-$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]'");
+$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]'");
 $rowUser = mysqli_fetch_assoc($queryUser);
 $idUser = $rowUser['id_user'];
 

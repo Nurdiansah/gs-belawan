@@ -7,7 +7,7 @@ $err = "";
 
 if (isset($_POST['submit'])) {
 
-    $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]'");
+    $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]'");
     $rowUser = mysqli_fetch_assoc($queryUser);
     $id_user = $rowUser['id_user'];
     $password = $rowUser['password'];

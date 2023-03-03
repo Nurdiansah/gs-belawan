@@ -4,28 +4,24 @@ include "fungsi/koneksi.php";
 include "fungsi/ceklogin.php";
 
 // biar kalo udh masuk sebelumnya, klo ngakses URL dia masuk lagi
-if (isset($_SESSION['username']) || !empty($_SESSION['username'])) {
-	if ($_SESSION['level'] == "anggaran") {
+if (isset($_SESSION['username_blw']) || !empty($_SESSION['username_blw'])) {
+	if ($_SESSION['level_blw'] == "anggaran") {
 		header('Location: anggaran/index.php');
-	} elseif ($_SESSION['level'] == "direktur") {
+	} elseif ($_SESSION['level_blw'] == "direktur") {
 		header('Location: direktur/index.php');
-	} elseif ($_SESSION['level'] == "direktur_eksekutif") {
-		header('Location: direktur_eksekutif/index.php');
-	} elseif ($_SESSION['level'] == "kasir") {
+	} elseif ($_SESSION['level_blw'] == "kasir") {
 		header('Location: kasir/index.php');
-	} elseif ($_SESSION['level'] == "manager") {
+	} elseif ($_SESSION['level_blw'] == "manager") {
 		header('Location: manager/index.php');
-	} elseif ($_SESSION['level'] == "manager_ga") {
+	} elseif ($_SESSION['level_blw'] == "manager_ga") {
 		header('Location: manager_ga/index.php');
-	} elseif ($_SESSION['level'] == "manager_keuangan") {
+	} elseif ($_SESSION['level_blw'] == "manager_keuangan") {
 		header('Location: manager_keuangan/index.php');
-	} elseif ($_SESSION['level'] == "kordinator_pajak") {
+	} elseif ($_SESSION['level_blw'] == "kordinator_pajak") {
 		header('Location: pajak/index.php');
-	} elseif ($_SESSION['level'] == "purchasing") {
+	} elseif ($_SESSION['level_blw'] == "purchasing") {
 		header('Location: purchasing/index.php');
-	} elseif ($_SESSION['level'] == "tax") {
-		header('Location: tax/index.php');
-	} elseif ($_SESSION['level'] == "admin_divisi") {
+	} elseif ($_SESSION['level_blw'] == "admin_divisi") {
 		header('Location: user/index.php');
 	}
 }
@@ -72,9 +68,9 @@ if (isset($_POST['login'])) {
 	} else {
 
 		$row = mysqli_fetch_array($hasil);
-		$_SESSION['username'] = $row['username'];
-		$User = $_SESSION['username'];
-		$_SESSION['level'] = $row['level'];
+		$_SESSION['username_blw'] = $row['username'];
+		$User = $_SESSION['username_blw'];
+		$_SESSION['level_blw'] = $row['level'];
 
 		date_default_timezone_set('Asia/Jakarta');
 		$tanggal = date("Y-m-d H:i:s");
@@ -87,39 +83,33 @@ if (isset($_POST['login'])) {
 									";
 		mysqli_query($koneksi, $queryLog);
 
-		if ($row['level'] == "unit_pelayanan" && $level == "unit_pelayanan") {
-			$_SESSION['login'] = true;
-			header("location:checker/index.php");
-		} else if ($row['level'] == "kasir") {
-			$_SESSION['login'] = true;
+		if ($row['level'] == "kasir") {
+			$_SESSION['login_blw'] = true;
 			header("location:kasir/index.php");
 		} else if ($row['level'] == "admin_divisi") {
-			$_SESSION['login'] = true;
+			$_SESSION['login_blw'] = true;
 			header("location:user/index.php");
 		} else if ($row['level'] == "anggaran") {
-			$_SESSION['login'] = true;
+			$_SESSION['login_blw'] = true;
 			header("location:anggaran/index.php");
 		} else if ($row['level'] == "kordinator_pajak") {
-			$_SESSION['login'] = true;
+			$_SESSION['login_blw'] = true;
 			header("location:pajak/index.php");
 		} else if ($row['level'] == "manager") {
-			$_SESSION['login'] = true;
+			$_SESSION['login_blw'] = true;
 			header("location:manager/index.php");
 		} else if ($row['level'] == "purchasing") {
-			$_SESSION['login'] = true;
+			$_SESSION['login_blw'] = true;
 			header("location:purchasing/index.php");
 		} else if ($row['level'] == "manager_ga") {
-			$_SESSION['login'] = true;
+			$_SESSION['login_blw'] = true;
 			header("location:manager_ga/index.php");
 		} else if ($row['level'] == "manager_keuangan") {
-			$_SESSION['login'] = true;
+			$_SESSION['login_blw'] = true;
 			header("location:manager_keuangan/index.php");
 		} else if ($row['level'] == "direktur") {
-			$_SESSION['login'] = true;
+			$_SESSION['login_blw'] = true;
 			header("location:direktur/index.php");
-		} else if ($row['level'] == "direktur_eksekutif") {
-			$_SESSION['login'] = true;
-			header("location:direktur_eksekutif/index.php");
 		} else {
 			$err = "
 		<div class='row' style='margin-top: 15px';>

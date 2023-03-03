@@ -44,7 +44,7 @@ if (isset($_GET['id'])) {
 	$nomorBkk = $nomorAkhir . $nomor;
 
 	// log
-	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]'");
+	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]'");
 	$rowUser = mysqli_fetch_assoc($queryUser);
 	$id_user = $rowUser['id_user'];
 	$nama = $rowUser['nama'];

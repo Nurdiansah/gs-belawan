@@ -94,7 +94,7 @@ if (isset($_POST['simpan'])) {
 	$queryUser =  mysqli_query($koneksi, "SELECT * from user u
 											JOIN divisi d
 												ON u.id_divisi = d.id_divisi
-											WHERE username  = '$_SESSION[username]'");
+											WHERE username  = '$_SESSION[username_blw]'");
 	$rowUser = mysqli_fetch_assoc($queryUser);
 	$id_user = $rowUser['id_user'];
 	$nama = $rowUser['nama'];

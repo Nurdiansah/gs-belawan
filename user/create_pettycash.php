@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
         $nama_doc = $kode_otomatis . "-lpj-pettycash." . $ekstensi;
         move_uploaded_file($lokasi_doc_lpj, "../file/doc_lpj/" . $nama_doc);
 
-        $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]'");
+        $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]'");
         $rowUser = mysqli_fetch_assoc($queryUser);
         $id_user = $rowUser['id_user'];
         $nama = $rowUser['nama'];

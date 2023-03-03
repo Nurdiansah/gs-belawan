@@ -8,7 +8,7 @@
         $nm_subgolongan = $_POST['nm_subgolongan'];   
         $id_golongan = $_POST['id_golongan'];   
 
-		$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]'");
+		$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]'");
 	    $rowUser=mysqli_fetch_assoc($queryUser);
         $nama=$rowUser['nama'];
 
@@ -34,5 +34,3 @@
 		}
 
 	}
-
-?>

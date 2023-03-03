@@ -5,7 +5,7 @@ include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 $tahunSekarang = date('Y');
 
-if (!isset($_SESSION['username']) || $_SESSION['level'] != 'manager_keuangan') {
+if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != 'manager_keuangan') {
     header("location: ../index.php");
 }
 

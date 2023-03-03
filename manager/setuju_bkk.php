@@ -4,14 +4,14 @@ session_start();
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
-if (!isset($_SESSION['username']) || $_SESSION['level'] != 'manager') {
+if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != 'manager') {
 	header("location: ../index.php");
 }
 
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
 
-	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]' ");
+	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]' ");
 	$rowUser = mysqli_fetch_assoc($queryUser);
 	$nama = $rowUser['nama'];
 

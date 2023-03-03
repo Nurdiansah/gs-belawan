@@ -7,10 +7,10 @@ include "../fungsi/fungsi.php";
 if (isset($_POST['approve'])) {
 	$id = $_POST['id_bkk'];
 	$free_approve = $_POST['free_approve'];
-	
+
 	$tanggal = date('Y-m-d');
 
-	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]' ");
+	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]' ");
 	$rowUser = mysqli_fetch_assoc($queryUser);
 	$nama = $rowUser['nama'];
 
@@ -29,11 +29,11 @@ if (isset($_POST['approve'])) {
 		# code...
 		$query1 = mysqli_query($koneksi, "UPDATE bkk SET status_bkk=7, app_managerga = '$tanggal' WHERE id_bkk='$id' ");
 	}
-	
+
 
 
 	if ($query1) {
-		
+
 		mysqli_commit($koneksi);
 
 		setcookie('pesan', 'Biaya Umum berhasil di Approve!', time() + (3), '/');
@@ -47,5 +47,4 @@ if (isset($_POST['approve'])) {
 	}
 
 	header("location:index.php?p=approval_bno");
-
 }

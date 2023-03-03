@@ -15,7 +15,7 @@ $queryUser =  mysqli_query($koneksi, "SELECT *
                                                      from user u
                                                      JOIN divisi d
                                                      ON u.id_divisi=d.id_divisi
-                                                     WHERE username  = '$_SESSION[username]'");
+                                                     WHERE username  = '$_SESSION[username_blw]'");
 $rowUser = mysqli_fetch_assoc($queryUser);
 $Area = $rowUser['area'];
 $Divisi = $rowUser['nm_divisi'];
@@ -145,7 +145,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                 </div>
 
                 <hr>
-                <a href="?p=detail_tolakmr&aksi=revisi&id=<?=$data2['kd_transaksi'];?>"><button class="btn btn-primary col-sm-offset-10 " onclick="javascript: return confirm('Yakin ingin mengajukan kembali ?')">Ajukan Ulang</button></a>
+                <a href="?p=detail_tolakmr&aksi=revisi&id=<?= $data2['kd_transaksi']; ?>"><button class="btn btn-primary col-sm-offset-10 " onclick="javascript: return confirm('Yakin ingin mengajukan kembali ?')">Ajukan Ulang</button></a>
                 &nbsp;
                 <br>
                 <hr>

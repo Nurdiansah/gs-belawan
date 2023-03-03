@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
 	$from = $_POST['from'];
 	$total_pettycash = $_POST['total_pettycash'];
 
-	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username]' ");
+	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]' ");
 	$rowUser = mysqli_fetch_assoc($queryUser);
 	$nama = $rowUser['nama'];
 

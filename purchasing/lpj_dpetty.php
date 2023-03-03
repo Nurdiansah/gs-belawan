@@ -15,7 +15,7 @@ $queryUser =  mysqli_query($koneksi, "SELECT *
                                                      from user u
                                                      JOIN divisi d
                                                      ON u.id_divisi=d.id_divisi
-                                                     WHERE username  = '$_SESSION[username]'");
+                                                     WHERE username  = '$_SESSION[username_blw]'");
 $rowUser = mysqli_fetch_assoc($queryUser);
 $Area = $rowUser['area'];
 $Divisi = $rowUser['id_divisi'];

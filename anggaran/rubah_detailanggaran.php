@@ -39,7 +39,7 @@ if (isset($_POST['simpan'])) {
     $desember_nominal = $_POST['desember_nominal'];
     $jml_kuantitas = $_POST['jml_kuantitas'];
     $jml_nominal = $_POST['jml_nominal'];
-    $yg_rubah = $_SESSION['username'];
+    $yg_rubah = $_SESSION['username_blw'];
 
     $updAnggaran = mysqli_query($koneksi, "UPDATE anggaran SET tahun = '$tahun',
                                             id_divisi = '$divisi',
