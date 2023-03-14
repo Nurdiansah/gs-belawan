@@ -46,10 +46,11 @@ if (isset($_POST['revisi']) || isset($_POST['simpan'])) {
 
     // Kalo tombol simpan
     if (isset($_POST['simpan'])) {
-        $query = "UPDATE transaksi_pettycash SET id_anggaran = '$id_anggaran' , keterangan_pettycash = '$keterangan_pettycash'
+        $query = "UPDATE transaksi_pettycash SET id_anggaran = '$id_anggaran' , keterangan_pettycash = '$keterangan_pettycash',
                                                 total_pettycash = '$total_pettycash', last_modified_pettycash_on = '$tanggal', last_modified_pettycash_by = '$nama',doc_lpj_pettycash = '$namabaru'
                                                 WHERE id_pettycash ='$id_pettycash' ";
         $hasil = mysqli_query($koneksi, $query);
+
 
         if ($hasil) {
             setcookie('pesan', 'Berhasil tersimpan !', time() + (3), '/');
