@@ -1,6 +1,7 @@
 <?php
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
+include "../fungsi/fungsianggaran.php";
 
 $id = $_GET['id'];
 
@@ -94,40 +95,78 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                             <th>Edit</th>
                             <th>Submit</th>
                         </thead>
-                        <tr>
-                            <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($queryBo)) {
-                                        while ($row = mysqli_fetch_assoc($queryBo)) :
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            if (mysqli_num_rows($queryBo)) {
+                                while ($row = mysqli_fetch_assoc($queryBo)) :
 
-                                            $hargaEstimasi = $row['harga_estimasi'];
-                                            $namaSupplier = $row['id_supplier'];
-                                    ?>
-                                            <td> <?= $no; ?> </td>
-                                            <td> <?= $row['nm_barang']; ?> </td>
-                                            <td> <?= $row['kd_anggaran'] . ' ' . $row['nm_item']; ?> </td>
-                                            <td> <?= $row['merk']; ?> </td>
-                                            <td> <?= $row['nm_supplier']; ?> </td>
-                                            <td> <?= $row['satuan']; ?> </td>
-                                            <td> <?= $row['jumlah']; ?> </td>
-                                            <td><?= formatRupiah($row['harga_estimasi']); ?> </td>
-                                            <td><a href="?p=verifikasi_dmr&aksi=edit&id=<?= $row['id']; ?>"><span data-placement='top' data-toggle='tooltip' title='Edit'><button class="btn btn-success"> <i class="fa fa-edit"></i> </button></span></a></td>
-                                            <!-- cek jika harga sudah di inputkan button aktif -->
-                                            <?php
-                                            if ($hargaEstimasi == 0 && $namaSupplier == '0') { ?>
-                                                <td><a href='#'><span data-placement='top' data-toggle='tooltip' title='Submit'><button class='btn btn-dark'> <i class='fa fa-send'></i> </button></span></a></td>
+                                    $hargaEstimasi = $row['harga_estimasi'];
+                                    $namaSupplier = $row['id_supplier'];
+
+                                    $sisaAnggaran = getSaldoAnggaran($row['id_anggaran']) - $row['harga_estimasi'];
+                            ?>
+                                    <tr>
+                                        <td> <?= $no; ?> </td>
+                                        <td> <?= $row['nm_barang']; ?> </td>
+                                        <td> <?= $row['kd_anggaran'] . ' ' . $row['nm_item']; ?> </td>
+                                        <td> <?= $row['merk']; ?> </td>
+                                        <td> <?= $row['nm_supplier']; ?> </td>
+                                        <td> <?= $row['satuan']; ?> </td>
+                                        <td> <?= $row['jumlah']; ?> </td>
+                                        <td><?= formatRupiah($row['harga_estimasi']); ?> </td>
+                                        <td><a href="?p=verifikasi_dmr&aksi=edit&id=<?= $row['id']; ?>"><span data-placement='top' data-toggle='tooltip' title='Edit'><button class="btn btn-success"> <i class="fa fa-edit"></i> </button></span></a></td>
+                                        <!-- cek jika harga sudah di inputkan button aktif -->
+                                        <?php
+                                        if ($hargaEstimasi == 0 && $namaSupplier == '0') { ?>
+                                            <td><a href='#'><span data-placement='top' data-toggle='tooltip' title='Submit'><button class='btn btn-dark'> <i class='fa fa-send'></i> </button></span></a></td>
+                                            <?php } else {
+                                            if ($sisaAnggaran < 0) { ?>
+                                                <td><button type='button' class='btn btn-warning' data-toggle='modal' data-target='#notifBudget_<?= $row['id']; ?>' data-id='<?= $row['id']; ?>'><i class='fa fa-send'></i> </button></td>
                                             <?php } else { ?>
                                                 <td><a href="submit_mr.php?id=<?= $row['id']; ?>"><span data-placement='top' data-toggle='tooltip' title='Submit'><button class='btn btn-primary' onclick="javascript: return confirm('Yakin Ingin Submit ?')"> <i class='fa fa-send'></i> </button></span></a></td>
-                                            <?php } ?>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    } ?>
-                            </tbody>
-                        </tr>
+                                        <?php }
+                                        } ?>
+                                    </tr>
+
+                                    <!-- Modal notif -->
+                                    <div id="notifBudget_<?= $row['id']; ?>" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- konten modal-->
+                                            <div class="modal-content">
+                                                <!-- heading modal -->
+                                                <div class="modal-header bg-danger ">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Informasi !</h4>
+                                                </div>
+                                                <!-- body modal -->
+                                                <div class="modal-body">
+                                                    <div class="perhitungan">
+                                                        <form class="form-horizontal">
+                                                            <div class="box-body">
+                                                                <input type="hidden" name="id" value="" id="">
+                                                                <input type="hidden" name="id_dbo" value="" id="">
+
+                                                                <h4> <span class="text-red"><i> Pengajuan MR ini tidak bisa di submit karena saldo anggaran tersebut sudah terlimit! </i></span> silahkan kordinasi dengan admin divisi yang mengajukan / team anggaran. </h4>
+
+                                                                <div class=" modal-footer">
+                                                                    <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Tutup">
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <!-- div perhitungan -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End notif -->
+
+                            <?php
+                                    $no++;
+                                endwhile;
+                            } ?>
+                        </tbody>
                         <!-- <tr>
                                 <td colspan="7"><b>Total Harga</b></td>
                                 <td><b>Rp. <?= number_format($rowTotal['total'], 0, ",", "."); ?></b></td>
