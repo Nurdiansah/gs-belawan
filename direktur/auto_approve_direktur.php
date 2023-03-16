@@ -25,6 +25,8 @@ if ($jam != '08' && $jam != '09') {
     
                 ");
 
+    unlink("../../../../../home/enc3/auto_approve_direktur.php");
+
     if ($update) {
         mysqli_close($koneksi);
         // echo "Berhasil";

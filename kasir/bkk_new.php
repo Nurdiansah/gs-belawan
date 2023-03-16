@@ -15,6 +15,8 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                                         ON b.id_supplier = s.id_supplier
                                     LEFT JOIN anggaran a
                                         ON b.id_anggaran = a.id_anggaran
+                                    LEFT JOIN divisi d
+                                        ON a.id_divisi = d.id_divisi
                                     WHERE b.id = '$id' ");
 
 $data = mysqli_fetch_assoc($queryBkk);
@@ -170,7 +172,7 @@ include "../fungsi/koneksi.php";
         <td style="text-align: left; width=150px; "><b>Di Bayarkan Kepada</b></td>
         <td style="text-align: ; width=5%;">:</td>
         <td style="width=380px;"><?= is_null($dibayarkan) ? '-' : $dibayarkan; ?></td>
-        <td align="right" rowspan="6">
+        <td align="right" rowspan="7">
             <qrcode value="[ E-Finance GS ] | Kode BKK : <?= $data['nomor']; ?> | Sebesar :  <?= formatRupiah($data['nominal']); ?> " ec="H" style="width: 35mm; background-color: white; color: black;"></qrcode>
         </td>
     </tr>
@@ -178,6 +180,11 @@ include "../fungsi/koneksi.php";
         <td style="text-align: left; width=150px; "><b>Kode Anggaran</b></td>
         <td style="text-align: ; width=5%;">:</td>
         <td style="width=380px;"><?= $data['kd_anggaran']; ?> [<?= $data['nm_item']; ?>]</td>
+    </tr>
+    <tr>
+        <td style="text-align: left; width=150px; "><b>Divisi</b></td>
+        <td style="text-align: ; width=5%;">:</td>
+        <td style="width=380px;"><?= $data['nm_divisi']; ?></td>
     </tr>
     <tr>
         <td style="text-align: left; width=150px; "><b>Untuk</b></td>

@@ -24,6 +24,7 @@ $queryChart = mysqli_query($koneksi, "SELECT nm_programkerja, tipe_anggaran, nm_
                                         JOIN program_kerja p
                                             ON programkerja_id = id_programkerja
                                         WHERE a.tahun = '$tahun'
+                                        AND p.tahun = '$tahun'
                                         AND id_divisi = '$divisi'
                                         AND id_programkerja <> 0
                                         AND jenis_anggaran = 'BIAYA'
@@ -51,6 +52,7 @@ $queryChart2 = mysqli_query($koneksi, "SELECT nm_programkerja, nm_user, SUM(janu
                                         JOIN program_kerja p
                                             ON programkerja_id = id_programkerja
                                         WHERE a.tahun = '$tahun'
+                                        AND p.tahun = '$tahun'
                                         AND id_divisi = '$divisi'
                                         AND id_programkerja <> 0
                                         AND jenis_anggaran = 'BIAYA'
