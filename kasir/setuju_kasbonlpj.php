@@ -109,8 +109,9 @@ if (isset($_POST['submit'])) {
 	$update = mysqli_query($koneksi, "UPDATE kasbon SET status_kasbon = '10'
 							WHERE id_kasbon ='$id_kasbon' ");
 
+	$updRealSem = UpdRealisasiSem($id_kasbon, 'KBN', $DPP);
 
-	if ($hasil && $realsiasi && $update) {
+	if ($hasil && $realsiasi && $update && $updRealSem) {
 		mysqli_commit($koneksi);
 
 		setcookie('pesan', 'Kasbon Berhasil di Selesaikan!', time() + (3), '/');

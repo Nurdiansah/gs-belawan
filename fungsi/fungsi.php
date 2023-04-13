@@ -758,3 +758,48 @@ function bulanLoop()
 
     return $bulan;
 }
+
+
+function cekPersenNew($realisasi, $anggaran)
+{
+    if ($realisasi > 0 && $anggaran == 0) {
+        $hasil = 0;
+    } else if ($realisasi == 0 && $anggaran == 0) {
+        $hasil = 0;
+    } else {
+        $hasil = round($realisasi / $anggaran);
+    }
+
+    return $hasil;
+}
+
+function insRealisasiSem($pengajuan, $id_kdtransaksi, $id_anggaran, $nominal)
+{
+    global $koneksi;
+
+    $insert = mysqli_query($koneksi, "INSERT INTO realisasi_sementara (pengajuan, id_kdtransaksi, id_anggaran, nominal, created_at, created_by) VALUES
+                                                                      ('$pengajuan', '$id_kdtransaksi', '$id_anggaran', '$nominal', NOW() ,'System');");
+
+    return $insert;
+}
+
+function UpdRealisasiSem($id_kdtransaksi,  $pengajuan, $nominal)
+{
+    global $koneksi;
+
+    $realSem = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM realisasi_sementara WHERE pengajuan = '$pengajuan' AND id_kdtransaksi = '$id_kdtransaksi' "));
+
+    if ($realSem) {
+
+        if ($pengajuan == 'PO') {
+            # code...
+            $updReaSem = mysqli_query($koneksi, "UPDATE realisasi_sementara SET nominal = nominal - $nominal, is_deleted = '1', updated_at = NOW() WHERE pengajuan = '$pengajuan' AND id_kdtransaksi = '$id_kdtransaksi' ");
+        } else {
+            $updReaSem = mysqli_query($koneksi, "UPDATE realisasi_sementara SET nominal = 0, is_deleted = '1', updated_at = NOW() WHERE pengajuan = '$pengajuan' AND id_kdtransaksi = '$id_kdtransaksi' ");
+        }
+    } else {
+        $updReaSem = 'Berhasil';
+    }
+
+    return $updReaSem;
+}

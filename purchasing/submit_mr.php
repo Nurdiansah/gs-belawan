@@ -22,6 +22,7 @@ if (isset($_GET['id'])) {
 	$totalPengajuan = $rowDbo['harga_estimasi'];
 	$kd_transaksi = $rowDbo['kd_transaksi'];
 	$doc_pettycash = $rowDbo['foto_item'];
+	$id_anggaran = $rowDbo['id_anggaran'];
 	// akhir query
 
 	//deklarasi tanggal
@@ -60,6 +61,11 @@ if (isset($_GET['id'])) {
 		mysqli_query($koneksi, $queryPo);
 
 		$queue = "berhasil";
+
+		$dataPo = mysqli_fetch_array(mysqli_query($koneksi, "SELECT MAX(id_po) FROM po "));
+		$id_po = $dataPo[0];
+
+		$insReaSem =  insRealisasiSem('PO', $id_po, $id_anggaran, $totalPengajuan);
 	} else if ($totalPengajuan > 100000 && $totalPengajuan <= 5000000) {  //jika total pengajuan kurang dari 10 jt menjadi kasbon
 
 		$queryHight = mysqli_query($koneksi, "SELECT MAX(id_kasbon) from kasbon ");
@@ -148,6 +154,8 @@ if (isset($_GET['id'])) {
 
 			$queue = createQueueEmail($name, $email, $subject, $body);
 		}
+
+		$insReaSem =  insRealisasiSem('KBN', $kode_otomatis, $id_anggaran, $totalPengajuan);
 	} elseif ($totalPengajuan <= 100000) {
 
 		// KODE OTOMATIS
@@ -232,6 +240,11 @@ if (isset($_GET['id'])) {
 
 			$queue = createQueueEmail($name, $email, $subject, $body);
 		}
+
+		$dataPettycash = mysqli_fetch_array(mysqli_query($koneksi, "SELECT MAX(id_pettycash) AS id_pettyacsh FROM transaksi_pettycash "));
+		$id_pettycash = $dataPettycash[0];
+
+		$insReaSem =  insRealisasiSem('PCS', $id_pettycash, $id_anggaran, $totalPengajuan);
 	}
 
 	$query2 = mysqli_query($koneksi, "UPDATE detail_biayaops 
@@ -249,7 +262,7 @@ if (isset($_GET['id'])) {
 									";
 	mysqli_query($koneksi, $queryLog);
 
-	if ($hasil && $query2) {
+	if ($hasil && $query2 && $insReaSem) {
 		// mysql commit transaction
 		mysqli_commit($koneksi);
 

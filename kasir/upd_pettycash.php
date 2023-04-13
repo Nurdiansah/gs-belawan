@@ -41,15 +41,23 @@ if (isset($_POST['submit'])) {
 		$queryRealisasi = "UPDATE anggaran SET $fieldRealisasi = '$jml_akhir' , jumlah_realisasi = '$jumlah_realisasi' , realisasi_kuantitas = '$qty'
 										WHERE id_anggaran ='$id_anggaran' ";
 		$realisasi = mysqli_query($koneksi, $queryRealisasi);
+
+		$updRealSem = UpdRealisasiSem($id_pettycash, 'PCS', $total_pettycash);
+
+		$insReaAngg = mysqli_query($koneksi, "INSERT INTO realisasi_anggaran (jenispengajuan_id, permohonan_id, anggaran_id, nominal, created_at, update_at) VALUES
+                                                                                ('7', '$id_pettycash', '$id_anggaran', '$nominal', NOW(), NOW())
+                                    ");
 	} else {
 		$query1 = mysqli_query($koneksi, "UPDATE transaksi_pettycash
 										  SET status_pettycash= 3 , pym_ksr = '$tanggal', vrf_ksr = '$tanggal', penerima_dana = '$penerima_dana', nominal_pengajuan = '$total_pettycash' 
 										  WHERE id_pettycash = '$id_pettycash' ");
 
 		$realisasi = 'Berhasil';
+		$updRealSem = 'Berhasil';
+		$insReaAngg = 'Berhasil';
 	}
 
-	if ($query1 && $realisasi) {
+	if ($query1 && $realisasi && $updRealSem && $insReaAngg) {
 		mysqli_commit($koneksi);
 
 		header("location:index.php?p=payment_pettycash");

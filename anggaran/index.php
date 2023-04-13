@@ -8,6 +8,19 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
   header("location: ../index.php");
 }
 
+// biar langsung masuk ke URL pas login
+if (isset($_COOKIE['url']) && $_SESSION['level_blw'] == $_COOKIE['lvl']) {
+  if (isset($_COOKIE['sp'])) {
+    header('Location: ' . $_COOKIE['url'] . '&sp=' . $_COOKIE['sp']);
+  } else {
+    header('Location: ' . $_COOKIE['url'] . '');
+  }
+  unset($_COOKIE['url']);
+  unset($_COOKIE['lvl']);
+  setcookie('url', $_GET['url'], time() - 1);
+  setcookie('lvl', $_GET['lvl'], time() - 1);
+}
+
 // $query = mysqli_query($koneksi, "SELECT COUNT(id_jenis) AS jumlah FROM jenis_barang ");
 // $data = mysqli_fetch_assoc($query);
 
@@ -248,7 +261,9 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
             <span>Laporan</span> <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="index.php?p=laporan-xls"><i class="fa fa-file-excel-o"></i>Export To Excel</a></li>
+            <!-- <li><a href="index.php?p=laporan-xls"><i class="fa fa-file-excel-o"></i>Export To Excel</a></li> -->
+            <li><a href="index.php?p=laporan_lr&sp=lr_01"><i class="fa fa-file-excel-o"></i>Laba Rugi</a></li>
+            <li><a href="index.php?p=laporan_rk&sp=rk_01"><i class="fa fa-file-excel-o"></i>Rencana Kerja</a></li>
           </ul>
         </li>
 
