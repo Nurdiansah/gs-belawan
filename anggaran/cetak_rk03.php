@@ -54,11 +54,11 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
 					</script>";
 } else if ($total > 0) {
     // fungsi header dengan mengirimkan raw data excel
-    // header("Content-type: application/vnd-ms-excel");
+    header("Content-type: application/vnd-ms-excel");
 
     // membuat nama file eksport
     // header("Content-Disposition: attachment; filename=RK03-" . $tahun . "-" . $dataPT['nm_pt'] . "-" . $dataDivisi['nm_parent'] . ".xls");
-    // header("Content-Disposition: attachment; filename=RK03-" . $tahun . ".xls");
+    header("Content-Disposition: attachment; filename=RK03-" . $tahun . ".xls");
 
     // header("Content-Disposition: attachment; filename=RK01\"$tahun\".xlsx");
     // header("Content-Type: application/vnd.ms-excel");
