@@ -249,7 +249,7 @@ if (isset($_POST['simpan'])) {
                                     <span class="input-group-addon">Rp.</span>
                                     <input type="text" class="form-control" value="<?= formatRupiah2($dataAnggaran['januari_nominal']); ?>" name="nominal_januari" id="nominal_januari" onkeydown="return numbersonly(this, event);" onkeyup="jumlah_nominal();" readonly />
                                 </div>
-                                <input type="checkbox" name="all" id="myCheck" onclick="checkBox()"><label for="myCheck">&nbsp;&nbsp;Semua Bulan</label>
+                                <input type="checkbox" name="all" id="myCheck" onclick="checkBox()" disabled><label for="myCheck">&nbsp;&nbsp;Semua Bulan</label>
                             </div>
                         </div>
                         <div class="form-group">
