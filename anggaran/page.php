@@ -6,7 +6,7 @@ $page = isset($_GET['p']) ? $_GET['p'] : "";
 if ($page == 'formpesan') {
     include_once "formpesan.php";
 } else if ($page == "") {
-    include_once "main.php";
+    include_once "laporan_anggaran.php"; // main.php
 } else if ($page == "lihat_kaskeluar") {
     include_once "lihat_kaskeluar.php";
 } else if ($page == "proses_kaskeluar") {
@@ -108,4 +108,8 @@ if ($page == 'formpesan') {
     include_once "laporan_rk.php";
 } else if ($page == "transaksi_bkk") {
     include_once "transaksi_bkk.php";
+} else if ($page == "laporan_anggaran") {
+    include_once "laporan_anggaran.php";
+} else if ($page == "laporan_programkerja") {
+    include_once "laporan_programkerja.php";
 }

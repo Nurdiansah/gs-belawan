@@ -5,64 +5,149 @@ include "../fungsi/fungsi.php";
 
 $tahunSekarang = date('Y');
 
-// ngambil id divisi dari user terkait
-$user = $_SESSION['username_blw'];
-$queryUser = mysqli_query($koneksi, "SELECT * FROM user WHERE username = '$user'");
-$dataUser = mysqli_fetch_assoc($queryUser);
 
-$divisi = $dataUser['id_divisi'];
 if (isset($_POST['cari'])) {
     $tahun = $_POST['tahun'];
+    $divisi = $_POST['divisi'];
+
+    // JIKA DIA PILIH TAHUN DAN SEMUA DIVISI
+    if ($divisi == "all") {
+        // OPEX
+        $queryChart = mysqli_query($koneksi, "SELECT nm_programkerja, tipe_anggaran, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_nominal,
+                                                    SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) AS total_realisasi
+                                                FROM anggaran a
+                                                JOIN program_kerja p
+                                                    ON programkerja_id = id_programkerja
+                                                WHERE a.tahun = '$tahun'
+                                                AND p.tahun = '$tahun'
+                                                AND id_programkerja <> 0
+                                                AND jenis_anggaran = 'BIAYA'
+                                                AND tipe_anggaran = 'OPEX'
+                                                GROUP BY nm_programkerja, nm_user
+                                                ORDER BY nm_programkerja ASC");
+
+        // CAPEX
+        $queryChartCapex = mysqli_query($koneksi, "SELECT nm_programkerja, tipe_anggaran, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_nominal,
+                                                        SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) AS total_realisasi
+                                                    FROM anggaran a
+                                                    JOIN program_kerja p
+                                                        ON programkerja_id = id_programkerja
+                                                    WHERE a.tahun = '$tahun'
+                                                    AND p.tahun = '$tahun'
+                                                    AND id_programkerja <> 0
+                                                    AND jenis_anggaran = 'BIAYA'
+                                                    AND tipe_anggaran = 'CAPEX'
+                                                    GROUP BY nm_programkerja, nm_user
+                                                    ORDER BY nm_programkerja ASC");
+
+        $queryChart2 = mysqli_query($koneksi, "SELECT nm_programkerja, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_nominal,
+                                                    SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) AS total_realisasi
+                                                FROM anggaran a
+                                                JOIN program_kerja p
+                                                    ON programkerja_id = id_programkerja
+                                                WHERE a.tahun = '$tahun'
+                                                AND p.tahun = '$tahun'
+                                                AND id_programkerja <> 0
+                                                AND jenis_anggaran = 'BIAYA'
+                                                GROUP BY nm_programkerja, nm_user
+                                                ORDER BY nm_programkerja DESC");
+    } else {
+        // JIKA DIA PILIH TAHUN DAN DIVISI
+        // OPEX
+        $queryChart = mysqli_query($koneksi, "SELECT nm_programkerja, tipe_anggaran, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_nominal,
+                                                    SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) AS total_realisasi
+                                                FROM anggaran a
+                                                JOIN program_kerja p
+                                                    ON programkerja_id = id_programkerja
+                                                WHERE a.tahun = '$tahun'
+                                                AND p.tahun = '$tahun'
+                                                AND id_divisi = '$divisi'
+                                                AND id_programkerja <> 0
+                                                AND jenis_anggaran = 'BIAYA'
+                                                AND tipe_anggaran = 'OPEX'
+                                                GROUP BY nm_programkerja, nm_user
+                                                ORDER BY nm_programkerja ASC");
+
+        // CAPEX
+        $queryChartCapex = mysqli_query($koneksi, "SELECT nm_programkerja, tipe_anggaran, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_nominal,
+                                                SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) AS total_realisasi
+                                            FROM anggaran a
+                                            JOIN program_kerja p
+                                                ON programkerja_id = id_programkerja
+                                            WHERE a.tahun = '$tahun'
+                                            AND p.tahun = '$tahun'
+                                            AND id_divisi = '$divisi'
+                                            AND id_programkerja <> 0
+                                            AND jenis_anggaran = 'BIAYA'
+                                            AND tipe_anggaran = 'CAPEX'
+                                            GROUP BY nm_programkerja, nm_user
+                                            ORDER BY nm_programkerja ASC");
+
+        $queryChart2 = mysqli_query($koneksi, "SELECT nm_programkerja, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_nominal,
+                                                SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) AS total_realisasi
+                                            FROM anggaran a
+                                            JOIN program_kerja p
+                                                ON programkerja_id = id_programkerja
+                                            WHERE a.tahun = '$tahun'
+                                            AND p.tahun = '$tahun'
+                                            AND id_divisi = '$divisi'
+                                            AND id_programkerja <> 0
+                                            AND jenis_anggaran = 'BIAYA'
+                                            GROUP BY nm_programkerja, nm_user
+                                            ORDER BY nm_programkerja DESC");
+    }
+
+    $queryDiv = mysqli_query($koneksi, "SELECT * FROM divisi WHERE id_divisi = '$divisi'");
+    $dataDiv = mysqli_fetch_assoc($queryDiv);
 } else {
-    $tahun = $tahunSekarang;
+
+    // OPEX
+    $queryChart = mysqli_query($koneksi, "SELECT nm_programkerja, tipe_anggaran, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_nominal,
+                                                SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) AS total_realisasi
+                                            FROM anggaran a
+                                            JOIN program_kerja p
+                                                ON programkerja_id = id_programkerja
+                                            WHERE a.tahun = '$tahun'
+                                            AND p.tahun = '$tahun'
+                                            AND id_programkerja <> 0
+                                            AND jenis_anggaran = 'BIAYA'
+                                            AND tipe_anggaran = 'OPEX'
+                                            GROUP BY nm_programkerja, nm_user
+                                            ORDER BY nm_programkerja ASC");
+
+    // CAPEX
+    $queryChartCapex = mysqli_query($koneksi, "SELECT nm_programkerja, tipe_anggaran, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_nominal,
+                                                    SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) AS total_realisasi
+                                                FROM anggaran a
+                                                JOIN program_kerja p
+                                                    ON programkerja_id = id_programkerja
+                                                WHERE a.tahun = '$tahun'
+                                                AND p.tahun = '$tahun'
+                                                AND id_programkerja <> 0
+                                                AND jenis_anggaran = 'BIAYA'
+                                                AND tipe_anggaran = 'CAPEX'
+                                                GROUP BY nm_programkerja, nm_user
+                                                ORDER BY nm_programkerja ASC");
+
+    $queryChart2 = mysqli_query($koneksi, "SELECT nm_programkerja, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_nominal,
+                                                SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) AS total_realisasi
+                                            FROM anggaran a
+                                            JOIN program_kerja p
+                                                ON programkerja_id = id_programkerja
+                                            WHERE a.tahun = '$tahun'
+                                            AND p.tahun = '$tahun'
+                                            AND id_programkerja <> 0
+                                            AND jenis_anggaran = 'BIAYA'
+                                            GROUP BY nm_programkerja, nm_user
+                                            ORDER BY nm_programkerja DESC");
 }
 
-// OPEX
-$queryChart = mysqli_query($koneksi, "SELECT nm_programkerja, tipe_anggaran, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_nominal,
-                                            SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) AS total_realisasi
-                                        FROM anggaran a
-                                        JOIN program_kerja p
-                                            ON programkerja_id = id_programkerja
-                                        WHERE a.tahun = '$tahun'
-                                        AND p.tahun = '$tahun'
-                                        AND id_divisi = '$divisi'
-                                        AND id_programkerja <> 0
-                                        AND jenis_anggaran = 'BIAYA'
-                                        AND tipe_anggaran = 'OPEX'
-                                        GROUP BY nm_programkerja, nm_user
-                                        ORDER BY nm_programkerja ASC");
-
-// CAPEX
-$queryChartCapex = mysqli_query($koneksi, "SELECT nm_programkerja, tipe_anggaran, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_nominal,
-                                            SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) AS total_realisasi
-                                        FROM anggaran a
-                                        JOIN program_kerja p
-                                            ON programkerja_id = id_programkerja
-                                        WHERE a.tahun = '$tahun'
-                                        AND id_divisi = '$divisi'
-                                        AND id_programkerja <> 0
-                                        AND jenis_anggaran = 'BIAYA'
-                                        AND tipe_anggaran = 'CAPEX'
-                                        GROUP BY nm_programkerja, nm_user
-                                        ORDER BY nm_programkerja ASC");
-
-$queryChart2 = mysqli_query($koneksi, "SELECT nm_programkerja, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_nominal,
-                                            SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) AS total_realisasi
-                                        FROM anggaran a
-                                        JOIN program_kerja p
-                                            ON programkerja_id = id_programkerja
-                                        WHERE a.tahun = '$tahun'
-                                        AND p.tahun = '$tahun'
-                                        AND id_divisi = '$divisi'
-                                        AND id_programkerja <> 0
-                                        AND jenis_anggaran = 'BIAYA'
-                                        GROUP BY nm_programkerja, nm_user
-                                        ORDER BY nm_programkerja DESC");
-
-$queryDivisi = mysqli_query($koneksi, "SELECT * FROM divisi WHERE id_divisi = '$divisi'");
-$dataDivisi = mysqli_fetch_assoc($queryDivisi);
+$queryDivisi = mysqli_query($koneksi, "SELECT * FROM divisi WHERE id_divisi <> '0' ORDER BY nm_divisi ASC");
 
 $no = 1;
+$grand_nominal = 0;
+$grand_realisasi = 0;
+$grand_total = 0;
 ?>
 
 <section class="content">
@@ -75,21 +160,47 @@ $no = 1;
     </div>
     <div class="row">
         <h3 class="text-center">Grafik Laporan Program Kerja</h3>
-        <h4 class="text-center">(Divisi <?= $dataDivisi['nm_divisi'] . " " . $tahun ?>)</h4>
+        <?php if (isset($_POST['divisi']) && $_POST['divisi'] != "all") { ?>
+            <h4 class="text-center">(Divisi <?php echo $dataDiv['nm_divisi'] . " " . $_POST['tahun'] ?>)</h4>
+        <?php } ?>
         <form action="" method="POST">
+            <div class="form-group mt-3">
+                <div class="col-sm-offset- col-sm-2">
+                    <select id="select2" name="divisi" class="form-control" required>
+                        <option value="all">Semua Divisi</option>
+                        <?php if (isset($_POST['cari'])) {
+                            while ($dataDivisi = mysqli_fetch_assoc($queryDivisi)) { ?>
+                                <option value="<?= $dataDivisi['id_divisi']; ?>" <?php if ($dataDivisi['id_divisi'] == $_POST['divisi']) {
+                                                                                        echo "selected=selected";
+                                                                                    } ?>><?= $dataDivisi['nm_divisi']; ?></option>
+                            <?php }
+                        } else { ?>
+                            <?php
+                            while ($dataDivisi = mysqli_fetch_assoc($queryDivisi)) { ?>
+                                <option value="<?= $dataDivisi['id_divisi']; ?>"><?= $dataDivisi['nm_divisi']; ?></option>
+                        <?php }
+                        } ?>
+                    </select>
+                </div>
+            </div>
             <div class="form-group">
                 <div class="col-sm-offset- col-sm-2">
                     <select name="tahun" class="form-control" required>
                         <?php
                         if (isset($_POST['cari'])) {
-                            foreach (range(2021, $tahunSekarang) as $tahunLoop) { ?>
-                                <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $_POST['tahun'] ? "selected" : ""; ?>><?= $tahunLoop; ?></option>
+                            foreach (range(2021, $tahunSekarang + 1) as $tahun) { ?>
+                                <option value="<?= $tahun; ?>" <?php if ($tahun == $_POST['tahun']) {
+                                                                    echo "selected=selected";
+                                                                } ?>><?= $tahun; ?></option>
                             <?php }
                         } else {
-                            foreach (range(2021, $tahunSekarang) as $tahunLoop) { ?>
-                                <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $tahunSekarang ? "selected=selected" : ""; ?>><?= $tahunLoop; ?></option>
+                            foreach (range(2021, $tahunSekarang + 1) as $tahun) { ?>
+                                <option value="<?= $tahun; ?>" <?php if ($tahun == $tahunSekarang) {
+                                                                    echo "selected=selected";
+                                                                } ?>><?= $tahun; ?></option>
                         <?php }
-                        } ?>
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
@@ -104,14 +215,9 @@ $no = 1;
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="text-center">Table Laporan Program Kerja</h3>
-                    <h4 class="text-center">(Divisi <?= $dataDivisi['nm_divisi'] . " " . $tahun ?>)</h4>
-                    <!-- <?php if (isset($_POST['cari'])) { ?>
-                        <a href="cetak_excel_summary.php?tahun=<?= enkripRambo($_POST['tahun']); ?>" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Excel</a> -->
-                    <!-- <a href="cetak_excel_detail.php?tahun=<?= enkripRambo($_POST['tahun']); ?>" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Detail</a> -->
-                    <!-- <?php } else { ?>
-                        <a href="cetak_excel_summary.php" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Excel</a> -->
-                    <!-- <a href="cetak_excel_detail.php" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Detail</a> -->
-                    <!-- <?php } ?> -->
+                    <?php if (isset($_POST['divisi']) && $_POST['divisi'] != "all") { ?>
+                        <h4 class="text-center">(Divisi <?php echo $dataDiv['nm_divisi'] . " " . $_POST['tahun'] ?>)</h4>
+                    <?php } ?>
                 </div>
                 <div class="box-body">
                     <table class="table table-striped">
@@ -171,7 +277,6 @@ $no = 1;
                                     <h4><b>CAPEX</b></h4>
                                 </th>
                             </tr>
-
                             <?php while ($dataChartCapex = mysqli_fetch_assoc($queryChartCapex)) { ?>
                                 <tr <?= warnaSurplus($dataChartCapex['total_realisasi'], $dataChartCapex['total_nominal']); ?>>
                                     <td><?= $no; ?></td>

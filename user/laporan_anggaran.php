@@ -58,11 +58,11 @@ $dataDivisi = mysqli_fetch_assoc($queryDivisi);
                     <select name="tahun" class="form-control" required>
                         <?php
                         if (isset($_POST['cari'])) {
-                            foreach (range(2019, $tahunSekarang) as $tahunLoop) { ?>
+                            foreach (range(2021, $tahunSekarang) as $tahunLoop) { ?>
                                 <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $_POST['tahun'] ? "selected" : ""; ?>><?= $tahunLoop; ?></option>
                             <?php }
                         } else {
-                            foreach (range(2019, $tahunSekarang) as $tahunLoop) { ?>
+                            foreach (range(2021, $tahunSekarang) as $tahunLoop) { ?>
                                 <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $tahunSekarang ? "selected=selected" : ""; ?>><?= $tahunLoop; ?></option>
                         <?php }
                         } ?>

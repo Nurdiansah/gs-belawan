@@ -115,6 +115,7 @@ $tahunAyeuna = date("Y");
                                 <th>Nama COA</th>
                                 <th>Kode Transaksi</th>
                                 <th>Deskripsi</th>
+                                <th>Nominal Budget</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -135,6 +136,7 @@ $tahunAyeuna = date("Y");
                                         <td> <?= $row['nm_coa']; ?> </td>
                                         <td> <?= $row['kd_anggaran']; ?> </td>
                                         <td> <?= $row['nm_item']; ?> </td>
+                                        <td><?= formatRupiah2($row['jumlah_nominal']); ?></td>
                                         <td>
                                             <!-- <a href="?p=anggaran&aksi=lihat&id=<?= $row['id_anggaran']; ?>&divisi=<?= $divisi; ?>&tahun=<?= $tahun; ?>"><span data-placement='top' title='Lihat'><button class="btn btn-primary"><i class="fa fa-search-plus"></i></button></span></a> -->
                                             <a href="index.php?p=edit_anggaran&id=<?= enkripRambo($row['id_anggaran']); ?>"><span data-placement='top' title='Rubah'><button class="btn btn-warning"><i class="fa fa-pencil"></i></button></span></a>
