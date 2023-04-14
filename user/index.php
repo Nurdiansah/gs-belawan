@@ -343,7 +343,7 @@ $dataTolakBKM = mysqli_fetch_assoc($queryTolakBKM);
           </li>
 
           <!-- KONDISI MENU BKM, HANYA DIVISI (ADMIN BILLING, KALIBARU, PAJAK, DIGUL, DAN MEDAN BILLING & KASIR ) -->
-          <?php if ($idDivisi == "3" || $idDivisi == "9" || $idDivisi == "18") { ?>
+          <?php if ($idDivisi == "3" || $idDivisi == "9" || $idDivisi == "18" || $idDivisi == "1") { ?>
             <li class="header">Pendapatan</li>
             <li class="treeview">
               <a href="">

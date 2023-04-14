@@ -62,7 +62,7 @@ if (isset($_POST['simpan']) || isset($_POST['submit'])) {
             setcookie('pesan', 'Kasbon gagal di Simpan!<br>' . mysqli_error($koneksi) . '', time() + (3), '/');
             setcookie('warna', 'alert-danger', time() + (3), '/');
         }
-        header("location:index.php?p=verifikasi_kasbon&sp=vk_user");
+        header("location:index.php?p=verifikasi_dkasbon_user&id=$id_kasbon");
     }
 
     // Submit atau release

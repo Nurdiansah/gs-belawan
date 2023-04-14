@@ -560,7 +560,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                     $('#me_kd_pettycash').val(data.kd_pettycash);
                     $('#id_anggaran_edit').val(data.id_anggaran);
                     $('#me_doc_lpj_lama').val(data.doc_lpj_pettycash);
-                    $('#me_nominal').val(formatRibuan(data.total_pettycash));
+                    $('#me_nominal').val(formatRibuan(Math.round(data.total_pettycash)));
                     $('#me_keterangan').val(data.keterangan_pettycash);
                     $('#me_doc').attr('src', '../file/doc_lpj/' + data.doc_lpj_pettycash);
                 }
