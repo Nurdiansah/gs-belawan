@@ -54,12 +54,12 @@ $no = 1;
                                         <td><?= $no; ?></td>
                                         <td><?= $dataBKK['pengajuan']; ?></td>
                                         <td><?= $dataBKK['no_bkk']; ?></td>
-                                        <td><?= $dataBKK['nilai_barang']; ?></td>
-                                        <td><?= $dataBKK['nilai_jasa']; ?></td>
-                                        <td><?= $dataBKK['nilai_ppn']; ?></td>
+                                        <td><?= formatRupiah2($dataBKK['nilai_barang']); ?></td>
+                                        <td><?= formatRupiah2($dataBKK['nilai_jasa']); ?></td>
+                                        <td><?= formatRupiah2($dataBKK['nilai_ppn']); ?></td>
                                         <td><?= $dataBKK['id_pph']; ?></td>
-                                        <td><?= $dataBKK['nilai_pph']; ?></td>
-                                        <td><?= $dataBKK['nominal']; ?></td>
+                                        <td><?= formatRupiah2($dataBKK['nilai_pph']); ?></td>
+                                        <td><?= formatRupiah2($dataBKK['nominal']); ?></td>
                                         <td>
                                             <a target="_blank" title="Cetak BKK" onclick="window.open('bkk_new.php?id=<?= enkripRambo($dataBKK['id']); ?>','name','width=800,height=600')" class="btn btn-success"><i class="fa fa-print"></i> </a>
                                         </td>
