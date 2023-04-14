@@ -80,6 +80,11 @@ if (isset($_POST['simpan'])) {
 					WHERE id_bkk ='$id' ");
 		// 
 
+		$realisasiAnggaran = mysqli_query($koneksi, "INSERT INTO realisasi_anggaran (jenispengajuan_id, permohonan_id, anggaran_id, nominal, created_at, update_at) VALUES
+																				('3', '$kd_transaksi', '$id_anggaran', '$DPP', NOW(), NOW())
+												");
+
+		$updRealSem = UpdRealisasiSem($kd_transaksi, 'BUM', $DPP);
 	} else if ($metode_pembayaran == 'transfer') {
 
 		$dateNow = dateNow();
@@ -89,6 +94,8 @@ if (isset($_POST['simpan'])) {
 									");
 
 		$realisasi = 'Berhasil';
+		$realisasiAnggaran = 'Berhasil';
+		$updRealSem = 'Berhasil';
 
 		// query update biaya umum
 		$hasil = mysqli_query($koneksi, "UPDATE bkk SET tgl_bkk = '$tgl_bkk',keterangan = '$keterangan',  doc_lpj = '$namabaru', status_bkk = '17' 
@@ -99,8 +106,7 @@ if (isset($_POST['simpan'])) {
 									");
 	}
 
-
-	if ($hasil && $realisasi && $return) {
+	if ($hasil && $realisasi && $return && $updRealSem && $realisasiAnggaran) {
 		// $folder_ptw="file/$Doc_ptw";
 		move_uploaded_file($lokasi_doc_lpj, "../file/bukti_pembayaran/" . $namabaru);
 

@@ -11,7 +11,7 @@ if (isset($_GET['id'])) {
     date_default_timezone_set('Asia/Jakarta');
     $tanggal = date("Y-m-d H:i:s");
 
-    $queryEmail = mysqli_query($koneksi, "SELECT *, usr.nama as nm_pemohon, usr.email as email_pemohon
+    $queryEmail = mysqli_query($koneksi, "SELECT *, usr.nama as nm_pemohon, usr.email as email_pemohon, bkk.nilai_barang + bkk.nilai_jasa AS nominal
                                             FROM bkk bkk
                                             JOIN divisi dvs
                                                 ON bkk.id_divisi = dvs.id_divisi
@@ -86,7 +86,11 @@ if (isset($_GET['id'])) {
 
     $query1 = mysqli_query($koneksi, "UPDATE bkk SET status_bkk = 0, tgl_bkk = '$tanggal' WHERE id_bkk = '$id' ");
 
-    if ($query1 && $queue) {
+    $id_anggaran = $dataEmail['id_anggaran'];
+    $nominal = $dataEmail['nominal'];
+    $insReaSem =  insRealisasiSem('BUM', $id, $id_anggaran, $nominal);
+
+    if ($query1 && $queue && $insReaSem) {
         # jika semua query berhasil di jalankan
         mysqli_commit($koneksi);
 

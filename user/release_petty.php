@@ -8,6 +8,8 @@ if (isset($_GET['id'])) {
 
     $id = base64_decode($_GET['id']);
 
+    $data = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash WHERE id_pettycash = '$id' "));
+
     date_default_timezone_set('Asia/Jakarta');
     $tanggal = date("Y-m-d H:i:s");
 
@@ -66,6 +68,11 @@ if (isset($_GET['id'])) {
 
     // update release pettycash
     $updPetty = mysqli_query($koneksi, "UPDATE transaksi_pettycash SET status_pettycash=1 , created_pettycash_on ='$tanggal' WHERE id_pettycash='$id' ");
+
+    $id_anggaran = $data['id_anggaran'];
+    $nominal = $data['total_pettycash'];
+
+    $insReaSem =  insRealisasiSem('PCS', $id, $id_anggaran, $nominal);
 
     // Artinya kita sudah bisa melakukan COMMIT
     if ($queue && $updPetty) {

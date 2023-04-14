@@ -102,4 +102,10 @@ if ($page == 'formpesan') {
     include_once "monitoring_so.php";
 } else if ($page == "program_kerja") {
     include_once "program_kerja.php";
+} else if ($page == "laporan_lr") {
+    include_once "laporan_lr.php";
+} else if ($page == "laporan_rk") {
+    include_once "laporan_rk.php";
+} else if ($page == "transaksi_bkk") {
+    include_once "transaksi_bkk.php";
 }

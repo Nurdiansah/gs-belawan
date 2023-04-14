@@ -67,9 +67,12 @@ if (isset($_POST['release'])) {
                             WHERE id_kasbon ='$id_kasbon';";
     $hasil = mysqli_query($koneksi, $query);
 
+    $id_anggaran = $dataManager['id_anggaran'];
+    $nominal = $dataManager['harga_akhir'];
 
+    $insReaSem =  insRealisasiSem('KBN', $id_kasbon, $id_anggaran, $nominal);
 
-    if ($hasil && $queue) {
+    if ($hasil && $queue && $insReaSem) {
         # jika semua query berhasil di jalankan
         mysqli_commit($koneksi);
 
