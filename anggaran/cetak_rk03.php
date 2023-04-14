@@ -11,6 +11,8 @@ if (isset($_GET['tahun']) && isset($_GET['project'])) {
     $divisi = dekripRambo($_GET['divisi']);
 }
 
+$link = "url=index.php?p=transaksi_bkk&lvl=anggaran";
+
 $query = mysqli_query($koneksi, "SELECT DISTINCT agg.id_anggaran, kd_pt, nm_pt, nm_divisi, kd_programkerja, nm_programkerja, no_coa, nm_coa, nm_item, 
                                         januari_nominal + februari_nominal + maret_nominal + april_nominal + mei_nominal + juni_nominal + juli_nominal + agustus_nominal + september_nominal + oktober_nominal + november_nominal + desember_nominal AS jml_nominal,
                                         januari_realisasi + februari_realisasi + maret_realisasi + april_realisasi + mei_realisasi + juni_realisasi + juli_realisasi + agustus_realisasi + september_realisasi + oktober_realisasi + november_realisasi + desember_realisasi AS jml_realisasi,
