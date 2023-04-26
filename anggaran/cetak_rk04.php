@@ -33,9 +33,11 @@ $query = mysqli_query($koneksi, "SELECT DISTINCT agg.id_anggaran, kd_pt, nm_pt, 
                                     LEFT JOIN realisasi_sementara nota
                                         ON agg.id_anggaran = nota.id_anggaran
                                         AND nota.pengajuan = 'BUM'
+                                        AND nota.is_deleted = '0'
                                     LEFT JOIN realisasi_sementara pra_nota
                                         ON agg.id_anggaran = pra_nota.id_anggaran
                                         AND pra_nota.pengajuan = 'PO'
+                                        AND pra_nota.is_deleted = '0'
                                     WHERE agg.tahun = '$tahun'
                                     AND id_pt = '$project'
                                     AND id_parent = '$divisi'
@@ -77,7 +79,7 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
             <td colspan="4"><b>LAPORAN REALISASI ANGGARAN TAHUN <?= $tahun; ?></b></td>
         </tr>
         <tr>
-            <td colspan="4"><b>PT. GRAHA SEGARA BELAWAN</b></td>
+            <td colspan="4"><b>PT Graha Segara Belawan</b></td>
         </tr>
         <tr>
             <td colspan="4"><b>Project - <?= $dataPT['nm_pt']; ?></b></td>
@@ -402,5 +404,8 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
         ?>
 
     </table>
-<?php  }
-?>
+<?php } else {
+    echo "<script>window.alert('Data laporan Sub Divisi (RK04) tidak ada/kosong!');
+						location='index.php?p=laporan_rk&sp=rk_04'
+					</script>";
+} ?>

@@ -30,9 +30,11 @@ $queryRK01 = mysqli_query($koneksi, "SELECT DISTINCT agg.id_anggaran, kd_pt, nm_
                                         LEFT JOIN realisasi_sementara nota
                                             ON agg.id_anggaran = nota.id_anggaran
                                             AND nota.pengajuan = 'BUM'
+                                            AND nota.is_deleted = '0'
                                         LEFT JOIN realisasi_sementara pra_nota
                                             ON agg.id_anggaran = pra_nota.id_anggaran
                                             AND pra_nota.pengajuan = 'PO'
+                                            AND pra_nota.is_deleted = '0'
                                         WHERE agg.tahun = '$tahun'
                                         -- AND tipe_anggaran = 'OPEX'
                                         GROUP BY agg.id_anggaran
