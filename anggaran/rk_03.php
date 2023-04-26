@@ -15,7 +15,7 @@ if ($_POST['tampil']) {
 }
 
 
-$queryRK01 = mysqli_query($koneksi, "SELECT DISTINCT agg.id_anggaran, kd_pt, nm_pt, nm_divisi, kd_programkerja, nm_programkerja, no_coa, nm_coa, nm_item, 
+$query = mysqli_query($koneksi, "SELECT DISTINCT agg.id_anggaran, kd_pt, nm_pt, nm_divisi, kd_programkerja, nm_programkerja, no_coa, nm_coa, nm_item, 
                                             januari_nominal + februari_nominal + maret_nominal + april_nominal + mei_nominal + juni_nominal + juli_nominal + agustus_nominal + september_nominal + oktober_nominal + november_nominal + desember_nominal AS jml_nominal,
                                             januari_realisasi + februari_realisasi + maret_realisasi + april_realisasi + mei_realisasi + juni_realisasi + juli_realisasi + agustus_realisasi + september_realisasi + oktober_realisasi + november_realisasi + desember_realisasi AS jml_realisasi,
                                             IFNULL(SUM(nota.nominal), 0) AS nota, IFNULL(SUM(pra_nota.nominal), 0) AS pra_nota
@@ -168,7 +168,7 @@ $queryDivisi = mysqli_query($koneksi, "SELECT DISTINCT id_parent, nm_parent
             $sub_pt_sisa_anggaran = 0;
             $sub_pt_realisasi_persen = 0;
 
-            while ($data = mysqli_fetch_assoc($queryRK01)) {
+            while ($data = mysqli_fetch_assoc($query)) {
 
                 // sub total per program kerja ditengah
                 if ($no > 1 && $program_kerja != $data['nm_programkerja']) {  ?>
