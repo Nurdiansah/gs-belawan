@@ -71,13 +71,6 @@ $tahunAyeuna = date("Y");
                                 </select>
                             </div>
                         </div>
-                        <input type="hidden" name="waktu" value="<?php echo $waktuSekarang; ?>">
-                        <div class="form-group">
-                            <label id="tes" for="no_coa" class="col-sm-offset-1 col-sm-3 control-label">Nomor Coa</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" name="no_coa" id="no_coa">
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label id="tes" for="header" class="col-sm-offset-1 col-sm-3 control-label">Header</label>
                             <div class="col-sm-5">
@@ -99,6 +92,13 @@ $tahunAyeuna = date("Y");
                                 <select name="sub_header" id="sub_header" class="form-control">
                                     <option>-- Pilih Sub Header --</option>
                                 </select>
+                            </div>
+                        </div>
+                        <input type="hidden" name="waktu" value="<?php echo $waktuSekarang; ?>">
+                        <div class="form-group">
+                            <label id="tes" for="no_coa" class="col-sm-offset-1 col-sm-3 control-label">Nomor Coa</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="no_coa" id="no_coa">
                             </div>
                         </div>
                         <div class="form-group">
