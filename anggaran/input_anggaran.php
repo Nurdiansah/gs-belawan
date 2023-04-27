@@ -75,7 +75,30 @@ $tahunAyeuna = date("Y");
                         <div class="form-group">
                             <label id="tes" for="no_coa" class="col-sm-offset-1 col-sm-3 control-label">Nomor Coa</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="no_coa">
+                                <input type="text" class="form-control" name="no_coa" id="no_coa">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="header" class="col-sm-offset-1 col-sm-3 control-label">Header</label>
+                            <div class="col-sm-5">
+                                <select name="id_header" id="id_header" class="form-control header_id" required>
+                                    <option value="">-- Pilih Header --</option>
+                                    <?php
+                                    $queryHeader = mysqli_query($koneksi, "SELECT * FROM header ORDER BY nm_header ASC");
+                                    while ($dataHeader = mysqli_fetch_assoc($queryHeader)) {
+                                    ?>
+                                        <option value="<?= $dataHeader['id_header']; ?>" type="checkbox"><?= $dataHeader['nm_header']; ?></option>
+                                    <?php
+                                    } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="sub_header" class="col-sm-offset-1 col-sm-3 control-label">Sub Header</label>
+                            <div class="col-sm-5">
+                                <select name="sub_header" id="sub_header" class="form-control">
+                                    <option>-- Pilih Sub Header --</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -113,7 +136,7 @@ $tahunAyeuna = date("Y");
                         <div class="form-group">
                             <label id="tes" for="kd_anggaran" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="kd_anggaran">
+                                <input type="text" class="form-control" name="kd_anggaran" id="kd_anggaran">
                             </div>
                         </div>
                         <div class="form-group">
@@ -352,6 +375,41 @@ $tahunAyeuna = date("Y");
             // text.style.display = "none";
         }
     }
+
+    // nomor coa dengan kd anggaran sama sekarnag
+    const no_coa = document.getElementById('no_coa');
+    const kd_anggaran = document.getElementById('kd_anggaran');
+
+    no_coa.addEventListener('keyup', function() {
+        document.form.kd_anggaran.value = no_coa.value;
+    });
+
+
+    $('.header_id').on('change', function() {
+        let headerId = this.value;
+
+        // console.log(headerId);
+        $.ajax({
+            url: host + 'api/anggaran/getSubHeader.php',
+            data: {
+                id: headerId
+            },
+            method: 'post',
+            dataType: 'json',
+            success: function(data) {
+                // console.log(data);
+
+                $('#sub_header').empty()
+                $.each(data, function(i, value) {
+                    $('#sub_header').append($('<option>').text(value.nm_subheader).attr('value', value.id_subheader));
+                });
+            }
+        });
+        // }
+    });
+    $('.divisi').on('change', function() {
+        let divisi = this.value;
+    });
 
     // $(".perhitungan").keyup(function() {
 

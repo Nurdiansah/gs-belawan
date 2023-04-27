@@ -112,4 +112,6 @@ if ($page == 'formpesan') {
     include_once "laporan_anggaran.php";
 } else if ($page == "laporan_programkerja") {
     include_once "laporan_programkerja.php";
+} else if ($page == "header_subheader") {
+    include_once "header_subheader.php";
 }

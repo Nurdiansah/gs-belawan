@@ -12,6 +12,7 @@ if (isset($_GET['id'])) {
 $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggaran = '$id'");
 $dataAnggaran = mysqli_fetch_assoc($queryAnggaran);
 $idPK = $dataAnggaran['programkerja_id'];
+$idSub = $dataAnggaran['subheader_id'];
 $idDivisi = $dataAnggaran['id_divisi'];
 $tahun = $dataAnggaran['tahun'];
 
@@ -28,6 +29,7 @@ if (isset($_POST['simpan'])) {
     $id = $_POST['id'];
     $id_divisi = $_POST['id_divisi'];
     $program_kerja  = $_POST['program_kerja'];
+    $sub_header = $_POST['sub_header'];
     $tahun = $_POST['tahun'];
     $segmen = $_POST['segmen'];
     $no_coa = $_POST['no_coa'];
@@ -54,6 +56,7 @@ if (isset($_POST['simpan'])) {
 
     $update = mysqli_query($koneksi, "UPDATE anggaran SET id_divisi = '$id_divisi',
                                             programkerja_id = '$program_kerja',
+                                            subheader_id = '$sub_header',
                                             tahun = '$tahun',
                                             id_segmen = '$segmen',
                                             no_coa = '$no_coa',
@@ -89,6 +92,10 @@ if (isset($_POST['simpan'])) {
         die;
     }
 }
+
+// ngambil data header dari sub header
+$dataSHeader = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM sub_header WHERE id_subheader = '$idSub'"));
+$dataHdr = $dataSHeader['id_header'];
 
 ?>
 
@@ -172,11 +179,36 @@ if (isset($_POST['simpan'])) {
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label id="tes" for="header" class="col-sm-offset-1 col-sm-3 control-label">Header</label>
+                            <div class="col-sm-5">
+                                <select name="id_header" id="id_header" class="form-control header_id" required>
+                                    <?php
+                                    $queryHeader = mysqli_query($koneksi, "SELECT * FROM header ORDER BY nm_header ASC");
+                                    while ($dataHeader = mysqli_fetch_assoc($queryHeader)) {
+                                    ?>
+                                        <option value="<?= $dataHeader['id_header']; ?>" <?= $dataHeader['id_header'] == $dataHdr ? "selected" : ""; ?>><?= $dataHeader['nm_header']; ?></option>
+                                    <?php
+                                    } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="tes" for="sub_header" class="col-sm-offset-1 col-sm-3 control-label">Sub Header</label>
+                            <div class="col-sm-5">
+                                <select name="sub_header" id="sub_header" class="form-control">
+                                    <?php $querySub = mysqli_query($koneksi, "SELECT * FROM sub_header WHERE id_header = '$dataHdr' ORDER BY nm_subheader ASC");
+                                    while ($dataSub = mysqli_fetch_assoc($querySub)) { ?>
+                                        <option value="<?= $dataSub['id_subheader']; ?>" <?= $dataSub['id_subheader'] == $idSub ? "selected" : ""; ?>><?= $dataSub['nm_subheader']; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
                         <input type="hidden" name="waktu" value="<?php echo $waktuSekarang; ?>">
                         <div class="form-group">
                             <label id="tes" for="no_coa" class="col-sm-offset-1 col-sm-3 control-label">Nomor Coa</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="no_coa" value="<?= $dataAnggaran['no_coa']; ?>">
+                                <input type="text" class="form-control" name="no_coa" value="<?= $dataAnggaran['no_coa']; ?>" id="no_coa">
                             </div>
                         </div>
                         <div class="form-group">
@@ -214,7 +246,7 @@ if (isset($_POST['simpan'])) {
                         <div class="form-group">
                             <label id="tes" for="kd_anggaran" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="kd_anggaran" value="<?= $dataAnggaran['kd_anggaran']; ?>">
+                                <input type="text" class="form-control" name="kd_anggaran" value="<?= $dataAnggaran['kd_anggaran']; ?>" id="kd_anggaran">
                             </div>
                         </div>
                         <div class="form-group">
@@ -457,6 +489,41 @@ if (isset($_POST['simpan'])) {
             // text.style.display = "none";
         }
     }
+
+    // nomor coa dengan kd anggaran sama sekarnag
+    const no_coa = document.getElementById('no_coa');
+    const kd_anggaran = document.getElementById('kd_anggaran');
+
+    no_coa.addEventListener('keyup', function() {
+        document.form.kd_anggaran.value = no_coa.value;
+    });
+
+
+    $('.header_id').on('change', function() {
+        let headerId = this.value;
+
+        // console.log(headerId);
+        $.ajax({
+            url: host + 'api/anggaran/getSubHeader.php',
+            data: {
+                id: headerId
+            },
+            method: 'post',
+            dataType: 'json',
+            success: function(data) {
+                // console.log(data);
+
+                $('#sub_header').empty()
+                $.each(data, function(i, value) {
+                    $('#sub_header').append($('<option>').text(value.nm_subheader).attr('value', value.id_subheader));
+                });
+            }
+        });
+        // }
+    });
+    $('.divisi').on('change', function() {
+        let divisi = this.value;
+    });
 
     // $(".perhitungan").keyup(function() {
 

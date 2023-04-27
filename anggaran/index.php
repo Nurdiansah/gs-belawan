@@ -200,8 +200,7 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
               <!-- <li><a href="index.php?p=input_anggaran_manual"><i class="fa fa-chevron-right"></i>Input Anggaran Manual</a></li> -->
               <!-- <li><a href="index.php?p=cost_center"><i class="fa fa-chevron-right"></i>Costcenter</a></li> -->
               <li><a href="index.php?p=program_kerja"><i class="fa fa-chevron-right"></i>Program Kerja</a></li>
-              <!-- <li><a href="index.php?p=golongan"><i class="fa fa-chevron-right"></i>Golongan</a></li>
-              <li><a href="index.php?p=sub_golongan"><i class="fa fa-chevron-right"></i>Sub Golongan</a></li> -->
+              <li><a href="index.php?p=header_subheader"><i class="fa fa-chevron-right"></i>Header/Sub Header</a></li>
           </li>
         </ul>
         </li>
