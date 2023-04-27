@@ -3,7 +3,7 @@
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
-$username = $_SESSION['username_gs'];
+$username = $_SESSION['username_blw'];
 
 // tambah Header
 if (isset($_POST['tambah_header'])) {

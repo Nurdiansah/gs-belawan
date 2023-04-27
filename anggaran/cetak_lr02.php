@@ -49,7 +49,7 @@ $total = mysqli_num_rows($query);
 // ngambil data PT
 $dataPT = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt = '$project'"));
 
-if (!isset($_SESSION['username_gs']) || $_SESSION['level_gs'] != "anggaran") {
+if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
     echo "<script>window.alert('Engga bisa cetak, ente belom login!');
 						location='../index.php'
 					</script>";
@@ -70,7 +70,7 @@ if (!isset($_SESSION['username_gs']) || $_SESSION['level_gs'] != "anggaran") {
             <td colspan="4"><b>LAPORAN REALISASI ANGGARAN TAHUN <?= $tahun; ?></b></td>
         </tr>
         <tr>
-            <td colspan="4"><b>PT Graha Segara</b></td>
+            <td colspan="4"><b>PT Graha Segara Belawan</b></td>
         </tr>
         <tr>
             <td colspan="4"><b>Project - <?= $dataPT['nm_pt']; ?></b></td>
