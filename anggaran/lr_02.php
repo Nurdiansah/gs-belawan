@@ -101,7 +101,7 @@ $queryPT = mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt <> '0' ORDER BY 
             <?php
 
             // variabel per sub header, dideklarasiin 0 dulu
-            $sub_header = 0;
+            $sub_header = "";
             $sub_header_nominal = 0;
             $sub_header_realisasi = 0;
             $sub_header_nota = 0;
@@ -111,7 +111,7 @@ $queryPT = mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt <> '0' ORDER BY 
             $sub_header_realisasi_persen = 0;
 
             // variabel per header, dideklarasiin 0 dulu
-            $header = 0;
+            $header = "";
             $header_nominal = 0;
             $header_realisasi = 0;
             $header_nota = 0;
