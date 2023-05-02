@@ -30,9 +30,7 @@
          <a href="index.php?p=ditolak_bno" class="list-group-item"> <i class="fa fa-close"></i> Ditolak <span class="badge label-danger"><?php if ($dataTolakBNO['jumlah'] > 0) {
                                                                                                                                             echo $dataTolakBNO['jumlah'];
                                                                                                                                           } ?></span> </a>
-         <a href="index.php?p=lihat_bno" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi <span class="badge label-success"><?php if ($dataSelesai['jumlah_Selesai'] >= 1) {
-                                                                                                                                                  echo $dataSelesai['jumlah_Selesai'];
-                                                                                                                                                } ?></span></a>
+         <a href="index.php?p=lihat_bno" class="list-group-item"> <i class="fa fa-bar-chart-o"></i> Transaksi <span class="badge label-success"></span></a>
        </div>
      </div>
      <div class="col-lg-4 col-xs-6">

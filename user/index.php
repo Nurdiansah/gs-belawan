@@ -396,11 +396,11 @@ $dataTolakBKM = mysqli_fetch_assoc($queryTolakBKM);
                 </span>
               <?php } ?>
               <li><a href="index.php?p=ditolak_biayanonops"><i class="fa fa-close"></i> Ditolak</a></li>
-              <?php if ($dataSelesai['jumlah_Selesai'] >= 1) { ?>
+              <!-- <?php if ($dataSelesai['jumlah_Selesai'] >= 1) { ?>
                 <span class="pull-right-container">
                   <span class="label label-success pull-right"><?= $dataSelesai['jumlah_Selesai']; ?></span>
                 </span>
-              <?php } ?>
+              <?php } ?> -->
               <li><a href="index.php?p=lihat_bno"><i class="fa fa-bar-chart-o"></i> Transaksi</a></li>
             </ul>
           </li>
@@ -486,11 +486,11 @@ $dataTolakBKM = mysqli_fetch_assoc($queryTolakBKM);
                 </span>
               <?php } ?>
               <li><a href="index.php?p=ditolak_kasbon&sp=tolak_purchasing"><i class="fa fa-close"></i> Ditolak</a></li>
-              <?php if ($dataKT['jumlah']  > 0) { ?>
+              <!-- <?php if ($dataKT['jumlah']  > 0) { ?>
                 <span class="pull-right-container">
                   <span class="label label-success pull-right"><?= $dataKT['jumlah']; ?></span>
                 </span>
-              <?php } ?>
+              <?php } ?> -->
               <li><a href="index.php?p=kasbon_transaksi"><i class="fa fa-bar-chart-o"></i> Transaksi</a></li>
             </ul>
           </li>

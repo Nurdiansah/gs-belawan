@@ -398,11 +398,11 @@ $dataProsesPO = mysqli_fetch_assoc($queryProsesPO);
                 </span>
               <?php } ?>
               <li><a href="index.php?p=ditolak_bno"><i class="fa fa-close"></i> Ditolak</a></li>
-              <?php if ($dataSelesai['jumlah_Selesai'] >= 1) { ?>
+              <!-- <?php if ($dataSelesai['jumlah_Selesai'] >= 1) { ?>
                 <span class="pull-right-container">
                   <span class="label label-success pull-right"><?= $dataSelesai['jumlah_Selesai']; ?></span>
                 </span>
-              <?php } ?>
+              <?php } ?> -->
               <li><a href="index.php?p=lihat_bno"><i class="fa fa-bar-chart-o"></i> Transaksi</a></li>
             </ul>
           </li>
@@ -490,11 +490,11 @@ $dataProsesPO = mysqli_fetch_assoc($queryProsesPO);
                 </span>
               <?php } ?>
               <li><a href="index.php?p=ditolak_kasbon&sp=tolak_purchasing"><i class="fa fa-close"></i> Ditolak</a></li>
-              <?php if ($jumlahKT > 0) { ?>
+              <!-- <?php if ($jumlahKT > 0) { ?>
                 <span class="pull-right-container">
                   <span class="label label-success pull-right"><?= $jumlahKT; ?></span>
                 </span>
-              <?php } ?>
+              <?php } ?> -->
               <li><a href="index.php?p=kasbon_transaksi&sp=kt_purchasing"><i class="fa fa-bar-chart-o"></i> Transaksi</a></li>
             </ul>
           </li>
