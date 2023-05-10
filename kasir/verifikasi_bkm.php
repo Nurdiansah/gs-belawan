@@ -13,6 +13,7 @@ $queryBKM = mysqli_query($koneksi, "SELECT * FROM bkm b
 if (isset($_POST['verifikasi'])) {
     $id_bkm = $_POST['id_bkm'];
     $rekening_koran = $_POST['rekening_koran'];
+    $tgl_pembayaran = datetimeHtml($_POST['tgl_pembayaran']) . ":00";
 
     $path = $_FILES['bukti_pembayaran']['tmp_name'];
     $bukti_pembayaran = $_FILES['bukti_pembayaran']['name'];
@@ -22,6 +23,7 @@ if (isset($_POST['verifikasi'])) {
     mysqli_begin_transaction($koneksi);
 
     $verifikasi = mysqli_query($koneksi, "UPDATE bkm SET status_bkm = '3',
+                                                tgl_bkm = '$tgl_pembayaran',
                                                 remarks = '$rekening_koran',
                                                 bukti_pembayaran = '$nm_baru',
                                                 v_kasir = NOW()
@@ -125,6 +127,13 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                                                         <label for="tanggal" class="col-sm-offset-1 col-sm-3 control-label ">Slip Setoran</label>
                                                                         <div class="col-sm-6">
                                                                             <input type="file" name="bukti_pembayaran" class="form-control" accept="application/pdf">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="tgl_pembayaran" class="col-sm-offset-1 col-sm-3 control-label">Tanggal Pembayaran</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="datetime-local" class="form-control" name="tgl_pembayaran" required>
+                                                                            <!-- <p style="color: red; size: 9px;"><i>*Opsional</i></p> -->
                                                                         </div>
                                                                     </div>
                                                                 </div>
