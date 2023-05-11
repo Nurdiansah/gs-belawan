@@ -617,7 +617,7 @@ function convertDatetimeLocal($data)
 function kataJenis($data)
 {
 
-    return  ucfirst(str_replace("_", " ", $data));
+    return ucwords(str_replace("_", " ", $data));
 }
 
 function orderNumber($data)

@@ -17,8 +17,8 @@ if ($_POST['tampil']) {
 }
 
 $query = mysqli_query($koneksi, "SELECT DISTINCT agg.id_anggaran, nm_divisi, nm_header, nm_subheader, no_coa, nm_coa, nm_item, 
-                                        januari_nominal + februari_nominal + maret_nominal + april_nominal + mei_nominal + juni_nominal + juli_nominal + agustus_nominal + september_nominal + oktober_nominal + november_nominal + desember_nominal AS jml_nominal,
-                                        januari_realisasi + februari_realisasi + maret_realisasi + april_realisasi + mei_realisasi + juni_realisasi + juli_realisasi + agustus_realisasi + september_realisasi + oktober_realisasi + november_realisasi + desember_realisasi AS jml_realisasi,
+                                        SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS jml_nominal,
+                                        SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) AS jml_realisasi,
                                         IFNULL(SUM(nota.nominal), 0) AS nota, IFNULL(SUM(pra_nota.nominal), 0) AS pra_nota
                                     FROM program_kerja pk
                                     JOIN anggaran agg
@@ -47,7 +47,7 @@ $query = mysqli_query($koneksi, "SELECT DISTINCT agg.id_anggaran, nm_divisi, nm_
                                     AND id_pt = '$project'
                                     AND id_parent = '$divisi'
                                     AND agg.id_divisi = '$sub_divisi'
-                                    GROUP BY agg.id_anggaran
+                                    GROUP BY no_coa, nm_coa, nm_header, nm_subheader
                                     ORDER BY nm_header, nm_subheader, nm_coa ASC");
 
 $link = "url=index.php?p=transaksi_bkk&lvl=anggaran";
@@ -137,7 +137,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
             <tr style="background-color: #87CEFA;">
                 <th>Kode Akun</th>
                 <th>Nama Akun</th>
-                <th>Divisi</th>
+                <!-- <th>Divisi</th> -->
                 <th>Anggaran</th>
                 <th>Realisasi Kas</th>
                 <th>Realisasi Nota</th>
@@ -179,7 +179,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                     <tr style="background-color: yellow;">
                         <th></th>
                         <th><?= $sub_header; ?></th>
-                        <th></th>
+                        <!-- <th></th> -->
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_header_nominal); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_header_realisasi); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_header_nota); ?></b></td>
@@ -214,7 +214,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                     <tr style="background-color: red;">
                         <th></th>
                         <th><?= $header; ?></th>
-                        <th></th>
+                        <!-- <th></th> -->
                         <td style="text-align: right;"><b><?= formatRupiah2($header_nominal); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($header_realisasi); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($header_nota); ?></b></td>
@@ -252,7 +252,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                 <tr>
                     <td><?= $data['no_coa']; ?></td>
                     <td><?= $data['nm_coa']; ?></td>
-                    <td><?= $data['nm_divisi']; ?></td>
+                    <!-- <td><?= $data['nm_divisi']; ?></td> -->
                     <td style="text-align: right;"><?= formatRupiah2($data['jml_nominal']); ?></td>
                     <td style="text-align: right;"><?= formatRupiah2($data['jml_realisasi']); ?></td>
                     <td style="text-align: right;"><?= formatRupiah2($data['nota']); ?></td>
@@ -275,7 +275,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
             <tr style="background-color: yellow;">
                 <th></th>
                 <th><?= $sub_header; ?></th>
-                <th></th>
+                <!-- <th></th> -->
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_header_nominal); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_header_realisasi); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_header_nota); ?></b></td>
@@ -290,7 +290,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
             <tr style="background-color: red;">
                 <th></th>
                 <th><?= $header; ?></th>
-                <th></th>
+                <!-- <th></th> -->
                 <td style="text-align: right;"><b><?= formatRupiah2($header_nominal); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($header_realisasi); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($header_nota); ?></b></td>

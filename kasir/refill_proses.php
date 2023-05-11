@@ -145,6 +145,7 @@ if (isset($_POST['release'])) {
                             <thead>
                                 <tr style="background-color :#B0C4DE;">
                                     <th>Order Number</th>
+                                    <th>Jenis</th>
                                     <th>Tanggal</th>
                                     <th>Keterangan</th>
                                     <th>Total</th>
@@ -161,6 +162,7 @@ if (isset($_POST['release'])) {
                                             <td>
                                                 <a href="index.php?p=refill_show&id=<?= enkripRambo($row['id_refill']) ?>&back=refill_proses"><?= orderNumber($row['id_refill']);  ?></a>
                                             </td>
+                                            <td><?= kataJenis($row['jenis']); ?></td>
                                             <td> <?= formatTanggal($row['created_at']); ?> </td>
                                             <td> <?= batasiKata($row['keterangan']); ?> </td>
                                             <td>
