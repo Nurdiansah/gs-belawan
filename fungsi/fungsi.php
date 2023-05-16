@@ -694,9 +694,9 @@ function kodeAnggaran($id_anggaran)
     return $hasil;
 }
 
-function warnaSurplus($nominal, $realisasi)
+function warnaSurplus($budget, $realisasi, $pra_nota)
 {
-    $warna = $nominal > $realisasi ? "style='color: red;'" : "";
+    $warna = $budget < ($realisasi + $pra_nota) ? "style='color: red;'" : "";
 
     return $warna;
 }

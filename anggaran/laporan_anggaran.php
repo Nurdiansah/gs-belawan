@@ -155,84 +155,84 @@ $queryDivisi = mysqli_query($koneksi, "SELECT * FROM divisi WHERE id_divisi <> '
                             </tr>
                         </thead>
                         <tbody>
-                            <tr <?= warnaSurplus($dataChart['januari_realisasi'], $dataChart['januari_nominal']); ?>>
+                            <tr <?= warnaSurplus($dataChart['januari_nominal'], $dataChart['januari_realisasi'], 0); ?>>
                                 <td>1</td>
                                 <td>Januari</td>
                                 <td><?= formatRupiah($dataChart['januari_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['januari_realisasi']); ?></td>
                                 <td><?= kurungSurplus($dataChart['januari_nominal'], $dataChart['januari_realisasi']); ?></td>
                             </tr>
-                            <tr <?= warnaSurplus($dataChart['februari_realisasi'], $dataChart['februari_nominal']); ?>>
+                            <tr <?= warnaSurplus($dataChart['februari_nominal'], $dataChart['februari_realisasi'], 0); ?>>
                                 <td>2</td>
                                 <td>Februari</td>
                                 <td><?= formatRupiah($dataChart['februari_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['februari_realisasi']); ?></td>
                                 <td><?= kurungSurplus($dataChart['februari_nominal'], $dataChart['februari_realisasi']); ?></td>
                             </tr>
-                            <tr <?= warnaSurplus($dataChart['maret_realisasi'], $dataChart['maret_nominal']); ?>>
+                            <tr <?= warnaSurplus($dataChart['maret_nominal'], $dataChart['maret_realisasi'], 0); ?>>
                                 <td>3</td>
                                 <td>Maret</td>
                                 <td><?= formatRupiah($dataChart['maret_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['maret_realisasi']); ?></td>
                                 <td><?= kurungSurplus($dataChart['maret_nominal'], $dataChart['maret_realisasi']); ?></td>
                             </tr>
-                            <tr <?= warnaSurplus($dataChart['april_realisasi'], $dataChart['april_nominal']); ?>>
+                            <tr <?= warnaSurplus($dataChart['april_nominal'], $dataChart['april_realisasi'], 0); ?>>
                                 <td>4</td>
                                 <td>April</td>
                                 <td><?= formatRupiah($dataChart['april_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['april_realisasi']); ?></td>
                                 <td><?= kurungSurplus($dataChart['april_nominal'], $dataChart['april_realisasi']); ?></td>
                             </tr>
-                            <tr <?= warnaSurplus($dataChart['mei_realisasi'], $dataChart['mei_nominal']); ?>>
+                            <tr <?= warnaSurplus($dataChart['mei_nominal'], $dataChart['mei_realisasi'], 0); ?>>
                                 <td>5</td>
                                 <td>Mei</td>
                                 <td><?= formatRupiah($dataChart['mei_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['mei_realisasi']); ?></td>
                                 <td><?= kurungSurplus($dataChart['mei_nominal'], $dataChart['mei_realisasi']); ?></td>
                             </tr>
-                            <tr <?= warnaSurplus($dataChart['juni_realisasi'], $dataChart['juni_nominal']); ?>>
+                            <tr <?= warnaSurplus($dataChart['juni_nominal'], $dataChart['juni_realisasi'], 0); ?>>
                                 <td>6</td>
                                 <td>Juni</td>
                                 <td><?= formatRupiah($dataChart['juni_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['juni_realisasi']); ?></td>
                                 <td><?= kurungSurplus($dataChart['juni_nominal'], $dataChart['juni_realisasi']); ?></td>
                             </tr>
-                            <tr <?= warnaSurplus($dataChart['juli_realisasi'], $dataChart['juli_nominal']); ?>>
+                            <tr <?= warnaSurplus($dataChart['juli_nominal'], $dataChart['juli_realisasi'], 0); ?>>
                                 <td>7</td>
                                 <td>Juli</td>
                                 <td><?= formatRupiah($dataChart['juli_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['juli_realisasi']); ?></td>
                                 <td><?= kurungSurplus($dataChart['juli_nominal'], $dataChart['juli_realisasi']); ?></td>
                             </tr>
-                            <tr <?= warnaSurplus($dataChart['agustus_realisasi'], $dataChart['agustus_nominal']); ?>>
+                            <tr <?= warnaSurplus($dataChart['agustus_nominal'], $dataChart['agustus_realisasi'], 0); ?>>
                                 <td>8</td>
                                 <td>Agustus</td>
                                 <td><?= formatRupiah($dataChart['agustus_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['agustus_realisasi']); ?></td>
                                 <td><?= kurungSurplus($dataChart['agustus_nominal'], $dataChart['agustus_realisasi']); ?></td>
                             </tr>
-                            <tr <?= warnaSurplus($dataChart['september_realisasi'], $dataChart['september_nominal']); ?>>
+                            <tr <?= warnaSurplus($dataChart['september_nominal'], $dataChart['september_realisasi'], 0); ?>>
                                 <td>9</td>
                                 <td>September</td>
                                 <td><?= formatRupiah($dataChart['september_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['september_realisasi']); ?></td>
                                 <td><?= kurungSurplus($dataChart['september_nominal'], $dataChart['september_realisasi']); ?></td>
                             </tr>
-                            <tr <?= warnaSurplus($dataChart['oktober_realisasi'], $dataChart['oktober_nominal']); ?>>
+                            <tr <?= warnaSurplus($dataChart['oktober_nominal'], $dataChart['oktober_realisasi'], 0); ?>>
                                 <td>10</td>
                                 <td>Oktober</td>
                                 <td><?= formatRupiah($dataChart['oktober_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['oktober_realisasi']); ?></td>
                                 <td><?= kurungSurplus($dataChart['oktober_nominal'], $dataChart['oktober_realisasi']); ?></td>
                             </tr>
-                            <tr <?= warnaSurplus($dataChart['november_realisasi'], $dataChart['november_nominal']); ?>>
+                            <tr <?= warnaSurplus($dataChart['november_nominal'], $dataChart['november_realisasi'], 0); ?>>
                                 <td>11</td>
                                 <td>November</td>
                                 <td><?= formatRupiah($dataChart['november_nominal']); ?></td>
                                 <td><?= formatRupiah($dataChart['november_realisasi']); ?></td>
                                 <td><?= kurungSurplus($dataChart['november_nominal'], $dataChart['november_realisasi']); ?></td>
                             </tr>
-                            <tr <?= warnaSurplus($dataChart['desember_realisasi'], $dataChart['desember_nominal']); ?>>
+                            <tr <?= warnaSurplus($dataChart['desember_nominal'], $dataChart['desember_realisasi'], 0); ?>>
                                 <td>12</td>
                                 <td>Desember</td>
                                 <td><?= formatRupiah($dataChart['desember_nominal']); ?></td>
