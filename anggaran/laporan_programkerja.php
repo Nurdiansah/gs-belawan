@@ -188,13 +188,13 @@ $no = 1;
                     <select name="tahun" class="form-control" required>
                         <?php
                         if (isset($_POST['cari'])) {
-                            foreach (range(2019, $tahunSekarang) as $tahun) { ?>
+                            foreach (range(2021, $tahunSekarang) as $tahun) { ?>
                                 <option value="<?= $tahun; ?>" <?php if ($tahun == $_POST['tahun']) {
                                                                     echo "selected=selected";
                                                                 } ?>><?= $tahun; ?></option>
                             <?php }
                         } else {
-                            foreach (range(2019, $tahunSekarang) as $tahun) { ?>
+                            foreach (range(2021, $tahunSekarang) as $tahun) { ?>
                                 <option value="<?= $tahun; ?>" <?php if ($tahun == $tahunSekarang) {
                                                                     echo "selected=selected";
                                                                 } ?>><?= $tahun; ?></option>
