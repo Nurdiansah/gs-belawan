@@ -39,8 +39,8 @@ if (isset($_GET['url']) && isset($_GET['lvl']) || isset($_GET['sp'])) {
 }
 
 if (isset($_POST['login'])) {
-	$username = $_POST['username'];
-	$password = md5($_POST['password']);
+	$username = htmlspecialchars($_POST['username']);
+	$password = htmlspecialchars(md5($_POST['password']));
 
 	$query = "SELECT * FROM user WHERE username='$username' && password='$password'";
 	$hasil = mysqli_query($koneksi, $query);
