@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-session_destroy();
+// session_destroy();
 include "fungsi/koneksi.php";
 // log
 $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]'");
