@@ -17,7 +17,10 @@ $queryLog = "INSERT INTO log_system (waktu, nama_user, keterangan) VALUES
 								";
 mysqli_query($koneksi, $queryLog);
 
-unset($_SESSION);
+// unset($_SESSION);
 unset($_COOKIE);
+unset($_SESSION['login_blw']);
+unset($_SESSION['username_blw']);
+unset($_SESSION['level_blw']);
 
 header("location:index.php");

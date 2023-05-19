@@ -127,7 +127,7 @@ $tahunAyeuna = date("Y");
                         </div>
                         <!-- <div class="perhitungan"> -->
                         <div class="form-group">
-                            <label id="tes" for="deskripsi" class="col-sm-offset-1 col-sm-3 control-label">Deskripsi</label>
+                            <label id="tes" for="deskripsi" class="col-sm-offset-1 col-sm-3 control-label">Deskripsi Anggaran</label>
                             <div class="col-sm-5">
                                 <!-- <input type="text" required class="form-control" name="deskripsi"> -->
                                 <textarea name="deskripsi" id="deskripsi" rows="2" class="form-control"></textarea>

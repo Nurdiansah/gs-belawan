@@ -29,7 +29,7 @@ if (isset($_POST['tahun']) && isset($_POST['divisi'])) {
     $divisi = "1";
 }
 
-$queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, nm_item, nm_pt, nm_user, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi) AS cost_center, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_programkerja, kd_segmen, no_coa, nm_coa, kd_anggaran, nm_item, januari_nominal, januari_realisasi, februari_nominal, februari_realisasi, maret_nominal, maret_realisasi, april_nominal, april_realisasi, mei_nominal, mei_realisasi, juni_nominal, juni_realisasi, juli_nominal, juli_realisasi, agustus_nominal, agustus_realisasi, september_nominal, september_realisasi, november_nominal, november_realisasi, desember_nominal, desember_realisasi, jumlah_nominal, jumlah_realisasi
+$queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, nm_item, nm_pt, nm_user, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi) AS cost_center, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, kd_programkerja, nm_programkerja, kd_segmen, no_coa, nm_coa, kd_anggaran, nm_item, januari_nominal, januari_realisasi, februari_nominal, februari_realisasi, maret_nominal, maret_realisasi, april_nominal, april_realisasi, mei_nominal, mei_realisasi, juni_nominal, juni_realisasi, juli_nominal, juli_realisasi, agustus_nominal, agustus_realisasi, september_nominal, september_realisasi, november_nominal, november_realisasi, desember_nominal, desember_realisasi, jumlah_nominal, jumlah_realisasi
                                             FROM anggaran agg
                                             JOIN program_kerja
                                                 ON programkerja_id = id_programkerja
@@ -114,7 +114,7 @@ $tahunAyeuna = date("Y");
                                 <th>No COA</th>
                                 <th>Nama COA</th>
                                 <th>Kode Transaksi</th>
-                                <th>Deskripsi</th>
+                                <th>Deskripsi Anggaran</th>
                                 <th>Nominal Budget</th>
                                 <th>Aksi</th>
                             </tr>
@@ -130,7 +130,7 @@ $tahunAyeuna = date("Y");
                                         <td> <?= $row['nm_pt']; ?> </td>
                                         <td> <?= $row['nm_user']; ?> </td>
                                         <!-- <td> <?= $row['cost_center']; ?> </td> -->
-                                        <td> <?= $row['nm_programkerja']; ?> </td>
+                                        <td> <?= $row['kd_programkerja'] . " [" . $row['nm_programkerja']; ?>]</td>
                                         <td> <?= $row['kd_segmen']; ?> </td>
                                         <td> <?= $row['no_coa']; ?> </td>
                                         <td> <?= $row['nm_coa']; ?> </td>
