@@ -54,6 +54,41 @@ if (isset($_POST['simpan'])) {
     $nominal_desember = str_replace(".", "", $_POST['nominal_desember']);
     $nominal_jumlah = str_replace(".", "", $_POST['nominal_jumlah']);
 
+    // ngambil data anggaran sebelum dirubah
+    $dataAgg = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggaran = '$id'"));
+
+    $keterangan = "Divisi              : " . $dataAgg['id_divisi'] . " menjadi $id_divisi
+Program Kerja       : " . $dataAgg['programkerja_id'] . " menjadi $program_kerja
+Sub Header          : " . $dataAgg['subheader_id'] . " menjadi $sub_header
+Tahun               : " . $dataAgg['tahun'] . " menjadi $tahun
+Segmen              : " . $dataAgg['id_segmen'] . " menjadi $segmen
+No COA              : " . $dataAgg['no_coa'] . " menjadi $no_coa
+Nama COA            : " . $dataAgg['nm_coa'] . " menjadi $nm_coa
+Tipe Anggaran       : " . $dataAgg['tipe_anggaran'] . " menjadi $tipe_anggaran
+Jenis Anggaran      : " . $dataAgg['jenis_anggaran'] . " menjadi $jenis_anggaran
+Deskripsi           : " . $dataAgg['nm_item'] . " menjadi $deskripsi
+Kode Anggaran       : " . $dataAgg['kd_anggaran'] . " menjadi $kd_anggaran
+Perdin              : " . $dataAgg['spj'] . " menjadi $perdin
+Unlock              : " . $dataAgg['unlock'] . " menjadi $unlock
+Januari Nominal     : " . $dataAgg['januari_nominal'] . " menjadi $nominal_januari
+Februari Nominal    : " . $dataAgg['februari_nominal'] . " menjadi $nominal_februari
+Maret Nominal       : " . $dataAgg['maret_nominal'] . " menjadi $nominal_maret
+April Nominal       : " . $dataAgg['april_nominal'] . " menjadi $nominal_april
+Mei Nominal         : " . $dataAgg['mei_nominal'] . " menjadi $nominal_mei
+Juni Nominal        : " . $dataAgg['juni_nominal'] . " menjadi $nominal_juni
+Juli Nominal        : " . $dataAgg['juli_nominal'] . " menjadi $nominal_juli
+Agustus Nominal     : " . $dataAgg['agustus_nominal'] . " menjadi $nominal_agustus
+September Nominal   : " . $dataAgg['september_nominal'] . " menjadi $nominal_september
+Oktober Nominal     : " . $dataAgg['oktober_nominal'] . " menjadi $nominal_oktober
+November Nominal    : " . $dataAgg['november_nominal'] . " menjadi $nominal_november
+Desember Nominal    : " . $dataAgg['desember_nominal'] . " menjadi $nominal_desember
+Jumlah Nominal      : " . $dataAgg['jumlah_nominal'] . " menjadi $nominal_jumlah";
+    // echo $keterangan;
+    // die;
+    $updateLog = mysqli_query($koneksi, "INSERT INTO log_anggaran (id_anggaran, aksi, keterangan, dirubah_oleh, waktu_dirubah) VALUES
+                                                                    ('$id', 'EDIT BUDGET', '$keterangan', '$nama', NOW())
+                        ");
+
     $update = mysqli_query($koneksi, "UPDATE anggaran SET id_divisi = '$id_divisi',
                                             programkerja_id = '$program_kerja',
                                             subheader_id = '$sub_header',
