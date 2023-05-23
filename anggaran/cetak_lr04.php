@@ -196,14 +196,14 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
             if ($no > 1 && $sub_header != $dataOpex['nm_subheader']) {  ?>
                 <tr style="background-color: yellow;">
                     <th></th>
-                    <th><?= $sub_header; ?></th>
+                    <th style="text-align: left;"><?= $sub_header; ?></th>
                     <!-- <th></th> -->
                     <td style="text-align: right;"><b><?= formatRupiah2($sub_header_nominal); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($sub_header_realisasi); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($sub_header_nota); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($sub_header_pranota); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($sub_header_jumlah_realisasi); ?></b></td>
-                    <td style="text-align: right;"><b><?= formatRupiah2($sub_header_sisa_anggaran); ?></b></td>
+                    <td style="text-align: right;"><b><?= kurungSurplus2($sub_header_nominal, $sub_header_jumlah_realisasi); ?></b></td>
                     <th><?= $sub_header_realisasi_persen; ?>%</th>
                     <!-- <th></th> -->
                 </tr>
@@ -231,14 +231,14 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
             if ($no > 1 && $header != $dataOpex['nm_header']) {  ?>
                 <tr style="background-color: red;">
                     <th></th>
-                    <th><?= $header; ?></th>
+                    <th style="text-align: left;"><?= $header; ?></th>
                     <!-- <th></th> -->
                     <td style="text-align: right;"><b><?= formatRupiah2($header_nominal); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($header_realisasi); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($header_nota); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($header_pranota); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($header_jumlah_realisasi); ?></b></td>
-                    <td style="text-align: right;"><b><?= formatRupiah2($header_sisa_anggaran); ?></b></td>
+                    <td style="text-align: right;"><b><?= kurungSurplus2($header_nominal, $header_jumlah_realisasi); ?></b></td>
                     <th><?= $header_realisasi_persen; ?>%</th>
                     <!-- <th></th> -->
                 </tr>
@@ -269,14 +269,14 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
             ?>
             <tr>
                 <td><?= $dataOpex['no_coa']; ?></td>
-                <td><?= $dataOpex['nm_coa']; ?></td>
+                <td style="text-align: left;"><?= $dataOpex['nm_coa']; ?></td>
                 <!-- <td><?= $dataOpex['nm_divisi']; ?></td> -->
                 <td style="text-align: right;"><?= formatRupiah2($dataOpex['jml_nominal']); ?></td>
                 <td style="text-align: right;"><?= formatRupiah2($dataOpex['jml_realisasi']); ?></td>
                 <td style="text-align: right;"><?= formatRupiah2($dataOpex['nota']); ?></td>
                 <td style="text-align: right;"><?= formatRupiah2($dataOpex['pra_nota']); ?></td>
                 <td style="text-align: right;"><?= formatRupiah2($jumlah_realisasi); ?></td>
-                <td style="text-align: right;"><?= formatRupiah2($sisa_anggaran); ?></td>
+                <td style="text-align: right;"><?= kurungSurplus2($dataOpex['jml_nominal'], $jumlah_realisasi); ?></td>
                 <td style="text-align: center;"><?= $realisasi_persen; ?>%</td>
                 <!-- <td>-</td> -->
             </tr>
@@ -292,14 +292,14 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
         <!-- sub total sub header paling akhir -->
         <tr style="background-color: yellow;">
             <th></th>
-            <th><?= $sub_header; ?></th>
+            <th style="text-align: left;"><?= $sub_header; ?></th>
             <!-- <th></th> -->
             <td style="text-align: right;"><b><?= formatRupiah2($sub_header_nominal); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($sub_header_realisasi); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($sub_header_nota); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($sub_header_pranota); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($sub_header_jumlah_realisasi); ?></b></td>
-            <td style="text-align: right;"><b><?= formatRupiah2($sub_header_sisa_anggaran); ?></b></td>
+            <td style="text-align: right;"><b><?= kurungSurplus2($sub_header_nominal, $sub_header_jumlah_realisasi); ?></b></td>
             <th><?= $sub_header_realisasi_persen; ?>%</th>
             <!-- <th></th> -->
         </tr>
@@ -307,14 +307,14 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
         <!-- total header paling akhir -->
         <tr style="background-color: red;">
             <th></th>
-            <th><?= $header; ?></th>
+            <th style="text-align: left;"><?= $header; ?></th>
             <!-- <th></th> -->
             <td style="text-align: right;"><b><?= formatRupiah2($header_nominal); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($header_realisasi); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($header_nota); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($header_pranota); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($header_jumlah_realisasi); ?></b></td>
-            <td style="text-align: right;"><b><?= formatRupiah2($header_sisa_anggaran); ?></b></td>
+            <td style="text-align: right;"><b><?= kurungSurplus2($header_nominal, $header_jumlah_realisasi); ?></b></td>
             <th><?= $header_realisasi_persen; ?>%</th>
             <!-- <th></th> -->
         </tr>
@@ -367,14 +367,14 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
             if ($no > 1 && $sub_header != $dataCapex['nm_subheader']) {  ?>
                 <tr style="background-color: yellow;">
                     <th></th>
-                    <th><?= $sub_header; ?></th>
+                    <th style="text-align: left;"><?= $sub_header; ?></th>
                     <!-- <th></th> -->
                     <td style="text-align: right;"><b><?= formatRupiah2($sub_header_nominal); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($sub_header_realisasi); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($sub_header_nota); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($sub_header_pranota); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($sub_header_jumlah_realisasi); ?></b></td>
-                    <td style="text-align: right;"><b><?= formatRupiah2($sub_header_sisa_anggaran); ?></b></td>
+                    <td style="text-align: right;"><b><?= kurungSurplus2($sub_header_nominal, $sub_header_jumlah_realisasi); ?></b></td>
                     <th><?= $sub_header_realisasi_persen; ?>%</th>
                     <!-- <th></th> -->
                 </tr>
@@ -402,14 +402,14 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
             if ($no > 1 && $header != $dataCapex['nm_header']) {  ?>
                 <tr style="background-color: red;">
                     <th></th>
-                    <th><?= $header; ?></th>
+                    <th style="text-align: left;"><?= $header; ?></th>
                     <!-- <th></th> -->
                     <td style="text-align: right;"><b><?= formatRupiah2($header_nominal); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($header_realisasi); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($header_nota); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($header_pranota); ?></b></td>
                     <td style="text-align: right;"><b><?= formatRupiah2($header_jumlah_realisasi); ?></b></td>
-                    <td style="text-align: right;"><b><?= formatRupiah2($header_sisa_anggaran); ?></b></td>
+                    <td style="text-align: right;"><b><?= kurungSurplus2($header_nominal, $header_jumlah_realisasi); ?></b></td>
                     <th><?= $header_realisasi_persen; ?>%</th>
                     <!-- <th></th> -->
                 </tr>
@@ -440,14 +440,14 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
             ?>
             <tr>
                 <td><?= $dataCapex['no_coa']; ?></td>
-                <td><?= $dataCapex['nm_coa']; ?></td>
+                <td style="text-align: left;"><?= $dataCapex['nm_coa']; ?></td>
                 <!-- <td><?= $dataCapex['nm_divisi']; ?></td> -->
                 <td style="text-align: right;"><?= formatRupiah2($dataCapex['jml_nominal']); ?></td>
                 <td style="text-align: right;"><?= formatRupiah2($dataCapex['jml_realisasi']); ?></td>
                 <td style="text-align: right;"><?= formatRupiah2($dataCapex['nota']); ?></td>
                 <td style="text-align: right;"><?= formatRupiah2($dataCapex['pra_nota']); ?></td>
                 <td style="text-align: right;"><?= formatRupiah2($jumlah_realisasi); ?></td>
-                <td style="text-align: right;"><?= formatRupiah2($sisa_anggaran); ?></td>
+                <td style="text-align: right;"><?= kurungSurplus2($dataCapex['jml_nominal'], $jumlah_realisasi); ?></td>
                 <td style="text-align: center;"><?= $realisasi_persen; ?>%</td>
                 <!-- <td>-</td> -->
             </tr>
@@ -463,14 +463,14 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
         <!-- sub total sub header paling akhir -->
         <tr style="background-color: yellow;">
             <th></th>
-            <th><?= $sub_header; ?></th>
+            <th style="text-align: left;"><?= $sub_header; ?></th>
             <!-- <th></th> -->
             <td style="text-align: right;"><b><?= formatRupiah2($sub_header_nominal); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($sub_header_realisasi); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($sub_header_nota); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($sub_header_pranota); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($sub_header_jumlah_realisasi); ?></b></td>
-            <td style="text-align: right;"><b><?= formatRupiah2($sub_header_sisa_anggaran); ?></b></td>
+            <td style="text-align: right;"><b><?= kurungSurplus2($sub_header_nominal, $sub_header_jumlah_realisasi); ?></b></td>
             <th><?= $sub_header_realisasi_persen; ?>%</th>
             <!-- <th></th> -->
         </tr>
@@ -478,14 +478,14 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
         <!-- total header paling akhir -->
         <tr style="background-color: red;">
             <th></th>
-            <th><?= $header; ?></th>
+            <th style="text-align: left;"><?= $header; ?></th>
             <!-- <th></th> -->
             <td style="text-align: right;"><b><?= formatRupiah2($header_nominal); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($header_realisasi); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($header_nota); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($header_pranota); ?></b></td>
             <td style="text-align: right;"><b><?= formatRupiah2($header_jumlah_realisasi); ?></b></td>
-            <td style="text-align: right;"><b><?= formatRupiah2($header_sisa_anggaran); ?></b></td>
+            <td style="text-align: right;"><b><?= kurungSurplus2($header_nominal, $header_jumlah_realisasi); ?></b></td>
             <th><?= $header_realisasi_persen; ?>%</th>
             <!-- <th></th> -->
         </tr>

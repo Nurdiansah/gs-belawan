@@ -234,7 +234,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                         <th><?= $pk_kd_dept; ?></th>
                         <th><?= $pk_kd_subdept; ?></th>
                         <th><?= $pk_kd_subrenja; ?></th>
-                        <th><?= $program_kerja; ?></th>
+                        <th style="text-align: left;"><?= $program_kerja; ?></th>
                         <th></th>
                         <th></th>
                         <th>Total</th>
@@ -243,7 +243,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_nota); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_pranota); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_jumlah_realisasi); ?></b></td>
-                        <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_sisa_anggaran); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungSurplus2($sub_pk_nominal, $sub_pk_jumlah_realisasi); ?></b></td>
                         <th><?= $sub_pk_realisasi_persen; ?>%</th>
                         <th></th>
                     </tr>
@@ -295,7 +295,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_nota); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_pranota); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_jumlah_realisasi); ?></b></td>
-                        <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_sisa_anggaran); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungSurplus2($sub_divisi_nominal, $sub_divisi_jumlah_realisasi); ?></b></td>
                         <th><?= $sub_divisi_realisasi_persen; ?>%</th>
                         <th></th>
                     </tr>
@@ -336,7 +336,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_nota); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_pranota); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_jumlah_realisasi); ?></b></td>
-                        <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_sisa_anggaran); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungSurplus2($sub_pt_nominal, $sub_pt_jumlah_realisasi); ?></b></td>
                         <th><?= $sub_pt_realisasi_persen; ?>%</th>
                         <th></th>
                     </tr>
@@ -374,16 +374,16 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                     <td><?= substr($dataOpex['kd_programkerja'], 5, 2); ?></td>
                     <td><?= substr($dataOpex['kd_programkerja'], 5, 4); ?></td>
                     <td><?= $dataOpex['kd_programkerja']; ?></td>
-                    <td><?= $dataOpex['nm_programkerja']; ?></td>
+                    <td style="text-align: left;"><?= $dataOpex['nm_programkerja']; ?></td>
                     <td><?= $dataOpex['no_coa']; ?></td>
-                    <td><?= $dataOpex['nm_coa']; ?></td>
-                    <td><?= $dataOpex['nm_item']; ?></td>
+                    <td style="text-align: left;"><?= $dataOpex['nm_coa']; ?></td>
+                    <td style="text-align: left;"><?= $dataOpex['nm_item']; ?></td>
                     <td style="text-align: right;"><?= formatRupiah2($dataOpex['jml_nominal']); ?></td>
                     <td style="text-align: right;"><?= formatRupiah2($dataOpex['jml_realisasi']); ?></td>
                     <td style="text-align: right;"><?= formatRupiah2($dataOpex['nota']); ?></td>
                     <td style="text-align: right;"><?= formatRupiah2($dataOpex['pra_nota']); ?></td>
                     <td style="text-align: right;"><?= formatRupiah2($jumlah_realisasi); ?></td>
-                    <td style="text-align: right;"><?= formatRupiah2($sisa_anggaran); ?></td>
+                    <td style="text-align: right;"><?= kurungSurplus2($dataOpex['jml_nominal'], $jumlah_realisasi); ?></td>
                     <td><?= $realisasi_persen; ?>%</td>
                     <td><a target="_blank" href="<?= host(); ?>index.php?<?= $link; ?>&sp=<?= enkripRambo($dataOpex['id_anggaran']); ?>">Lihat BKK</a></td>
                 </tr>
@@ -407,7 +407,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                 <th><?= $pk_kd_dept; ?></th>
                 <th><?= $pk_kd_subdept; ?></th>
                 <th><?= $pk_kd_subrenja; ?></th>
-                <th><?= $program_kerja; ?></th>
+                <th style="text-align: left;"><?= $program_kerja; ?></th>
                 <th></th>
                 <th></th>
                 <th>Total</th>
@@ -416,7 +416,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_nota); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_pranota); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_jumlah_realisasi); ?></b></td>
-                <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_sisa_anggaran); ?></b></td>
+                <td style="text-align: right;"><b><?= kurungSurplus2($sub_pk_nominal, $sub_pk_jumlah_realisasi); ?></b></td>
                 <th><?= $sub_pk_realisasi_persen; ?>%</th>
                 <th></th>
             </tr>
@@ -437,7 +437,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_nota); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_pranota); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_jumlah_realisasi); ?></b></td>
-                <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_sisa_anggaran); ?></b></td>
+                <td style="text-align: right;"><b><?= kurungSurplus2($sub_divisi_nominal, $sub_divisi_jumlah_realisasi); ?></b></td>
                 <th><?= $sub_divisi_realisasi_persen; ?>%</th>
                 <th></th>
             </tr>
@@ -458,7 +458,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_nota); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_pranota); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_jumlah_realisasi); ?></b></td>
-                <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_sisa_anggaran); ?></b></td>
+                <td style="text-align: right;"><b><?= kurungSurplus2($sub_pt_nominal, $sub_pt_jumlah_realisasi); ?></b></td>
                 <th><?= $sub_pt_realisasi_persen; ?>%</th>
                 <th></th>
             </tr>
@@ -539,7 +539,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                         <th><?= $pk_kd_dept; ?></th>
                         <th><?= $pk_kd_subdept; ?></th>
                         <th><?= $pk_kd_subrenja; ?></th>
-                        <th><?= $program_kerja; ?></th>
+                        <th style="text-align: left;"><?= $program_kerja; ?></th>
                         <th></th>
                         <th></th>
                         <th>Total</th>
@@ -548,7 +548,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_nota); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_pranota); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_jumlah_realisasi); ?></b></td>
-                        <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_sisa_anggaran); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungSurplus2($sub_pk_nominal, $sub_pk_jumlah_realisasi); ?></b></td>
                         <th><?= $sub_pk_realisasi_persen; ?>%</th>
                         <th></th>
                     </tr>
@@ -600,7 +600,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_nota); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_pranota); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_jumlah_realisasi); ?></b></td>
-                        <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_sisa_anggaran); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungSurplus2($sub_divisi_nominal, $sub_divisi_jumlah_realisasi); ?></b></td>
                         <th><?= $sub_divisi_realisasi_persen; ?>%</th>
                         <th></th>
                     </tr>
@@ -641,7 +641,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_nota); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_pranota); ?></b></td>
                         <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_jumlah_realisasi); ?></b></td>
-                        <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_sisa_anggaran); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungSurplus2($sub_pt_nominal, $sub_pt_jumlah_realisasi); ?></b></td>
                         <th><?= $sub_pt_realisasi_persen; ?>%</th>
                         <th></th>
                     </tr>
@@ -679,16 +679,16 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                     <td><?= substr($dataCapex['kd_programkerja'], 5, 2); ?></td>
                     <td><?= substr($dataCapex['kd_programkerja'], 5, 4); ?></td>
                     <td><?= $dataCapex['kd_programkerja']; ?></td>
-                    <td><?= $dataCapex['nm_programkerja']; ?></td>
+                    <td style="text-align: left;"><?= $dataCapex['nm_programkerja']; ?></td>
                     <td><?= $dataCapex['no_coa']; ?></td>
-                    <td><?= $dataCapex['nm_coa']; ?></td>
-                    <td><?= $dataCapex['nm_item']; ?></td>
+                    <td style="text-align: left;"><?= $dataCapex['nm_coa']; ?></td>
+                    <td style="text-align: left;"><?= $dataCapex['nm_item']; ?></td>
                     <td style="text-align: right;"><?= formatRupiah2($dataCapex['jml_nominal']); ?></td>
                     <td style="text-align: right;"><?= formatRupiah2($dataCapex['jml_realisasi']); ?></td>
                     <td style="text-align: right;"><?= formatRupiah2($dataCapex['nota']); ?></td>
                     <td style="text-align: right;"><?= formatRupiah2($dataCapex['pra_nota']); ?></td>
                     <td style="text-align: right;"><?= formatRupiah2($jumlah_realisasi); ?></td>
-                    <td style="text-align: right;"><?= formatRupiah2($sisa_anggaran); ?></td>
+                    <td style="text-align: right;"><?= kurungSurplus2($dataCapex['jml_nominal'], $jumlah_realisasi); ?></td>
                     <td><?= $realisasi_persen; ?>%</td>
                     <td><a target="_blank" href="<?= host(); ?>index.php?<?= $link; ?>&sp=<?= enkripRambo($dataCapex['id_anggaran']); ?>">Lihat BKK</a></td>
                 </tr>
@@ -712,7 +712,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                 <th><?= $pk_kd_dept; ?></th>
                 <th><?= $pk_kd_subdept; ?></th>
                 <th><?= $pk_kd_subrenja; ?></th>
-                <th><?= $program_kerja; ?></th>
+                <th style="text-align: left;"><?= $program_kerja; ?></th>
                 <th></th>
                 <th></th>
                 <th>Total</th>
@@ -721,7 +721,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_nota); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_pranota); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_jumlah_realisasi); ?></b></td>
-                <td style="text-align: right;"><b><?= formatRupiah2($sub_pk_sisa_anggaran); ?></b></td>
+                <td style="text-align: right;"><b><?= kurungSurplus2($sub_pk_nominal, $sub_pk_jumlah_realisasi); ?></b></td>
                 <th><?= $sub_pk_realisasi_persen; ?>%</th>
                 <th></th>
             </tr>
@@ -742,7 +742,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_nota); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_pranota); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_jumlah_realisasi); ?></b></td>
-                <td style="text-align: right;"><b><?= formatRupiah2($sub_divisi_sisa_anggaran); ?></b></td>
+                <td style="text-align: right;"><b><?= kurungSurplus2($sub_divisi_nominal, $sub_divisi_jumlah_realisasi); ?></b></td>
                 <th><?= $sub_divisi_realisasi_persen; ?>%</th>
                 <th></th>
             </tr>
@@ -763,7 +763,7 @@ $querySubDivisi = mysqli_query($koneksi, "SELECT * FROM divisi
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_nota); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_pranota); ?></b></td>
                 <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_jumlah_realisasi); ?></b></td>
-                <td style="text-align: right;"><b><?= formatRupiah2($sub_pt_sisa_anggaran); ?></b></td>
+                <td style="text-align: right;"><b><?= kurungSurplus2($sub_pt_nominal, $sub_pt_jumlah_realisasi); ?></b></td>
                 <th><?= $sub_pt_realisasi_persen; ?>%</th>
                 <th></th>
             </tr>

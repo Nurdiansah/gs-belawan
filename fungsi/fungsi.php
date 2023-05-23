@@ -709,6 +709,14 @@ function kurungSurplus($nominal, $realisasi)
     return $kurung;
 }
 
+function kurungSurplus2($nominal, $realisasi)
+{
+    $total = $nominal - $realisasi;
+    $kurung = $nominal > $realisasi ?  formatRupiah2($total) : "(" . formatRupiah2($total) . ")";
+
+    return $kurung;
+}
+
 function nomorBKM($tanggal)
 {
     global $koneksi;
@@ -767,7 +775,7 @@ function cekPersenNew($realisasi, $anggaran)
     } else if ($realisasi == 0 && $anggaran == 0) {
         $hasil = 0;
     } else {
-        $hasil = round($realisasi / $anggaran);
+        $hasil = round($realisasi / $anggaran * 100);
     }
 
     return $hasil;
