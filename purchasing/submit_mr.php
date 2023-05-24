@@ -55,8 +55,8 @@ if (isset($_GET['id'])) {
 		$po_number = $nomorAkhir . $nomor;
 
 		//query di kualifikasikan ke po
-		$hasil = $queryPo = "INSERT po( id_dbo, kd_transaksi, nomor_po, tgl_po, po_number, sub_totalpo) VALUES
-									 ('$id', '$kd_transaksi', '$nomorAkhir', '$tanggal', '$po_number', '$totalPengajuan');
+		$hasil = $queryPo = "INSERT po( id_dbo, kd_transaksi, nomor_po, tgl_po, po_number, sub_totalpo, status_po) VALUES
+									 ('$id', '$kd_transaksi', '$nomorAkhir', '$tanggal', '$po_number', '$totalPengajuan', '1');
 									 ";
 		mysqli_query($koneksi, $queryPo);
 

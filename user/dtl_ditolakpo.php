@@ -45,6 +45,30 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
         header("location:?p=hapus_sdbo&id=$id&url=dtl_ditolakpo");
     }
 }
+
+// edit rincian barang
+if (isset($_POST['edit'])) {
+    $id_dbo = $_POST['id_dbo'];
+    $id_subdbo = $_POST['id_subdbo'];
+    $sub_deskripsi = $_POST['sub_deskripsi'];
+    $sub_qty = $_POST['sub_qty'];
+    $sub_unit = $_POST['sub_unit'];
+    $sub_unitprice = str_replace(",", ".", $_POST['sub_unitprice']);
+
+    $total_price = $sub_qty * $sub_unitprice;
+
+    $update = mysqli_query($koneksi, "UPDATE sub_dbo SET sub_deskripsi = '$sub_deskripsi',
+                                                sub_qty = '$sub_qty',
+                                                sub_unit = '$sub_unit',
+                                                total_price = '$total_price'
+                                        WHERE id_subdbo = '$id_subdbo'
+                                        ");
+
+    if ($update) {
+        header("Location: index.php?p=dtl_ditolakpo&id=$id_dbo");
+    }
+}
+
 ?>
 
 <section class="content">
@@ -160,37 +184,93 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                 <!--  -->
                 <div class="box-header with-border">
                     <!-- Tombol untuk menampilkan modal-->
-                    <!-- <button type="button" title="Tambah Data" class="btn btn-primary col-sm-offset-11" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i></button> -->
+                    <button type="button" title="Tambah Data" class="btn btn-primary col-sm-offset-11" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i></button>
                 </div>
                 <div class="table-responsive datatab">
                     <table class="table text-center table table-striped table-dark table-hover ">
                         <thead style="background-color :#B0C4DE;">
-                            <th>No</th>
-                            <th>Deskripsi</th>
-                            <th>QTY</th>
-                            <th>Satuan</th>
-                            <!-- <th>Delete</th> -->
+                            <tr>
+                                <th>No</th>
+                                <th>Deskripsi</th>
+                                <th>QTY</th>
+                                <th>Satuan</th>
+                                <th>#</th>
+                            </tr>
                         </thead>
-                        <tr>
-                            <tbody>
-                                <?php
-                                $no = 1;
-                                if (mysqli_num_rows($querySbo)) {
-                                    while ($row = mysqli_fetch_assoc($querySbo)) :
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            if (mysqli_num_rows($querySbo)) {
+                                while ($row = mysqli_fetch_assoc($querySbo)) :
 
-                                ?>
-                                        <tr>
-                                            <td> <?= $no; ?> </td>
-                                            <td> <?= $row['sub_deskripsi']; ?> </td>
-                                            <td> <?= $row['sub_qty']; ?> </td>
-                                            <td> <?= $row['sub_unit']; ?> </td>
-                                            <!-- <td> <a href="?p=dtl_ditolakpo&aksi=hapus&id=<?= $row['id_subdbo']; ?>"><span data-placement='top' title='Hapus' onclick="javascript: return confirm('Anda yakin hapus ?')"><button class="btn btn-danger" onclick=”return confirm(‘Yakin Hapus?’)”><i class="fa fa-trash"></i></button></span></a> </td> -->
-                                        </tr>
-                                <?php
-                                        $no++;
-                                    endwhile;
-                                } ?>
-                            </tbody>
+                            ?>
+                                    <tr>
+                                        <td> <?= $no; ?> </td>
+                                        <td> <?= $row['sub_deskripsi']; ?> </td>
+                                        <td> <?= $row['sub_qty']; ?> </td>
+                                        <td> <?= $row['sub_unit']; ?> </td>
+                                        <td>
+                                            <button type="button" title="Rubah Data" class="btn btn-warning" data-toggle="modal" data-target="#rubah_<?= $row['id_subdbo']; ?>"><i class="fa fa-pencil"></i></button>
+                                            <a href="hapus_sdbo.php?id=<?= $id; ?>&id_subdbo=<?= $row['id_subdbo']; ?>&url=dtl_ditolakpo"><span data-placement='top' title='Hapus' onclick="javascript: return confirm('Anda yakin hapus ?')"><button class="btn btn-danger" onclick=”return confirm(‘Yakin Hapus?’)”><i class="fa fa-trash"></i></button></span></a>
+                                        </td>
+                                    </tr>
+
+
+                                    <!-- Modal Edit -->
+                                    <div id="rubah_<?= $row['id_subdbo']; ?>" class="modal fade" role="dialog">
+                                        <div class="modal-dialog lg">
+                                            <!-- konten modal-->
+                                            <div class="modal-content">
+                                                <!-- heading modal -->
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Rubah Barang</h4>
+                                                </div>
+                                                <!-- body modal -->
+                                                <div class="modal-body">
+                                                    <form method="post" enctype="multipart/form-data" action="" class="form-horizontal">
+                                                        <div class="box-body">
+                                                            <input type="hidden" name="id_dbo" value="<?= $row['id_dbo']; ?>">
+                                                            <input type="hidden" name="id_subdbo" value="<?= $row['id_subdbo']; ?>">
+                                                            <input type="hidden" name="sub_unitprice" value="<?= $row['sub_unitprice']; ?>">
+                                                            <div class="form-group">
+                                                                <label for="nm_barang" class="col-sm-offset- col-sm-3 control-label">Deskripsi</label>
+                                                                <div class="col-sm-7">
+                                                                    <textarea rows="5" type="textarea" required class="form-control" name="sub_deskripsi" placeholder="Deskripsi"><?= $row['sub_deskripsi']; ?></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <br><br><br><br>
+                                                            <div class="form-group ">
+                                                                <label for="merk" class="col-sm-offset- col-sm-3 control-label">QTY</label>
+                                                                <div class="col-sm-7">
+                                                                    <input type="number" step="any" required class="form-control" name="sub_qty" value="<?= $row['sub_qty']; ?>">
+                                                                </div>
+                                                            </div>
+                                                            <br><br>
+                                                            <div class="form-group">
+                                                                <label id="tes" for="type" class="col-sm-offset- col-sm-3 control-label">Unit</label>
+                                                                <div class="col-sm-7 ">
+                                                                    <input type="text" required class="form-control" name="sub_unit" placeholder="Unit" value="<?= $row['sub_unit']; ?>">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class=" modal-footer">
+                                                            <input type="submit" name="edit" class="btn btn-primary col-sm-offset-1 " value="Simpan">
+                                                            &nbsp;
+                                                            <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Akhir Modal Tambah  -->
+
+                            <?php
+                                    $no++;
+                                endwhile;
+                            } ?>
+                        </tbody>
                     </table>
                     <a href="ajukan_kembali_po.php?id=<?= enkripRambo($id); ?>" class="btn btn-success col-sm-offset-10 " onclick="return confirm('Yakin ingin mengajuan kembali pengajuan ini?')"><i class="fa fa-send"></i> Ajukan Kembali</a>
                 </div>
@@ -210,24 +290,24 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                                 <form method="post" enctype="multipart/form-data" action="add_subdbo.php" class="form-horizontal">
                                     <div class="box-body">
                                         <input type="hidden" name="id_dbo" value="<?= $data['id_dbo']; ?>">
-                                        <input type="hidden" name="url" value="dtl_ditolakpo">
                                         <input type="hidden" name="id" value="<?= $id; ?>">
+                                        <input type="hidden" name="url" value="dtl_ditolakpo">
                                         <div class="form-group">
                                             <label for="nm_barang" class="col-sm-offset- col-sm-3 control-label">Deskripsi</label>
                                             <div class="col-sm-8">
-                                                <textarea rows="6" type="textarea" required readonly class="form-control" name="sub_deskripsi" placeholder="Deskripsi"></textarea>
+                                                <textarea rows="6" type="textarea" required class="form-control" name="sub_deskripsi" placeholder="Deskripsi"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group ">
                                             <label for="merk" class="col-sm-offset- col-sm-3 control-label">QTY</label>
                                             <div class="col-sm-5">
-                                                <input type="number" required readonly class="form-control" name="sub_qty">
+                                                <input type="number" required class="form-control" name="sub_qty">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label id="tes" for="type" class="col-sm-offset- col-sm-3 control-label">Unit</label>
                                             <div class="col-sm-5 ">
-                                                <input type="text" required readonly class="form-control" name="sub_unit" placeholder="Unit">
+                                                <input type="text" required class="form-control" name="sub_unit" placeholder="Unit">
                                             </div>
                                         </div>
                                         <div class=" modal-footer">
