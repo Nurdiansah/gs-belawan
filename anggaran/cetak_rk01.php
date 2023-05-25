@@ -38,7 +38,7 @@ $queryOpex = mysqli_query($koneksi, "SELECT DISTINCT agg.id_anggaran, kd_pt, nm_
                                     WHERE agg.tahun = '$tahun'
                                     AND tipe_anggaran = 'OPEX'
                                     GROUP BY agg.id_anggaran
-                                    ORDER BY nm_pt, nm_divisi, nm_programkerja ASC
+                                    ORDER BY jenis_anggaran DESC, nm_pt, nm_divisi, nm_programkerja ASC
                         ");
 
 $queryCapex = mysqli_query($koneksi, "SELECT DISTINCT agg.id_anggaran, kd_pt, nm_pt, nm_divisi, kd_programkerja, nm_programkerja, no_coa, nm_coa, nm_item, 
@@ -68,7 +68,7 @@ $queryCapex = mysqli_query($koneksi, "SELECT DISTINCT agg.id_anggaran, kd_pt, nm
                                     WHERE agg.tahun = '$tahun'
                                     AND tipe_anggaran = 'CAPEX'
                                     GROUP BY agg.id_anggaran
-                                    ORDER BY nm_pt, nm_divisi, nm_programkerja ASC
+                                    ORDER BY jenis_anggaran DESC, nm_pt, nm_divisi, nm_programkerja ASC
                         ");
 
 

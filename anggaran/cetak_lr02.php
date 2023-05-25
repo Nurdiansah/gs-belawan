@@ -50,7 +50,7 @@ $queryOpex = mysqli_query($koneksi, "SELECT DISTINCT nm_header, nm_subheader, no
                                         AND id_pt = '$project'
                                         AND tipe_anggaran = 'OPEX'
                                         GROUP BY no_coa, nm_coa, nm_header, nm_subheader
-                                        ORDER BY nm_header, nm_subheader, nm_coa ASC");
+                                        ORDER BY jenis_anggaran DESC, nm_header, nm_subheader, nm_coa ASC");
 
 $queryCapex = mysqli_query($koneksi, "SELECT DISTINCT nm_header, nm_subheader, no_coa, nm_coa, no_coa AS nocoa,
                                         SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS jml_nominal,
@@ -90,7 +90,7 @@ $queryCapex = mysqli_query($koneksi, "SELECT DISTINCT nm_header, nm_subheader, n
                                         AND id_pt = '$project'
                                         AND tipe_anggaran = 'CAPEX'
                                         GROUP BY no_coa, nm_coa, nm_header, nm_subheader
-                                        ORDER BY nm_header, nm_subheader, nm_coa ASC");
+                                        ORDER BY jenis_anggaran DESC, nm_header, nm_subheader, nm_coa ASC");
 
 
 $total = mysqli_num_rows($queryOpex) + mysqli_num_rows($queryCapex);
