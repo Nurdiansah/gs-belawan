@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
 	$tgl_bkk = $_POST['tgl_bkk'];
 
 	// $DPP = ($nilai_barang + $nilai_jasa) - $nilai_pph;
-	$DPP = $nilai_barang + $nilai_jasa;
+	$DPP = $total; // $nilai_barang + $nilai_jasa;
 
 
 	mysqli_begin_transaction($koneksi);

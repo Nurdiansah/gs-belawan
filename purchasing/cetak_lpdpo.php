@@ -19,6 +19,8 @@ $query =  mysqli_query($koneksi, "SELECT * FROM po p
                                         ON id = id_dbo
                                     LEFT JOIN supplier s
                                         ON s.id_supplier = IFNULL(db.id_supplier, '0')
+                                    LEFT JOIN anggaran ag
+                                        ON db.id_anggaran =  ag.id_anggaran
                                     WHERE id_po = '$id'
                                 ");
 $data = mysqli_fetch_assoc($query);
@@ -171,9 +173,14 @@ $tgl_sekarang = date("Y-m-d");
         <td style="width=420px;">
             <?= $data['keterangan']; ?>
         </td>
-        <td align="right" rowspan="7    ">
+        <td align="right" rowspan="8">
             <qrcode value="[ E-Finance GS ] | KODE ID : <?= $data['po_number']; ?> | Sebesar :  <?= formatRupiah($data['grand_totalpo']); ?> " ec="H" style="width: 40mm; background-color: white; color: black;"></qrcode>
         </td>
+    </tr>
+    <tr>
+        <td><b>Kode Anggaran</b></td>
+        <td>:</td>
+        <td><?= $data['kd_anggaran'] . " [" . $data['nm_item']; ?>]</td>
     </tr>
     <tr>
         <td><b>Nominal</b></td>

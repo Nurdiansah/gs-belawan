@@ -193,7 +193,7 @@ include "../fungsi/koneksi.php";
         <?php } else { ?>
             <td>APPROVED (<?= formatTanggalWaktu($data['app_manager']); ?>)</td>
         <?php } ?>
-        <td style="text-align: right; width=150px; ">Jakarta, <?= formatTanggal($data['tgl_bkm']) ?></td>
+        <td style="text-align: right; width=150px; ">Medan, <?= formatTanggal($data['tgl_bkm']) ?></td>
     </tr>
     <tr>
         <td colspan="3"></td>
