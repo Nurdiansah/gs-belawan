@@ -24,6 +24,7 @@ if ($divisi == "all") {
                                                             JOIN anggaran ag
                                                                 ON ag.id_anggaran = rs.id_anggaran
                                                             WHERE programkerja_id = id_pk
+                                                            AND is_deleted = '0'
                                                             GROUP BY programkerja_id), '0') AS pra_nota
                                                 -- SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) - (SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) + IFNULL(SUM(rsem.nominal), 0) ) AS sisa_budget
                                             FROM anggaran a
@@ -45,6 +46,7 @@ if ($divisi == "all") {
                                                                 JOIN anggaran ag
                                                                     ON ag.id_anggaran = rs.id_anggaran
                                                                 WHERE programkerja_id = id_pk
+                                                                AND is_deleted = '0'
                                                                 GROUP BY programkerja_id), '0') AS pra_nota
                                                     -- SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) - (SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) + IFNULL(SUM(rsem.nominal), 0) ) AS sisa_budget
                                                 FROM anggaran a
@@ -65,6 +67,7 @@ if ($divisi == "all") {
                                                             JOIN anggaran ag
                                                                 ON ag.id_anggaran = rs.id_anggaran
                                                             WHERE programkerja_id = id_pk
+                                                            AND is_deleted = '0'
                                                             GROUP BY programkerja_id), '0') AS pra_nota
                                                 -- SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) - (SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) + IFNULL(SUM(rsem.nominal), 0) ) AS sisa_budget
                                             FROM anggaran a
@@ -85,6 +88,7 @@ if ($divisi == "all") {
                                                             JOIN anggaran ag
                                                                 ON ag.id_anggaran = rs.id_anggaran
                                                             WHERE programkerja_id = id_pk
+                                                            AND is_deleted = '0'
                                                             GROUP BY programkerja_id), '0') AS pra_nota
                                                 -- SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) - (SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) + IFNULL(SUM(rsem.nominal), 0) ) AS sisa_budget
                                             FROM anggaran a
@@ -107,6 +111,7 @@ if ($divisi == "all") {
                                                             JOIN anggaran ag
                                                                 ON ag.id_anggaran = rs.id_anggaran
                                                             WHERE programkerja_id = id_pk
+                                                            AND is_deleted = '0'
                                                             GROUP BY programkerja_id), '0') AS pra_nota
                                                     -- SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) - (SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) + IFNULL(SUM(rsem.nominal), 0) ) AS sisa_budget
                                                 FROM anggaran a
@@ -128,6 +133,7 @@ if ($divisi == "all") {
                                                             JOIN anggaran ag
                                                                 ON ag.id_anggaran = rs.id_anggaran
                                                             WHERE programkerja_id = id_pk
+                                                            AND is_deleted = '0'
                                                             GROUP BY programkerja_id), '0') AS pra_nota
                                                 -- SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) - (SUM(januari_realisasi) + SUM(februari_realisasi) + SUM(maret_realisasi) + SUM(april_realisasi) + SUM(mei_realisasi) + SUM(juni_realisasi) + SUM(juli_realisasi) + SUM(agustus_realisasi) + SUM(september_realisasi) + SUM(oktober_realisasi) + SUM(november_realisasi) + SUM(desember_realisasi) + IFNULL(SUM(rsem.nominal), 0) ) AS sisa_budget
                                             FROM anggaran a

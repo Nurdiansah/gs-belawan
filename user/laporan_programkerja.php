@@ -25,6 +25,7 @@ $queryChart = mysqli_query($koneksi, "SELECT DISTINCT id_programkerja AS id_pk, 
                                                     JOIN anggaran ag
                                                         ON ag.id_anggaran = rs.id_anggaran
                                                     WHERE programkerja_id = id_pk
+                                                    AND is_deleted = '0'
                                                     GROUP BY programkerja_id), '0') AS pra_nota
                                         FROM anggaran a
                                         JOIN program_kerja p
@@ -46,6 +47,7 @@ $queryChartCapex = mysqli_query($koneksi, "SELECT DISTINCT id_programkerja AS id
                                                     JOIN anggaran ag
                                                         ON ag.id_anggaran = rs.id_anggaran
                                                     WHERE programkerja_id = id_pk
+                                                    AND is_deleted = '0'
                                                     GROUP BY programkerja_id), '0') AS pra_nota
                                             FROM anggaran a
                                             LEFT JOIN realisasi_sementara rsem
@@ -68,6 +70,7 @@ $queryChart2 = mysqli_query($koneksi, "SELECT DISTINCT id_programkerja AS id_pk,
                                                     JOIN anggaran ag
                                                         ON ag.id_anggaran = rs.id_anggaran
                                                     WHERE programkerja_id = id_pk
+                                                    AND is_deleted = '0'
                                                     GROUP BY programkerja_id), '0') AS pra_nota
                                         FROM anggaran a
                                         LEFT JOIN realisasi_sementara rsem
