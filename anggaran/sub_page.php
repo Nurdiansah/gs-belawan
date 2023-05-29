@@ -23,6 +23,10 @@ if ($sub_page == 'mk_purchasing') {
     include_once "rk_03.php";
 } else if ($sub_page == "rk_04") {
     include_once "rk_04.php";
+} else if ($sub_page == "pra_nota") {
+    include_once "pra_nota.php";
+} else if ($sub_page == "realisasi_kas") {
+    include_once "realisasi_kas.php";
 }
 
 ?>

@@ -233,7 +233,7 @@ $no = 1;
                     <!-- <?php } ?> -->
                 </div>
                 <div class="box-body">
-                    <table class="table table-striped">
+                    <table class="table table-striped table text-center">
                         <thead class="bg-primary">
                             <tr>
                                 <th>No</th>
@@ -259,12 +259,12 @@ $no = 1;
                             while ($dataChart = mysqli_fetch_assoc($queryChart)) { ?>
                                 <tr <?= warnaSurplus($dataChart['total_budget'], $dataChart['total_realisasi'], $dataChart['pra_nota']); ?>>
                                     <td><?= $no; ?></td>
-                                    <td><?= $dataChart['nm_programkerja'] . " <b>[" . $dataChart['kd_programkerja']; ?>]</b></td>
+                                    <td style="text-align: left;"><a href="index.php?p=dtl_laporanpk&sp=pra_nota&id_pk=<?= enkripRambo($dataChart['id_pk']); ?>" target="_blank" title="Klik Detail"><u><?= $dataChart['nm_programkerja'] . " <b>[" . $dataChart['kd_programkerja']; ?>]</b></u></a></td>
                                     <td><?= $dataChart['nm_user']; ?></td>
-                                    <td><?= formatRupiah($dataChart['total_budget']); ?></td>
-                                    <td><?= formatRupiah($dataChart['pra_nota']); ?></td>
-                                    <td><?= formatRupiah($dataChart['total_realisasi']); ?></td>
-                                    <td><?= kurungSurplus($dataChart['total_budget'], $dataChart['total_realisasi'] + $dataChart['pra_nota']); ?></td>
+                                    <td style="text-align: right;"><?= formatRupiah($dataChart['total_budget']); ?></td>
+                                    <td style="text-align: right;"><?= formatRupiah($dataChart['pra_nota']); ?></td>
+                                    <td style="text-align: right;"><?= formatRupiah($dataChart['total_realisasi']); ?></td>
+                                    <td style="text-align: right;"><?= kurungSurplus($dataChart['total_budget'], $dataChart['total_realisasi'] + $dataChart['pra_nota']); ?></td>
                                 </tr>
                             <?php
                                 $no++;
@@ -282,18 +282,16 @@ $no = 1;
                                     <h4>Sub Total Opex</h4>
                                 </td>
                                 <td>
-                                    <h4><?= formatRupiah($grand_nominal); ?></h4>
+                                    <h4 class="text-right"><?= formatRupiah($grand_nominal); ?></h4>
                                 </td>
                                 <td>
-                                    <h4><?= formatRupiah($grand_pranota); ?></h4>
+                                    <h4 class="text-right"><?= formatRupiah($grand_pranota); ?></h4>
                                 </td>
                                 <td>
-                                    <h4><?= formatRupiah($grand_realisasi); ?></h4>
+                                    <h4 class="text-right"><?= formatRupiah($grand_realisasi); ?></h4>
                                 </td>
                                 <td>
-                                    <h4>
-                                        <?= formatRupiah($grand_total); ?>
-                                    </h4>
+                                    <h4 class="text-right"><?= formatRupiah($grand_total); ?></h4>
                                 </td>
                             </tr>
 
@@ -307,12 +305,12 @@ $no = 1;
                             while ($dataChartCapex = mysqli_fetch_assoc($queryChartCapex)) { ?>
                                 <tr <?= warnaSurplus($dataChartCapex['total_budget'], $dataChartCapex['total_realisasi'], $dataChartCapex['pra_nota']); ?>>
                                     <td><?= $no; ?></td>
-                                    <td><?= $dataChartCapex['nm_programkerja'] . " <b>[" . $dataChartCapex['kd_programkerja']; ?>]</b></td>
+                                    <td style="text-align: left;"><a href="index.php?p=dtl_laporanpk&sp=pra_nota&id_pk=<?= enkripRambo($dataChartCapex['id_pk']); ?>" target="_blank" title="Klik Detail"><u><?= $dataChartCapex['nm_programkerja'] . " <b>[" . $dataChartCapex['kd_programkerja']; ?>]</b></u></a></td>
                                     <td><?= $dataChartCapex['nm_user']; ?></td>
-                                    <td><?= formatRupiah($dataChartCapex['total_budget']); ?></td>
-                                    <td><?= formatRupiah($dataChartCapex['pra_nota']); ?></td>
-                                    <td><?= formatRupiah($dataChartCapex['total_realisasi']); ?></td>
-                                    <td><?= kurungSurplus($dataChartCapex['total_budget'], $dataChartCapex['total_realisasi'] + $dataChartCapex['pra_nota']); ?></td>
+                                    <td style="text-align: right;"><?= formatRupiah($dataChartCapex['total_budget']); ?></td>
+                                    <td style="text-align: right;"><?= formatRupiah($dataChartCapex['pra_nota']); ?></td>
+                                    <td style="text-align: right;"><?= formatRupiah($dataChartCapex['total_realisasi']); ?></td>
+                                    <td style="text-align: right;"><?= kurungSurplus($dataChartCapex['total_budget'], $dataChartCapex['total_realisasi'] + $dataChartCapex['pra_nota']); ?></td>
                                 </tr>
                             <?php
                                 $no++;
@@ -335,18 +333,16 @@ $no = 1;
                                     <h4>Sub Total Capex</h4>
                                 </td>
                                 <td>
-                                    <h4><?= formatRupiah($grand_nominal_capex); ?></h4>
+                                    <h4 class="text-right"><?= formatRupiah($grand_nominal_capex); ?></h4>
                                 </td>
                                 <td>
-                                    <h4><?= formatRupiah($grand_pranota_capex); ?></h4>
+                                    <h4 class="text-right"><?= formatRupiah($grand_pranota_capex); ?></h4>
                                 </td>
                                 <td>
-                                    <h4><?= formatRupiah($grand_realisasi_capex); ?></h4>
+                                    <h4 class="text-right"><?= formatRupiah($grand_realisasi_capex); ?></h4>
                                 </td>
                                 <td>
-                                    <h4>
-                                        <?= formatRupiah($grand_total_capex); ?>
-                                    </h4>
+                                    <h4 class="text-right"><?= formatRupiah($grand_total_capex); ?></h4>
                                 </td>
                             </tr>
 
@@ -358,18 +354,16 @@ $no = 1;
                                     <h3>Grand Total</h3>
                                 </td>
                                 <td>
-                                    <h3><?= formatRupiah($total_nominal); ?></h3>
+                                    <h3 class="text-right"><?= formatRupiah($total_nominal); ?></h3>
                                 </td>
                                 <td>
-                                    <h3><?= formatRupiah($total_pranota); ?></h3>
+                                    <h3 class="text-right"><?= formatRupiah($total_pranota); ?></h3>
                                 </td>
                                 <td>
-                                    <h3><?= formatRupiah($total_realisasi); ?></h3>
+                                    <h3 class="text-right"><?= formatRupiah($total_realisasi); ?></h3>
                                 </td>
                                 <td>
-                                    <h3>
-                                        <?= formatRupiah($total_total); ?>
-                                    </h3>
+                                    <h3 class="text-right"><?= formatRupiah($total_total); ?></h3>
                                 </td>
                             </tr>
                         </tbody>

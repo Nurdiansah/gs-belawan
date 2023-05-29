@@ -130,4 +130,6 @@
         include_once "transaksi_bkm.php";
     } else if ($page == "laporan_programkerja") {
         include_once "laporan_programkerja.php";
+    } else if ($page == "dtl_laporanpk") {
+        include_once "dtl_laporanpk.php";
     }

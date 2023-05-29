@@ -13,8 +13,11 @@ if ($sub_page == 'kp_purchasing') {
     include_once "tolak_user.php";
 } else if ($sub_page == "tolak_sr") {
     include_once "tolak_sr.php";
+} else if ($sub_page == "pra_nota") {
+    include_once "pra_nota.php";
+} else if ($sub_page == "realisasi_kas") {
+    include_once "realisasi_kas.php";
 }
-
 ?>
  
  
