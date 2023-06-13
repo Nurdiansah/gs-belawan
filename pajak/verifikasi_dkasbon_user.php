@@ -237,6 +237,16 @@ $tanggalCargo = date("Y-m-d");
 $queryReapp = mysqli_query($koneksi, "SELECT * FROM reapprove_kasbon WHERE kasbon_id = '$id'");
 $dataReapp = mysqli_fetch_assoc($queryReapp);
 $totalReapp = mysqli_num_rows($queryReapp);
+
+$dpp = $data['nilai_barang'] + $data['nilai_jasa'];
+$perc_ppn = $data['nilai_ppn'] > 0 ? round($data['nilai_ppn'] / $dpp * 100, 2) : 0;
+
+if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
+    $pph_persen = 0;
+} else {
+    $pph_persen = round($data['nilai_pph'] / $data['nilai_jasa'] * 100, 2);
+}
+
 ?>
 
 <section class="content">
@@ -367,9 +377,9 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                 <div class="form-group">
                                     <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN
                                         <select name="pilih_ppn" id="setppn">
-                                            <option value="0.11">11%</option>
-                                            <option value="0.10">10%</option>
-                                            <option value="0.011">1.1%</option>
+                                            <option value="0.11" <?= $perc_ppn == "11" ? "selected" : ""; ?>>11%</option>
+                                            <option value="0.10" <?= $perc_ppn == "10" ? "selected" : ""; ?>>10%</option>
+                                            <option value="0.011" <?= $perc_ppn == "1.1" ? "selected" : ""; ?>>1.1%</option>
                                         </select>
                                     </label>
                                     <div class="col-sm-1">
@@ -441,7 +451,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                         <div class="col-sm-5">
                                             <div class="input-group">
                                                 <span class="input-group-addon">PPh</span>
-                                                <input type="text" required class="form-control " name="pph_persen" value="0" id="pph_persen" />
+                                                <input type="text" required class="form-control " name="pph_persen" value="<?= $pph_persen; ?>" id="pph_persen" />
                                                 <span class="input-group-addon">%</span>
                                             </div>
                                         </div>
@@ -451,7 +461,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                         <div class="col-sm-5">
                                             <div class="input-group">
                                                 <span class="input-group-addon">Rp.</span>
-                                                <input type="text" readonly class="form-control " name="nilai_pph" value="<?= formatRupiah2($data['nilai_pph']) ?>" id="nilai_pph" />
+                                                <input type="text" readonly class="form-control " name="nilai_pph" value="<?= $data['id_pph'] != 1 ? formatRupiah2($data['nilai_pph']) : 0; ?>" id="nilai_pph" />
                                             </div>
                                         </div>
                                     </div>
@@ -464,7 +474,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                         <div class="col-sm-5">
                                             <div class="input-group">
                                                 <span class="input-group-addon">Rp.</span>
-                                                <input type="text" class="form-control " name="nilai_pph2" value="<?= $data['nilai_pph'] ?>" id="nilai_pph2" />
+                                                <input type="text" class="form-control " name="nilai_pph2" value="<?= $data['id_pph'] == 1 ? formatRupiah2($data['nilai_pph']) : 0; ?>" id="nilai_pph2" />
                                             </div>
                                             <i><span id="pph_ui"></span></i>
                                         </div>
@@ -620,7 +630,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
     // set ppn default 11%
     let setPpn = 0.11;
     if (persentasePpn != 0 && dpp != 0) {
-        $('#setppn').val(persentasePpn);
+        // $('#setppn').val(persentasePpn);
 
         setPpn = persentasePpn;
 
