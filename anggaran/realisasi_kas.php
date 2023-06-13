@@ -8,11 +8,29 @@
                                                                     WHERE id_anggaran = '$id_anggaran'
                                                                     AND status_bkk = '4'"));
 
+        // gs belawan yg dibayarin dijakarta (dibuat dijakarta)
+        $BKKJkt = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah
+                                                                FROM gs.bkk_final
+                                                                WHERE id_anggaran = '$id_anggaran'
+                                                                AND status_bkk = '4'
+                                                                AND id_area = '2'"));
+
+        // gs belawan yg dibayarin dijakarta (dibuat dibelawan)
+        $BKKBlwJkt = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah
+                                                                    FROM bkk_ke_pusat
+                                                                    WHERE id_anggaran = '$id_anggaran'
+                                                                    AND status_bkk = '4'
+                                                                    AND no_bkk NOT IN (SELECT no_bkk FROM gs.bkk_final
+                                                                                        WHERE id_anggaran = '$id_anggaran'
+                                                                                        AND status_bkk = '4'
+                                                                                        AND id_area = '2')"));
+
         $totalPetty = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(id_pettycash) AS jumlah
                                                                     FROM transaksi_pettycash
                                                                     WHERE id_anggaran = '$id_anggaran'
                                                                     AND status_pettycash = '5'"));
-        $totalBP = $totalBKK['jumlah'] + $totalPetty['jumlah'];
+
+        $totalBP = $totalBKK['jumlah'] + $BKKJkt['jumlah'] + $BKKBlwJkt['jumlah'] + $totalPetty['jumlah'];
 
     ?>
         <div class="panel panel-default">
@@ -50,11 +68,35 @@
                                 <tbody>
                                     <?php
                                     // nampilin data relisasi sementara
-                                    $queryRealKas = mysqli_query($koneksi, "SELECT id AS id, no_bkk AS kd_transaksi, IFNULL(pengajuan, '-') AS pengajuan, IFNULL(id_kdtransaksi, '-') AS id_kdtransaksi, keterangan AS keterangan, nilai_barang, nilai_jasa, nominal AS nominal, release_on_bkk AS tanggal
+                                    $queryRealKas = mysqli_query($koneksi, "SELECT id AS id, no_bkk AS kd_transaksi, IFNULL(pengajuan, '-') AS pengajuan, IFNULL(id_kdtransaksi, '-') AS id_kdtransaksi, keterangan AS keterangan, nilai_barang, nilai_jasa, nominal AS nominal, release_on_bkk AS tanggal,
+                                                                                IF(pengajuan = 'PO', (SELECT po_number FROM po WHERE id_po = id_kd), id_kdtransaksi) AS id_kdtransaksi
                                                                             FROM bkk_final
                                                                             WHERE id_anggaran = '$id_anggaran'
                                                                             AND status_bkk = '4'
                                                                             
+                                                                            UNION ALL
+
+                                                                            -- gs belawan yg dibayarin dijakarta (dibuat dijakarta)
+                                                                            SELECT id AS id, no_bkk AS kd_transaksi, IFNULL(pengajuan, '-') AS pengajuan, IFNULL(id_kdtransaksi, '-') AS id_kd, keterangan AS keterangan, nilai_barang, nilai_jasa, nominal AS nominal, release_on_bkk AS tanggal,
+                                                                                IF(pengajuan = 'PO', (SELECT po_number FROM po WHERE id_po = id_kd), id_kdtransaksi) AS id_kdtransaksi
+                                                                            FROM gs.bkk_final
+                                                                            WHERE id_anggaran = '$id_anggaran'
+                                                                            AND status_bkk = '4'
+                                                                            AND id_area = '2'
+
+                                                                            UNION ALL
+                                                                            
+                                                                            -- gs belawan yg dibayarin dijakarta (dibuat dibelawan)
+                                                                            SELECT id AS id, no_bkk AS kd_transaksi, IFNULL(pengajuan, '-') AS pengajuan, IFNULL(id_kdtransaksi, '-') AS id_kd, keterangan AS keterangan, nilai_barang, nilai_jasa, nominal AS nominal, release_on_bkk AS tanggal,
+                                                                                IF(pengajuan = 'PO', (SELECT po_number FROM po WHERE id_po = id_kd), id_kdtransaksi) AS id_kdtransaksi
+                                                                            FROM bkk_ke_pusat
+                                                                            WHERE id_anggaran = '$id_anggaran'
+                                                                            AND status_bkk = '4'
+                                                                            AND no_bkk NOT IN (SELECT no_bkk FROM gs.bkk_final
+                                                                                                WHERE id_anggaran = '$id_anggaran'
+                                                                                                AND status_bkk = '4'
+                                                                                                AND id_area = '2')
+
                                                                             UNION ALL
                                                                             
                                                                             SELECT id_pettycash AS id, kd_pettycash AS kd_transaksi, '-' AS pengajuan, '-' AS id_kdtransaksi, keterangan_pettycash AS keterangan, '0' AS nilai_barang, '0' AS nilai_jasa, total_pettycash AS nominal, pym_ksr AS tanggal
