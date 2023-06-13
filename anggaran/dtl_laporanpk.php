@@ -5,9 +5,11 @@ include "../fungsi/fungsi.php";
 
 $id_pk = dekripRambo($_GET['id_pk']);
 
+$tahun = date("Y");
+
 $dataPK = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM program_kerja WHERE id_programkerja = '$id_pk'"));
 
-$queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE programkerja_id = '$id_pk' ORDER BY nm_item ASC");
+$queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE programkerja_id = '$id_pk' AND tahun = '$tahun' ORDER BY nm_item ASC");
 
 $sp = $_GET['sp'];
 $no = 1;
