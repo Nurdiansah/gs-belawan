@@ -62,14 +62,15 @@
                                         <th>Nilai Jasa</th>
                                         <th>Nominal</th>
                                         <th>Status</th>
+                                        <th>Pembayaran</th>
                                         <th>Tanggal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     // nampilin data relisasi sementara
-                                    $queryRealKas = mysqli_query($koneksi, "SELECT id AS id, no_bkk AS kd_transaksi, IFNULL(pengajuan, '-') AS pengajuan, IFNULL(id_kdtransaksi, '-') AS id_kdtransaksi, keterangan AS keterangan, nilai_barang, nilai_jasa, nominal AS nominal, release_on_bkk AS tanggal,
-                                                                                IF(pengajuan = 'PO', (SELECT po_number FROM po WHERE id_po = id_kd), id_kdtransaksi) AS id_kdtransaksi
+                                    $queryRealKas = mysqli_query($koneksi, "SELECT id AS id, no_bkk AS kd_transaksi, IFNULL(pengajuan, '-') AS pengajuan, IFNULL(id_kdtransaksi, '-') AS id_kd, keterangan AS keterangan, nilai_barang, nilai_jasa, nominal AS nominal, release_on_bkk AS tanggal,
+                                                                                IF(pengajuan = 'PO', (SELECT po_number FROM po WHERE id_po = id_kd), id_kdtransaksi) AS id_kdtransaksi, 'Belawan' AS pembayaran, 'success' AS warna
                                                                             FROM bkk_final
                                                                             WHERE id_anggaran = '$id_anggaran'
                                                                             AND status_bkk = '4'
@@ -78,7 +79,7 @@
 
                                                                             -- gs belawan yg dibayarin dijakarta (dibuat dijakarta)
                                                                             SELECT id AS id, no_bkk AS kd_transaksi, IFNULL(pengajuan, '-') AS pengajuan, IFNULL(id_kdtransaksi, '-') AS id_kd, keterangan AS keterangan, nilai_barang, nilai_jasa, nominal AS nominal, release_on_bkk AS tanggal,
-                                                                                IF(pengajuan = 'PO', (SELECT po_number FROM po WHERE id_po = id_kd), id_kdtransaksi) AS id_kdtransaksi
+                                                                                IF(pengajuan = 'PO', (SELECT po_number FROM po WHERE id_po = id_kd), id_kdtransaksi) AS id_kdtransaksi, 'Jakarta' AS pembayaran, 'primary' AS warna
                                                                             FROM gs.bkk_final
                                                                             WHERE id_anggaran = '$id_anggaran'
                                                                             AND status_bkk = '4'
@@ -88,18 +89,18 @@
                                                                             
                                                                             -- gs belawan yg dibayarin dijakarta (dibuat dibelawan)
                                                                             SELECT id AS id, no_bkk AS kd_transaksi, IFNULL(pengajuan, '-') AS pengajuan, IFNULL(id_kdtransaksi, '-') AS id_kd, keterangan AS keterangan, nilai_barang, nilai_jasa, nominal AS nominal, release_on_bkk AS tanggal,
-                                                                                IF(pengajuan = 'PO', (SELECT po_number FROM po WHERE id_po = id_kd), id_kdtransaksi) AS id_kdtransaksi
+                                                                                IF(pengajuan = 'PO', (SELECT po_number FROM po WHERE id_po = id_kd), id_kdtransaksi) AS id_kdtransaksi, 'Jakarta' AS pembayaran, 'primary' AS warna
                                                                             FROM bkk_ke_pusat
                                                                             WHERE id_anggaran = '$id_anggaran'
                                                                             AND status_bkk = '4'
                                                                             AND no_bkk NOT IN (SELECT no_bkk FROM gs.bkk_final
-                                                                                                WHERE id_anggaran = '$id_anggaran'
-                                                                                                AND status_bkk = '4'
-                                                                                                AND id_area = '2')
+                                                                                        WHERE id_anggaran = '$id_anggaran'
+                                                                                        AND status_bkk = '4'
+                                                                                        AND id_area = '2')
 
                                                                             UNION ALL
-                                                                            
-                                                                            SELECT id_pettycash AS id, kd_pettycash AS kd_transaksi, '-' AS pengajuan, '-' AS id_kdtransaksi, keterangan_pettycash AS keterangan, '0' AS nilai_barang, '0' AS nilai_jasa, total_pettycash AS nominal, pym_ksr AS tanggal, '-' AS id_kd
+
+                                                                            SELECT id_pettycash AS id, kd_pettycash AS kd_transaksi, '-' AS pengajuan, '-' AS id_kdtransaksi, keterangan_pettycash AS keterangan, '0' AS nilai_barang, '0' AS nilai_jasa, total_pettycash AS nominal, pym_ksr AS tanggal, '-' AS id_kd, 'Belawan' AS pembayaran, 'success' AS warna
                                                                             FROM transaksi_pettycash
                                                                             WHERE id_anggaran = '$id_anggaran'
                                                                             AND status_pettycash = '5'
@@ -121,6 +122,7 @@
                                             <td><?= formatRupiah2(round($dataRealKas['nilai_jasa'])); ?></td>
                                             <td><?= formatRupiah2(round($dataRealKas['nominal'])); ?></td>
                                             <th><span class="label label-default">Realisasi</span></th>
+                                            <th><span class="label label-<?= $dataRealKas['warna']; ?>"><?= $dataRealKas['pembayaran']; ?></span></th>
                                             <td><?= $dataRealKas['tanggal']; ?></td>
                                         </tr>
                                     <?php
