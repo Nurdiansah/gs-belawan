@@ -61,7 +61,6 @@
                                         <th>Nilai Barang</th>
                                         <th>Nilai Jasa</th>
                                         <th>Nominal</th>
-                                        <th>Status</th>
                                         <th>Pembayaran</th>
                                         <th>Tanggal</th>
                                     </tr>
@@ -121,7 +120,6 @@
                                             <td><?= formatRupiah2(round($dataRealKas['nilai_barang'])); ?></td>
                                             <td><?= formatRupiah2(round($dataRealKas['nilai_jasa'])); ?></td>
                                             <td><?= formatRupiah2(round($dataRealKas['nominal'])); ?></td>
-                                            <th><span class="label label-default">Realisasi</span></th>
                                             <th><span class="label label-<?= $dataRealKas['warna']; ?>"><?= $dataRealKas['pembayaran']; ?></span></th>
                                             <td><?= $dataRealKas['tanggal']; ?></td>
                                         </tr>
