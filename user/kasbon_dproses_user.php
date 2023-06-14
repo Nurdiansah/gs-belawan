@@ -59,7 +59,7 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
                 <div class="row">
                     <div class="col-sm-offset-9 col-sm-3">
                         <?php if ($data['status_kasbon'] == 7) { ?>
-                            <a target="_blank" href="cetak_pengambilandana.php?id=<?= $id; ?>" class="btn btn-success"><i class="fa fa-print"></i> Laporan Pengambilan Dana </a>
+                            <a target="_blank" onclick="window.open('cetak_pengambilandana.php?id=<?= enkripRambo($id); ?>','name','width=800,height=600')" class="btn btn-success"><i class="fa fa-print"></i> Laporan Pengambilan Dana </a>
                         <?php }
                         if ($data['status_kasbon'] == 8) { ?>
                             <button type="button" class="btn btn-primary col-sm-offset-5" data-toggle="modal" data-target="#konfirmasi"><i class="fa fa-send"></i> LPJ </button></span></a>

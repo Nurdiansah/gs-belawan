@@ -2,6 +2,11 @@
 session_start();
 include "../fungsi/fungsi.php";
 include "../fungsi/koneksi.php";
+
+if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != 'purchasing') {
+  header("location: ../index.php");
+}
+
 if (isset($_GET['id'])) {
 
   $id = $_GET['id'];
@@ -217,7 +222,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
 </div>
 <div class="kanan">
   <div class="kotak">
-    FM :
+    FM.09/03/02
   </div>
   <input type="checkbox" checked="checked"> PURCHASE ORDER <br>
   <input type="checkbox"> SERVICE ORDER

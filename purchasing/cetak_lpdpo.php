@@ -110,12 +110,12 @@ $tgl_sekarang = date("Y-m-d");
     div.kanan {
         width: 300px;
         float: right;
-        margin-left: 10px;
-        margin-top: 0px;
+        margin-left: 230px;
+        margin-top: -140px;
     }
 
     div.kiri {
-        width: 100px;
+        width: 300px;
         float: left;
         margin-left: 30px;
         display: inline;
@@ -150,6 +150,13 @@ $tgl_sekarang = date("Y-m-d");
 
     }
 
+    .kotak {
+        width: 150px;
+        height: 40px;
+        border: 1px;
+        margin-top: 140px;
+    }
+
     /* * {
         font-size: 10px;
     } */
@@ -158,7 +165,15 @@ $tgl_sekarang = date("Y-m-d");
 <div class="kiri">
     <img src="../gambar/gs.png" style="width:80px;height:50px" />
 </div>
+
+<div class="kanan">
+    <div class="kotak">
+        FM.09/03/02
+    </div>
+</div>
+
 <h2><b>PT.GRAHA SEGARA</b></h2>
+
 <hr>
 
 <h3 align="center"><u>LAPORAN PENGAMBILAN DANA</u></h3>
@@ -173,7 +188,7 @@ $tgl_sekarang = date("Y-m-d");
         <td style="width=420px;">
             <?= $data['keterangan']; ?>
         </td>
-        <td align="right" rowspan="8">
+        <td align="right" rowspan="6">
             <qrcode value="[ E-Finance GS ] | KODE ID : <?= $data['po_number']; ?> | Sebesar :  <?= formatRupiah($data['grand_totalpo']); ?> " ec="H" style="width: 40mm; background-color: white; color: black;"></qrcode>
         </td>
     </tr>
@@ -206,6 +221,7 @@ $tgl_sekarang = date("Y-m-d");
         <td><b>Direktur</b></td>
         <td>:</td>
         <td>APPROVED (<?= formatTanggalWaktu($data['app_direksi2']); ?>)</td>
+        <td>Medan, <?= date('d', strtotime($tgl_sekarang)) . ' ' . ($bln_tgl[date('m', strtotime($tgl_sekarang))]) . ' ' . date('Y', strtotime($tgl_sekarang)); ?></td>
     </tr>
 </table>
 <!-- </td> -->

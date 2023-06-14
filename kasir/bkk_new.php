@@ -9,6 +9,10 @@ if (isset($_GET['id'])) {
     $id = dekripRambo($id);
 }
 
+if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != 'kasir') {
+    header("location: ../index.php");
+}
+
 $queryBkk = mysqli_query($koneksi, "SELECT * 
                                     FROM bkk_final b   
                                     LEFT JOIN supplier s
@@ -108,8 +112,8 @@ if ($data['pengajuan'] == "BIAYA UMUM") {
     div.kanan {
         width: 300px;
         float: right;
-        margin-left: 10px;
-        margin-top: 0px;
+        margin-left: 430px;
+        margin-top: -140px;
     }
 
     div.kiri {
@@ -147,6 +151,13 @@ if ($data['pengajuan'] == "BIAYA UMUM") {
         text-align: left;
 
     }
+
+    .kotak {
+        width: 150px;
+        height: 40px;
+        border: 1px;
+        margin-top: 140px;
+    }
 </style>
 <?php
 include "../fungsi/koneksi.php";
@@ -156,6 +167,13 @@ include "../fungsi/koneksi.php";
 <div class="kiri">
     <img src="../gambar/gs.png" style="width:80px;height:50px" />
 </div>
+
+<div class="kanan">
+    <div class="kotak">
+        FM.08/02/14
+    </div>
+</div>
+
 <h3><b>PT.GRAHA SEGARA</b></h3>
 <hr>
 
@@ -179,7 +197,14 @@ include "../fungsi/koneksi.php";
     <tr>
         <td style="text-align: left; width=150px; "><b>Kode Anggaran</b></td>
         <td style="text-align: ; width=5%;">:</td>
-        <td style="width=380px;"><?= $data['kd_anggaran']; ?> [<?= $data['nm_item']; ?>]</td>
+        <td style="width=380px;"><?php
+
+                                    if (is_null($data['id_anggaran'])) {
+                                        echo '-';
+                                    } else {
+                                        echo $data['kd_anggaran'] . " [" . $data['nm_item'] . "]";
+                                    }
+                                    ?></td>
     </tr>
     <tr>
         <td style="text-align: left; width=150px; "><b>Divisi</b></td>

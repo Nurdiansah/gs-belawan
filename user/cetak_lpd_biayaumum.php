@@ -208,7 +208,7 @@ include "../fungsi/koneksi.php";
         <td><b>Direktur</b></td>
         <td>:</td>
         <td>APPROVED (<?= formatTanggal($data['tgl_verifikasidireksi2']); ?>)</td>
-        <td>Jakarta, <?= date('d', strtotime($tgl_sekarang)) . ' ' . ($bln_tgl[date('m', strtotime($tgl_sekarang))]) . ' ' . date('Y', strtotime($tgl_sekarang)); ?></td>
+        <td>Medan, <?= date('d', strtotime($tgl_sekarang)) . ' ' . ($bln_tgl[date('m', strtotime($tgl_sekarang))]) . ' ' . date('Y', strtotime($tgl_sekarang)); ?></td>
     </tr>
 </table>
 <!-- </td> -->

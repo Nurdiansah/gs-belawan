@@ -9,6 +9,10 @@ if (isset($_GET['id'])) {
     $id = dekripRambo($id);
 }
 
+if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != 'kasir') {
+    header("location: ../index.php");
+}
+
 $queryBkm = mysqli_query($koneksi, "SELECT * FROM bkm b
                                     LEFT JOIN anggaran a
                                         ON b.id_anggaran = a.id_anggaran
@@ -85,8 +89,8 @@ $data = mysqli_fetch_assoc($queryBkm);
     div.kanan {
         width: 300px;
         float: right;
-        margin-left: 10px;
-        margin-top: 0px;
+        margin-left: 430px;
+        margin-top: -140px;
     }
 
     div.kiri {
@@ -124,6 +128,13 @@ $data = mysqli_fetch_assoc($queryBkm);
         text-align: left;
 
     }
+
+    .kotak {
+        width: 150px;
+        height: 40px;
+        border: 1px;
+        margin-top: 140px;
+    }
 </style>
 <?php
 include "../fungsi/koneksi.php";
@@ -133,6 +144,13 @@ include "../fungsi/koneksi.php";
 <div class="kiri">
     <img src="../gambar/gs.png" style="width:80px;height:50px" />
 </div>
+
+<div class="kanan">
+    <div class="kotak">
+        FM.08/02/13
+    </div>
+</div>
+
 <h3><b>PT.GRAHA SEGARA</b></h3>
 <hr>
 
@@ -193,7 +211,7 @@ include "../fungsi/koneksi.php";
         <?php } else { ?>
             <td>APPROVED (<?= formatTanggalWaktu($data['app_manager']); ?>)</td>
         <?php } ?>
-        <td style="text-align: right; width=150px; ">Jakarta, <?= formatTanggal($data['tgl_bkm']) ?></td>
+        <td style="text-align: right; width=150px; ">Medan, <?= formatTanggal($data['tgl_bkm']) ?></td>
     </tr>
     <tr>
         <td colspan="3"></td>

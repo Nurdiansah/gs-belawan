@@ -6,7 +6,7 @@ include "../fungsi/fungsi.php";
 include "../fungsi/fungsiuser.php";
 if (isset($_GET['id'])) {
 
-    $id = $_GET['id'];
+    $id = dekripRambo($_GET['id']);
 }
 
 if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != 'admin_divisi') {
@@ -109,8 +109,8 @@ $tgl_sekarang = date("Y-m-d");
     div.kanan {
         width: 300px;
         float: right;
-        margin-left: 10px;
-        margin-top: 0px;
+        margin-left: 430px;
+        margin-top: -140px;
     }
 
     div.kiri {
@@ -149,6 +149,13 @@ $tgl_sekarang = date("Y-m-d");
 
     }
 
+    .kotak {
+        width: 150px;
+        height: 40px;
+        border: 1px;
+        margin-top: 140px;
+    }
+
     /* * {
         font-size: 10px;
     } */
@@ -161,6 +168,13 @@ include "../fungsi/koneksi.php";
 <div class="kiri">
     <img src="../gambar/gs.png" style="width:80px;height:50px" />
 </div>
+
+<div class="kanan">
+    <div class="kotak">
+        FM.08/02/16
+    </div>
+</div>
+
 <h2><b>PT.GRAHA SEGARA</b></h2>
 <hr>
 

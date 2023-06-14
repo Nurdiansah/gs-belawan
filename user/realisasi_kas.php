@@ -99,7 +99,7 @@
 
                                                                             UNION ALL
 
-                                                                            SELECT id_pettycash AS id, kd_pettycash AS kd_transaksi, '-' AS pengajuan, '-' AS id_kdtransaksi, keterangan_pettycash AS keterangan, '0' AS nilai_barang, '0' AS nilai_jasa, total_pettycash AS nominal, pym_ksr AS tanggal
+                                                                            SELECT id_pettycash AS id, kd_pettycash AS kd_transaksi, '-' AS pengajuan, '-' AS id_kdtransaksi, keterangan_pettycash AS keterangan, '0' AS nilai_barang, '0' AS nilai_jasa, total_pettycash AS nominal, pym_ksr AS tanggal, '-' AS id_kd
                                                                             FROM transaksi_pettycash
                                                                             WHERE id_anggaran = '$id_anggaran'
                                                                             AND status_pettycash = '5'
