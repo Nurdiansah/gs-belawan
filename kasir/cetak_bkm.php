@@ -167,7 +167,7 @@ include "../fungsi/koneksi.php";
         <td style="text-align: left; width=150px; "><b>Di Bayarkan Kepada</b></td>
         <td style="text-align: ; width=5%;">:</td>
         <td style="width=380px;">-</td>
-        <td align="right" rowspan="6">
+        <td align="right" rowspan="7">
             <qrcode value="[ E-Finance GS ] | Kode BKM : <?= $data['no_bkm']; ?> | Sebesar :  <?= formatRupiah($data['grand_total']); ?> " ec="H" style="width: 35mm; background-color: white; color: black;"></qrcode>
         </td>
     </tr>
@@ -199,12 +199,17 @@ include "../fungsi/koneksi.php";
         <td style="width=380px;"><?= Terbilang($data['grand_total']); ?> Rupiah </td>
     </tr>
     <tr>
-        <td><b>Manager Finance</b></td>
+        <td><b>Tanggal BKM</b></td>
+        <td style="text-align: ; width=5%;">:</td>
+        <td><?= formatTanggalWaktu($data['tgl_bkm']); ?></td>
+    </tr>
+    <tr>
+        <td><b>Cost Control</b></td>
         <td style="text-align: ; width=5%;">:</td>
         <td>APPROVED (<?= formatTanggalWaktu($data['app_costcontrol']); ?>)</td>
     </tr>
     <tr>
-        <td><b>Direktur</b></td>
+        <td><b>Manager</b></td>
         <td style="text-align: ; width=5%;">:</td>
         <?php if ($data['app_manager'] == "" || $data['app_manager'] == "0000-00-00 00:00:00") { ?>
             <td>-</td>
