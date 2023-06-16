@@ -120,22 +120,22 @@ $tanggalCargo = date("Y-m-d");
                                 </thead>
                                 <tr>
                                     <tbody>
-                                        <tr>
-                                            <?php
-                                            $no = 1;
-                                            if (mysqli_num_rows($querySbo)) {
-                                                while ($row = mysqli_fetch_assoc($querySbo)) :
+                                        <?php
+                                        $no = 1;
+                                        if (mysqli_num_rows($querySbo)) {
+                                            while ($row = mysqli_fetch_assoc($querySbo)) :
 
-                                            ?>
+                                        ?>
+                                                <tr>
                                                     <td> <?= $no; ?> </td>
                                                     <td> <?= $row['sub_deskripsi']; ?> </td>
                                                     <td> <?= $row['sub_qty']; ?> </td>
                                                     <td> <?= $row['sub_unit']; ?> </td>
-                                        </tr>
-                                <?php
-                                                    $no++;
-                                                endwhile;
-                                            } ?>
+                                                </tr>
+                                        <?php
+                                                $no++;
+                                            endwhile;
+                                        } ?>
                                     </tbody>
                             </table>
                         </div>

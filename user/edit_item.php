@@ -191,8 +191,10 @@ $tanggalCargo = date("Y-m-d");
                             <h3 class="text-center">Foto Barang</h3>
                             <br>
                             <!-- <div class="row "> -->
-                            <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item" src="../file/foto/<?= $data['foto_item']; ?>"></iframe>
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="../file/foto/<?= $data['foto_item']; ?>"></iframe>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -217,26 +219,25 @@ $tanggalCargo = date("Y-m-d");
                             <th>Satuan</th>
                             <th>Delete</th>
                         </thead>
-                        <tr>
-                            <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($querySbo)) {
-                                        while ($row = mysqli_fetch_assoc($querySbo)) :
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            if (mysqli_num_rows($querySbo)) {
+                                while ($row = mysqli_fetch_assoc($querySbo)) :
 
-                                    ?>
-                                            <td> <?= $no; ?> </td>
-                                            <td> <?= $row['sub_deskripsi']; ?> </td>
-                                            <td> <?= $row['sub_qty']; ?> </td>
-                                            <td> <?= $row['sub_unit']; ?> </td>
-                                            <td> <a href="hapus_sdbo.php?id=<?= $id; ?>&id_subdbo=<?= $row['id_subdbo']; ?>&url=edit_item"><span data-placement='top' title='Hapus' onclick="javascript: return confirm('Anda yakin hapus ?')"><button class="btn btn-danger" onclick=”return confirm(‘Yakin Hapus?’)”><i class="fa fa-trash"></i></button></span></a> </td>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    } ?>
-                            </tbody>
+                            ?>
+                                    <tr>
+                                        <td> <?= $no; ?> </td>
+                                        <td> <?= $row['sub_deskripsi']; ?> </td>
+                                        <td> <?= $row['sub_qty']; ?> </td>
+                                        <td> <?= $row['sub_unit']; ?> </td>
+                                        <td> <a href="hapus_sdbo.php?id=<?= $id; ?>&id_subdbo=<?= $row['id_subdbo']; ?>&url=edit_item"><span data-placement='top' title='Hapus' onclick="javascript: return confirm('Anda yakin hapus ?')"><button class="btn btn-danger" onclick=”return confirm(‘Yakin Hapus?’)”><i class="fa fa-trash"></i></button></span></a> </td>
+                                    </tr>
+                            <?php
+                                    $no++;
+                                endwhile;
+                            } ?>
+                        </tbody>
                     </table>
                 </div>
                 <br>
