@@ -4,6 +4,7 @@
 
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
+include "../fungsi/fungsianggaran.php";
 
 $queryUser =  mysqli_query($koneksi, "SELECT *
                                                      from user u
@@ -64,7 +65,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
     } else if ($_GET['aksi'] == 'lihat') {
         header("location:?p=detail_item&id=$id");
     } else if ($_GET['aksi'] == 'hapus') {
-        hapusItemMr($id);
+        hapusItemMr($id, $foto);
     }
 }
 ?>
@@ -183,6 +184,8 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                                         echo "<tr>";
                                     }
 
+                                    // Untuk Lock anggaran 
+                                    $sisaBudgetLock = getSaldoAnggaran($row['id_anggaran']);
 
                                         ?>
                                         <td> <?= $no; ?> </td>
@@ -197,9 +200,15 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                                         <td> <?= $row['jumlah']; ?> </td>
                                         <td> <?= 'Rp. ' . number_format($estimasiHarga, 0, ",", "."); ?> </td>
                                         <td>
-                                            <a href="?p=buat_mr&aksi=lihat&id=<?= $row['id']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info"> <i class="fa fa-search-plus"></i> </button></span></a>
-                                            <a href="?p=buat_mr&aksi=edit&id=<?= $row['id']; ?>"><span data-placement='top' data-toggle='tooltip' title='Edit'><button class="btn btn-success"> <i class="fa fa-edit"></i> </button></span></a>
-                                            <a href="?p=buat_mr&aksi=hapus&id=<?= $row['id']; ?>" onclick="javascript: return confirm('Anda yakin ingin menghapus ?')"><span data-placement='top' data-toggle='tooltip' title='Hapus'><button class="btn btn-danger"> <i class="fa fa-remove"></i> </button></span></a>
+                                            <?php if ($sisaBudgetLock <= 0) { ?>
+                                                <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#notifBudget"><i class="fa fa-rocket"></i> </button>
+                                            <?php } else { ?>
+                                                <a href="add_mr.php?id=<?= $row['id']; ?>" onclick="javascript: return confirm('Anda yakin ingin mensubmit <?= $row['nm_barang']; ?> ?')"><span data-placement='top' data-toggle='tooltip' title='Submit'><button class="btn btn-warning btn-sm"> <i class="fa fa-rocket"></i> </button></span></a>
+                                            <?php } ?>
+                                            <!-- <a href="?p=buat_mr&aksi=lihat&id=<?= $row['id']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info btn-sm"> <i class="fa fa-search-plus"></i> </button></span></a> -->
+                                            <a href="?p=buat_mr&aksi=edit&id=<?= $row['id']; ?>"><span data-placement='top' data-toggle='tooltip' title='Edit'><button class="btn btn-success btn-sm"> <i class="fa fa-edit"></i> </button></span></a>
+                                            <a href="?p=buat_mr&aksi=hapus&id=<?= $row['id']; ?>&doc=<?= $row['foto_item']; ?>" onclick="javascript: return confirm('Anda yakin ingin menghapus ?')"><span data-placement='top' data-toggle='tooltip' title='Hapus'><button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> </button></span></a>
+
                                         </td>
                                         </tr>
                                 <?php
@@ -330,11 +339,45 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                         </div>
 
                         <br>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-primary col-sm-offset-5 " value="Submit">
                             &nbsp;
                             <input type="reset" class="btn btn-danger" value="Batal">
+                        </div> -->
+
+                        <!-- Modal notif -->
+                        <div id="notifBudget" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- konten modal-->
+                                <div class="modal-content">
+                                    <!-- heading modal -->
+                                    <div class="modal-header bg-danger ">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Informasi !</h4>
+                                    </div>
+                                    <!-- body modal -->
+                                    <div class="modal-body">
+                                        <div class="perhitungan">
+                                            <form class="form-horizontal">
+                                                <div class="box-body">
+                                                    <input type="hidden" name="id" value="" id="mr_id_kasbon">
+                                                    <input type="hidden" name="id_dbo" value="" id="mr_id_dbo">
+
+                                                    <h4> <span class="text-red"><i> Pengajuan mr ini tidak bisa di release karena saldo anggaran tersebut sudah terlimit! </i></span> silahkan kordinasi dengan team anggaran. </h4>
+
+                                                    <div class=" modal-footer">
+                                                        <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Tutup">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- div perhitungan -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <!-- End notif -->
+
                     </div>
                 </form>
 

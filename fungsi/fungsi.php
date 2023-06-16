@@ -8,8 +8,8 @@ function host()
     $srv = $_SERVER['SERVER_NAME'];
     $port = ":" .  $_SERVER['SERVER_PORT'];
 
-    // $host = 'http://' . $srv .  '/sistem/gs-belawan/';
-    $host = 'http://' . $srv . '/gs-belawan/';
+    $host = 'http://' . $srv .  '/sistem/gs-belawan/';
+    // $host = 'http://' . $srv . '/gs-belawan/';
 
     return $host;
 }
@@ -361,11 +361,14 @@ function fieldRealisasi($bln)
     }
 }
 
-function hapusItemMr($id)
+function hapusItemMr($id, $foto)
 {
     global $koneksi;
-    $query = mysqli_query($koneksi, "DELETE FROM detail_biayaops WHERE id=$id");
-    mysqli_query($koneksi, $query);
+    $query = mysqli_multi_query($koneksi, "DELETE FROM detail_biayaops WHERE id = '$id';
+                                            DELETE FROM sub_dbo WHERE id_dbo = '$id';
+                                ");
+
+    unlink("../file/foto/$foto");
 
     if ($query) {
         header("location:index.php?p=buat_mr");

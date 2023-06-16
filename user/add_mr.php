@@ -3,8 +3,8 @@ session_start();
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
-if (isset($_POST['submit'])) {
-
+if (isset($_GET['id'])) {
+	$id = $_GET['id'];
 
 	$query = mysqli_query($koneksi, "SELECT MAX(kd_transaksi) from biaya_ops ");
 
@@ -20,9 +20,6 @@ if (isset($_POST['submit'])) {
 	} else {
 		$kode_otomatis = "B00001";
 	}
-
-	$tgl_pengajuan = $_POST['tgl_pengajuan'];
-
 
 	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]'");
 	$rowUser = mysqli_fetch_assoc($queryUser);
@@ -45,12 +42,13 @@ if (isset($_POST['submit'])) {
 	mysqli_query($koneksi, $queryLog);
 
 	$queryDetail = "UPDATE detail_biayaops SET status = '1', kd_transaksi = '$kode_otomatis'  
-                                            WHERE id_divisi ='$id_divisi' AND status = '0' AND is_for = 'mr'";
-	$hasilDtl = mysqli_query($koneksi, $queryDetail);
+                                            -- WHERE id_divisi ='$id_divisi' AND status = '0' AND is_for = 'mr'
+											WHERE id = '$id'";
 
+	$hasilDtl = mysqli_query($koneksi, $queryDetail);
 	// query insert 
 	$query = "INSERT INTO biaya_ops ( kd_transaksi, id_divisi, tgl_pengajuan, id_manager, created_by, created_on, id_jenispengajuan) VALUES 
-								( '$kode_otomatis','$id_divisi',  '$tgl_pengajuan', '$id_manager', '$nama', '$tanggal', '1');
+								( '$kode_otomatis','$id_divisi',  NOW(), '$id_manager', '$nama', '$tanggal', '1');
 			";
 
 	$hasil = mysqli_query($koneksi, $query);
