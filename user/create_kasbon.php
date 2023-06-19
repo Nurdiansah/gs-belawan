@@ -79,8 +79,8 @@ if (isset($_POST['submit'])) {
             $id_dbo = $id_dbo['id'];
 
             //query kasbon
-            $queryKasbon = "INSERT kasbon ( id_kasbon , id_dbo, harga_akhir, tgl_kasbon, id_manager, from_user, doc_pendukung,  status_kasbon) VALUES
-                                    ('$kode_otomatis', '$id_dbo', '$totalPengajuan','$tanggal', '$id_manager', 1, '$namabaru', 0 );
+            $queryKasbon = "INSERT kasbon ( id_kasbon , id_dbo, nilai_barang, harga_akhir, tgl_kasbon, id_manager, from_user, doc_pendukung,  status_kasbon) VALUES
+                                    ('$kode_otomatis', '$id_dbo', '$totalPengajuan', '$totalPengajuan','$tanggal', '$id_manager', 1, '$namabaru', 0 );
                                     ";
             $hasil = mysqli_query($koneksi, $queryKasbon);
 
