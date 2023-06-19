@@ -141,7 +141,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                                     ?>
                                             <td> <?= $no; ?> </td>
                                             <td> <?= $row['nm_barang']; ?> </td>
-                                            <td> <?= $row['kd_anggaran'] . ' ' . $row['nm_item']; ?> </td>
+                                            <td> <?= $row['kd_anggaran'] . ' [' . $row['nm_item']; ?>]</td>
                                             <td> <?= $row['merk']; ?> </td>
                                             <td> <?= $row['spesifikasi']; ?> </td>
                                             <td> <?= $row['nm_supplier']; ?> </td>

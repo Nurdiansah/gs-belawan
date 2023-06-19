@@ -20,10 +20,15 @@
                                                                     FROM bkk_ke_pusat
                                                                     WHERE id_anggaran = '$id_anggaran'
                                                                     AND status_bkk = '4'
-                                                                    AND no_bkk NOT IN (SELECT no_bkk FROM gs.bkk_final
-                                                                                        WHERE id_anggaran = '$id_anggaran'
-                                                                                        AND status_bkk = '4'
-                                                                                        AND id_area = '2')"));
+                                                                    AND id_kdtransaksi NOT IN (SELECT id_kdtransaksi FROM gs.bkk_final
+                                                                                                WHERE id_anggaran = '$id_anggaran'
+                                                                                                AND status_bkk = '4'
+                                                                                                AND id_area = '2')
+                                                                    AND pengajuan NOT IN (SELECT pengajuan FROM gs.bkk_final
+                                                                                            WHERE id_anggaran = '$id_anggaran'
+                                                                                            AND status_bkk = '4'
+                                                                                            AND id_area = '2')
+                                                                                    "));
 
         $totalPetty = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(id_pettycash) AS jumlah
                                                                     FROM transaksi_pettycash
@@ -93,9 +98,13 @@
                                                                             WHERE id_anggaran = '$id_anggaran'
                                                                             AND status_bkk = '4'
                                                                             AND no_bkk NOT IN (SELECT no_bkk FROM gs.bkk_final
-                                                                                        WHERE id_anggaran = '$id_anggaran'
-                                                                                        AND status_bkk = '4'
-                                                                                        AND id_area = '2')
+                                                                                                WHERE id_anggaran = '$id_anggaran'
+                                                                                                AND status_bkk = '4'
+                                                                                                AND id_area = '2')
+                                                                            AND pengajuan NOT IN (SELECT pengajuan FROM gs.bkk_final
+                                                                                                    WHERE id_anggaran = '$id_anggaran'
+                                                                                                    AND status_bkk = '4'
+                                                                                                    AND id_area = '2')
 
                                                                             UNION ALL
 
