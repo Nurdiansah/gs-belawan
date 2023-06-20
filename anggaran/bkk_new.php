@@ -267,8 +267,15 @@ if ($data['pengajuan'] == "PO") {
 // klo pengajuannya kasbon
 if ($data['pengajuan'] == "KASBON") {
     $dataKasbon = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM kasbon WHERE id_kasbon = '$id_kdtransaksi'"));
+    $id_dbo = $dataKasbon['id_dbo'];
 
-    $gabung->addPDF('../file/doc_pendukung/' . $dataKasbon['doc_pendukung']);
+    if ($dataKasbon['from_user'] == "1") {
+        $gabung->addPDF('../file/doc_pendukung/' . $dataKasbon['doc_pendukung']);
+    } else {
+        $dataDBO = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM detail_biayaops WHERE id = '$id_dbo'"));
+
+        $gabung->addPDF('../file/foto/' . $dataDBO['foto_item']);
+    }
 }
 
 // $gabung->merge('download', 'merged.pdf');
