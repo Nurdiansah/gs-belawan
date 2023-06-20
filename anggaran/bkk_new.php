@@ -22,6 +22,8 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                                           WHERE b.id = '$id' ");
 
 $data = mysqli_fetch_assoc($queryBkk);
+$id_kdtransaksi = $data['id_kdtransaksi'];
+$id_bkk = $data['id'];
 
 if (!file_exists("../file/bkk_temp/BKK-" . $data['id'] . ".pdf")) {
 
