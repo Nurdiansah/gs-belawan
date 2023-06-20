@@ -11,7 +11,7 @@ if (isset($_GET['id'])) {
     $id = dekripRambo($id);
 }
 
-if (!isset($_SESSION['username_en']) || $_SESSION['level_en'] != 'anggaran') {
+if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != 'anggaran') {
     header("location: ../index.php");
 }
 
