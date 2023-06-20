@@ -1,7 +1,5 @@
-<?php
-ob_start();
+<?php ob_start();
 session_start();
-include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 include "../fungsi/fungsiuser.php";
 if (isset($_GET['id'])) {
@@ -15,21 +13,15 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != 'anggaran') {
     header("location: ../index.php");
 }
 
-$queryBkk = mysqli_query($koneksi, "SELECT *, b.keterangan as bketerangan
-                                        FROM bkk_final b   
-                                        LEFT JOIN supplier s
-                                            ON b.id_supplier = s.id_supplier
-                                        LEFT JOIN anggaran a
-                                            ON b.id_anggaran = a.id_anggaran
-                                        LEFT JOIN divisi d
-                                            ON a.id_divisi = d.id_divisi
-                                        LEFT JOIN bkk bk
-                                            ON kd_transaksi = id_kdtransaksi
-                                        WHERE b.id = '$id' ");
+$queryBkk = mysqli_query($koneksi, "SELECT * 
+                                          FROM bkk_final b   
+                                          LEFT JOIN supplier s
+                                          ON b.id_supplier = s.id_supplier
+                                          LEFT JOIN anggaran a
+                                          ON b.id_anggaran = a.id_anggaran
+                                          WHERE b.id = '$id' ");
 
 $data = mysqli_fetch_assoc($queryBkk);
-$id_kdtransaksi = $data['id_kdtransaksi'];
-$id_bkk = $data['id'];
 
 if (!file_exists("../file/bkk_temp/BKK-" . $data['id'] . ".pdf")) {
 
@@ -69,10 +61,6 @@ if (!file_exists("../file/bkk_temp/BKK-" . $data['id'] . ".pdf")) {
     <!-- Setting Margin header/ kop -->
     <!-- Setting CSS Tabel data yang akan ditampilkan -->
     <style type="text/css">
-        .body {
-            font-family: Courier;
-        }
-
         .tabel2 {
             border-collapse: collapse;
             margin-left: 0px;
@@ -113,7 +101,7 @@ if (!file_exists("../file/bkk_temp/BKK-" . $data['id'] . ".pdf")) {
         div.kiri {
             width: 100px;
             float: left;
-            margin-left: 1px;
+            margin-left: 30px;
             display: inline;
         }
 
@@ -140,151 +128,108 @@ if (!file_exists("../file/bkk_temp/BKK-" . $data['id'] . ".pdf")) {
         .left {
             width: 300px;
             float: left;
-            margin-left: 120px;
+            margin-left: 150px;
             display: inline;
             text-align: left;
 
         }
-
-        .watermark {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0.5;
-            z-index: -1;
-            font-size: 7em;
-            color: #ccc;
-        }
     </style>
+    <?php
+    include "../fungsi/koneksi.php";
 
-    <div class="body" style="font-size: 11px;">
-        <table border="0">
-            <tr>
-                <td style="text-align: center; width=100px; ">
-                    <img src="../gambar/logoenc.jpg" style="width:120px;height:50px" />
-                    <h3><b>PT.EKANURI</b></h3>
-                </td>
-                <td style="text-align: right; width=480px; ">
-                </td>
-                <td style="vertical-align:middle; width=120px; ">
-                    <?php if (is_null($data['v_mgr_finance']) || is_null($data['v_direktur'])) { ?>
-                        <div class="watermark">BKK Not Completed</div>
-                    <?php } ?>
-                </td>
-            </tr>
-        </table>
-        <hr>
+    ?>
 
-        <h3 align="center"><u>BUKTI KAS KELUAR</u></h3>
-        <h4 align=""><u>No BKK : [ <?= $data['no_bkk'] ?> ]</u></h4>
-        <!-- <table border="1px">
+    <div class="kiri">
+        <img src="../gambar/gs.png" style="width:80px;height:50px" />
+    </div>
+    <h3><b>PT.GRAHA SEGARA</b></h3>
+    <hr>
+
+    <?php
+
+    ?>
+    <h3 align="center"><u>BUKTI KAS KELUAR</u></h3>
+    <h4 align="" style="font-size: 12px;"><u>No BKK : [ <?= $data['no_bkk'] ?> ]</u></h4>
+    <!-- <table border="1px">
     <tr>
         <td> -->
-        <table border="0px">
-            <tr>
-                <td style="text-align: left; width=130px; "><b>Di Bayarkan Kepada</b></td>
-                <td style="text-align: ; width=5%;">:</td>
-                <td style="width=380px;">
-                    <?php if ($data['pengajuan'] == "PO") {
-                        echo $data['nm_supplier'];
-                    } elseif ($data['pengajuan'] == "BIAYA UMUM") {
-                        echo $data['nm_vendor'];
-                    } else {
-                        echo "-";
-                    } ?>
-                </td>
-                <td align="right" rowspan="7" style="width=170px;">
-                    <qrcode value="[ E-Finance Ekanuri ] | Kode BKK : <?= $data['no_bkk']; ?> | Sebesar :  <?= formatRupiah($data['nominal']); ?> " ec="H" style="width: 35mm; background-color: white; color: black;"></qrcode>
-                    <br>
-                    Jakarta, <?= is_null($data['release_on_bkk']) ? formatTanggal(dateNow()) : formatTanggal($data['release_on_bkk']); ?>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: left; width=130px; "><b>Kode Anggaran</b></td>
-                <td style="text-align: ; width=5%;">:</td>
-                <td style="width=380px;">
-                    <?php if ($data['pengajuan'] == "REFILL FUND") {
-                        echo "-";
-                    } else {
-                        echo $data['kd_anggaran'] . " [" . $data['nm_item'] . "]";
-                    }
-                    ?>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: left; width=130px; "><b>Divisi</b></td>
-                <td style="text-align: ; width=5%;">:</td>
-                <td style="width=380px;">
-                    <?php if ($data['pengajuan'] == "REFILL FUND") {
-                        echo "Kasir";
-                    } else {
-                        echo $data['nm_divisi'];
-                    }
-                    ?>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: left; width=130px; "><b>Untuk</b></td>
-                <td style="text-align: ; width=5%;">:</td>
-                <td style="width=380px;"><?= $data['bketerangan']; ?></td>
-            </tr>
-            <tr>
-                <td style="text-align: left; width=130px; "><b>Jumlah</b></td>
-                <td style="text-align: ; width=5%;">:</td>
-                <td style="text-align: left; width=180px; "><?= formatRupiah($data['nominal']) ?></td>
-            </tr>
-            <tr>
-                <td style="text-align: left; width=130px; "><b>Terbilang</b></td>
-                <td style="text-align: ; width=5%;">:</td>
-                <td style="width=380px;"><?= Terbilang($data['nominal']); ?> Rupiah </td>
-            </tr>
-            <tr>
-                <td><b>Manager Finance</b></td>
-                <td style="text-align: ; width=5%;">:</td>
-                <?php if ($data['v_mgr_finance'] == "") { ?>
-                    <td>-</td>
-                <?php } else { ?>
-                    <td>APPROVED (<?= formatTanggalWaktu($data['v_mgr_finance']); ?>)</td>
-                <?php } ?>
-            </tr>
-            <tr>
-                <td><b>Direktur</b></td>
-                <td style="text-align: ; width=5%;">:</td>
-                <?php if ($data['v_direktur'] == "") { ?>
-                    <td>-</td>
-                <?php } else { ?>
-                    <td>APPROVED (<?= formatTanggalWaktu($data['v_direktur']); ?>)</td>
-                <?php } ?>
-            </tr>
-            <tr>
-                <td colspan="3"></td>
-                <td style="text-align: center;">Yang Mengeluarkan,</td>
-            </tr>
-            <tr>
-                <td style="text-align: right; height=20px; " colspan="4"></td>
-            </tr>
-            <tr>
-                <td colspan="3"></td>
-                <td style="text-align: center;">System</td>
-            </tr>
-        </table>
-        <!-- </td> -->
+    <table border="0px" style="font-size: 11px;">
+        <tr>
+            <td style="text-align: left; width=150px; "><b>Di Bayarkan Kepada</b></td>
+            <td style="text-align: ; width=5%;">:</td>
+            <td style="width=380px;">-</td>
+            <td align="right" rowspan="6">
+                <qrcode value="[ E-Finance GS ] | Kode BKK : <?= $data['nomor']; ?> | Sebesar :  <?= formatRupiah($data['nominal']); ?> " ec="H" style="width: 35mm; background-color: white; color: black;"></qrcode>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: left; width=150px; "><b>Kode Anggaran</b></td>
+            <td style="text-align: ; width=5%;">:</td>
+            <td style="width=380px;"><?php
 
-        <!-- </tr>
+                                        if (is_null($data['id_anggaran'])) {
+                                            echo '-';
+                                        } else {
+                                            echo $data['kd_anggaran'] . " [" . $data['nm_item'] . "]";
+                                        }
+                                        ?></td>
+        </tr>
+        <tr>
+            <td style="text-align: left; width=150px; "><b>Untuk</b></td>
+            <td style="text-align: ; width=5%;">:</td>
+            <td style="width=380px;"><?= $data['keterangan']; ?></td>
+        </tr>
+        <tr>
+            <td style="text-align: left; width=150px; "><b>Jumlah</b></td>
+            <td style="text-align: ; width=5%;">:</td>
+            <td style="text-align: left; width=180px; "><?= formatRupiah($data['nominal']) ?></td>
+        </tr>
+        <tr>
+            <td style="text-align: left; width=150px; "><b>Terbilang</b></td>
+            <td style="text-align: ; width=5%;">:</td>
+            <td style="width=380px;"><?= Terbilang($data['nominal']); ?> Rupiah </td>
+        </tr>
+        <tr>
+            <td><b>Manager Finance</b></td>
+            <td style="text-align: ; width=5%;">:</td>
+            <td>APPROVED (<?= formatTanggalWaktu($data['v_mgr_finance']); ?>)</td>
+        </tr>
+        <tr>
+            <td><b>Direktur</b></td>
+            <td style="text-align: ; width=5%;">:</td>
+            <?php if ($data['v_direktur'] == "" || $data['v_direktur'] == "0000-00-00 00:00:00") { ?>
+                <td>-</td>
+            <?php } else { ?>
+                <td>APPROVED (<?= formatTanggalWaktu($data['v_direktur']); ?>)</td>
+            <?php } ?>
+            <td style="text-align: right; width=150px; ">Jakarta, <?= formatTanggal($data['release_on_bkk']) ?></td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td style="text-align: right;">Yang Mengeluarkan,</td>
+        </tr>
+        <tr>
+            <td style="text-align: right; height=40px; " colspan="4"></td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td style="text-align: center;">System</td>
+        </tr>
+    </table>
+    <!-- </td> -->
+
+    <!-- </tr>
 </table> -->
-    </div>
 
     <!-- Memanggil fungsi bawaan HTML2PDF -->
 <?php
-
     $content = ob_get_clean();
     include '../assets/html2pdf/html2pdf.class.php';
     try {
-        $html2pdf = new HTML2PDF('l', 'A5', 'en', false, 'UTF-8', array(8, 8, 5, 5));
+        $html2pdf = new HTML2PDF('l', 'A5', 'en', false, 'UTF-8', array(10, 10, 10, 10));
         $html2pdf->pdf->SetDisplayMode('fullpage');
         $html2pdf->writeHTML($content);
-        // $html2pdf->Output('BKK-' .  $data['no_bkk'] . '.pdf');
+        // $html2pdf->Output('Laporan-Pengambilan-Dana-' . $id . '.pdf');
         $html2pdf->Output('../file/bkk_temp/BKK-' . $data['id'] . '.pdf', 'F');
         $html2pdf->setDefaultFont("roboto");
     } catch (HTML2PDF_exception $e) {
