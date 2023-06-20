@@ -49,7 +49,10 @@ $no = 1;
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php while ($dataBKK = mysqli_fetch_assoc($queryBKK)) { ?>
+                                <?php while ($dataBKK = mysqli_fetch_assoc($queryBKK)) {
+                                    $id_pph = $dataBKK['id_pph'];
+                                    $dataPPh = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM pph WHERE id_pph = '$id_pph'"));
+                                ?>
                                     <tr>
                                         <td><?= $no; ?></td>
                                         <td><?= $dataBKK['pengajuan']; ?></td>
@@ -57,7 +60,7 @@ $no = 1;
                                         <td><?= formatRupiah2($dataBKK['nilai_barang']); ?></td>
                                         <td><?= formatRupiah2($dataBKK['nilai_jasa']); ?></td>
                                         <td><?= formatRupiah2($dataBKK['nilai_ppn']); ?></td>
-                                        <td><?= $dataBKK['id_pph']; ?></td>
+                                        <td><?= $dataPPh['nm_pph']; ?></td>
                                         <td><?= formatRupiah2($dataBKK['nilai_pph']); ?></td>
                                         <td><?= formatRupiah2($dataBKK['nominal']); ?></td>
                                         <td>
