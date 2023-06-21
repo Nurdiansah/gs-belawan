@@ -93,22 +93,24 @@ function getHari($hari)
 function tanggal_indo($tanggal)
 {
     $bulan = array(
-        1 => 'Januari',
-        'Februari',
-        'Maret',
-        'April',
-        'Mei',
-        'Juni',
-        'Juli',
-        'Agustus',
-        'September',
-        'Oktober',
-        'November',
-        'Desember'
+        '01' => 'Januari',
+        '02' => 'Februari',
+        '03' => 'Maret',
+        '04' => 'April',
+        '05' => 'Mei',
+        '06' => 'Juni',
+        '07' => 'Juli',
+        '08' => 'Agustus',
+        '09' => 'September',
+        '10' => 'Oktober',
+        '11' => 'November',
+        '12' => 'Desember'
     );
 
-    $split = explode('-', $tanggal);
-    $tanggal_indo = $split[2] . ' ' . $bulan[(int)$split[1]] . ' ' . $split[0];
+    $tanggal_indo = date('d', strtotime($tanggal)) . ' ' . ($bulan[date('m', strtotime($tanggal))]) . ' ' . date('Y', strtotime($tanggal));
+
+    // $split = explode('-', $tanggal);
+    // $tanggal_indo = $split[2] . ' ' . $bulan[(int)$split[1]] . ' ' . $split[0];
 
     return $tanggal_indo;
 }
