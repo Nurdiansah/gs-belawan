@@ -662,7 +662,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
         var nj_ui = tandaPemisahTitik(nilaiJasa);
         $('#nj_ui').text('Rp.' + nj_ui);
 
-        var pph_persen = parseInt($("#pph_persen").val())
+        var pph_persen = parseFloat($("#pph_persen").val())
         var pph_nilai = Math.floor(nilaiJasa * pph_persen / 100);
 
         var pph_nilaia = tandaPemisahTitik(pph_nilai);
@@ -749,7 +749,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
             if (pph_nilai > 0) {
                 var persen = (pph_nilai / nilai_jasa) * 100;
 
-                document.form.pph_persen.value = persen;
+                document.form.pph_persen.value = parseFloat(persen).toFixed(2);
             }
 
         } else if (data == 'progresive') {

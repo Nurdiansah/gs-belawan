@@ -185,7 +185,7 @@ include "../fungsi/koneksi.php";
         <tr>
             <td style="text-align: left; width=120px; "><b>Keperluan</b></td>
             <td style="text-align: ; width=5%;">:</td>
-            <td style="width=400px;">
+            <td style="width=420px;">
                 <?= $data['keterangan_pettycash']; ?>
             </td>
             <td align="right" rowspan="6">
@@ -195,7 +195,7 @@ include "../fungsi/koneksi.php";
         <tr>
             <td><b>Kode Anggaran</b></td>
             <td>:</td>
-            <td><?= $data['kd_anggaran'] . " [" . $data['nm_item'] . "]"; ?></td>
+            <td style="width=420px;"><?= $data['kd_anggaran'] . " [" . $data['nm_item'] . "]"; ?></td>
         </tr>
         <tr>
             <td><b>Divisi</b></td>

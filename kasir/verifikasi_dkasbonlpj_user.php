@@ -121,51 +121,52 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
                             </div>
 
                             <!-- Rincian Harga -->
-                            <?php if ($vrf_pajak == 'bp') { ?>
-                                <div class="col-sm-12">
-                                    <h3 class="text-center">Rincian Harga</h3>
-                                    <div class="table-responsive">
-                                        <table class="table" border="2px">
-                                            <tr>
-                                                <td colspan="5"><b>Nominal Pengajuan</b></td>
-                                                <td><b><?= formatRupiah($data['nilai_pengajuan']); ?></b></td>
-                                            </tr>
-                                            <tr style="background-color :#B0C4DE;">
-                                                <td colspan="5"><b>Pengembalian</b></td>
-                                                <td><b><?= formatRupiah($data['pengembalian']); ?></b></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5"><b>Penambahan</b></td>
-                                                <td><b><?= formatRupiah($data['penambahan']); ?></b></td>
-                                            </tr>
-                                            <tr style="background-color : grey;">
-                                                <td colspan="6"><b></b></td>
-                                            </tr>
-                                            <tr style="background-color :#B0C4DE;">
-                                                <td colspan="5"><b>Nilai Barang</b></td>
-                                                <td><b><?= formatRupiah($data['nilai_barang']); ?></b></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5"><b>Nilai Jasa</b></td>
-                                                <td><b><?= formatRupiah($data['nilai_jasa']); ?></b></td>
-                                            </tr>
-                                            <tr style="background-color :#B0C4DE;">
-                                                <td colspan="5"><b>PPN</b></td>
-                                                <td><b><?= formatRupiah($data['nilai_ppn']); ?></b></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5"><b>PPh</b></td>
-                                                <td><b>(<?= formatRupiah($data['nilai_pph']); ?>)</b></td>
-                                            </tr>
-                                            <tr style="background-color :#B0C4DE;">
-                                                <td colspan="5"><b>Grand Total</b></td>
-                                                <td><b><?= formatRupiah($data['harga_akhir']); ?></b></td>
-                                            </tr>
-                                        </table>
-                                    </div>
+                            <?php // if ($vrf_pajak == 'bp') { 
+                            ?>
+                            <div class="col-sm-12">
+                                <h3 class="text-center">Rincian Harga</h3>
+                                <div class="table-responsive">
+                                    <table class="table" border="2px">
+                                        <tr>
+                                            <td colspan="5"><b>Nominal Pengajuan</b></td>
+                                            <td><b><?= formatRupiah($data['nilai_pengajuan']); ?></b></td>
+                                        </tr>
+                                        <tr style="background-color :#B0C4DE;">
+                                            <td colspan="5"><b>Pengembalian</b></td>
+                                            <td><b><?= formatRupiah($data['pengembalian']); ?></b></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5"><b>Penambahan</b></td>
+                                            <td><b><?= formatRupiah($data['penambahan']); ?></b></td>
+                                        </tr>
+                                        <tr style="background-color : grey;">
+                                            <td colspan="6"><b></b></td>
+                                        </tr>
+                                        <tr style="background-color :#B0C4DE;">
+                                            <td colspan="5"><b>Nilai Barang</b></td>
+                                            <td><b><?= formatRupiah($data['nilai_barang']); ?></b></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5"><b>Nilai Jasa</b></td>
+                                            <td><b><?= formatRupiah($data['nilai_jasa']); ?></b></td>
+                                        </tr>
+                                        <tr style="background-color :#B0C4DE;">
+                                            <td colspan="5"><b>PPN</b></td>
+                                            <td><b><?= formatRupiah($data['nilai_ppn']); ?></b></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5"><b>PPh</b></td>
+                                            <td><b>(<?= formatRupiah($data['nilai_pph']); ?>)</b></td>
+                                        </tr>
+                                        <tr style="background-color :#B0C4DE;">
+                                            <td colspan="5"><b>Grand Total</b></td>
+                                            <td><b><?= formatRupiah($data['harga_akhir']); ?></b></td>
+                                        </tr>
+                                    </table>
                                 </div>
-                            <?php
-                            } ?>
+                            </div>
+                            <?php // } 
+                            ?>
                             <br>
                             <div class=" col-sm-offset-8 col-sm-4 control-label">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#konfirmasi">Done</button></span></a>
