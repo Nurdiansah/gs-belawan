@@ -456,6 +456,13 @@ function penghilangTitik($nilai)
     return $nilai;
 }
 
+function kurungMinus($nilai)
+{
+    $minus = substr($nilai, 0, 1);
+
+    return $nilai = $minus == "-" ? "(" . formatRupiah2($nilai) . ")" : formatRupiah2($nilai);
+}
+
 function tahunSekarang()
 {
     $tahun = date('Y');

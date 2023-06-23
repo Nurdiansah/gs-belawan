@@ -113,6 +113,9 @@ $dataLPJ = mysqli_fetch_assoc($queryLPJ);
 $queryBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm = '1'");
 $dataBKM = mysqli_fetch_assoc($queryBKM);
 
+$queryTolakBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm = '202'");
+$dataTolakBKM = mysqli_fetch_assoc($queryTolakBKM);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -336,18 +339,18 @@ $dataBKM = mysqli_fetch_assoc($queryBKM);
                 </span>
               <?php } ?>
               <li><a href="index.php?p=verifikasi_sr"><i class="fa fa-gear"></i> Service Order</a></li>
-              <?php if ($dataLPJ['jumlah'] > 0) { ?>
-                <span class="pull-right-container">
-                  <span class="label label-warning pull-right"><?= $dataLPJ['jumlah']; ?></span>
-                </span>
-              <?php } ?>
-              <li><a href="index.php?p=verifikasi_lpj"><i class="fa fa-tags"></i> LPJ</a></li>
               <?php if ($dataBKM['jumlah'] > 0) { ?>
                 <span class="pull-right-container">
                   <span class="label label-warning pull-right"><?= $dataBKM['jumlah']; ?></span>
                 </span>
               <?php } ?>
               <li><a href="index.php?p=verifikasi_bkm"><i class="fa fa-print"></i> BKM</a></li>
+              <?php if ($dataLPJ['jumlah'] > 0) { ?>
+                <span class="pull-right-container">
+                  <span class="label label-warning pull-right"><?= $dataLPJ['jumlah']; ?></span>
+                </span>
+              <?php } ?>
+              <li><a href="index.php?p=verifikasi_lpj"><i class="fa fa-tags"></i> LPJ</a></li>
             </ul>
           </li>
 
@@ -384,6 +387,12 @@ $dataBKM = mysqli_fetch_assoc($queryBKM);
               <?php } ?>
               <li><a href="index.php?p=ditolak_po"><i class="fa fa-list"></i> Invoice PO</a></li>
               <li><a href="#"><i class="fa fa-gear"></i> Service Order</a></li>
+              <?php if ($dataTolakBKM['jumlah'] > 0) { ?>
+                <span class="pull-right-container">
+                  <span class="label label-danger pull-right"><?= $dataTolakBKM['jumlah']; ?></span>
+                </span>
+              <?php } ?>
+              <li><a href="index.php?p=ditolak_bkm"><i class="fa fa-print"></i> BKM</a></li>
             </ul>
           </li>
 

@@ -3,14 +3,6 @@
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
-if (isset($_POST['cetak'])) {
-    if ($_POST['jenis'] == 'Detail') {
-        header('Location: cetak_pk_dtl.php?jenis=' . $_POST['jenis'] . '&tahun=' . $_POST['tahun'] . '&program_kerja=' . $_POST['program_kerja'] . '');
-    } elseif ($_POST['jenis'] == 'COA') {
-        header('Location: cetak_pk_coa.php?jenis=' . $_POST['jenis'] . '&tahun=' . $_POST['tahun'] . '&program_kerja=' . $_POST['program_kerja'] . '');
-    }
-}
-
 $tahunAyeuna = date("Y");
 $sp = $_GET['sp'];
 
