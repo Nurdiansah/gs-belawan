@@ -30,8 +30,8 @@
         <a href="index.php?p=verifikasi_sr" class="list-group-item"> <i class="fa fa-gear"></i> Service Order <span class="badge label-success"><?php if ($dataSO['jumlah'] > 0) {
                                                                                                                                                   echo $dataSO['jumlah'];
                                                                                                                                                 } ?></span></a>
-        <a href="index.php?p=verifikasi_lpj" class="list-group-item"><i class="fa fa-tags"></i> LPJ <span class="badge label-warning"><?= $dataLPJ['jumlah'] > 0 ? $dataLPJ['jumlah'] : ''; ?></span></a>
         <a href="index.php?p=verifikasi_bkm" class="list-group-item"><i class="fa fa-print"></i> BKM <span class="badge label-warning"><?= $dataBKM['jumlah'] > 0 ? $dataBKM['jumlah'] : ''; ?></span></a>
+        <a href="index.php?p=verifikasi_lpj" class="list-group-item"><i class="fa fa-tags"></i> LPJ <span class="badge label-warning"><?= $dataLPJ['jumlah'] > 0 ? $dataLPJ['jumlah'] : ''; ?></span></a>
       </div>
     </div>
     <div class="col-lg-4 col-xs-4">
@@ -60,7 +60,7 @@
                                                                                                                                             echo $dataTolakPO['jumlah'];
                                                                                                                                           } ?></span></a>
         <a href="#" class="list-group-item"> <i class="fa fa-gear"></i> Service Order <span class="badge label-success"></span></a>
-        <a href="#" class="list-group-item"><i class="fa fa-window-minimize"></i><span class="badge label-warning"></span></a>
+        <a href="index.php?p=ditolak_bkm" class="list-group-item"><i class="fa fa-print"></i> BKM <span class="badge label-danger"><?= $dataTolakBKM['jumlah'] > 0 ? $dataTolakBKM['jumlah'] : ''; ?></span></a>
         <a href="#" class="list-group-item"><i class="fa fa-window-minimize"></i><span class="badge label-warning"></span></a>
       </div>
     </div>

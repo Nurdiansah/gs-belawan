@@ -43,9 +43,10 @@ if (isset($_POST['verifikasi'])) {
 
 if (isset($_POST['tolak'])) {
     $id_bkm = $_POST['id_bkm'];
+    $status = $_POST['reject_ke'];
     $komentar = "@" . $Nama . " : " . $_POST['komentar'];
 
-    $reject = mysqli_query($koneksi, "UPDATE bkm SET status_bkm = '101', komentar_kasir = '$komentar'
+    $reject = mysqli_query($koneksi, "UPDATE bkm SET status_bkm = '$status', komentar_kasir = '$komentar'
                                         WHERE id_bkm = '$id_bkm'
                 ");
 
@@ -168,7 +169,14 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                                                         <input type="hidden" value="<?= $dataBKM['id_bkm']; ?>" class="form-control" name="id_bkm">
                                                                     </div>
                                                                 </div>
-
+                                                                <div class="mb-3">
+                                                                    <label for="validationTextarea">Kembalikan Pengajuan Ke</label>
+                                                                    <select name="reject_ke" class="form-control">
+                                                                        <option value="101">User</option>
+                                                                        <option value="202">Pajak</option>
+                                                                    </select>
+                                                                </div>
+                                                                <br>
                                                                 <div class="mb-3">
                                                                     <label for="validationTextarea">Komentar</label>
                                                                     <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required></textarea>

@@ -69,4 +69,6 @@ else if ($page == "verifikasi_bno") {
     include_once "verifikasi_dkasbon_lpj.php";
 } else if ($page == "verifikasi_bkm") {
     include_once "verifikasi_bkm.php";
+} else if ($page == "ditolak_bkm") {
+    include_once "ditolak_bkm.php";
 }

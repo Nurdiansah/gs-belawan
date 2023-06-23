@@ -5,7 +5,7 @@ include "../fungsi/fungsi.php";
 $queryBKM = mysqli_query($koneksi, "SELECT * FROM bkm b
                                     JOIN anggaran a
                                         ON a.id_anggaran = b.id_anggaran
-                                    WHERE status_bkm IN ('1', '2', '3', '4')
+                                    WHERE status_bkm IN ('1', '2', '3', '4', '202')
                                     AND b.id_divisi = '$idDivisi'
                                     ORDER BY id_bkm DESC");
 
@@ -56,6 +56,8 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                                     <span class="label label-success">Approval Cost Control</span>
                                                 <?php } elseif ($dataBKM['status_bkm'] == "4") { ?>
                                                     <span class="label label-primary">Approval Manager</span>
+                                                <?php } elseif ($dataBKM['status_bkm'] == "202") { ?>
+                                                    <span class="label label-danger">Ditolak Kasir ke Pajak</span>
                                                 <?php } ?>
                                             </td>
                                             <td>
