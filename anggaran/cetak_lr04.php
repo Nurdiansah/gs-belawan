@@ -188,6 +188,124 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
         $header_sisa_anggaran = 0;
         $header_realisasi_persen = 0;
 
+        // buat rumus perhitungan pendapatan usaha, laba usaha, laba rugi dll
+        // pendapatan bersih
+        $pendapatan_bersih_nominal = 0;
+        $pendapatan_bersih_realisasi = 0;
+        $pendapatan_bersih_nota = 0;
+        $pendapatan_bersih_pranota = 0;
+        $pendapatan_bersih_jumlah = 0;
+        $pendapatan_bersih_sisa = 0;
+        $pendapatan_bersih_persen = 0;
+
+        // pendapatan usaha
+        $temp_header_nominal_pendapatan_usaha = 0;
+        $temp_header_realisasi_pendapatan_usaha = 0;
+        $temp_header_nota_pendapatan_usaha = 0;
+        $temp_header_pranota_pendapatan_usaha = 0;
+        $temp_header_jumlah_pendapatan_usaha = 0;
+        $temp_header_sisa_pendapatan_usaha = 0;
+        $temp_header_persen_pendapatan_usaha = 0;
+
+        // beban nota
+        $temp_header_nominal_beban_nota = 0;
+        $temp_header_realisasi_beban_nota = 0;
+        $temp_header_nota_beban_nota = 0;
+        $temp_header_pranota_beban_nota = 0;
+        $temp_header_jumlah_beban_nota = 0;
+        $temp_header_sisa_beban_nota = 0;
+        $temp_header_persen_beban_nota = 0;
+
+        // laba kotor
+        $laba_kotor_nominal = 0;
+        $laba_kotor_realisasi = 0;
+        $laba_kotor_nota = 0;
+        $laba_kotor_pranota = 0;
+        $laba_kotor_jumlah = 0;
+        $laba_kotor_sisa = 0;
+        $laba_kotor_persen = 0;
+
+        // biaya umum dan administrasi
+        $temp_header_nominal_beban_umum = 0;
+        $temp_header_realisasi_beban_umum = 0;
+        $temp_header_nota_beban_umum = 0;
+        $temp_header_pranota_beban_umum = 0;
+        $temp_header_jumlah_beban_umum = 0;
+        $temp_header_sisa_beban_umum = 0;
+        $temp_header_persen_beban_umum = 0;
+
+        // beban pokok
+        $temp_header_nominal_beban_pokok = 0;
+        $temp_header_realisasi_beban_pokok = 0;
+        $temp_header_nota_beban_pokok = 0;
+        $temp_header_pranota_beban_pokok = 0;
+        $temp_header_jumlah_beban_pokok = 0;
+        $temp_header_sisa_beban_pokok = 0;
+        $temp_header_persen_beban_pokok = 0;
+
+        // laba operasional
+        $laba_operasional_nominal = 0;
+        $laba_operasional_realisasi = 0;
+        $laba_operasional_nota = 0;
+        $laba_operasional_pranota = 0;
+        $laba_operasional_jumlah = 0;
+        $laba_operasional_sisa = 0;
+        $laba_operasional_persen = 0;
+
+        // pendapatan lain
+        $temp_header_nominal_pendapatan_lain = 0;
+        $temp_header_realisasi_pendapatan_lain = 0;
+        $temp_header_nota_pendapatan_lain = 0;
+        $temp_header_pranota_pendapatan_lain = 0;
+        $temp_header_jumlah_pendapatan_lain = 0;
+        $temp_header_sisa_pendapatan_lain = 0;
+        $temp_header_persen_pendapatan_lain = 0;
+
+        // biaya lain
+        $temp_header_nominal_biaya_lain = 0;
+        $temp_header_realisasi_biaya_lain = 0;
+        $temp_header_nota_biaya_lain = 0;
+        $temp_header_pranota_biaya_lain = 0;
+        $temp_header_jumlah_biaya_lain = 0;
+        $temp_header_sisa_biaya_lain = 0;
+        $temp_header_persen_biaya_lain = 0;
+
+        // pendapatan lain dan biaya lain
+        $pendapatanlain_biayalain_nominal =  0;
+        $pendapatanlain_biayalain_realisasi = 0;
+        $pendapatanlain_biayalain_nota = 0;
+        $pendapatanlain_biayalain_pranota = 0;
+        $pendapatanlain_biayalain_jumlah = 0;
+        $pendapatanlain_biayalain_sisa = 0;
+        $pendapatanlain_biayalain_persen = 0;
+
+        // laba sebelum pajak
+        $labasebelum_pajak_nominal =  0;
+        $labasebelum_pajak_realisasi = 0;
+        $labasebelum_pajak_nota = 0;
+        $labasebelum_pajak_pranota = 0;
+        $labasebelum_pajak_jumlah = 0;
+        $labasebelum_pajak_sisa = 0;
+        $labasebelum_pajak_persen = 0;
+
+        // pajak penghasilan
+        $temp_header_nominal_pajak_penghasilan = 0;
+        $temp_header_realisasi_pajak_penghasilan = 0;
+        $temp_header_nota_pajak_penghasilan = 0;
+        $temp_header_pranota_pajak_penghasilan = 0;
+        $temp_header_jumlah_pajak_penghasilan = 0;
+        $temp_header_sisa_pajak_penghasilan = 0;
+        $temp_header_persen_pajak_penghasilan = 0;
+
+        // laba setelah pajak
+        $labasetelah_pajak_nominal =  0;
+        $labasetelah_pajak_realisasi = 0;
+        $labasetelah_pajak_nota = 0;
+        $labasetelah_pajak_pranota = 0;
+        $labasetelah_pajak_jumlah = 0;
+        $labasetelah_pajak_sisa = 0;
+        $labasetelah_pajak_persen = 0;
+
         $no = 1;
 
         while ($dataOpex = mysqli_fetch_assoc($queryOpex)) {
@@ -243,7 +361,89 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
                     <!-- <th></th> -->
                 </tr>
 
-            <?php
+                <?php
+                // PENDAPATAN BERSIH
+                if ($header == "Beban Nota") { ?>
+                    <tr style="background-color: orange;">
+                        <th></th>
+                        <th style="text-align: left;">Pendapatan Bersih</th>
+                        <!-- <th></th> -->
+                        <td style="text-align: right;"><b><?= kurungMinus($pendapatan_bersih_nominal); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($pendapatan_bersih_realisasi); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($pendapatan_bersih_nota); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($pendapatan_bersih_pranota); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($pendapatan_bersih_jumlah); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($pendapatan_bersih_sisa); ?></b></td>
+                        <th><?= $pendapatan_bersih_persen; ?>%</th>
+                        <!-- <th></th> -->
+                    </tr>
+                <?php }
+
+                // LABA KOTOR
+                if ($header == "Beban Pokok") { ?>
+                    <tr style="background-color: orange;">
+                        <th></th>
+                        <th style="text-align: left;">Laba Kotor</th>
+                        <!-- <th></th> -->
+                        <td style="text-align: right;"><b><?= kurungMinus($laba_kotor_nominal); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($laba_kotor_realisasi); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($laba_kotor_nota); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($laba_kotor_pranota); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($laba_kotor_jumlah); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($laba_kotor_sisa); ?></b></td>
+                        <th><?= $laba_kotor_persen; ?>%</th>
+                        <!-- <th></th> -->
+                    </tr>
+                <?php }
+
+                // LABA OPERASIONAL
+                if ($header == "Beban Umum") { ?>
+                    <tr style="background-color: orange;">
+                        <th></th>
+                        <th style="text-align: left;">Laba Operasional</th>
+                        <!-- <th></th> -->
+                        <td style="text-align: right;"><b><?= kurungMinus($laba_operasional_nominal); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($laba_operasional_realisasi); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($laba_operasional_nota); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($laba_operasional_pranota); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($laba_operasional_jumlah); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($laba_operasional_sisa); ?></b></td>
+                        <th><?= $laba_operasional_persen; ?>%</th>
+                        <!-- <th></th> -->
+                    </tr>
+                <?php }
+
+                // PENDAPATAN LAIN DAN BIAYA LAIN
+                if ($header == "Biaya Lain-Lain") { ?>
+                    <tr style="background-color: orange;">
+                        <th></th>
+                        <th style="text-align: left;">Pendapatan dan Biaya Lain-Lain</th>
+                        <!-- <th></th> -->
+                        <td style="text-align: right;"><b><?= kurungMinus($pendapatanlain_biayalain_nominal); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($pendapatanlain_biayalain_realisasi); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($pendapatanlain_biayalain_nota); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($pendapatanlain_biayalain_pranota); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($pendapatanlain_biayalain_jumlah); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($pendapatanlain_biayalain_sisa); ?></b></td>
+                        <th><?= $pendapatanlain_biayalain_persen; ?>%</th>
+                        <!-- <th></th> -->
+                    </tr>
+
+                    <!-- LABA SEBELUM PAJAK -->
+                    <tr style="background-color: orange;">
+                        <th></th>
+                        <th style="text-align: left;">Laba Sebelum Pajak</th>
+                        <!-- <th></th> -->
+                        <td style="text-align: right;"><b><?= kurungMinus($labasebelum_pajak_nominal); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($labasebelum_pajak_realisasi); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($labasebelum_pajak_nota); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($labasebelum_pajak_pranota); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($labasebelum_pajak_jumlah); ?></b></td>
+                        <td style="text-align: right;"><b><?= kurungMinus($labasebelum_pajak_sisa); ?></b></td>
+                        <th><?= $labasebelum_pajak_persen; ?>%</th>
+                        <!-- <th></th> -->
+                    </tr>
+            <?php }
                 // setelah ditampilin, dideklarasiin lagi ke 0
                 $header_nominal = 0;
                 $header_realisasi = 0;
@@ -283,6 +483,140 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
             <!-- end isi -->
 
         <?php
+            // PENDAPATAN BERSIH
+            // tampung nominal header pendapatan usaha
+            if ($dataOpex['nm_header'] == "Pendapatan Usaha") {
+                $temp_header_nominal_pendapatan_usaha = $header_nominal;
+                $temp_header_realisasi_pendapatan_usaha = $header_realisasi;
+                $temp_header_nota_pendapatan_usaha = $header_nota;
+                $temp_header_pranota_pendapatan_usaha = $header_pranota;
+                $temp_header_jumlah_pendapatan_usaha = $header_jumlah_realisasi;
+                $temp_header_sisa_pendapatan_usaha = $header_sisa_anggaran;
+                $temp_header_persen_pendapatan_usaha = $header_realisasi_persen;
+            }
+
+            // tampung nominal header beban nota
+            if ($dataOpex['nm_header'] == "Beban Nota") {
+                $temp_header_nominal_beban_nota = $header_nominal;
+                $temp_header_realisasi_beban_nota = $header_realisasi;
+                $temp_header_nota_beban_nota = $header_nota;
+                $temp_header_pranota_beban_nota = $header_pranota;
+                $temp_header_jumlah_beban_nota = $header_jumlah_realisasi;
+                $temp_header_sisa_beban_nota = $header_sisa_anggaran;
+                $temp_header_persen_beban_nota = $header_realisasi_persen;
+            }
+
+            $pendapatan_bersih_nominal =  $temp_header_nominal_pendapatan_usaha - $temp_header_nominal_beban_nota;
+            $pendapatan_bersih_realisasi = $temp_header_realisasi_pendapatan_usaha - $temp_header_realisasi_beban_nota;
+            $pendapatan_bersih_nota = $temp_header_nota_pendapatan_usaha - $temp_header_nota_beban_nota;
+            $pendapatan_bersih_pranota = $temp_header_pranota_pendapatan_usaha - $temp_header_pranota_beban_nota;
+            $pendapatan_bersih_jumlah = $temp_header_jumlah_pendapatan_usaha - $temp_header_jumlah_beban_nota;
+            $pendapatan_bersih_sisa = $temp_header_sisa_pendapatan_usaha - $temp_header_sisa_beban_nota;
+            $pendapatan_bersih_persen = cekPersenNew($pendapatan_bersih_jumlah, $pendapatan_bersih_nominal);
+            // END PERDAPATAN BERSIH
+
+            // LABA KOTOR
+            if ($dataOpex['nm_header'] == "Beban Pokok") {
+                $temp_header_nominal_beban_pokok = $header_nominal;
+                $temp_header_realisasi_beban_pokok = $header_realisasi;
+                $temp_header_nota_beban_pokok = $header_nota;
+                $temp_header_pranota_beban_pokok = $header_pranota;
+                $temp_header_jumlah_beban_pokok = $header_jumlah_realisasi;
+                $temp_header_sisa_beban_pokok = $header_sisa_anggaran;
+                $temp_header_persen_beban_pokok = $header_realisasi_persen;
+            }
+
+            $laba_kotor_nominal =  $pendapatan_bersih_nominal - $temp_header_nominal_beban_pokok;
+            $laba_kotor_realisasi = $pendapatan_bersih_realisasi - $temp_header_realisasi_beban_pokok;
+            $laba_kotor_nota = $pendapatan_bersih_nota - $temp_header_nota_beban_pokok;
+            $laba_kotor_pranota = $pendapatan_bersih_pranota - $temp_header_pranota_beban_pokok;
+            $laba_kotor_jumlah = $pendapatan_bersih_jumlah - $temp_header_jumlah_beban_pokok;
+            $laba_kotor_sisa = $pendapatan_bersih_sisa - $temp_header_sisa_beban_pokok;
+            $laba_kotor_persen = cekPersenNew($laba_kotor_jumlah, $laba_kotor_nominal);
+            // END LABA KOTOR
+
+            // LABA OPERASIONAL
+            if ($dataOpex['nm_header'] == "Beban Umum") {
+                $temp_header_nominal_beban_umum = $header_nominal;
+                $temp_header_realisasi_beban_umum = $header_realisasi;
+                $temp_header_nota_beban_umum = $header_nota;
+                $temp_header_pranota_beban_umum = $header_pranota;
+                $temp_header_jumlah_beban_umum = $header_jumlah_realisasi;
+                $temp_header_sisa_beban_umum = $header_sisa_anggaran;
+                $temp_header_persen_beban_umum = $header_realisasi_persen;
+            }
+
+            $laba_operasional_nominal =  $laba_kotor_nominal - $temp_header_nominal_beban_umum;
+            $laba_operasional_realisasi = $laba_kotor_realisasi - $temp_header_realisasi_beban_umum;
+            $laba_operasional_nota = $laba_kotor_nota - $temp_header_nota_beban_umum;
+            $laba_operasional_pranota = $laba_kotor_pranota - $temp_header_pranota_beban_umum;
+            $laba_operasional_jumlah = $laba_kotor_jumlah - $temp_header_jumlah_beban_umum;
+            $laba_operasional_sisa = $laba_kotor_sisa - $temp_header_sisa_beban_umum;
+            $laba_operasional_persen = cekPersenNew($laba_operasional_jumlah, $laba_operasional_nominal);
+            // END LABA OPERASIONAL
+
+            // PENDAPATAN LAIN DAN BIAYA LAIN
+            if ($dataOpex['nm_header'] == "Pendapatan Lain-Lain") {
+                $temp_header_nominal_pendapatan_lain = $header_nominal;
+                $temp_header_realisasi_pendapatan_lain = $header_realisasi;
+                $temp_header_nota_pendapatan_lain = $header_nota;
+                $temp_header_pranota_pendapatan_lain = $header_pranota;
+                $temp_header_jumlah_pendapatan_lain = $header_jumlah_realisasi;
+                $temp_header_sisa_pendapatan_lain = $header_sisa_anggaran;
+                $temp_header_persen_pendapatan_lain = $header_realisasi_persen;
+            }
+
+            // tampung nominal header biaya lain
+            if ($dataOpex['nm_header'] == "Biaya Lain-Lain") {
+                $temp_header_nominal_biaya_lain = $header_nominal;
+                $temp_header_realisasi_biaya_lain = $header_realisasi;
+                $temp_header_nota_biaya_lain = $header_nota;
+                $temp_header_pranota_biaya_lain = $header_pranota;
+                $temp_header_jumlah_biaya_lain = $header_jumlah_realisasi;
+                $temp_header_sisa_biaya_lain = $header_sisa_anggaran;
+                $temp_header_persen_biaya_lain = $header_realisasi_persen;
+            }
+
+            $pendapatanlain_biayalain_nominal =  $temp_header_nominal_pendapatan_lain - $temp_header_nominal_biaya_lain;
+            $pendapatanlain_biayalain_realisasi = $temp_header_realisasi_pendapatan_lain - $temp_header_realisasi_biaya_lain;
+            $pendapatanlain_biayalain_nota = $temp_header_nota_pendapatan_lain - $temp_header_nota_biaya_lain;
+            $pendapatanlain_biayalain_pranota = $temp_header_pranota_pendapatan_lain - $temp_header_pranota_biaya_lain;
+            $pendapatanlain_biayalain_jumlah = $temp_header_jumlah_pendapatan_lain - $temp_header_jumlah_biaya_lain;
+            $pendapatanlain_biayalain_sisa = $temp_header_sisa_pendapatan_lain - $temp_header_sisa_biaya_lain;
+            $pendapatanlain_biayalain_persen = cekPersenNew($pendapatanlain_biayalain_jumlah, $pendapatanlain_biayalain_nominal);
+            // END PENDAPATAN LAIN DAN BIAYA LAIN
+
+            // LABA SEBELUM PAJAK
+            $labasebelum_pajak_nominal =  $laba_operasional_nominal - $pendapatanlain_biayalain_nominal;
+            $labasebelum_pajak_realisasi = $laba_operasional_realisasi - $pendapatanlain_biayalain_realisasi;
+            $labasebelum_pajak_nota = $laba_operasional_nota - $pendapatanlain_biayalain__nota;
+            $labasebelum_pajak_pranota = $laba_operasional_pranota - $pendapatanlain_biayalain_pranota;
+            $labasebelum_pajak_jumlah = $laba_operasional_jumlah - $pendapatanlain_biayalain_jumlah;
+            $labasebelum_pajak_sisa = $laba_operasional_sisa - $pendapatanlain_biayalain_sisa;
+            $labasebelum_pajak_persen = cekPersenNew($labasebelum_pajak_jumlah, $labasebelum_pajak_nominal);
+            // END LABA SEBELUM PAJAK
+
+            // LABA SETELAH PAJAK
+            // tampung nominal header biaya lain
+            if ($dataOpex['nm_header'] == "Pajak Penghasilan") {
+                $temp_header_nominal_pajak_penghasilan = $header_nominal;
+                $temp_header_realisasi_pajak_penghasilan = $header_realisasi;
+                $temp_header_nota_pajak_penghasilan = $header_nota;
+                $temp_header_pranota_pajak_penghasilan = $header_pranota;
+                $temp_header_jumlah_pajak_penghasilan = $header_jumlah_realisasi;
+                $temp_header_sisa_pajak_penghasilan = $header_sisa_anggaran;
+                $temp_header_persen_pajak_penghasilan = $header_realisasi_persen;
+            }
+
+            $labasetelah_pajak_nominal = $labasebelum_pajak_nominal - $temp_header_nominal_pajak_penghasilan;
+            $labasetelah_pajak_realisasi = $labasebelum_pajak_realisasi - $temp_header_realisasi_pajak_penghasilan;
+            $labasetelah_pajak_nota = $labasebelum_pajak_nota - $temp_header_nota_pajak_penghasilan;
+            $labasetelah_pajak_pranota = $labasebelum_pajak_pranota - $temp_header_pranota_pajak_penghasilan;
+            $labasetelah_pajak_jumlah = $labasebelum_pajak_jumlah - $temp_header_jumlah_pajak_penghasilan;
+            $labasetelah_pajak_sisa = $labasebelum_pajak_sisa - $temp_header_sisa_pajak_penghasilan;
+            $labasetelah_pajak_persen = cekPersenNew($labasetelah_pajak_jumlah, $labasetelah_pajak_nominal);
+            // END LABA SETELAH PAJAK
+
             $sub_header = $dataOpex['nm_subheader'];
             $header = $dataOpex['nm_header'];
             $no++;
@@ -318,6 +652,23 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
             <th><?= $header_realisasi_persen; ?>%</th>
             <!-- <th></th> -->
         </tr>
+
+        <!-- LABA STELAH PAJAK -->
+        <?php if ($header == "Pajak Penghasilan") { ?>
+            <tr style="background-color: orange;">
+                <th></th>
+                <th style="text-align: left;">Laba Setelah Pajak</th>
+                <!-- <th></th> -->
+                <td style="text-align: right;"><b><?= kurungMinus($labasetelah_pajak_nominal); ?></b></td>
+                <td style="text-align: right;"><b><?= kurungMinus($labasetelah_pajak_realisasi); ?></b></td>
+                <td style="text-align: right;"><b><?= kurungMinus($labasetelah_pajak_nota); ?></b></td>
+                <td style="text-align: right;"><b><?= kurungMinus($labasetelah_pajak_pranota); ?></b></td>
+                <td style="text-align: right;"><b><?= kurungMinus($labasetelah_pajak_jumlah); ?></b></td>
+                <td style="text-align: right;"><b><?= kurungMinus($labasetelah_pajak_sisa); ?></b></td>
+                <th><?= $labasetelah_pajak_persen; ?>%</th>
+                <!-- <th></th> -->
+            </tr>
+        <?php } ?>
     </table>
 
     <!-- ------------ CAPEX ------------ -->
