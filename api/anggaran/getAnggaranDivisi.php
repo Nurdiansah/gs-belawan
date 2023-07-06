@@ -2,12 +2,14 @@
 include "../../fungsi/koneksi.php";
 $id = $_POST['id'];
 
+$tahun = date("Y");
 
 $query = mysqli_query($koneksi, "SELECT *
                                    FROM cost_center cc
                                    JOIN program_kerja pk
-                                   ON pk.costcenter_id = cc.id_costcenter
-                                   WHERE cc.divisi_id = '$id'");
+                                    ON pk.costcenter_id = cc.id_costcenter
+                                   WHERE cc.divisi_id = '$id'
+                                   AND tahun = '$tahun'");
 
 $no = 0;
 while ($row = mysqli_fetch_array($query)) {
