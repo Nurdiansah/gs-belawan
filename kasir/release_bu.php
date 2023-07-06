@@ -88,7 +88,8 @@ if (isset($_GET['id'])) {
 
     $id_anggaran = $dataEmail['id_anggaran'];
     $nominal = $dataEmail['nominal'];
-    $insReaSem =  insRealisasiSem('BUM', $id, $id_anggaran, $nominal);
+    // $insReaSem =  insRealisasiSem('BUM', $id, $id_anggaran, $nominal);
+    $insReaSem = "Berhasil";
 
     if ($query1 && $queue && $insReaSem) {
         # jika semua query berhasil di jalankan

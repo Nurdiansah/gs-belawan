@@ -2,12 +2,26 @@
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
+$tahunSekarang = date("Y");
+
+if (isset($_POST['cari'])) {
+    $bulan = $_POST['bulan'];
+    $tahun = $_POST['tahun'];
+    $jmlKarakter = strlen($_POST['bulan']) + 1;
+} else {
+    $bulan =  getRomawi(date("m"));
+    $tahun = date('Y');
+    $jmlKarakter = strlen($bulan) + 1;
+}
+
 $queryBKM = mysqli_query($koneksi, "SELECT * FROM bkm b
                                     JOIN anggaran a
                                         ON a.id_anggaran = b.id_anggaran
                                     WHERE status_bkm IN ('5')
                                     AND b.id_divisi = '$idDivisi'
-                                    ORDER BY id_bkm DESC");
+                                    AND SUBSTRING(no_bkm, 11, $jmlKarakter) = '$bulan/'
+                                    AND RIGHT(no_bkm, 4) = '$tahun'
+                                    ORDER BY no_bkm DESC");
 
 
 $no = 1;
@@ -25,6 +39,40 @@ $totalBKM = mysqli_num_rows($queryBKM);
                     <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#buat"><i class="fa fa-edit"></i> Buat </button></span></a> -->
                 </div>
                 <h3 class="text-center">Transaksi Bukti Kas Masuk</h3>
+                <div class="box-body">
+                    <form method="POST" action="">
+                        <div class="form-group">
+                            <div class="col-sm-offset- col-sm-2">
+                                <select name="bulan" class="form-control" required>
+                                    <option value="I" <?= $bulan == "I" ? "selected" : ""; ?>>Januari</option>
+                                    <option value="II" <?= $bulan == "II" ? "selected" : ""; ?>>Februari</option>
+                                    <option value="III" <?= $bulan == "III" ? "selected" : ""; ?>>Maret</option>
+                                    <option value="IV" <?= $bulan == "IV" ? "selected" : ""; ?>>April</option>
+                                    <option value="V" <?= $bulan == "V" ? "selected" : ""; ?>>Mei</option>
+                                    <option value="VI" <?= $bulan == "VI" ? "selected" : ""; ?>>Juni</option>
+                                    <option value="VII" <?= $bulan == "VII" ? "selected" : ""; ?>>Juli</option>
+                                    <option value="VIII" <?= $bulan == "VIII" ? "selected" : ""; ?>>Agustus</option>
+                                    <option value="IX" <?= $bulan == "IX" ? "selected" : ""; ?>>September</option>
+                                    <option value="X" <?= $bulan == "X" ? "selected" : ""; ?>>Oktober</option>
+                                    <option value="XI" <?= $bulan == "XI" ? "selected" : ""; ?>>November</option>
+                                    <option value="XII" <?= $bulan == "XII" ? "selected" : ""; ?>>Desember</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset- col-sm-2">
+                                <select name="tahun" class="form-control" required>
+                                    <?php
+                                    foreach (range(2021, $tahunSekarang) as $tahunAyeuna) { ?>
+                                        <option value="<?= $tahunAyeuna; ?>" <?= $tahunAyeuna == $tahun ? "selected" : ""; ?>><?= $tahunAyeuna; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" name="cari" class="btn btn-primary"><i class="fa fa-search"></i> Cari</button>
+                        <!-- <button type="submit" name="cetak" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Cetak</button> -->
+                    </form>
+                </div>
                 <div class="box-body">
                     <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal" id="">
                         <div class="table-responsive">
