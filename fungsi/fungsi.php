@@ -729,7 +729,7 @@ function kurungSurplus2($nominal, $realisasi)
     return $kurung;
 }
 
-function nomorBKM($tanggal)
+function nomorBKM($tanggal, $divisi)
 {
     global $koneksi;
 
@@ -738,7 +738,7 @@ function nomorBKM($tanggal)
     $tahun     = date('Y', strtotime($tanggal));
     $nomor     = "/GS-GM/" . $romawi . "/" . $tahun;
 
-    $queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor) from bkm WHERE month(tgl_bkm)='$bulan' ");
+    $queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor) FROM bkm WHERE MONTH(tgl_bkm) = '$bulan' AND id_divisi = '$divisi'");
 
     $nomorMax = mysqli_fetch_array($queryNomor);
     if ($nomorMax) {

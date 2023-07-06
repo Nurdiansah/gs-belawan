@@ -21,7 +21,7 @@ if ($totalBKM > 0) {
         $nominal = $dataBKM['grand_total'];
         $bulan = date("n", strtotime($dataBKM['tgl_bkm']));
 
-        $no_bkm = nomorBKM($dataBKM['tgl_bkm']);
+        $no_bkm = nomorBKM($dataBKM['tgl_bkm'], $dataBKM['id_divisi']);
         $no_awal = nomorAwal($no_bkm);
 
         $updateBKM = mysqli_query($koneksi, "UPDATE bkm SET nomor = '$no_awal',

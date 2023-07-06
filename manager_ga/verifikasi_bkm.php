@@ -18,10 +18,11 @@ if (isset($_POST['verifikasi'])) {
     $cekData = mysqli_fetch_assoc($cekBKM);
     $nominal = $cekData['nominal'];
     $tgl_bkm = $cekData['tgl_bkm'];
+    $id_divisi = $cekData['id_divisi'];
     $id_anggaran = $cekData['id_anggaran'];
     $keterangan = $cekData['keterangan'];
 
-    $nomorBKM = nomorBKM($tgl_bkm);
+    $nomorBKM = nomorBKM($tgl_bkm, $id_divisi);
     $nomorAwal = nomorAwal($nomorBKM);
     // echo $nomorBKM;
     // die;
