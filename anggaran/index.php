@@ -195,7 +195,7 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
               <span>Master Data</span> <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-              <li><a href="index.php?p=anggaran"><i class="fa fa-chevron-right"></i>Anggaran</a></li>
+              <li><a href="index.php?p=anggaran&sp=budget"><i class="fa fa-chevron-right"></i>Anggaran</a></li>
               <li><a href="index.php?p=input_anggaran"><i class="fa fa-chevron-right"></i>Input Anggaran</a></li>
               <!-- <li><a href="index.php?p=input_anggaran_manual"><i class="fa fa-chevron-right"></i>Input Anggaran Manual</a></li> -->
               <!-- <li><a href="index.php?p=cost_center"><i class="fa fa-chevron-right"></i>Costcenter</a></li> -->

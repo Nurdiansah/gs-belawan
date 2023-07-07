@@ -116,4 +116,6 @@ if ($page == 'formpesan') {
     include_once "header_subheader.php";
 } else if ($page == "dtl_laporanpk") {
     include_once "dtl_laporanpk.php";
+} else if ($page == "edit_realisasi") {
+    include_once "edit_realisasi.php";
 }

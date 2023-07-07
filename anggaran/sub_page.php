@@ -27,6 +27,10 @@ if ($sub_page == 'mk_purchasing') {
     include_once "pra_nota.php";
 } else if ($sub_page == "realisasi_kas") {
     include_once "realisasi_kas.php";
+} else if ($sub_page == "budget") {
+    include_once "budget.php";
+} else if ($sub_page == "realisasi") {
+    include_once "realisasi.php";
 }
 
 ?>

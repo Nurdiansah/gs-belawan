@@ -141,7 +141,7 @@ $dataHdr = $dataSHeader['id_header'];
                 <div class="box box-primary">
                     <div class="row">
                         <div class="col-md-2">
-                            <a href="index.php?p=anggaran&tahun=<?= enkripRambo($tahun); ?>&divisi=<?= enkripRambo($idDivisi); ?>" class="btn btn-primary"><i class="fa fa-backward"></i> Kembali</a>
+                            <a href="index.php?p=anggaran&sp=budget&tahun=<?= enkripRambo($tahun); ?>&divisi=<?= enkripRambo($idDivisi); ?>" class="btn btn-primary"><i class="fa fa-backward"></i> Kembali</a>
                         </div>
                     </div>
                     <div class="box-header with-border">
