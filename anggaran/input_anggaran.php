@@ -113,6 +113,7 @@ $tahunAyeuna = date("Y");
                                 <select name="tipe_anggaran" class="form-control">
                                     <option value="OPEX">OPEX</option>
                                     <option value="CAPEX">CAPEX</option>
+                                    <option value="HUTANG PAJAK">HUTANG PAJAK</option>
                                 </select>
                             </div>
                         </div>

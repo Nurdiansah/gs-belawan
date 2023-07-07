@@ -258,6 +258,7 @@ $dataHdr = $dataSHeader['id_header'];
                                 <select name="tipe_anggaran" class="form-control">
                                     <option value="OPEX" <?= $dataAnggaran['tipe_anggaran'] == "OPEX" ? 'selected' : ''; ?>>OPEX</option>
                                     <option value="CAPEX" <?= $dataAnggaran['tipe_anggaran'] == "CAPEX" ? 'selected' : ''; ?>>CAPEX</option>
+                                    <option value="HUTANG PAJAK" <?= $dataAnggaran['tipe_anggaran'] == "HUTANG PAJAK" ? 'selected' : ''; ?>>HUTANG PAJAK</option>
                                 </select>
                             </div>
                         </div>
