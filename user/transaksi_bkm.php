@@ -417,7 +417,7 @@ $totalBKM = mysqli_num_rows($queryBKM);
                 success: function(data) {
                     $('#me_id_bkm').val(data.id_bkm);
                     $('#me_tgl_bkm').val(data.tgl_bkm);
-                    $('#me_nm_item').val(data.nm_item);
+                    $('#me_nm_item').val(data.kd_anggaran + ' [' + data.nm_item + ']');
                     $('#me_nominal').val(formatRibuan(Math.round(data.nominal)));
                     $('#me_nm_divisi').val(data.nm_divisi);
                     $('#me_remarks').val(data.remarks);

@@ -31,6 +31,7 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                     <tr style="background-color :#B0C4DE;">
                                         <th>No</th>
                                         <th>Tanggal</th>
+                                        <th>Divisi</th>
                                         <th>Keterangan</th>
                                         <th>Kode Anggaran</th>
                                         <th>Nominal</th>
@@ -43,7 +44,8 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                         <tr>
                                             <td><?= $no; ?></td>
                                             <td><?= formatTanggal($dataBKM['tgl_bkm']); ?></td>
-                                            <td><?= $dataBKM['keterangan']; ?></td>
+                                            <td><?= $dataBKM['nm_divisi']; ?></td>
+                                            <td><?= batasiKata($dataBKM['keterangan']); ?></td>
                                             <td><?= kodeAnggaran($dataBKM['id_anggaran']); ?></td>
                                             <td><?= formatRupiah($dataBKM['grand_total']); ?></td>
                                             <td>

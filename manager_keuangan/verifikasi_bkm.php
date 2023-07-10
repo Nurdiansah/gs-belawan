@@ -65,6 +65,7 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                     <tr style="background-color :#B0C4DE;">
                                         <th>No</th>
                                         <th>Tanggal</th>
+                                        <th>Divisi</th>
                                         <th>Keterangan</th>
                                         <th>Kode Anggaran</th>
                                         <th>Nominal</th>
@@ -76,8 +77,9 @@ $totalBKM = mysqli_num_rows($queryBKM);
                                         <tr>
                                             <td><?= $no; ?></td>
                                             <td><?= formatTanggal($dataBKM['tgl_bkm']); ?></td>
+                                            <td><?= $dataBKM['nm_divisi']; ?></td>
                                             <td><?= batasiKata($dataBKM['keterangan']); ?></td>
-                                            <td><?= kodeAnggaran($dataBKM['id_anggaran']); ?>]</td>
+                                            <td><?= kodeAnggaran($dataBKM['id_anggaran']); ?></td>
                                             <td><?= formatRupiah($dataBKM['grand_total']); ?></td>
                                             <td>
                                                 <!-- <button type="button" class="btn btn-info " data-toggle="modal" data-target="#lihat_<?= $dataBKM['id_bkm']; ?>"><i class="fa fa-search" title="Lihat" data-toggle="tooltip"></i></button> -->
@@ -398,7 +400,7 @@ $totalBKM = mysqli_num_rows($queryBKM);
                 success: function(data) {
                     $('#me_id_bkm').val(data.id_bkm);
                     $('#me_tgl_bkm').val(data.tgl_bkm);
-                    $('#me_nm_item').val(data.nm_item);
+                    $('#me_nm_item').val(data.kd_anggaran + ' [' + data.nm_item + ']');
                     $('#me_nominal').val(formatRibuan(Math.round(data.nominal)));
                     $('#me_nm_divisi').val(data.nm_divisi);
                     $('#me_remarks').val(data.remarks);

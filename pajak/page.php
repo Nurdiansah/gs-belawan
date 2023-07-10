@@ -71,4 +71,6 @@ else if ($page == "verifikasi_bno") {
     include_once "verifikasi_bkm.php";
 } else if ($page == "ditolak_bkm") {
     include_once "ditolak_bkm.php";
+} else if ($page == "verifikasi_dbkm") {
+    include_once "verifikasi_dbkm.php";
 }
