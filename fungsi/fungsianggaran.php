@@ -172,6 +172,10 @@ function getSaldoAnggaran($id_anggaran)
         $jumlahRealisasi = 0;
     }
 
+    if ($rowAnggaran['unlock'] == "1") {
+        $jumlahRealisasi = 0;
+    }
+
     $jumlahAggPk = ($jumlahNominal - $jumlahRealisasi) - $jumlahRsem;
 
     return $jumlahAggPk;

@@ -701,7 +701,12 @@ function kodeAnggaran($id_anggaran)
 
     $data = mysqli_fetch_assoc($query);
 
-    $hasil = $data['nm_item'] . ' - [' . $data['program_kerja'] . ']';
+    // jika dibawah tahun 2023 maka nampil foramt 2022
+    if ($data['tahun'] < "2023") {
+        $hasil = $data['nm_item'] . ' - [' . $data['program_kerja'] . ']';
+    } else {
+        $hasil = $data['kd_anggaran'] . ' [' . $data['nm_item'] . ']';
+    }
 
     return $hasil;
 }
