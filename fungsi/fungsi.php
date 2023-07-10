@@ -738,7 +738,7 @@ function nomorBKM($tanggal, $divisi)
     $tahun     = date('Y', strtotime($tanggal));
     $nomor     = "/GS-GM/" . $romawi . "/" . $tahun;
 
-    $queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor) FROM bkm WHERE MONTH(tgl_bkm) = '$bulan' AND id_divisi = '$divisi'");
+    $queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor) FROM bkm WHERE MONTH(tgl_bkm) = '$bulan' AND YEAR(tgl_bkm) = '$tahun' AND id_divisi = '$divisi'");
 
     $nomorMax = mysqli_fetch_array($queryNomor);
     if ($nomorMax) {
