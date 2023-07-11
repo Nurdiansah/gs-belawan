@@ -149,18 +149,21 @@ $no = 1;
                                 <th>Budget</th>
                                 <th>Pra Nota</th>
                                 <th>Realisasi</th>
+                                <th>Total Realisasi</th>
                                 <th>Surplus (Defisit)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <th colspan="7" class="text-center">
+                                <th colspan="8" class="text-center">
                                     <h4><b>OPEX</b></h4>
                                 </th>
                             </tr>
                             <?php
                             $grand_nominal = 0;
+                            $grand_pranota = 0;
                             $grand_realisasi = 0;
+                            $grand_jumlah_realisasi = 0;
                             $grand_total = 0;
                             // data OPEX
                             while ($dataChart = mysqli_fetch_assoc($queryChart)) { ?>
@@ -171,6 +174,7 @@ $no = 1;
                                     <td style="text-align: right;"><?= formatRupiah($dataChart['total_budget']); ?></td>
                                     <td style="text-align: right;"><?= formatRupiah($dataChart['pra_nota']); ?></td>
                                     <td style="text-align: right;"><?= formatRupiah($dataChart['total_realisasi']); ?></td>
+                                    <td style="text-align: right;"><?= formatRupiah($dataChart['total_realisasi'] + $dataChart['pra_nota']); ?></td>
                                     <td style="text-align: right;"><?= kurungSurplus($dataChart['total_budget'], $dataChart['total_realisasi'] + $dataChart['pra_nota']); ?></td>
                                 </tr>
                             <?php
@@ -178,6 +182,7 @@ $no = 1;
                                 $grand_nominal += $dataChart['total_budget'];
                                 $grand_pranota += $dataChart['pra_nota'];
                                 $grand_realisasi += $dataChart['total_realisasi'];
+                                $grand_jumlah_realisasi += $dataChart['total_realisasi'] + $dataChart['pra_nota'];
                                 $grand_total += $dataChart['total_budget'] - $dataChart['total_realisasi'];
                             }
                             ?>
@@ -198,12 +203,15 @@ $no = 1;
                                     <h4 class="text-right"><?= formatRupiah($grand_realisasi); ?></h4>
                                 </td>
                                 <td>
+                                    <h4 class="text-right"><?= formatRupiah($grand_jumlah_realisasi); ?></h4>
+                                </td>
+                                <td>
                                     <h4 class="text-right"><?= formatRupiah($grand_total); ?></h4>
                                 </td>
                             </tr>
 
                             <tr>
-                                <th colspan="7" class="text-center">
+                                <th colspan="8" class="text-center">
                                     <h4><b>CAPEX</b></h4>
                                 </th>
                             </tr>
@@ -217,6 +225,7 @@ $no = 1;
                                     <td style="text-align: right;"><?= formatRupiah($dataChartCapex['total_budget']); ?></td>
                                     <td style="text-align: right;"><?= formatRupiah($dataChartCapex['pra_nota']); ?></td>
                                     <td style="text-align: right;"><?= formatRupiah($dataChartCapex['total_realisasi']); ?></td>
+                                    <td style="text-align: right;"><?= formatRupiah($dataChartCapex['total_realisasi'] + $dataChartCapex['pra_nota']); ?></td>
                                     <td style="text-align: right;"><?= kurungSurplus($dataChartCapex['total_budget'], $dataChartCapex['total_realisasi'] + $dataChartCapex['pra_nota']); ?></td>
                                 </tr>
                             <?php
@@ -224,12 +233,14 @@ $no = 1;
                                 $grand_nominal_capex += $dataChartCapex['total_budget'];
                                 $grand_pranota_capex += $dataChartCapex['pra_nota'];
                                 $grand_realisasi_capex += $dataChartCapex['total_realisasi'];
+                                $grand_jumlah_realisasi_capex += $dataChartCapex['total_realisasi'] + $dataChartCapex['pra_nota'];
                                 $grand_total_capex += $dataChartCapex['total_budget'] - $dataChartCapex['total_realisasi'];
                             }
 
                             $total_nominal = $grand_nominal + $grand_nominal_capex;
                             $total_pranota = $grand_pranota + $grand_pranota_capex;
                             $total_realisasi = $grand_realisasi + $grand_realisasi_capex;
+                            $total_jumlah_realisasi = $total_realisasi + $total_pranota;
                             $total_total = $grand_total + $grand_total_capex;
                             ?>
                             <tr>
@@ -247,6 +258,9 @@ $no = 1;
                                 </td>
                                 <td>
                                     <h4 class="text-right"><?= formatRupiah($grand_realisasi_capex); ?></h4>
+                                </td>
+                                <td>
+                                    <h4 class="text-right"><?= formatRupiah($grand_jumlah_realisasi_capex); ?></h4>
                                 </td>
                                 <td>
                                     <h4 class="text-right"><?= formatRupiah($grand_total_capex); ?></h4>
@@ -268,6 +282,9 @@ $no = 1;
                                 </td>
                                 <td>
                                     <h3 class="text-right"><?= formatRupiah($total_realisasi); ?></h3>
+                                </td>
+                                <td>
+                                    <h3 class="text-right"><?= formatRupiah($total_jumlah_realisasi); ?></h3>
                                 </td>
                                 <td>
                                     <h3 class="text-right"><?= formatRupiah($total_total); ?></h3>
