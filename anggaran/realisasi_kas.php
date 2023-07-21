@@ -114,7 +114,7 @@
                                                                 ");
 
                                     $totalBarangKas = 0;
-                                    $totalBarangKas = 0;
+                                    $totalJasaKas = 0;
                                     $totalNominalKas = 0;
                                     $noRealKas = 1;
 
