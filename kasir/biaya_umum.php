@@ -115,17 +115,17 @@ $jumlahData = mysqli_num_rows($query);
                                                 <?php   } else if ($row['status_bkk'] == 4) { ?>
                                                     <span class="label label-success">Verifikasi Kordinator Pajak </span>
                                                 <?php   } else if ($row['status_bkk'] == 5) { ?>
-                                                    <span class="label label-primary">Approval Manager Finance</span>
+                                                    <span class="label label-primary">Approval Cost Control</span>
                                                 <?php   } else if ($row['status_bkk'] == 6) { ?>
-                                                    <span class="label label-primary">Approval Direktur </span>
+                                                    <span class="label label-primary">Approval Manager</span>
                                                 <?php   } else if ($row['status_bkk'] == 404) { ?>
-                                                    <span class="label label-danger">Ditolak Direktur </span>
+                                                    <span class="label label-danger">Ditolak Manager</span>
                                                 <?php   } else if ($row['status_bkk'] == 303) { ?>
-                                                    <span class="label label-danger">Ditolak Manager Finance</span>
+                                                    <span class="label label-danger">Ditolak Cost Control</span>
                                                 <?php   } else if ($row['status_bkk'] == 202) { ?>
                                                     <span class="label label-danger">Ditolak Pajak</span>
                                                 <?php   } else if ($row['status_bkk'] == 101) { ?>
-                                                    <span class="label label-danger">Ditolak Manager</span>
+                                                    <span class="label label-danger">Ditolak Supervisor</span>
                                                     <?php   } else if ($row['status_bkk'] == 7) {
                                                         if ($row['metode_pembayaran'] == 'tunai') { ?>
                                                         <a target="_blank" onclick="window.open('cetak_lpd_biayaumum.php?id=<?= enkripRambo($row['id_bkk']); ?>','name','width=800,height=600')" class="btn btn-success"><i class="fa fa-print"></i> LPD </a>
