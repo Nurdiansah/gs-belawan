@@ -65,13 +65,13 @@ if (isset($_POST['submit']) || isset($_POST['simpan'])) {
                     $status_kasbon = "4";
                     $level = "direktur";
                     $nm_divisi = "bod";
-                    $linkUser   = "url=index.php?p=verifikasi_kasbon&sp=vk_user&lvl=direktur";
+                    $linkUser   = "url=index.php?p=verifikasi_kasbon&sp=vk_purchasing&lvl=direktur";
                 } else {
                     // kemanager finance
                     $status_kasbon = "3";
                     $level = "manager_keuangan";
                     $nm_divisi = "finance";
-                    $linkUser   = "url=index.php?p=verifikasi_kasbon&sp=vk_user&lvl=manager_keuangan";
+                    $linkUser   = "url=index.php?p=verifikasi_kasbon&sp=vk_purchasing&lvl=manager_keuangan";
                 }
 
                 #kondisi jika verfikasi pajak sebelum pembayaran
@@ -274,7 +274,7 @@ if (isset($_POST['submit']) || isset($_POST['simpan'])) {
             setcookie('pesan', 'Kasbon gagal di Verifikasi!<br>' . mysqli_error($koneksi) . '', time() + (3), '/');
             setcookie('warna', 'alert-danger', time() + (3), '/');
         }
-        header("location:index.php?p=verifikasi_kasbon&sp=vk_user");
+        header("location:index.php?p=verifikasi_kasbon&sp=vk_purchasing");
     }
 }
 

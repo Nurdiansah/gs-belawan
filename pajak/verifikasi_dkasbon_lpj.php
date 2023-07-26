@@ -405,7 +405,7 @@ if ($data['nilai_ppn'] > 0) {
                                                 <div class="col-sm-5">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">Rp.</span>
-                                                        <input type="text" required class="form-control" name="jml" readonly />
+                                                        <input type="text" required class="form-control" name="jml" value="<?= $data['nilai_akhir']; ?>" readonly />
                                                     </div>
                                                 </div>
                                             </div>
@@ -413,7 +413,8 @@ if ($data['nilai_ppn'] > 0) {
                                                 <div class="form-group">
                                                     <button type="submit" name="simpan" class="btn btn-primary col-sm-offset-4"><i class="fa fa-save"></i> Simpan</button>
                                                     &nbsp;
-                                                    <button type="submit" name="submit" class="btn btn-warning "><i class="fa fa-rocket"></i> Submit</button>
+                                                    <!-- <button type="submit" name="submit" class="btn btn-warning "><i class="fa fa-rocket"></i> Submit</button> -->
+                                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#submit"><i class="fa fa-rocket"></i> Submit</button>
                                                     &nbsp;
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#tolak">Reject </button></span></a>
                                                 </div>
@@ -433,6 +434,50 @@ if ($data['nilai_ppn'] > 0) {
         </div>
     </div>
 </section>
+
+<!-- modal submit -->
+<div id="submit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- konten modal-->
+        <div class="modal-content">
+            <!-- heading modal -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Submit Pengajuan</h4>
+            </div>
+            <!-- body modal -->
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" action="vrf_item_lpj.php" class="form-horizontal">
+                    <input type="text" name="id_kasbon" value="<?= $data['id_kasbon'] ?>" class="form-control">
+                    <input type="text" name="from_user" value="<?= $data['from_user'] ?>" class="form-control">
+                    <input type="text" name="id" value="<?= $data['id'] ?>" class="form-control">
+                    <input type="text" name="vrf_pajak" value="<?= $data['vrf_pajak'] ?>" class="form-control">
+                    <input type="text" value="<?= $data['nilai_barang']; ?>" class="form-control" name="nilai_barang" readonly>
+                    <input type="text" value="<?= $data['nilai_jasa']; ?>" class="form-control" name="nilai_jasa" readonly>
+                    <input type="text" value="<?= $data['nilai_ppn']; ?>" class="form-control" name="ppn_nilai" readonly>
+                    <input type="text" value="<?= $data['id_pph']; ?>" class="form-control" name="id_pph" readonly>
+                    <input type="text" value="<?= $data['nilai_pph']; ?>" class="form-control" name="pph_nilai" readonly>
+                    <input type="text" value="<?= $data['potongan']; ?>" class="form-control" name="diskon" readonly>
+                    <input type="text" value="<?= $data['biaya_lain']; ?>" class="form-control" name="biaya_lain" readonly>
+                    <input type="text" value="<?= $data['harga_akhir']; ?>" class="form-control" name="jml" readonly>
+
+                    <div class="box-body">
+                        <div class="form-group ">
+                            <h4 class="text-center">Yakin ingin mensubmit pengajuan <b><?= $data['keterangan']; ?></b>?</h4>
+                            <h5 class="text-center">Pastikan pengajuan sudah diverifikasi dan nominal sudah sesuai</h5>
+                        </div>
+                        <div class=" modal-footer">
+                            <button class="btn btn-warning" type="submit" name="submit">Kirim</button></span></a>
+                            <!-- <input type="submit" name="simpan" class="btn btn-primary col-sm-offset-1 " value="kirim" >  -->
+                            &nbsp;
+                            <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- modal tolak -->
 <div id="tolak" class="modal fade" role="dialog">

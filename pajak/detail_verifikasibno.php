@@ -600,9 +600,12 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
                                         </div>
                                         <div class="box-footer">
                                             <div class="form-group">
-                                                <button type="submit" name="simpan" class="btn btn-primary col-sm-offset-6"> <i class="fa fa-save"></i> Simpan</button>
+                                                <button type="submit" name="simpan" class="btn btn-primary col-sm-offset-4"> <i class="fa fa-save"></i> Simpan</button>
                                                 &nbsp;
-                                                <button type="submit" name="submit" class="btn btn-warning col-sm-offset-"> <i class="fa fa-rocket"></i> Submit</button>
+                                                <!-- <button type="submit" name="submit" class="btn btn-warning col-sm-offset-"> <i class="fa fa-rocket"></i> Submit</button> -->
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#submit"><i class="fa fa-rocket"></i> Submit</button>
+                                                &nbsp;
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#tolak">Reject To User</button></span></a>
                                             </div>
                                         </div>
                                     </div>
@@ -627,17 +630,59 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
             <div class="box-header with-border">
 
 
-                <br>
+                <!-- <br>
                 <br>
                 <div class="col-sm-offset-10 col-sm-5 control-label">
-                    <h4> Verifikasi </h4>
-                    <!-- <a href="setuju_bno.php?id=<?= $row2['id_bkk']; ?>"><span data-placement='top' data-toggle='tooltip' title='Kirim'><button class="btn btn-success">Approve</button></span></a> -->
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#tolak">Reject To User</button></span></a>
-                </div>
+                    <h4> Verifikasi </h4> -->
+                <!-- <a href="setuju_bno.php?id=<?= $row2['id_bkk']; ?>"><span data-placement='top' data-toggle='tooltip' title='Kirim'><button class="btn btn-success">Approve</button></span></a> -->
+
+                <!-- </div> -->
                 <!-- </div> -->
             </div>
         </div>
     </div>
+    </div>
+
+    <!-- modal submit -->
+    <div id="submit" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- konten modal-->
+            <div class="modal-content">
+                <!-- heading modal -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Submit Pengajuan</h4>
+                </div>
+                <!-- body modal -->
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data" action="" class="form-horizontal">
+                        <input type="hidden" value="<?= $row2['id_bkk']; ?>" class="form-control" name="id_bkk" readonly>
+                        <input type="hidden" value="<?= $row2['id_pph']; ?>" class="form-control" name="id_pph" readonly>
+                        <input type="hidden" value="<?= $row2['pph_persen']; ?>" class="form-control " name="pph_persen" readonly>
+                        <input type="hidden" value="<?= $row2['nilai_barang']; ?>" class="form-control" name="nilai_barang" readonly>
+                        <input type="hidden" value="<?= $row2['nilai_jasa']; ?>" class="form-control" name="nilai_jasa" readonly>
+                        <input type="hidden" value="<?= $row2['ppn_nilai']; ?>" class="form-control" name="ppn_nilai" readonly>
+                        <input type="hidden" value="<?= $row2['pph_nilai']; ?>" class="form-control" name="pph_nilai" readonly>
+                        <input type="hidden" value="<?= $row2['potongan']; ?>" class="form-control" name="potongan" readonly>
+                        <input type="hidden" value="<?= $row2['jml_bkk']; ?>" class="form-control" name="jml_bkk" readonly>
+                        <input type="hidden" value="<?= $row2['biaya_lain']; ?>" class="form-control" name="biaya_lain" readonly>
+
+                        <div class="box-body">
+                            <div class="form-group ">
+                                <h4 class="text-center">Yakin ingin mensubmit pengajuan <b><?= $row2['keterangan']; ?></b>?</h4>
+                                <h5 class="text-center">Pastikan pengajuan sudah diverifikasi dan nominal sudah sesuai</h5>
+                            </div>
+                            <div class=" modal-footer">
+                                <button class="btn btn-warning" type="submit" name="submit">Kirim</button></span></a>
+                                <!-- <input type="submit" name="simpan" class="btn btn-primary col-sm-offset-1 " value="kirim" >  -->
+                                &nbsp;
+                                <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="tolak" class="modal fade" role="dialog">

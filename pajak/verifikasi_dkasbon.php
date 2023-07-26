@@ -342,7 +342,8 @@ $tanggalCargo = date("Y-m-d");
                                     <div class="form-group">
                                         <button type="submit" name="simpan" class="btn btn-primary col-sm-offset-5"><i class="fa fa-save"></i> Simpan</button>
                                         &nbsp;
-                                        <button type="submit" name="submit" class="btn btn-warning"><i class="fa fa-rocket"></i> Submit</button>
+                                        <!-- <button type="submit" name="submit" class="btn btn-warning"><i class="fa fa-rocket"></i> Submit</button> -->
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#submit"><i class="fa fa-rocket"></i> Submit</button>
                                         &nbsp;
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#tolak">Reject </button></span></a>
                                     </div>
@@ -355,6 +356,49 @@ $tanggalCargo = date("Y-m-d");
             </div>
         </div>
 </section>
+
+<!-- modal submit -->
+<div id="submit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- konten modal-->
+        <div class="modal-content">
+            <!-- heading modal -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Submit Pengajuan</h4>
+            </div>
+            <!-- body modal -->
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" action="vrf_itemmr.php" class="form-horizontal">
+                    <input type="hidden" name="id_kasbon" value="<?= $data['id_kasbon'] ?>" class="form-control">
+                    <input type="hidden" name="from_user" value="<?= $data['from_user'] ?>" class="form-control">
+                    <input type="hidden" name="id" value="<?= $data['id'] ?>" class="form-control">
+                    <input type="hidden" name="vrf_pajak" value="<?= $data['vrf_pajak'] ?>" class="form-control">
+                    <input type="hidden" value="<?= $data['nilai_barang']; ?>" class="form-control" name="nilai_barang" readonly>
+                    <input type="hidden" value="<?= $data['nilai_jasa']; ?>" class="form-control" name="nilai_jasa" readonly>
+                    <input type="hidden" value="<?= $data['nilai_ppn']; ?>" class="form-control" name="ppn_nilai" readonly>
+                    <input type="hidden" value="<?= $data['id_pph']; ?>" class="form-control" name="id_pph" readonly>
+                    <input type="hidden" value="<?= $data['nilai_pph']; ?>" class="form-control" name="pph_nilai" readonly>
+                    <input type="hidden" value="<?= $data['potongan']; ?>" class="form-control" name="diskon" readonly>
+                    <input type="hidden" value="<?= $data['harga_akhir']; ?>" class="form-control" name="jml_bkk" readonly>
+
+                    <div class="box-body">
+                        <div class="form-group ">
+                            <h4 class="text-center">Yakin ingin mensubmit pengajuan <b><?= $data['keterangan']; ?></b>?</h4>
+                            <h5 class="text-center">Pastikan pengajuan sudah diverifikasi dan nominal sudah sesuai</h5>
+                        </div>
+                        <div class=" modal-footer">
+                            <button class="btn btn-warning" type="submit" name="submit">Kirim</button></span></a>
+                            <!-- <input type="submit" name="simpan" class="btn btn-primary col-sm-offset-1 " value="kirim" >  -->
+                            &nbsp;
+                            <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- modal tolak -->
 <div id="tolak" class="modal fade" role="dialog">
