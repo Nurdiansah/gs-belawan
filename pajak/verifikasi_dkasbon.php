@@ -374,13 +374,13 @@ $tanggalCargo = date("Y-m-d");
                     <input type="hidden" name="from_user" value="<?= $data['from_user'] ?>" class="form-control">
                     <input type="hidden" name="id" value="<?= $data['id'] ?>" class="form-control">
                     <input type="hidden" name="vrf_pajak" value="<?= $data['vrf_pajak'] ?>" class="form-control">
-                    <input type="hidden" value="<?= $data['nilai_barang']; ?>" class="form-control" name="nilai_barang" readonly>
-                    <input type="hidden" value="<?= $data['nilai_jasa']; ?>" class="form-control" name="nilai_jasa" readonly>
-                    <input type="hidden" value="<?= $data['nilai_ppn']; ?>" class="form-control" name="ppn_nilai" readonly>
+                    <input type="hidden" value="<?= round($data['nilai_barang']); ?>" class="form-control" name="nilai_barang" readonly>
+                    <input type="hidden" value="<?= round($data['nilai_jasa']); ?>" class="form-control" name="nilai_jasa" readonly>
+                    <input type="hidden" value="<?= round($data['nilai_ppn']); ?>" class="form-control" name="ppn_nilai" readonly>
                     <input type="hidden" value="<?= $data['id_pph']; ?>" class="form-control" name="id_pph" readonly>
-                    <input type="hidden" value="<?= $data['nilai_pph']; ?>" class="form-control" name="pph_nilai" readonly>
-                    <input type="hidden" value="<?= $data['potongan']; ?>" class="form-control" name="diskon" readonly>
-                    <input type="hidden" value="<?= $data['harga_akhir']; ?>" class="form-control" name="jml_bkk" readonly>
+                    <input type="hidden" value="<?= round($data['nilai_pph']); ?>" class="form-control" name="pph_nilai" readonly>
+                    <input type="hidden" value="<?= round($data['potongan']); ?>" class="form-control" name="diskon" readonly>
+                    <input type="hidden" value="<?= round($data['harga_akhir']); ?>" class="form-control" name="jml_bkk" readonly>
 
                     <div class="box-body">
                         <div class="form-group ">

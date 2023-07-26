@@ -519,15 +519,15 @@ $totalReapp = mysqli_num_rows($queryReapp);
                         <input type="hidden" value="<?= $data2['id_tagihan']; ?>" name="id_tagihan" readonly>
                         <input type="hidden" value="<?= $data2['metode_pembayaran']; ?>" name="metode_pembayaran" readonly>
                         <input type="hidden" required class="form-control is-valid" name="id_bkk" value="<?= $data2['id']; ?>">
-                        <input type="hidden" value="<?= $data2['nilai_barang']; ?>" class="form-control" name="nilai_barang" readonly>
-                        <input type="hidden" value="<?= $data2['nilai_jasa']; ?>" class="form-control" name="nilai_jasa" readonly>
-                        <input type="hidden" value="<?= $data2['nilai_ppn']; ?>" class="form-control" name="ppn_nilai" readonly>
+                        <input type="hidden" value="<?= round($data2['nilai_barang']); ?>" class="form-control" name="nilai_barang" readonly>
+                        <input type="hidden" value="<?= round($data2['nilai_jasa']); ?>" class="form-control" name="nilai_jasa" readonly>
+                        <input type="hidden" value="<?= round($data2['nilai_ppn']); ?>" class="form-control" name="ppn_nilai" readonly>
                         <input type="hidden" value="<?= $data2['id_pph']; ?>" class="form-control" name="id_pph" readonly>
-                        <input type="hidden" value="<?= $data2['nilai_pph']; ?>" class="form-control" name="pph_nilai" readonly>
-                        <input type="hidden" value="<?= $data2['nilai_pph']; ?>" class="form-control" name="pph_nilai2" readonly>
-                        <input type="hidden" value="<?= $data2['potongan']; ?>" class="form-control" name="potongan" readonly>
-                        <input type="hidden" value="<?= $data2['nominal']; ?>" class="form-control" name="jml" readonly>
-                        <input type="hidden" value="<?= $data2['biaya_lain']; ?>" class="form-control" name="biaya_lain" readonly>
+                        <input type="hidden" value="<?= round($data2['nilai_pph']); ?>" class="form-control" name="pph_nilai" readonly>
+                        <input type="hidden" value="<?= round($data2['nilai_pph']); ?>" class="form-control" name="pph_nilai2" readonly>
+                        <input type="hidden" value="<?= round($data2['potongan']); ?>" class="form-control" name="potongan" readonly>
+                        <input type="hidden" value="<?= round($data2['nominal']); ?>" class="form-control" name="jml" readonly>
+                        <input type="hidden" value="<?= round($data2['biaya_lain']); ?>" class="form-control" name="biaya_lain" readonly>
 
 
                         <div class="box-body">

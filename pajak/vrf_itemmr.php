@@ -20,7 +20,7 @@ if (isset($_POST['submit']) || isset($_POST['simpan'])) {
     $nilai_ppn = str_replace(".", "", $_POST['ppn_nilai']);
     $nilai_pph = $_POST['pph_nilai'];
     $id_pph = $_POST['id_pph'];
-    $harga = str_replace(".", "", $_POST['jml_bkk']);
+    $harga = penghilangTitik($_POST['jml_bkk']);
 
     if (isset($_POST['simpan'])) {
         $querySimpan = mysqli_query($koneksi, "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa', 

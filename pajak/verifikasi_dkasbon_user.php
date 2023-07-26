@@ -564,15 +564,16 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
                     <input type="hidden" name="id_kasbon" value="<?= $data['id_kasbon'] ?>">
                     <input type="hidden" name="from_user" value="<?= $data['from_user'] ?>">
                     <input type="hidden" name="vrf_pajak" value="<?= $data['vrf_pajak'] ?>">
-                    <input type="hidden" value="<?= $data['nilai_barang']; ?>" class="form-control" name="nilai_barang" readonly>
-                    <input type="hidden" value="<?= $data['nilai_jasa']; ?>" class="form-control" name="nilai_jasa" readonly>
-                    <input type="hidden" value="<?= $data['nilai_ppn']; ?>" class="form-control" name="nilai_ppn" readonly>
-                    <input type="hidden" value="<?= $data['biaya_lain']; ?>" class="form-control" name="biaya_lain" readonly>
+                    <input type="hidden" name="free_approve" value="<?= $data['free_approve'] ?>">
+                    <input type="hidden" value="<?= round($data['nilai_barang']); ?>" class="form-control" name="nilai_barang" readonly>
+                    <input type="hidden" value="<?= round($data['nilai_jasa']); ?>" class="form-control" name="nilai_jasa" readonly>
+                    <input type="hidden" value="<?= round($data['nilai_ppn']); ?>" class="form-control" name="nilai_ppn" readonly>
+                    <input type="hidden" value="<?= round($data['biaya_lain']); ?>" class="form-control" name="biaya_lain" readonly>
                     <input type="hidden" value="<?= $data['id_pph']; ?>" class="form-control" name="id_pph" readonly>
-                    <input type="hidden" value="<?= $data['nilai_pph']; ?>" class="form-control" name="nilai_pph" readonly>
-                    <input type="hidden" value="<?= $data['nilai_pph']; ?>" class="form-control" name="nilai_pph2" readonly>
-                    <input type="hidden" value="<?= $data['potongan']; ?>" class="form-control" name="potongan" readonly>
-                    <input type="hidden" value="<?= $data['harga_akhir']; ?>" class="form-control" name="harga_akhir" readonly>
+                    <input type="hidden" value="<?= round($data['nilai_pph']); ?>" class="form-control" name="nilai_pph" readonly>
+                    <input type="hidden" value="<?= round($data['nilai_pph']); ?>" class="form-control" name="nilai_pph2" readonly>
+                    <input type="hidden" value="<?= round($data['potongan']); ?>" class="form-control" name="potongan" readonly>
+                    <input type="hidden" value="<?= round($data['harga_akhir']); ?>" class="form-control" name="harga_akhir" readonly>
 
                     <div class="box-body">
                         <div class="form-group ">

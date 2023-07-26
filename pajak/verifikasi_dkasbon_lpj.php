@@ -452,14 +452,14 @@ if ($data['nilai_ppn'] > 0) {
                     <input type="text" name="from_user" value="<?= $data['from_user'] ?>" class="form-control">
                     <input type="text" name="id" value="<?= $data['id'] ?>" class="form-control">
                     <input type="text" name="vrf_pajak" value="<?= $data['vrf_pajak'] ?>" class="form-control">
-                    <input type="text" value="<?= $data['nilai_barang']; ?>" class="form-control" name="nilai_barang" readonly>
-                    <input type="text" value="<?= $data['nilai_jasa']; ?>" class="form-control" name="nilai_jasa" readonly>
-                    <input type="text" value="<?= $data['nilai_ppn']; ?>" class="form-control" name="ppn_nilai" readonly>
+                    <input type="text" value="<?= round($data['nilai_barang']); ?>" class="form-control" name="nilai_barang" readonly>
+                    <input type="text" value="<?= round($data['nilai_jasa']); ?>" class="form-control" name="nilai_jasa" readonly>
+                    <input type="text" value="<?= round($data['nilai_ppn']); ?>" class="form-control" name="ppn_nilai" readonly>
                     <input type="text" value="<?= $data['id_pph']; ?>" class="form-control" name="id_pph" readonly>
-                    <input type="text" value="<?= $data['nilai_pph']; ?>" class="form-control" name="pph_nilai" readonly>
-                    <input type="text" value="<?= $data['potongan']; ?>" class="form-control" name="diskon" readonly>
-                    <input type="text" value="<?= $data['biaya_lain']; ?>" class="form-control" name="biaya_lain" readonly>
-                    <input type="text" value="<?= $data['harga_akhir']; ?>" class="form-control" name="jml" readonly>
+                    <input type="text" value="<?= round($data['nilai_pph']); ?>" class="form-control" name="pph_nilai" readonly>
+                    <input type="text" value="<?= round($data['potongan']); ?>" class="form-control" name="diskon" readonly>
+                    <input type="text" value="<?= round($data['biaya_lain']); ?>" class="form-control" name="biaya_lain" readonly>
+                    <input type="text" value="<?= round($data['harga_akhir']); ?>" class="form-control" name="jml" readonly>
 
                     <div class="box-body">
                         <div class="form-group ">
