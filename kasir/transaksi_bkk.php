@@ -64,9 +64,14 @@ if (isset($_POST['pindah_bkk'])) {
     $noAwal_max = substr($no_bkk, 0, 3);
 
     // nomor paling ujung diupdate dirubah ke nomor kosong
-    $updateKosong = mysqli_query($koneksi, "UPDATE bkk_final SET nomor = '$noAwal_max', no_bkk = '$no_bkk'
+    // ada kondisi, jika nomor paling akhir dibulan itu yg dipindahin maka ngga ngeganti nomornya
+    if ($dataMax['maks'] + 1 == $noAwal_max) {
+        $updateKosong = "berhasil";
+    } else {
+        $updateKosong = mysqli_query($koneksi, "UPDATE bkk_final SET nomor = '$noAwal_max', no_bkk = '$no_bkk'
                                                     WHERE id = '$id_bkk_max'
                                 ");
+    }
 
     // update realisasi
     $field_sebelum = fieldRealisasi($bulan);
