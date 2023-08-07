@@ -273,8 +273,12 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                             </tr>";
                                     }
 
-                                    $sisaPembayaran = $data2['grand_totalpo'] * ($persent / 100);
                                     $sisaPersen = 100 - $persent;
+                                    if ($persent == "0") {
+                                        $sisaPembayaran = $data2['grand_totalpo'];
+                                    } else {
+                                        $sisaPembayaran = $data2['grand_totalpo'] * ($sisaPersen / 100);
+                                    }
                                     ?>
                                 </tbody>
                             </table>
