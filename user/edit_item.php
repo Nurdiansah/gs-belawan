@@ -79,7 +79,7 @@ $tanggalCargo = date("Y-m-d");
                                     <!-- <option value="">--Program Kerja--</option> -->
                                     <?php
 
-                                    $queryProgramKerja = mysqli_query($koneksi, "SELECT id_programkerja, id_costcenter, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi) AS cost_center, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_programkerja
+                                    $queryProgramKerja = mysqli_query($koneksi, "SELECT id_programkerja, id_costcenter, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi) AS cost_center, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_programkerja, kd_programkerja
                                                                                                     FROM cost_center
                                                                                                     JOIN pt
                                                                                                         ON id_pt = pt_id
@@ -96,7 +96,7 @@ $tanggalCargo = date("Y-m-d");
                                     if (mysqli_num_rows($queryProgramKerja)) {
                                         while ($rowPK = mysqli_fetch_assoc($queryProgramKerja)) :
                                     ?>
-                                            <option value="<?= $rowPK['id_programkerja']; ?>" <?= $rowPK['id_programkerja'] == $idPK ? 'selected' : ''; ?>><?= $rowPK['program_kerja'] . " [" . $rowPK['nm_programkerja']; ?>]</option>
+                                            <option value="<?= $rowPK['id_programkerja']; ?>" <?= $rowPK['id_programkerja'] == $idPK ? 'selected' : ''; ?>><?= $rowPK['kd_programkerja'] . " [" . $rowPK['nm_programkerja']; ?>]</option>
                                     <?php endwhile;
                                     } ?>
                                 </select>
@@ -107,7 +107,7 @@ $tanggalCargo = date("Y-m-d");
                                 <div class="col-sm-3">
                                     <select class="form-control select2 id_anggaran_edit" name="id_anggaran" id="id_anggaran_edit" required>
                                         <?php
-                                        $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_item
+                                        $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_item, kd_anggaran
                                                                                 FROM anggaran agg
                                                                                 JOIN program_kerja
                                                                                     ON programkerja_id = id_programkerja
@@ -127,7 +127,7 @@ $tanggalCargo = date("Y-m-d");
                                         if (mysqli_num_rows($queryAnggaran)) {
                                             while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
                                         ?>
-                                                <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox" <?= $rowAnggaran['id_anggaran'] == $data['id_anggaran'] ? 'selected=selected' : ''; ?>><?= $rowAnggaran['nm_item'] . ' - [' . $rowAnggaran['program_kerja']; ?>]</option>
+                                                <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox" <?= $rowAnggaran['id_anggaran'] == $data['id_anggaran'] ? 'selected=selected' : ''; ?>><?= $rowAnggaran['kd_anggaran'] . ' - [' . $rowAnggaran['nm_item']; ?>]</option>
                                         <?php endwhile;
                                         } ?>
                                     </select>

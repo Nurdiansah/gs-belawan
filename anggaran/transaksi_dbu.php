@@ -159,7 +159,7 @@ $tahun = date("Y");
     </div>
 
     <!-- Rubah -->
-    <div id="rubah" class="modal fade" role="dialog">
+    <div id="rubah_" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- konten modal-->
             <div class="modal-content">

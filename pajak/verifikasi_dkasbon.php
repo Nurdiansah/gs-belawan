@@ -381,6 +381,7 @@ $tanggalCargo = date("Y-m-d");
                     <input type="hidden" value="<?= round($data['nilai_pph']); ?>" class="form-control" name="pph_nilai" readonly>
                     <input type="hidden" value="<?= round($data['potongan']); ?>" class="form-control" name="diskon" readonly>
                     <input type="hidden" value="<?= round($data['harga_akhir']); ?>" class="form-control" name="jml_bkk" readonly>
+                    <input type="hidden" name="free_approve" value="<?= $data['free_approve']; ?>">
 
                     <div class="box-body">
                         <div class="form-group ">
