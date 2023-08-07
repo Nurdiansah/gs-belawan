@@ -113,13 +113,13 @@ if (isset($_POST['simpan'])) {
 		# jika semua query berhasil di jalankan
 		mysqli_commit($koneksi);
 
-		setcookie('pesan', 'BKK berhasil di Payment!', time() + (3), '/');
+		setcookie('pesan', 'BKK berhasil di Outstanding Pembayaran!', time() + (3), '/');
 		setcookie('warna', 'alert-success', time() + (3), '/');
 	} else {
 		#jika ada query yang gagal
 		mysqli_rollback($koneksi);
 
-		setcookie('pesan', 'BKK gagal di Payment!', time() + (3), '/');
+		setcookie('pesan', 'BKK gagal di Outstanding Pembayaran!', time() + (3), '/');
 		setcookie('warna', 'alert-danger', time() + (3), '/');
 	}
 	header("location:index.php?p=payment_kaskeluar");
