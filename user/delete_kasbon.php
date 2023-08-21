@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "../fungsi/koneksi.php";
+include "../fungsi/fungsi.php";
 
 if (isset($_POST['delete'])) {
     $id_kasbon = $_POST['id'];
