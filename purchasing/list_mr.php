@@ -28,8 +28,8 @@ $query = mysqli_query($koneksi, "SELECT *
                                                 ON j.id_jenispengajuan = bo.id_jenispengajuan
                                             JOIN detail_biayaops dbo
                                                 ON bo.kd_transaksi = dbo.kd_transaksi
-                                            WHERE bo.status_biayaops = '2'
-                                            AND dbo.status = 2
+                                            WHERE dbo.status = 2
+                                            -- AND bo.status_biayaops = '2'
                                             GROUP BY bo.kd_transaksi
                                             ORDER BY bo.app_mgr ASC   ");
 
