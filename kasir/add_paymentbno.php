@@ -84,7 +84,7 @@ if (isset($_POST['simpan'])) {
 																				('3', '$kd_transaksi', '$id_anggaran', '$DPP', NOW(), NOW())
 												");
 
-		$updRealSem = UpdRealisasiSem($kd_transaksi, 'BUM', $DPP);
+		$updRealSem = UpdRealisasiSem($id, 'BUM', $DPP);
 	} else if ($metode_pembayaran == 'transfer') {
 
 		$dateNow = dateNow();
