@@ -453,6 +453,8 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                     <form method="post" name="form" enctype="multipart/form-data" action="delete_pettycash.php" class="form-horizontal">
                         <div class="box-body">
                             <input type="hidden" name="id" value="" id="md_id_pettycash">
+                            <input type="hidden" name="doc_lpj" value="" id="md_doc_lpj">
+                            <input type="hidden" name="url" value="buat_petty">
                             <h4>Apakah anda yakin ingin menghapus Pettycash <b><span id="md_keterangan"></b></span></h4>
                             <div class=" modal-footer">
                                 <button class="btn btn-success" type="submit" name="delete">Delete</button></span></a>
