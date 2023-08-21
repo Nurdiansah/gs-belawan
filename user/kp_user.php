@@ -30,25 +30,25 @@ $queryKu = mysqli_query($koneksi, "SELECT *
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <?php
-                $no = 1;
-                if (mysqli_num_rows($queryKu)) {
-                    while ($row = mysqli_fetch_assoc($queryKu)) :
+            <?php
+            $no = 1;
+            if (mysqli_num_rows($queryKu)) {
+                while ($row = mysqli_fetch_assoc($queryKu)) :
 
-                        // Memnghitung waktu tempuh dari penyerahan dana
-                        $payment  = strtotime($row['waktu_penerima_dana']);
-                        $today  = strtotime(date("Y-m-d H:i:s"));
-                        $dif = $today - $payment;
-                        $pendingLpj = detikToString($dif);
+                    // Memnghitung waktu tempuh dari penyerahan dana
+                    $payment  = strtotime($row['waktu_penerima_dana']);
+                    $today  = strtotime(date("Y-m-d H:i:s"));
+                    $dif = $today - $payment;
+                    $pendingLpj = detikToString($dif);
 
-                        if ($dif > 172800) {
-                            $notifPending = 'danger';
-                        } else {
-                            $notifPending = 'warning';
-                        }
+                    if ($dif > 172800) {
+                        $notifPending = 'danger';
+                    } else {
+                        $notifPending = 'warning';
+                    }
 
-                ?>
+            ?>
+                    <tr>
                         <td> <?= $no; ?> </td>
                         <td> <?= $row['id_kasbon']; ?> </td>
                         <td> <?= formatTanggal($row['tgl_kasbon']); ?> </td>
@@ -140,22 +140,22 @@ $queryKu = mysqli_query($koneksi, "SELECT *
                         <td>
                             <a href="?p=kasbon_dproses_user&id=<?= $row['id_kasbon']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info">Lihat</button></span></a>
                         </td>
-            </tr>
-    <?php
-                        $no++;
-                    endwhile;
-                }
+                    </tr>
+            <?php
+                    $no++;
+                endwhile;
+            }
 
-                $jumlahData  = mysqli_num_rows($queryKu);
+            $jumlahData  = mysqli_num_rows($queryKu);
 
-                if ($jumlahData == 0) {
-                    echo
-                    "<tr>
+            if ($jumlahData == 0) {
+                echo
+                "<tr>
                                                 <td colspan='8'> Tidak Ada Data</td>
                                             </tr>
                                             ";
-                }
-    ?>
+            }
+            ?>
         </tbody>
     </table>
 </div>

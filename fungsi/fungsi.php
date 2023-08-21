@@ -828,3 +828,12 @@ function UpdRealisasiSem($id_kdtransaksi,  $pengajuan, $nominal)
 
     return $updReaSem;
 }
+
+function DelRealisasiSem($id_kdtransaksi, $pengajuan)
+{
+    global $koneksi;
+
+    $delRealSem = mysqli_query($koneksi, "DELETE FROM realisasi_sementara WHERE id_kdtransaksi = '$id_kdtransaksi' AND pengajuan = '$pengajuan'");
+
+    return $delRealSem;
+}

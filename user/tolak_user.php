@@ -14,13 +14,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <?php
-                $no = 1;
-                if (mysqli_num_rows($queryUser)) {
-                    while ($row = mysqli_fetch_assoc($queryUser)) {
+            <?php
+            $no = 1;
+            if (mysqli_num_rows($queryUser)) {
+                while ($row = mysqli_fetch_assoc($queryUser)) {
 
-                ?>
+            ?>
+                    <tr>
                         <td> <?= $no; ?> </td>
                         <td> <?= $row['id_kasbon']; ?> </td>
                         <td> <?= formatTanggal($row['tgl_kasbon']); ?> </td>
@@ -52,14 +52,14 @@
                                 <button type="button" class="btn btn-danger modalHapus" data-toggle="modal" data-target="#hapusKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-trash"></i> Delete</button>
                             <?php } ?>
                         </td>
-            </tr>
+                    </tr>
 
-    <?php
-                        $no++;
-                        $vrf_pajak = $row['vrf_pajak'];
-                        $idPK = $row['programkerja_id'];
-                    }
-                } ?>
+            <?php
+                    $no++;
+                    $vrf_pajak = $row['vrf_pajak'];
+                    $idPK = $row['programkerja_id'];
+                }
+            } ?>
         </tbody>
     </table>
 </div>

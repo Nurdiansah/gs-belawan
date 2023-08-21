@@ -132,4 +132,6 @@
         include_once "laporan_programkerja.php";
     } else if ($page == "dtl_laporanpk") {
         include_once "dtl_laporanpk.php";
+    } else if ($page == "dtl_pettycash") {
+        include_once "dtl_pettycash.php";
     }

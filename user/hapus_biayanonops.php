@@ -8,6 +8,7 @@ if (isset($_GET['id'])) {
 
     $hapusBNO = mysqli_query($koneksi, "DELETE FROM bkk WHERE id_bkk = '$id'");
     unlink("../file/$inv");
+    DelRealisasiSem($id, "BUM");
 
     if ($hapusBNO) {
         header('Location: index.php?p=' . dekripRambo($_GET['pg']) . '');

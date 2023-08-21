@@ -71,14 +71,14 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <?php
-                                        $no = 1;
-                                        if (mysqli_num_rows($query)) {
-                                            while ($row = mysqli_fetch_assoc($query)) :
-                                        ?>
+                                    <?php
+                                    $no = 1;
+                                    if (mysqli_num_rows($query)) {
+                                        while ($row = mysqli_fetch_assoc($query)) :
+                                    ?>
+                                            <tr>
                                                 <td> <?= $no; ?> </td>
-                                                <td><?= $row['kd_pettycash']; ?></td>
+                                                <td> <a href="index.php?p=dtl_pettycash&id=<?= $row['id_pettycash']; ?>" title="Detail"><?= $row['kd_pettycash']; ?></a></td>
                                                 <td> <?= formatTanggal($row['created_pettycash_on']); ?> </td>
                                                 <td> <?= $row['nm_item'] . ' - [' . $row['kd_anggaran']; ?>]</td>
                                                 <td> <?= batasiKata($row['keterangan_pettycash']); ?> </td>
@@ -122,7 +122,8 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                                     <?php  } else if ($row['status_pettycash'] == 10 || $row['status_pettycash'] == "202") { ?>
                                                         <span class="label label-danger">Pengajuan Ditolak </span>
                                                         <?php if ($row['from'] == "user") { ?>
-                                                            &nbsp; <br> <br> <a href="?p=buat_petty&aksi=revisi&id=<?= $row['id_pettycash']; ?>"><span data-placement='top' data-toggle='tooltip' title='Revisi'><button type="button" class="btn btn-success"><i class="fa fa-edit"> </i> Revisi</button></span></a>
+                                                            &nbsp; <br> <br> <a href="?p=buat_petty&aksi=revisi&id=<?= $row['id_pettycash']; ?>"><span data-placement='top' data-toggle='tooltip' title='Revisi'><button type="button" class="btn btn-primary"><i class="fa fa-edit"> </i> Revisi</button></span></a>
+                                                            <button type="button" class="btn btn-danger modalHapus" data-toggle="modal" data-target="#hapusPetty" data-id="<?= $row['id_pettycash']; ?>"><i class="fa fa-trash"></i> Delete</button>
                                                             <?php } elseif ($row['status_pettycash'] == "101") {
                                                                 if ($row['from'] != "user") { ?>
                                                                 <span class="label label-danger">Pengajuan Ditolak / LPJ Ulang</span>
@@ -131,11 +132,11 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                                             }
                                                         } ?>
                                                 </td>
-                                    </tr>
-                            <?php
-                                                $no++;
-                                            endwhile;
-                                        } ?>
+                                            </tr>
+                                    <?php
+                                            $no++;
+                                        endwhile;
+                                    } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -365,7 +366,11 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                     <form method="post" name="form" enctype="multipart/form-data" action="delete_pettycash.php" class="form-horizontal">
                         <div class="box-body">
                             <input type="hidden" name="id" value="" id="md_id_pettycash">
-                            <h4>Apakah anda yakin ingin menghapus Pettycash <b><span id="md_keterangan"></b></span></h4>
+                            <input type="hidden" name="doc_lpj" value="" id="md_doc_lpj">
+                            <input type="hidden" name="url" value="proses_petty">
+                            <div class="form-group">
+                                <h4 class="text-center">Apakah anda yakin ingin menghapus Pettycash <b><span id="md_keterangan"></b></span></h4>
+                            </div>
                             <div class=" modal-footer">
                                 <button class="btn btn-success" type="submit" name="delete">Delete</button></span></a>
                                 &nbsp;
