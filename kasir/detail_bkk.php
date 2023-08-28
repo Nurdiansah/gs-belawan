@@ -545,9 +545,9 @@ $jmlReapp = mysqli_num_rows($reApprove);
                     <form class="form-horizontal">
                         <div class="box-body">
                             <div class="form-group">
-                                <label id="tes" for="tanggal" class="col-sm-offset col-sm-2 control-label">Tanggal Pengajuan</label>
+                                <label id="tes" for="tanggal" class="col-sm-offset col-sm-2 control-label">Kode Kasbon</label>
                                 <div class="col-sm-3">
-                                    <input type="text" disabled class="form-control is-valid" name="tanggal" value="<?= formatTanggal($dataKU['tgl_kasbon']); ?>">
+                                    <input type="text" disabled class="form-control is-valid" name="tanggal" value="<?= $dataKU['id_kasbon']; ?>">
                                 </div>
                                 <!-- </div>
                             <div class="form-group"> -->
@@ -557,9 +557,9 @@ $jmlReapp = mysqli_num_rows($reApprove);
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label id="nominal" for="nominal" class="col-sm-offset col-sm-2 control-label">Nominal</label>
+                                <label id="tes" for="tanggal" class="col-sm-offset col-sm-2 control-label">Tanggal Pengajuan</label>
                                 <div class="col-sm-3">
-                                    <input type="text" disabled class="form-control is-valid" name="nominal" value="<?= formatRupiah($dataKU['harga_akhir']); ?>">
+                                    <input type="text" disabled class="form-control is-valid" name="tanggal" value="<?= formatTanggal($dataKU['tgl_kasbon']); ?>">
                                 </div>
                                 <!-- </div>
                             <div class="form-group"> -->
@@ -572,12 +572,10 @@ $jmlReapp = mysqli_num_rows($reApprove);
                             </div>
 
                             <div class="form-group">
-                                <label id="tes" for="nm_barang" class="col-sm-offset col-sm-2 control-label"></label>
+                                <label id="nominal" for="nominal" class="col-sm-offset col-sm-2 control-label">Nominal</label>
                                 <div class="col-sm-3">
-                                    <!-- <input type="text" readonly class="form-control is-valid" name="nm_barang"> -->
+                                    <input type="text" disabled class="form-control is-valid" name="nominal" value="<?= formatRupiah($dataKU['harga_akhir']); ?>">
                                 </div>
-                                <!-- </div>
-                            <div class="form-group"> -->
 
                                 <label for="keterangan" class="col-sm-offset- col-sm-2 control-label">Keterangan</label>
                                 <div class="col-sm-3">
