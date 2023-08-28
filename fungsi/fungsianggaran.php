@@ -180,3 +180,19 @@ function getSaldoAnggaran($id_anggaran)
 
     return $jumlahAggPk;
 }
+
+// Total Program Kerja
+function totalProgramKerja($id_programkerja)
+{
+    global $koneksi;
+
+    $queryPK = mysqli_query($koneksi, "SELECT SUM(januari_nominal + februari_nominal + maret_nominal + april_nominal + mei_nominal + juni_nominal + juli_nominal + agustus_nominal + september_nominal + oktober_nominal + november_nominal + desember_nominal) as nominal_pk
+                                        FROM anggaran
+                                        WHERE programkerja_id = '$id_programkerja'
+                            ");
+
+    $dataPK = mysqli_fetch_assoc($queryPK);
+    $nominal_pk = $dataPK['nominal_pk'];
+
+    return $nominal_pk;
+}

@@ -134,4 +134,6 @@
         include_once "dtl_laporanpk.php";
     } else if ($page == "dtl_pettycash") {
         include_once "dtl_pettycash.php";
+    } else if ($page == "kasbon_detail") {
+        include_once "kasbon_detail.php";
     }

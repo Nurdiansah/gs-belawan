@@ -161,13 +161,13 @@ if (isset($_POST['login'])) {
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-						<input type="text" class="form-control" placeholder="Username" name="username" required />
+						<input type="text" class="form-control" placeholder="Username" name="username" value="<?= $_POST['username']; ?>" required />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-unlock"></i></span>
-						<input type="password" class="form-control" placeholder="Password" name="password" required>
+						<input type="password" class="form-control" placeholder="Password" name="password" value="<?= $_POST['password']; ?>" required>
 					</div>
 				</div>
 				<div class="form-group">

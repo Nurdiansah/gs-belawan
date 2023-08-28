@@ -122,7 +122,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                                     <?php  } else if ($row['status_pettycash'] == 10 || $row['status_pettycash'] == "202") { ?>
                                                         <span class="label label-danger">Pengajuan Ditolak </span>
                                                         <?php if ($row['from'] == "user") { ?>
-                                                            &nbsp; <br> <br> <a href="?p=buat_petty&aksi=revisi&id=<?= $row['id_pettycash']; ?>"><span data-placement='top' data-toggle='tooltip' title='Revisi'><button type="button" class="btn btn-primary"><i class="fa fa-edit"> </i> Revisi</button></span></a>
+                                                            &nbsp; <br> <br> <a href="index.php?p=revisi_petty&id=<?= $row['id_pettycash']; ?>&aksi=proses_petty"><span data-placement='top' data-toggle='tooltip' title='Revisi'><button type="button" class="btn btn-primary"><i class="fa fa-edit"> </i> Revisi</button></span></a>
                                                             <button type="button" class="btn btn-danger modalHapus" data-toggle="modal" data-target="#hapusPetty" data-id="<?= $row['id_pettycash']; ?>"><i class="fa fa-trash"></i> Delete</button>
                                                             <?php } elseif ($row['status_pettycash'] == "101") {
                                                                 if ($row['from'] != "user") { ?>

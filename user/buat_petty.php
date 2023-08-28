@@ -69,14 +69,14 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <?php
-                                        $no = 1;
-                                        if (mysqli_num_rows($query)) {
-                                            while ($row = mysqli_fetch_assoc($query)) :
+                                    <?php
+                                    $no = 1;
+                                    if (mysqli_num_rows($query)) {
+                                        while ($row = mysqli_fetch_assoc($query)) :
 
-                                                $sisaAnggaran = getSaldoAnggaran($row['id_anggaran']) - $row['total_pettycash'];
-                                        ?>
+                                            $sisaAnggaran = getSaldoAnggaran($row['id_anggaran']) - $row['total_pettycash'];
+                                    ?>
+                                            <tr>
                                                 <td> <?= $no; ?> </td>
                                                 <td><?= $row['kd_pettycash']; ?></td>
                                                 <td> <?= formatTanggal($row['created_pettycash_on']); ?> </td>
@@ -127,8 +127,9 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                                         </div>
                                                         <!-- End notif -->
 
-                                                        <button type="button" class="btn btn-primary modalLihat" data-toggle="modal" data-target="#lihatPetty" data-id="<?= $row['id_pettycash']; ?>"><i class="fa fa-binoculars"></i> Show</button>
-                                                        <button type="button" class="btn btn-success modalEdit" data-toggle="modal" data-target="#editPetty" data-id="<?= $row['id_pettycash']; ?>"><i class="fa fa-edit"></i> Edit</button>
+                                                        <!-- <button type="button" class="btn btn-primary modalLihat" data-toggle="modal" data-target="#lihatPetty" data-id="<?= $row['id_pettycash']; ?>"><i class="fa fa-binoculars"></i> Show</button>
+                                                        <button type="button" class="btn btn-success modalEdit" data-toggle="modal" data-target="#editPetty" data-id="<?= $row['id_pettycash']; ?>"><i class="fa fa-edit"></i> Edit</button> -->
+                                                        <a href="index.php?p=revisi_petty&id=<?= $row['id_pettycash']; ?>&aksi=buat_petty" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
                                                         <button type="button" class="btn btn-danger modalHapus" data-toggle="modal" data-target="#hapusPetty" data-id="<?= $row['id_pettycash']; ?>"><i class="fa fa-trash"></i> Delete</button>
                                                     <?php } else if ($row['status_pettycash'] == 1) { ?>
                                                         <span class="label label-primary">Menunggu Approve Manager </span>
@@ -150,12 +151,12 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                                         &nbsp; <br> <br> <a href="?p=buat_petty&aksi=revisi&id=<?= $row['id_pettycash']; ?>"><span data-placement='top' data-toggle='tooltip' title='Revisi'><button type="button" class="btn btn-success"><i class="fa fa-edit"> </i> Revisi</button></span></a>
                                                     <?php  } ?>
                                                 </td>
-                                    </tr>
-                            <?php
-                                                $no++;
-                                                $idPK = $row['programkerja_id'];
-                                            endwhile;
-                                        } ?>
+                                            </tr>
+                                    <?php
+                                            $no++;
+                                            $idPK = $row['programkerja_id'];
+                                        endwhile;
+                                    } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -199,7 +200,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                         if (mysqli_num_rows($queryProgramKerja)) {
                                             while ($rowPK = mysqli_fetch_assoc($queryProgramKerja)) :
                                         ?>
-                                                <option value="<?= $rowPK['id_programkerja']; ?>" type="checkbox"><?= $rowPK['nm_programkerja']; ?></option>
+                                                <option value="<?= $rowPK['id_programkerja']; ?>" type="checkbox"><?= $rowPK['kd_programkerja'] . " [" . $rowPK['nm_programkerja']; ?>]</option>
                                         <?php endwhile;
                                         } ?>
                                     </select>
@@ -334,7 +335,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                         <!-- <option value="">--Program Kerja--</option> -->
                                         <?php
 
-                                        $queryProgramKerja = mysqli_query($koneksi, "SELECT id_programkerja, id_costcenter, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi) AS cost_center, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_programkerja
+                                        $queryProgramKerja = mysqli_query($koneksi, "SELECT id_programkerja, id_costcenter, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi) AS cost_center, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_programkerja, kd_programkerja
                                                                                                     FROM cost_center
                                                                                                     JOIN pt
                                                                                                         ON id_pt = pt_id
@@ -351,7 +352,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                         if (mysqli_num_rows($queryProgramKerja)) {
                                             while ($rowPK = mysqli_fetch_assoc($queryProgramKerja)) :
                                         ?>
-                                                <option value="<?= $rowPK['id_programkerja']; ?>" <?= $rowPK['id_programkerja'] == $idPK ? 'selected' : ''; ?>><?= $rowPK['program_kerja'] . " [" . $rowPK['nm_programkerja']; ?>]</option>
+                                                <option value="<?= $rowPK['id_programkerja']; ?>" <?= $rowPK['id_programkerja'] == $idPK ? 'selected' : ''; ?>><?= $rowPK['kd_programkerja'] . " [" . $rowPK['nm_programkerja']; ?>]</option>
                                         <?php endwhile;
                                         } ?>
                                     </select>
@@ -364,7 +365,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                         <select class="form-control select2 id_anggaran_edit" name="id_anggaran" id="id_anggaran_edit" required>
                                             <option value="">--Kode Anggaran--</option>
                                             <?php
-                                            $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_item
+                                            $queryAnggaran = mysqli_query($koneksi, "SELECT id_anggaran, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_item, kd_anggaran
                                                                                     FROM anggaran agg
                                                                                     JOIN program_kerja
                                                                                         ON programkerja_id = id_programkerja
@@ -384,7 +385,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                             if (mysqli_num_rows($queryAnggaran)) {
                                                 while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
                                             ?>
-                                                    <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox"><?= $rowAnggaran['nm_item'] . ' - [' . $rowAnggaran['program_kerja']; ?>]</option>
+                                                    <option value="<?= $rowAnggaran['id_anggaran']; ?>" type="checkbox"><?= $rowAnggaran['kd_anggaran'] . ' - [' . $rowAnggaran['nm_item']; ?>]</option>
                                             <?php endwhile;
                                             } ?>
                                         </select>

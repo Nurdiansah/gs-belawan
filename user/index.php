@@ -608,7 +608,7 @@ $dataTolakBKM = mysqli_fetch_assoc($queryTolakBKM);
 
             $('#id_anggaran_edit').empty();
             $.each(data, function(i, value) {
-              $('.id_anggaran_edit').append($('<option>').text(value.nm_item + " - [" + value.program_kerja + "]").attr('value', value.id_anggaran));
+              $('.id_anggaran_edit').append($('<option>').text(value.kd_anggaran + " [" + value.nm_item + "]").attr('value', value.id_anggaran));
             });
           }
         });
@@ -617,6 +617,33 @@ $dataTolakBKM = mysqli_fetch_assoc($queryTolakBKM);
 
       $('.id_anggaran_edit').on('change', function() {
         let anggaranId = this.value;
+      });
+    </script>
+
+    <script>
+      // get PK by divisi (PERDIN)
+      $('.divisi_id_edit_spj').on('change', function() {
+        let divisiId = this.value;
+
+        $('.kotakPkSPJ_edit').show();
+        $('.kotakAnggaran_edit').hide();
+
+        $.ajax({
+          url: host + 'api/anggaran/getprogramkerjaspj.php',
+          data: {
+            id: divisiId
+          },
+          method: 'post',
+          dataType: 'json',
+          success: function(data) {
+
+            $('#id_programkerja_edit').empty();
+            $('#id_programkerja_edit').append($('<option>').text('--- Pilih Program Kerja ---').attr('value', ''));
+            $.each(data, function(i, value) {
+              $('#id_programkerja_edit').append($('<option>').text(value.kd_programkerja + ' [' + value.nm_programkerja + ']').attr('value', value.id_programkerja));
+            });
+          }
+        });
       });
     </script>
 
