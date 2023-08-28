@@ -56,8 +56,7 @@ $dataTM = mysqli_fetch_assoc($queryTM);
 $queryLl = mysqli_query($koneksi, "SELECT COUNT(bo.kd_transaksi) AS jumlah FROM biaya_ops bo
                                             JOIN detail_biayaops dbo
                                             ON bo.kd_transaksi = dbo.kd_transaksi
-                                            WHERE dbo.status = '2'
-                                            -- AND bo.status_biayaops = '2'
+                                            WHERE (dbo.status = '2' AND bo.status_biayaops = '2')
                                             ");
 $dataLl = mysqli_fetch_assoc($queryLl);
 

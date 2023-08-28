@@ -127,7 +127,7 @@ $tanggalCargo = date("Y-m-d");
 
         var app_mgr = "<?php print(date("d M Y H:i", strtotime($data2['app_mgr']))); ?>";
         var content_mgr = '<b>Supervisor</b><small>sudah memverifikasi dan menyetujui</small>';
-        if (app_mgr == "30 Nov -0001 00:00") {
+        if (app_mgr == "01 Jan 1970 07:00") {
             app_mgr = "";
             var content_mgr = "<b>Supervisor </b><small>Waiting....</small>";
         }
@@ -138,7 +138,7 @@ $tanggalCargo = date("Y-m-d");
 
         var app_purchasing = "<?php print(date("d M Y H:i", strtotime($data2['app_purchasing']))); ?>";
         var content_purchasing = '<b>purchasing</b><small> sudah melakukan bidding</small>'
-        if (app_purchasing == "30 Nov -0001 00:00") {
+        if (app_purchasing == "01 Jan 1970 07:00") {
             app_purchasing = " ";
             content_purchasing = "<b>purchasing </b><small>Waiting....</small>";
         }
