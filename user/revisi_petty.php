@@ -37,7 +37,6 @@ $tanggalCargo = date("Y-m-d");
 if (isset($_GET['aksi']) && isset($_GET['id'])) {
     //die($id = $_GET['id']);
     $id = $_GET['id'];
-    echo $id;
 
     if ($_GET['aksi'] == 'lihat') {
         header("location:?p=lihat_detailanggaran&id=$id");
@@ -68,15 +67,17 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                     <input name="doc_lpj_lama" type="hidden" class="form-control" value="<?= $data['doc_lpj_pettycash']; ?>" readonly>
                     <input name="status_petty" type="hidden" class="form-control" value="<?= $data['status_pettycash']; ?>" readonly>
                     <div class="box-body">
-                        <div class="form-group">
-                            <div class="mb-3">
-                                <label for="validationTextarea" class="col-sm-offset-1 col-sm-1 control-label">Alasan Penolakan: </label>
-                                <div class="col-sm-8">
-                                    <textarea rows="8" class="form-control is-invalid" name="keterangan" id="validationTextarea" readonly><?= $data['komentar_pettycash']; ?></textarea>
+                        <?php if ($_GET['aksi'] == "proses_petty") { ?>
+                            <div class="form-group">
+                                <div class="mb-3">
+                                    <label for="validationTextarea" class="col-sm-offset-1 col-sm-1 control-label">Alasan Penolakan: </label>
+                                    <div class="col-sm-8">
+                                        <textarea rows="8" class="form-control is-invalid" name="keterangan" id="validationTextarea" readonly><?= $data['komentar_pettycash']; ?></textarea>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <hr>
+                            <hr>
+                        <?php } ?>
                         <div class="form-group ">
                             <label for="nominal" class="col-sm-offset-1 col-sm-1 control-label">ID Pettycash </label>
                             <div class="col-sm-3">
@@ -176,8 +177,10 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                         <div class="form-group">
                             <button type="submit" name="simpan" class="btn btn-success col-sm-offset-5"><i class="fa fa-save"></i> Simpan</button>
                             &nbsp;
-                            <input type="submit" name="revisi" class="btn btn-primary col-sm-offset-" value="Update">
-                            &nbsp;
+                            <?php if ($_GET['aksi'] == "proses_petty") { ?>
+                                <input type="submit" name="revisi" class="btn btn-primary col-sm-offset-" value="Submit">
+                                &nbsp;
+                            <?php } ?>
                             <input type="reset" class="btn btn-danger" value="Batal">
                         </div>
                         <div class="form-group">

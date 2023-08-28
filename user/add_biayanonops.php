@@ -66,7 +66,7 @@ if (isset($_POST['simpan'])) {
 	$bank_tujuan = $_POST['bank_tujuan'];
 	$norek_tujuan = $_POST['norek_tujuan'];
 	$penerima_tujuan = $_POST['penerima_tujuan'];
-	$id_anggaran = $_POST['id_anggaran'] == "" ? $_POST['id_anggaran_spj'] : $_POST['id_anggaran'];
+	$id_anggaran = $_POST['id_anggaran']; //  == "" ? $_POST['id_anggaran_spj'] : $_POST['id_anggaran'];
 	$jenis = $_POST['jenis'];
 	$metode_pembayaran = $_POST['pembayaran'];
 	$tgl_tempo = $_POST['tgl_tempo'];

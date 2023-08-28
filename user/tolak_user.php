@@ -48,7 +48,8 @@
                                 <button type="button" class="btn btn-primary modalLPJ" data-toggle="modal" data-target="#LPJ" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-send"></i> LPJ Ulang </button></span>
                             <?php } elseif ($row['status_kasbon'] == '101' || $row['status_kasbon'] == '202') { ?>
                                 <button type="button" class="btn btn-warning modalRelease" data-toggle="modal" data-target="#releaseKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-rocket"></i> Release</button>
-                                <button type="button" class="btn btn-success modalEdit" data-toggle="modal" data-target="#editKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-edit"></i> Edit</button>
+                                <!-- <button type="button" class="btn btn-success modalEdit" data-toggle="modal" data-target="#editKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-edit"></i> Edit</button> -->
+                                <a href="index.php?p=kasbon_detail&id=<?= $row['id_kasbon']; ?>" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
                                 <button type="button" class="btn btn-danger modalHapus" data-toggle="modal" data-target="#hapusKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-trash"></i> Delete</button>
                             <?php } ?>
                         </td>
@@ -94,9 +95,7 @@
                                     } ?>
                                 </select>
                             </div>
-                        </div>LPJ
-                        lpj
-                        lpj
+                        </div>
                         <label for="nominal" class="col-sm-offset-1 col-sm-3 control-label">Nominal </label>
                         <div class="col-sm-5">
                             <div class="input-group">

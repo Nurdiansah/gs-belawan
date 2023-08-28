@@ -94,8 +94,9 @@ $query = mysqli_query($koneksi, "SELECT *
                                                     }
 
                                                 ?>
-                                                    <button type="button" class="btn btn-success modalEdit" data-toggle="modal" data-target="#editKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-edit"></i> Edit</button>
-                                                    <button type="button" class="btn btn-danger modalHapus" data-toggle="modal" data-target="#hapusKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-trash"></i> Delete</button>
+                                                    <!-- <button type="button" class="btn btn-success modalEdit" data-toggle="modal" data-target="#editKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-edit"></i> Edit</button> -->
+                                                    <a href="?p=kasbon_detail&id=<?= $row['id_kasbon']; ?>"><button type="button" class="btn btn-success modalShow"><i class="fa fa-edit"></i> </button></a>
+                                                    <button type="button" class="btn btn-danger modalHapus" data-toggle="modal" data-target="#hapusKasbon" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-trash"></i></button>
                                                 <?php } else if ($row['status_kasbon'] == 1) { ?>
                                                     <span class="label label-primary">Verifikasi Pajak</span>
                                                 <?php  } else if ($row['status_kasbon'] == 2) { ?>
@@ -215,7 +216,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                 </div>
                             </div>
 
-                            <div class="kotakAnggaranSPJ">
+                            <!-- <div class="kotakAnggaranSPJ">
                                 <div class="form-group">
                                     <label id="tes" for="id_anggaran_spj" class="col-sm-offset-1 col-sm-3 control-label">Kode Anggaran</label>
                                     <div class="col-sm-5">
@@ -224,7 +225,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- END PILIHAN SPJ -->
 
@@ -236,7 +237,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                         <option value="">--Program Kerja--</option>
                                         <?php
 
-                                        $queryProgramKerja = mysqli_query($koneksi, "SELECT DISTINCT id_programkerja, nm_programkerja
+                                        $queryProgramKerja = mysqli_query($koneksi, "SELECT DISTINCT id_programkerja, nm_programkerja, kd_programkerja
                                                                                     FROM program_kerja pk
                                                                                     JOIN cost_center cc
                                                                                         ON pk.costcenter_id = cc.id_costcenter
@@ -250,7 +251,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                         if (mysqli_num_rows($queryProgramKerja)) {
                                             while ($rowPK = mysqli_fetch_assoc($queryProgramKerja)) :
                                         ?>
-                                                <option value="<?= $rowPK['id_programkerja']; ?>" type="checkbox"><?= $rowPK['nm_programkerja']; ?></option>
+                                                <option value="<?= $rowPK['id_programkerja']; ?>" type="checkbox"><?= $rowPK['kd_programkerja'] . " [" . $rowPK['nm_programkerja']; ?>]</option>
                                         <?php endwhile;
                                         } ?>
                                     </select>
@@ -545,7 +546,7 @@ $host = host();
         var checkBox = document.getElementById("mySPJ");
         $('.kotakPkSPJ').hide();
         $('.kotakAnggaran').hide();
-        $('.kotakAnggaranSPJ').hide();
+        $('.kotakAnggaran').hide();
 
         if (checkBox.checked == true) {
             $('.kotakSPJ').show();
@@ -554,7 +555,7 @@ $host = host();
         } else {
             $('.kotakSPJ').hide();
             $('.kotakNonSPJ').show();
-            $('#id_anggaran_spj').empty();
+            $('#id_anggaran').empty();
         }
     }
 
@@ -564,7 +565,7 @@ $host = host();
 
         $('.kotakPkSPJ').show();
         $('.kotakAnggaran').hide();
-        $('.kotakAnggaranSPJ').hide();
+        $('.kotakAnggaran').hide();
 
         $.ajax({
             url: host + 'api/anggaran/getprogramkerjaspj.php',
@@ -579,7 +580,7 @@ $host = host();
                 $('#id_programkerja').empty();
                 $('#id_programkerja').append($('<option>').text('--Pilih Program Kerja--').attr('value', ''));
                 $.each(data, function(i, value) {
-                    $('#id_programkerja').append($('<option>').text(value.nm_programkerja).attr('value', value.id_programkerja));
+                    $('#id_programkerja').append($('<option>').text(value.kd_programkerja + ' [' + value.nm_programkerja + ']').attr('value', value.id_programkerja));
                 });
             }
         });
@@ -590,11 +591,11 @@ $host = host();
         // console.log(programKerjaId)
         if (programKerjaId == '') {
 
-            $('.kotakAnggaranSPJ').hide();
+            $('.kotakAnggaran').hide();
 
         } else {
 
-            $('.kotakAnggaranSPJ').show();
+            $('.kotakAnggaran').show();
 
             $.ajax({
                 url: host + 'api/anggaran/getanggaranprogramkerjaspj.php',
@@ -605,17 +606,17 @@ $host = host();
                 dataType: 'json',
                 success: function(data) {
 
-                    $('#id_anggaran_spj').empty();
-                    // $('#id_anggaran_spj').append($('<option>').text('--Pilih Anggaran--').attr('value', ''));
+                    $('#id_anggaran').empty();
+                    // $('#id_anggaran').append($('<option>').text('--Pilih Anggaran--').attr('value', ''));
                     $.each(data, function(i, value) {
-                        $('#id_anggaran_spj').append($('<option>').text(value.nm_item).attr('value', value.id_anggaran));
+                        $('#id_anggaran').append($('<option>').text(value.kd_anggaran + ' [' + value.nm_item + ']').attr('value', value.id_anggaran));
                     });
                 }
             });
         }
     });
 
-    $('.id_anggaran_spj').on('change', function() {
+    $('.id_anggaran').on('change', function() {
         let anggaranId = this.value;
     });
 

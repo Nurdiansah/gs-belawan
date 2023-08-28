@@ -3,7 +3,7 @@ include "../../fungsi/koneksi.php";
 $id = $_POST['id'];
 $tahun = date("Y");
 
-$query = mysqli_query($koneksi, "SELECT id_programkerja, nm_programkerja
+$query = mysqli_query($koneksi, "SELECT id_programkerja, kd_programkerja, nm_programkerja
                                     FROM cost_center cc
                                     JOIN program_kerja pk
                                         ON pk.costcenter_id = cc.id_costcenter
@@ -17,6 +17,7 @@ $query = mysqli_query($koneksi, "SELECT id_programkerja, nm_programkerja
 $no = 0;
 while ($row = mysqli_fetch_array($query)) {
     $data[$no]['id_programkerja'] = $row['id_programkerja'];
+    $data[$no]['kd_programkerja'] = $row['kd_programkerja'];
     $data[$no]['nm_programkerja'] = $row['nm_programkerja'];
 
     $no++;
