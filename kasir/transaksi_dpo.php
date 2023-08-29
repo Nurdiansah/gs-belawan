@@ -134,14 +134,16 @@ $dataTagihan1 = mysqli_fetch_assoc($queryTagihan1);
                 <div class="table-responsive datatab">
                     <table class="table text-center table table-striped table-dark table-hover ">
                         <thead style="background-color :#B0C4DE;">
-                            <th>No</th>
-                            <th>Nama Barang</th>
-                            <th>Kode Anggaran</th>
-                            <th>Merk</th>
-                            <th>Supplier/Vendor</th>
-                            <th>Satuan</th>
-                            <th>Jumlah</th>
-                            <th>Harga</th>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Barang</th>
+                                <th>Kode Anggaran</th>
+                                <th>Merk</th>
+                                <th>Supplier/Vendor</th>
+                                <th>Satuan</th>
+                                <th>Jumlah</th>
+                                <th>Harga</th>
+                            </tr>
                         </thead>
                         <tr>
                             <tbody>
@@ -177,12 +179,14 @@ $dataTagihan1 = mysqli_fetch_assoc($queryTagihan1);
                         <div class="table-responsive datatab">
                             <table class="table text-center table table-striped table-dark table-hover ">
                                 <thead style="background-color :#B0C4DE;">
-                                    <th>No</th>
-                                    <th>Deskripsi</th>
-                                    <th>QTY</th>
-                                    <th>Unit</th>
-                                    <th>Unit Price</th>
-                                    <th>Total Price</th>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Deskripsi</th>
+                                        <th>QTY</th>
+                                        <th>Unit</th>
+                                        <th>Unit Price</th>
+                                        <th>Total Price</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -245,127 +249,119 @@ $dataTagihan1 = mysqli_fetch_assoc($queryTagihan1);
                         <div class="table-responsive datatab">
                             <table class="table text-center table table-striped table-dark table-hover ">
                                 <thead style="background-color :#B0C4DE;">
-                                    <th>No</th>
-                                    <th>Tgl Invoice</th>
-                                    <th>Tgl Tempo</th>
-                                    <th>Nominal</th>
-                                    <th>%</th>
-                                    <th>Status</th>
-                                    <th>#</th>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tgl Invoice</th>
+                                        <th>Tgl Tempo</th>
+                                        <th>Nominal</th>
+                                        <th>%</th>
+                                        <th>Status</th>
+                                        <th>#</th>
+                                    </tr>
                                 </thead>
-                                <tr>
-                                    <tbody>
-                                        <?php
-                                        $no = 1;
-                                        $total = 0;
-                                        if (mysqli_num_rows($queryTagihan)) {
-                                            while ($row = mysqli_fetch_assoc($queryTagihan)) :
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $total = 0;
+                                    if (mysqli_num_rows($queryTagihan)) {
+                                        while ($row = mysqli_fetch_assoc($queryTagihan)) :
 
-                                        ?>
-                                                <tr>
-                                                    <td> <?= $no; ?> </td>
-                                                    <td> <?= formatTanggal($row['tgl_buat']); ?> </td>
-                                                    <td> <?= formatTanggal($row['tgl_tempo']); ?> </td>
-                                                    <td> <?= formatRupiah(round($row['nominal'])); ?> </td>
-                                                    <td><?= $row['tppersentase']; ?></td>
-                                                    <td>
-                                                        <?php
-                                                        if ($row['status_tagihan'] == '1') {
-                                                            echo "<span class='label label-danger'>Menunggu Tempo/Invoice</span>";
-                                                        } else if ($row['status_tagihan'] == '2') {
-                                                            echo "<span class='label label-warning'>Approval Manager Finance</span>";
-                                                        } else if ($row['status_tagihan'] == '3') {
-                                                            echo "<span class='label label-warning'>Approval Direksi</span>";
-                                                        } else if ($row['status_tagihan'] == '4') {
-                                                            echo "<span class='label label-warning'>Dana sudah bisa di ambil</span>";
-                                                        } else if ($row['status_tagihan'] == '5') {
-                                                            echo "<span class='label label-success'>Terbayar</span>";
-                                                        }
+                                    ?>
+                                            <tr>
+                                                <td> <?= $no; ?> </td>
+                                                <td> <?= formatTanggal($row['tgl_buat']); ?> </td>
+                                                <td> <?= formatTanggal($row['tgl_tempo']); ?> </td>
+                                                <td> <?= formatRupiah(round($row['nominal'])); ?> </td>
+                                                <td><?= $row['tppersentase']; ?></td>
+                                                <td>
+                                                    <?php if ($row['status_tagihan'] == "5") { ?>
+                                                        <span class="label label-success">Terbayar</span>
+                                                    <?php } else { ?>
+                                                        <span class="label label-warning">Belum di bayar</span>
+                                                    <?php } ?>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#invoice_<?= $row['id_tagihan']; ?>"><i class="fa fa-folder-open" title="Invoice" data-toggle="tooltip"></i></button>
+                                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pembayaran_<?= $row['id_tagihan']; ?>"><i class="fa fa-folder-open" title="Bukti Pembayaran" data-toggle="tooltip"></i></button>
+                                                </td>
+                                            </tr>
 
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#invoice_<?= $row['id_tagihan']; ?>"><i class="fa fa-folder-open" title="Invoice" data-toggle="tooltip"></i></button>
-                                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pembayaran_<?= $row['id_tagihan']; ?>"><i class="fa fa-folder-open" title="Bukti Pembayaran" data-toggle="tooltip"></i></button>
-                                                    </td>
-                                                </tr>
-
-                                                <!-- Modal invoice -->
-                                                <div id="invoice_<?= $row['id_tagihan']; ?>" class="modal fade" role="dialog">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <!-- konten modal-->
-                                                        <div class="modal-content">
-                                                            <!-- heading modal -->
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                <h4 class="modal-title">Invoice PO [<?= $row['po_number']; ?>], pembayaran ke-<?= $no . " (" .  $row['tppersentase']; ?>%)</h4>
-                                                            </div>
-                                                            <!-- body modal -->
-                                                            <form class="form-horizontal">
-                                                                <div class="modal-body">
-                                                                    <div class="perhitungan">
-                                                                        <div class="box-body">
-                                                                            <div class="form-group">
-                                                                                <?php if (file_exists("../file/invoice/" . $row['doc_faktur']) && !empty($row['doc_faktur'])) { ?>
-                                                                                    <div class="embed-responsive embed-responsive-16by9">
-                                                                                        <iframe class="embed-responsive-item" src="../file/invoice/<?= $row['doc_faktur']; ?>"></iframe>
-                                                                                    </div>
-                                                                                <?php } else { ?>
-                                                                                    <h4 class="text-center">Document tidak ada</h4>
-                                                                                <?php } ?>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class=" modal-footer">
-                                                                            <input type="reset" value="Close" data-dismiss="modal" class="btn btn-default">
+                                            <!-- Modal invoice -->
+                                            <div id="invoice_<?= $row['id_tagihan']; ?>" class="modal fade" role="dialog">
+                                                <div class="modal-dialog modal-lg">
+                                                    <!-- konten modal-->
+                                                    <div class="modal-content">
+                                                        <!-- heading modal -->
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title">Invoice PO [<?= $row['po_number']; ?>], pembayaran ke-<?= $no . " (" .  $row['tppersentase']; ?>%)</h4>
+                                                        </div>
+                                                        <!-- body modal -->
+                                                        <form class="form-horizontal">
+                                                            <div class="modal-body">
+                                                                <div class="perhitungan">
+                                                                    <div class="box-body">
+                                                                        <div class="form-group">
+                                                                            <?php if (file_exists("../file/invoice/" . $row['doc_faktur']) && !empty($row['doc_faktur'])) { ?>
+                                                                                <div class="embed-responsive embed-responsive-16by9">
+                                                                                    <iframe class="embed-responsive-item" src="../file/invoice/<?= $row['doc_faktur']; ?>"></iframe>
+                                                                                </div>
+                                                                            <?php } else { ?>
+                                                                                <h4 class="text-center">Document tidak ada</h4>
+                                                                            <?php } ?>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Akhir modal invoice -->
-
-                                                <!-- Modal pembayaran -->
-                                                <div id="pembayaran_<?= $row['id_tagihan']; ?>" class="modal fade" role="dialog">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <!-- konten modal-->
-                                                        <div class="modal-content">
-                                                            <!-- heading modal -->
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                <h4 class="modal-title">Bukti Pembayaran</h4>
-                                                            </div>
-                                                            <!-- body modal -->
-                                                            <form class="form-horizontal">
-                                                                <div class="modal-body">
-                                                                    <div class="perhitungan">
-                                                                        <div class="box-body">
-                                                                            <div class="form-group">
-                                                                                <?php if (file_exists("../file/bukti_pembayaran/" . $row['bukti_pembayaran']) && !empty($row['bukti_pembayaran'])) { ?>
-                                                                                    <div class="embed-responsive embed-responsive-16by9">
-                                                                                        <iframe class="embed-responsive-item" src="../file/bukti_pembayaran/<?= $row['bukti_pembayaran']; ?>"></iframe>
-                                                                                    </div>
-                                                                                <?php } else { ?>
-                                                                                    <h4 class="text-center">Document tidak ada</h4>
-                                                                                <?php } ?>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class=" modal-footer">
-                                                                            <input type="reset" value="Close" data-dismiss="modal" class="btn btn-default">
-                                                                        </div>
+                                                                    <div class=" modal-footer">
+                                                                        <input type="reset" value="Close" data-dismiss="modal" class="btn btn-default">
                                                                     </div>
                                                                 </div>
-                                                            </form>
-                                                        </div>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
-                                                <!-- Akhir modal pemabayaran -->
-                                        <?php
-                                                $no++;
-                                            endwhile;
-                                        } ?>
-                                    </tbody>
+                                            </div>
+                                            <!-- Akhir modal invoice -->
+
+                                            <!-- Modal pembayaran -->
+                                            <div id="pembayaran_<?= $row['id_tagihan']; ?>" class="modal fade" role="dialog">
+                                                <div class="modal-dialog modal-lg">
+                                                    <!-- konten modal-->
+                                                    <div class="modal-content">
+                                                        <!-- heading modal -->
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title">Bukti Pembayaran</h4>
+                                                        </div>
+                                                        <!-- body modal -->
+                                                        <form class="form-horizontal">
+                                                            <div class="modal-body">
+                                                                <div class="perhitungan">
+                                                                    <div class="box-body">
+                                                                        <div class="form-group">
+                                                                            <?php if (file_exists("../file/bukti_pembayaran/" . $row['bukti_pembayaran']) && !empty($row['bukti_pembayaran'])) { ?>
+                                                                                <div class="embed-responsive embed-responsive-16by9">
+                                                                                    <iframe class="embed-responsive-item" src="../file/bukti_pembayaran/<?= $row['bukti_pembayaran']; ?>"></iframe>
+                                                                                </div>
+                                                                            <?php } else { ?>
+                                                                                <h4 class="text-center">Document tidak ada</h4>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class=" modal-footer">
+                                                                        <input type="reset" value="Close" data-dismiss="modal" class="btn btn-default">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Akhir modal pemabayaran -->
+                                    <?php
+                                            $no++;
+                                        endwhile;
+                                    } ?>
+                                </tbody>
                             </table>
                         </div>
                         <!-- <a target="_blank" href="cetak_po.php?id=<?= $id; ?>" class="btn btn-success"><i class="fa fa-print"></i> PO </a> -->

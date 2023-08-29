@@ -59,6 +59,13 @@ $queryRealisasi = mysqli_query($koneksi, " SELECT *
                                                 WHERE id_divisi='$id_anggaran' ");
 $rowR = mysqli_fetch_assoc($queryRealisasi);
 
+$queryTagihan =  mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase
+                                            FROM tagihan_po tp
+                                            JOIN po p
+                                                ON p.id_po = tp.po_id
+                                            LEFT JOIN bkk_final bf
+                                                ON id = bkk_id
+                                            WHERE tp.po_id ='$id' ");
 
 ?>
 <section class="content">
@@ -148,122 +155,256 @@ $rowR = mysqli_fetch_assoc($queryRealisasi);
                     </table>
                 </div>
                 <br>
-                <div class="box-header with-border">
-                    <h3 class="text-center">Rincian Barang</h3>
-                </div>
-                <div class="table-responsive datatab">
-                    <table class="table text-center table table-striped table-dark table-hover ">
-                        <thead style="background-color :#B0C4DE;">
-                            <th>No</th>
-                            <th>Deskripsi</th>
-                            <th>QTY</th>
-                            <th>Unit</th>
-                            <th>Unit Price</th>
-                            <th>Total Price</th>
-                        </thead>
-                        <tr>
-                            <tbody>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="box-header with-border">
+                            <h4 class="text-center">Rincian Barang</h4>
+                        </div>
+                        <div class="table-responsive datatab">
+                            <table class="table text-center table table-striped table-dark table-hover ">
+                                <thead style="background-color :#B0C4DE;">
+                                    <th>No</th>
+                                    <th>Deskripsi</th>
+                                    <th>QTY</th>
+                                    <th>Unit</th>
+                                    <th>Unit Price</th>
+                                    <th>Total Price</th>
+                                </thead>
                                 <tr>
+                                    <tbody>
+                                        <tr>
+                                            <?php
+                                            $no = 1;
+                                            $total = 0;
+                                            if (mysqli_num_rows($querySbo)) {
+                                                while ($row = mysqli_fetch_assoc($querySbo)) :
+
+                                            ?>
+                                                    <td> <?= $no; ?> </td>
+                                                    <td> <?= $row['sub_deskripsi']; ?> </td>
+                                                    <td> <?= $row['sub_qty']; ?> </td>
+                                                    <td> <?= $row['sub_unit']; ?> </td>
+                                                    <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
+                                                    <td><?= formatRupiah($row['total_price']); ?></td>
+                                        </tr>
+                                <?php
+                                                    $total += $row['total_price'];
+                                                    $no++;
+                                                endwhile;
+                                            } ?>
+                                <tr style="background-color :#B0C4DE;">
+                                    <td colspan="5"><b>Sub Total</b></td>
+                                    <td><b> <?= formatRupiah($data2['sub_totalpo']); ?></b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5"><b>Diskon </b></td>
+                                    <td><b> <?= formatRupiah($data2['diskon_po']); ?></b></td>
+                                </tr>
+                                <?php
+                                $total = $data2['sub_totalpo'] - $data2['diskon_po'];
+                                $grandTotal = $total + $data2['nilai_ppn'];
+                                ?>
+                                <tr style="background-color :#B0C4DE;">
+                                    <td colspan="5"><b>Total </b></td>
+                                    <td><b> <?= formatRupiah($data2['total_po']); ?></b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5"><b> PPN 10% </b></td>
+                                    <td><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5"><b> Nilai <?= $data2['nm_pph']; ?> </b></td>
+                                    <td><b> (<?= formatRupiah($data2['nilai_pph']); ?>)</b></td>
+                                </tr>
+                                <tr style="background-color :#B0C4DE;">
+                                    <td colspan="5"><b> Grand Total </b></td>
+                                    <td><b> <?= formatRupiah($data2['grand_totalpo']); ?></b></td>
+                                </tr>
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="box-header with-border">
+                            <h4 class="text-center">Tagihan Pembayaran</h4>
+                        </div>
+                        <div class="table-responsive datatab">
+                            <table class="table text-center table table-striped table-dark table-hover ">
+                                <thead style="background-color :#B0C4DE;">
+                                    <th>No</th>
+                                    <th>Tgl Invoice</th>
+                                    <th>Tgl Tempo</th>
+                                    <th>Nominal</th>
+                                    <th>%</th>
+                                    <th>Status</th>
+                                    <th>#</th>
+                                </thead>
+                                <tbody>
                                     <?php
                                     $no = 1;
                                     $total = 0;
-                                    if (mysqli_num_rows($querySbo)) {
-                                        while ($row = mysqli_fetch_assoc($querySbo)) :
+                                    if (mysqli_num_rows($queryTagihan)) {
+                                        while ($row = mysqli_fetch_assoc($queryTagihan)) :
 
                                     ?>
-                                            <td> <?= $no; ?> </td>
-                                            <td> <?= $row['sub_deskripsi']; ?> </td>
-                                            <td> <?= $row['sub_qty']; ?> </td>
-                                            <td> <?= $row['sub_unit']; ?> </td>
-                                            <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
-                                            <td><?= formatRupiah($row['total_price']); ?></td>
-                                </tr>
-                        <?php
-                                            $total += $row['total_price'];
+                                            <tr>
+                                                <td> <?= $no; ?> </td>
+                                                <td> <?= formatTanggal($row['tgl_buat']); ?> </td>
+                                                <td> <?= formatTanggal($row['tgl_tempo']); ?> </td>
+                                                <td> <?= formatRupiah(round($row['nominal'])); ?> </td>
+                                                <td><?= $row['tppersentase']; ?></td>
+                                                <td>
+                                                    <?php
+                                                    if ($row['status_tagihan'] == '1') {
+                                                        echo "<span class='label label-danger'>Menunggu Tempo/Invoice</span>";
+                                                    } else if ($row['status_tagihan'] == '2') {
+                                                        echo "<span class='label label-warning'>Approval Manager Finance</span>";
+                                                    } else if ($row['status_tagihan'] == '3') {
+                                                        echo "<span class='label label-warning'>Approval Direksi</span>";
+                                                    } else if ($row['status_tagihan'] == '4') {
+                                                        echo "<span class='label label-warning'>Dana sudah bisa di ambil</span>";
+                                                    } else if ($row['status_tagihan'] == '5') {
+                                                        echo "<span class='label label-success'>Terbayar</span>";
+                                                    }
+
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#invoice_<?= $row['id_tagihan']; ?>"><i class="fa fa-folder-open" title="Invoice" data-toggle="tooltip"></i></button>
+                                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pembayaran_<?= $row['id_tagihan']; ?>"><i class="fa fa-folder-open" title="Bukti Pembayaran" data-toggle="tooltip"></i></button>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Modal invoice -->
+                                            <div id="invoice_<?= $row['id_tagihan']; ?>" class="modal fade" role="dialog">
+                                                <div class="modal-dialog modal-lg">
+                                                    <!-- konten modal-->
+                                                    <div class="modal-content">
+                                                        <!-- heading modal -->
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title">Invoice PO [<?= $row['po_number']; ?>], pembayaran ke-<?= $no . " (" .  $row['tppersentase']; ?>%)</h4>
+                                                        </div>
+                                                        <!-- body modal -->
+                                                        <form class="form-horizontal">
+                                                            <div class="modal-body">
+                                                                <div class="perhitungan">
+                                                                    <div class="box-body">
+                                                                        <div class="form-group">
+                                                                            <?php if (file_exists("../file/invoice/" . $row['doc_faktur']) && !empty($row['doc_faktur'])) { ?>
+                                                                                <div class="embed-responsive embed-responsive-16by9">
+                                                                                    <iframe class="embed-responsive-item" src="../file/invoice/<?= $row['doc_faktur']; ?>"></iframe>
+                                                                                </div>
+                                                                            <?php } else { ?>
+                                                                                <h4 class="text-center">Document tidak ada</h4>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class=" modal-footer">
+                                                                        <input type="reset" value="Close" data-dismiss="modal" class="btn btn-default">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Akhir modal invoice -->
+
+                                            <!-- Modal pembayaran -->
+                                            <div id="pembayaran_<?= $row['id_tagihan']; ?>" class="modal fade" role="dialog">
+                                                <div class="modal-dialog modal-lg">
+                                                    <!-- konten modal-->
+                                                    <div class="modal-content">
+                                                        <!-- heading modal -->
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title">Bukti Pembayaran</h4>
+                                                        </div>
+                                                        <!-- body modal -->
+                                                        <form class="form-horizontal">
+                                                            <div class="modal-body">
+                                                                <div class="perhitungan">
+                                                                    <div class="box-body">
+                                                                        <div class="form-group">
+                                                                            <?php if (file_exists("../file/bukti_pembayaran/" . $row['bukti_pembayaran']) && !empty($row['bukti_pembayaran'])) { ?>
+                                                                                <div class="embed-responsive embed-responsive-16by9">
+                                                                                    <iframe class="embed-responsive-item" src="../file/bukti_pembayaran/<?= $row['bukti_pembayaran']; ?>"></iframe>
+                                                                                </div>
+                                                                            <?php } else { ?>
+                                                                                <h4 class="text-center">Document tidak ada</h4>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class=" modal-footer">
+                                                                        <input type="reset" value="Close" data-dismiss="modal" class="btn btn-default">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Akhir modal pemabayaran -->
+                                    <?php
                                             $no++;
                                         endwhile;
                                     } ?>
-                        <tr style="background-color :#B0C4DE;">
-                            <td colspan="5"><b>Sub Total</b></td>
-                            <td><b> <?= formatRupiah($data2['sub_totalpo']); ?></b></td>
-                        </tr>
-                        <tr>
-                            <td colspan="5"><b>Diskon </b></td>
-                            <td><b> <?= formatRupiah($data2['diskon_po']); ?></b></td>
-                        </tr>
-                        <?php
-                        $total = $data2['sub_totalpo'] - $data2['diskon_po'];
-                        $grandTotal = $total + $data2['nilai_ppn'];
-                        ?>
-                        <tr style="background-color :#B0C4DE;">
-                            <td colspan="5"><b>Total </b></td>
-                            <td><b> <?= formatRupiah($data2['total_po']); ?></b></td>
-                        </tr>
-                        <tr>
-                            <td colspan="5"><b> PPN 10% </b></td>
-                            <td><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
-                        </tr>
-                        <tr>
-                            <td colspan="5"><b> Nilai <?= $data2['nm_pph']; ?> </b></td>
-                            <td><b> (<?= formatRupiah($data2['nilai_pph']); ?>)</b></td>
-                        </tr>
-                        <tr style="background-color :#B0C4DE;">
-                            <td colspan="5"><b> Grand Total </b></td>
-                            <td><b> <?= formatRupiah($data2['grand_totalpo']); ?></b></td>
-                        </tr>
-                            </tbody>
-                    </table>
-                </div>
-                <br>
-                <?php
-                $foto = $data2['foto_item'];
-                if ($foto === '0') { ?>
-                    <h3 class="text-center">Foto Barang</h3>
-                    <br>
-                    <div class="row ">
-                        <div class="col-sm-offset-">
-                            <h5 class="text-center">Tidak Ada Foto</h5>
+                                </tbody>
+                            </table>
                         </div>
+                        <a target="_blank" href="cetak_po.php?id=<?= $id; ?>" class="btn btn-success"><i class="fa fa-print"></i> PO </a>
                     </div>
-                <?php } else { ?>
-                    <h3 class="text-center">Foto Barang</h3>
                     <br>
-                    <div class="row ">
-                        <div class="col-sm-12">
-                            <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item" src="../file/foto/<?= $data2['foto_item']; ?>"></iframe>
+                    <?php
+                    $foto = $data2['foto_item'];
+                    if ($foto === '0') { ?>
+                        <h3 class="text-center">Foto Barang</h3>
+                        <br>
+                        <div class="row ">
+                            <div class="col-sm-offset-">
+                                <h5 class="text-center">Tidak Ada Foto</h5>
                             </div>
                         </div>
+                    <?php } else { ?>
+                        <h3 class="text-center">Foto Barang</h3>
+                        <br>
+                        <div class="row ">
+                            <div class="col-sm-12">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="../file/foto/<?= $data2['foto_item']; ?>"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                    <br>
+                    <!-- Embed Document -->
+                    <div class="box-header with-border">
+                        <h3 class="text-center">Document Penawaran</h3>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="../file/doc_penawaran/<?php echo $data2['doc_penawaran']; ?> "></iframe>
+                        </div>
                     </div>
-                <?php } ?>
-                <br>
-                <!-- Embed Document -->
-                <div class="box-header with-border">
-                    <h3 class="text-center">Document Penawaran</h3>
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="../file/doc_penawaran/<?php echo $data2['doc_penawaran']; ?> "></iframe>
+                    <br>
+                    <!--  -->
+                    <!-- Embed Document -->
+                    <div class="box-header with-border">
+                        <h3 class="text-center">Document Quatation</h3>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="../file/doc_quotation/<?php echo $data2['doc_quotation']; ?> "></iframe>
+                        </div>
                     </div>
+                    <br>
+                    <br>
                 </div>
                 <br>
                 <!--  -->
-                <!-- Embed Document -->
-                <div class="box-header with-border">
-                    <h3 class="text-center">Document Quatation</h3>
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="../file/doc_quotation/<?php echo $data2['doc_quotation']; ?> "></iframe>
-                    </div>
+                <div class="col-sm-offset-11">
+                    <!-- <a target="_blank" href="cetak_po.php?id=<?= $id; ?>" class="btn btn-success"><i class="fa fa-print"></i> PO </a> -->
                 </div>
-                <br>
-                <br>
+                <!--  -->
             </div>
-            <br>
-            <!--  -->
-            <div class="col-sm-offset-11">
-                <a target="_blank" href="cetak_po.php?id=<?= $id; ?>" class="btn btn-success"><i class="fa fa-print"></i> PO </a>
-            </div>
-            <!--  -->
         </div>
-    </div>
     </div>
 
     <!--  -->
