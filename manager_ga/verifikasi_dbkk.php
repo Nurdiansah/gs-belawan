@@ -898,81 +898,102 @@ $jmlReapp = mysqli_num_rows($reApprove);
             <div class="table-responsive datatab">
                 <table class="table text-center table table-striped table-dark table-hover ">
                     <thead style="background-color :#B0C4DE;">
-                        <th>No</th>
-                        <th>Tgl Invoice</th>
-                        <th>Tgl Tempo</th>
-                        <th>Nominal</th>
-                        <th>Status</th>
+                        <tr>
+                            <th>No</th>
+                            <th>Tgl Invoice</th>
+                            <th>Tgl Tempo</th>
+                            <th>Nominal</th>
+                            <th>%</th>
+                            <th>Status</th>
+                            <th>Invoice</th>
+                        </tr>
                     </thead>
-                    <tr>
-                        <tbody>
-                            <tr>
-                                <?php
+                    <tbody>
+                        <?php
+
+                        $queryTagihan =  mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase
+                                                                            FROM tagihan_po tp
+                                                                            JOIN po p
+                                                                                ON p.id_po = tp.po_id
+                                                                            WHERE tp.po_id ='$id_po' ");
+
+                        $no = 1;
+                        // $total = 0;
+                        if (mysqli_num_rows($queryTagihan)) {
+                            while ($row = mysqli_fetch_assoc($queryTagihan)) :
+
+                        ?>
+                                <tr>
+                                    <td> <?= $no; ?> </td>
+                                    <td> <?= formatTanggal($row['tgl_buat']); ?> </td>
+                                    <td> <?= formatTanggal($row['tgl_tempo']); ?> </td>
+                                    <td> <?= formatRupiah(round($row['nominal'])); ?> </td>
+                                    <td><?= $row['tppersentase']; ?></td>
+                                    <td>
+                                        <?php
+                                        if ($row['status_tagihan'] < 4) {
+                                            # code...
+                                            echo "<button class='btn btn-warning'>Belum di bayar</button>";
+                                        } else if ($row['status_tagihan'] == 4) {
+                                            echo "<button class='btn btn-success'>Terbayar</button>";
+                                        }
+
+                                        ?>
+
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#lihat_<?= $row['id_tagihan']; ?>"><i class="fa fa-folder-open" title="Lihat" data-toggle="tooltip"></i></button>
+                                    </td>
+                                </tr>
+
+                                <!-- Modal Lihat -->
+                                <div id="lihat_<?= $row['id_tagihan']; ?>" class="modal fade" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+                                        <!-- konten modal-->
+                                        <div class="modal-content">
+                                            <!-- heading modal -->
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Invoice PO [<?= $row['po_number']; ?>], pembayaran ke-<?= $no . " (" .  $row['tppersentase']; ?>%)</h4>
+                                            </div>
+                                            <!-- body modal -->
+                                            <form class="form-horizontal">
+                                                <div class="modal-body">
+                                                    <div class="perhitungan">
+                                                        <div class="box-body">
+                                                            <div class="form-group">
+                                                                <?php if (file_exists("../file/invoice/" . $row['doc_faktur']) && !empty($row['doc_faktur'])) { ?>
+                                                                    <div class="embed-responsive embed-responsive-16by9">
+                                                                        <iframe class="embed-responsive-item" src="../file/invoice/<?= $row['doc_faktur']; ?>"></iframe>
+                                                                    </div>
+                                                                <?php } else { ?>
+                                                                    <h4 class="text-center">Document tidak ada</h4>
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                        <div class=" modal-footer">
+                                                            <input type="reset" value="Close" data-dismiss="modal" class="btn btn-default">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                        <?php
+                                // $total += $row['total_price'];
+                                $no++;
+                            endwhile;
+                        }
+
+                        $queryT =  mysqli_query($koneksi, "SELECT * FROM tagihan_po WHERE id_tagihan ='$id_tagihan' ");
+                        $dataTagihan =  mysqli_fetch_assoc($queryT);
 
 
-                                $queryTagihan =  mysqli_query($koneksi, "SELECT * FROM tagihan_po tp
-                                JOIN po p
-                                ON p.id_po = tp.po_id
-                                WHERE tp.po_id ='$id_po' ");
-
-                                $no = 1;
-                                // $total = 0;
-                                if (mysqli_num_rows($queryTagihan)) {
-                                    while ($row = mysqli_fetch_assoc($queryTagihan)) :
-
-                                ?>
-                                        <td> <?= $no; ?> </td>
-                                        <td> <?= formatTanggal($row['tgl_buat']); ?> </td>
-                                        <td> <?= formatTanggal($row['tgl_tempo']); ?> </td>
-                                        <td> <?= formatRupiah(round($row['nominal'])); ?> </td>
-                                        <td>
-                                            <?php
-                                            if ($row['status_tagihan'] <= 4) {
-                                                # code...
-                                                echo "<button class='btn btn-warning'>Belum di bayar</button>";
-                                            } else if ($row['status_tagihan'] == 5) {
-                                                echo "<button class='btn btn-success'>Terbayar</button>";
-                                            }
-
-                                            ?>
-
-                                        </td>
-                            </tr>
-                    <?php
-                                        // $total += $row['total_price'];
-                                        $no++;
-                                    endwhile;
-                                }
-
-                                $queryT =  mysqli_query($koneksi, "SELECT * FROM tagihan_po WHERE id_tagihan ='$id_tagihan' ");
-                                $dataTagihan =  mysqli_fetch_assoc($queryT);
-
-
-                    ?>
-                        </tbody>
+                        ?>
+                    </tbody>
                 </table>
             </div>
-
-            <!-- Embed Document -->
-            <?php
-            // echo $dataTagihan['doc_faktur'];
-            if ($dataTagihan['doc_faktur'] != '') { ?>
-                <!-- <div class="col-sm-12"> -->
-                <div class="box-header with-border">
-                    <h3 class="text-center">Invoice / Faktur </h3>
-                    <div class="embed-responsive embed-responsive-4by3">
-                        <iframe class="embed-responsive-item" src="../file/pdfjs/web/viewer.html?file=../../invoice/<?= $dataTagihan['doc_faktur'] ?>"></iframe>
-                    </div>
-                </div>
-                <!-- </div> -->
-            <?php } else { ?>
-                <div class="alert alert-warning" role="alert">
-                    Document Invoice / Faktur tidak ada karena metode pembayaran COD
-                </div>
-            <?php } ?>
-            <br>
-            <!-- Akhir -->
-
         </div>
     </div>
     <!-- Akhir detail po-->

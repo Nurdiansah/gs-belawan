@@ -116,38 +116,39 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                 <div class="table-responsive datatab">
                     <table class="table text-center table table-striped table-dark table-hover ">
                         <thead style="background-color :#B0C4DE;">
-                            <th>No</th>
-                            <th>Nama Barang</th>
-                            <th>Kode Anggaran</th>
-                            <th>Merk</th>
-                            <th>Supplier/Vendor</th>
-                            <th>Satuan</th>
-                            <th>Jumlah</th>
-                            <th>Harga</th>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Barang</th>
+                                <th>Kode Anggaran</th>
+                                <th>Merk</th>
+                                <th>Supplier/Vendor</th>
+                                <th>Satuan</th>
+                                <th>Jumlah</th>
+                                <th>Harga</th>
+                            </tr>
                         </thead>
-                        <tr>
-                            <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($queryBo)) {
-                                        while ($row = mysqli_fetch_assoc($queryBo)) :
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            if (mysqli_num_rows($queryBo)) {
+                                while ($row = mysqli_fetch_assoc($queryBo)) :
 
-                                    ?>
-                                            <td> <?= $no; ?> </td>
-                                            <td> <?= $row['nm_barang']; ?> </td>
-                                            <td> <?= $row['kd_anggaran'] . ' ' . $row['nm_item']; ?> </td>
-                                            <td> <?= $row['merk']; ?> </td>
-                                            <td> <?= $row['nm_supplier']; ?> </td>
-                                            <td> <?= $row['satuan']; ?> </td>
-                                            <td> <?= $row['jumlah']; ?> </td>
-                                            <td>Rp. <?= number_format($data2['grand_totalpo'], 0, ",", "."); ?> </td>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    } ?>
-                            </tbody>
+                            ?>
+                                    <tr>
+                                        <td> <?= $no; ?> </td>
+                                        <td> <?= $row['nm_barang']; ?> </td>
+                                        <td> <?= $row['kd_anggaran'] . ' ' . $row['nm_item']; ?> </td>
+                                        <td> <?= $row['merk']; ?> </td>
+                                        <td> <?= $row['nm_supplier']; ?> </td>
+                                        <td> <?= $row['satuan']; ?> </td>
+                                        <td> <?= $row['jumlah']; ?> </td>
+                                        <td>Rp. <?= number_format($data2['grand_totalpo'], 0, ",", "."); ?> </td>
+                                    </tr>
+                            <?php
+                                    $no++;
+                                endwhile;
+                            } ?>
+                        </tbody>
                     </table>
                 </div>
                 <br>
@@ -160,90 +161,97 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                         <div class="table-responsive datatab">
                             <table class="table text-center table table-striped table-dark table-hover ">
                                 <thead style="background-color :#B0C4DE;">
-                                    <th>No</th>
-                                    <th>Deskripsi</th>
-                                    <th>QTY</th>
-                                    <th>Unit</th>
-                                    <th>Unit Price</th>
-                                    <th>Total Price</th>
-                                </thead>
-                                <tr>
-                                    <tbody>
-                                        <tr>
-                                            <?php
-                                            $no = 1;
-                                            $total = 0;
-                                            if (mysqli_num_rows($querySbo)) {
-                                                while ($row = mysqli_fetch_assoc($querySbo)) :
-
-                                            ?>
-                                                    <td> <?= $no; ?> </td>
-                                                    <td> <?= $row['sub_deskripsi']; ?> </td>
-                                                    <td> <?= $row['sub_qty']; ?> </td>
-                                                    <td> <?= $row['sub_unit']; ?> </td>
-                                                    <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
-                                                    <td style="text-align: right;"><?= formatRupiah($row['total_price']); ?></td>
-                                        </tr>
-                                <?php
-                                                    $total += $row['total_price'];
-                                                    $no++;
-                                                endwhile;
-                                            } ?>
-                                <tr style="background-color :#B0C4DE;">
-                                    <td colspan="5" style="text-align: right;"><b>Sub Total</b></td>
-                                    <td style="text-align: right;"><b> <?= formatRupiah($data2['sub_totalpo']); ?></b></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" style="text-align: right;"><b>Diskon </b></td>
-                                    <td style="text-align: right;"><b> <?= formatRupiah($data2['diskon_po']); ?></b></td>
-                                </tr>
-                                <?php
-                                $total = $data2['sub_totalpo'] - $data2['diskon_po'];
-                                $grandTotal = $total + $data2['nilai_ppn'];
-                                ?>
-                                <tr style="background-color :#B0C4DE;">
-                                    <td colspan="5" style="text-align: right;"><b>Total </b></td>
-                                    <td style="text-align: right;"><b> <?= formatRupiah($data2['total_po']); ?></b></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" style="text-align: right;"><b> PPN 11% </b></td>
-                                    <td style="text-align: right;"><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
-                                </tr>
-                                <?php if ($data2['nilai_pph'] > 0) { ?>
                                     <tr>
-                                        <td colspan="5" style="text-align: right;"><b> PPh </b></td>
-                                        <td style="text-align: right;"><b> <?= formatRupiah($data2['nilai_pph']); ?></b></td>
+                                        <th>No</th>
+                                        <th>Deskripsi</th>
+                                        <th>QTY</th>
+                                        <th>Unit</th>
+                                        <th>Unit Price</th>
+                                        <th>Total Price</th>
                                     </tr>
-                                <?php } ?>
-                                <tr style="background-color :#B0C4DE;">
-                                    <td colspan="5" style="text-align: right;"><b> Grand Total </b></td>
-                                    <td style="text-align: right;"><b> <?= formatRupiah($data2['grand_totalpo']); ?></b></td>
-                                </tr>
-                                    </tbody>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $total = 0;
+                                    if (mysqli_num_rows($querySbo)) {
+                                        while ($row = mysqli_fetch_assoc($querySbo)) :
+
+                                    ?>
+                                            <tr>
+                                                <td> <?= $no; ?> </td>
+                                                <td> <?= $row['sub_deskripsi']; ?> </td>
+                                                <td> <?= $row['sub_qty']; ?> </td>
+                                                <td> <?= $row['sub_unit']; ?> </td>
+                                                <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
+                                                <td style="text-align: right;"><?= formatRupiah($row['total_price']); ?></td>
+                                            </tr>
+                                    <?php
+                                            $total += $row['total_price'];
+                                            $no++;
+                                        endwhile;
+                                    } ?>
+                                    <tr style="background-color :#B0C4DE;">
+                                        <td colspan="5" style="text-align: right;"><b>Sub Total</b></td>
+                                        <td style="text-align: right;"><b> <?= formatRupiah($data2['sub_totalpo']); ?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" style="text-align: right;"><b>Diskon </b></td>
+                                        <td style="text-align: right;"><b> <?= formatRupiah($data2['diskon_po']); ?></b></td>
+                                    </tr>
+                                    <?php
+                                    $total = $data2['sub_totalpo'] - $data2['diskon_po'];
+                                    $grandTotal = $total + $data2['nilai_ppn'];
+                                    ?>
+                                    <tr style="background-color :#B0C4DE;">
+                                        <td colspan="5" style="text-align: right;"><b>Total </b></td>
+                                        <td style="text-align: right;"><b> <?= formatRupiah($data2['total_po']); ?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" style="text-align: right;"><b> PPN 11% </b></td>
+                                        <td style="text-align: right;"><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
+                                    </tr>
+                                    <?php if ($data2['nilai_pph'] > 0) { ?>
+                                        <tr>
+                                            <td colspan="5" style="text-align: right;"><b> PPh </b></td>
+                                            <td style="text-align: right;"><b> <?= formatRupiah($data2['nilai_pph']); ?></b></td>
+                                        </tr>
+                                    <?php } ?>
+                                    <tr style="background-color :#B0C4DE;">
+                                        <td colspan="5" style="text-align: right;"><b> Grand Total </b></td>
+                                        <td style="text-align: right;"><b> <?= formatRupiah($data2['grand_totalpo']); ?></b></td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="col-sm-6 col-xs-12">
                         <div class="box-header with-border">
-                            <h4 class="text-center">Pembayaran</h4>
+                            <h4 class="text-center">Tagihan Pembayaran</h4>
                         </div>
                         <div class="table-responsive datatab">
                             <table class="table text-center table table-striped table-dark table-hover ">
                                 <thead style="background-color :#B0C4DE;">
-                                    <th>No</th>
-                                    <th>Tgl Invoice</th>
-                                    <th>Tgl Tempo</th>
-                                    <th>%</th>
-                                    <th>Nominal</th>
-                                    <th>Status</th>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tgl Invoice</th>
+                                        <th>Tgl Tempo</th>
+                                        <th>%</th>
+                                        <th>Nominal</th>
+                                        <th>Status</th>
+                                        <th>#</th>
+                                    </tr>
                                 </thead>
 
                                 <tbody>
                                     <?php
-                                    $queryTagihan =  mysqli_query($koneksi, "SELECT * FROM tagihan_po 
-                                                                            WHERE po_id ='$id' ");
-
-                                    $jumlahData = mysqli_num_rows($queryTagihan);
+                                    $queryTagihan =  mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase
+                                                                                FROM tagihan_po tp
+                                                                                JOIN po p
+                                                                                    ON p.id_po = tp.po_id
+                                                                                LEFT JOIN bkk_final bf
+                                                                                    ON id = bkk_id
+                                                                                WHERE tp.po_id ='$id' ");
 
                                     $no = 1;
                                     $total = 0;
@@ -257,19 +265,101 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                                 <td> <?= $no; ?> </td>
                                                 <td> <?= formatTanggal($row['tgl_buat']); ?> </td>
                                                 <td> <?= formatTanggal($row['tgl_tempo']); ?> </td>
-                                                <td><?= $row['persentase']; ?></td>
+                                                <td><?= $row['tppersentase']; ?></td>
                                                 <td> <?= formatRupiah(round($row['nominal'])); ?> </td>
-                                                <td><button class="btn btn-warning">Terbayar</button></td>
+                                                <td>
+                                                    <?php if ($row['status_tagihan'] == "5") { ?>
+                                                        <span class="label label-success">Terbayar</span>
+                                                    <?php } else { ?>
+                                                        <span class="label label-warning">Belum di bayar</span>
+                                                    <?php } ?>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#invoice_<?= $row['id_tagihan']; ?>"><i class="fa fa-folder-open" title="Invoice" data-toggle="tooltip"></i></button>
+                                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pembayaran_<?= $row['id_tagihan']; ?>"><i class="fa fa-folder-open" title="Bukti Pembayaran" data-toggle="tooltip"></i></button>
+                                                </td>
                                             </tr>
+
+                                            <!-- Modal invoice -->
+                                            <div id="invoice_<?= $row['id_tagihan']; ?>" class="modal fade" role="dialog">
+                                                <div class="modal-dialog modal-lg">
+                                                    <!-- konten modal-->
+                                                    <div class="modal-content">
+                                                        <!-- heading modal -->
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title">Invoice PO [<?= $row['po_number']; ?>], pembayaran ke-<?= $no . " (" .  $row['tppersentase']; ?>%)</h4>
+                                                        </div>
+                                                        <!-- body modal -->
+                                                        <form class="form-horizontal">
+                                                            <div class="modal-body">
+                                                                <div class="perhitungan">
+                                                                    <div class="box-body">
+                                                                        <div class="form-group">
+                                                                            <?php if (file_exists("../file/invoice/" . $row['doc_faktur']) && !empty($row['doc_faktur'])) { ?>
+                                                                                <div class="embed-responsive embed-responsive-16by9">
+                                                                                    <iframe class="embed-responsive-item" src="../file/invoice/<?= $row['doc_faktur']; ?>"></iframe>
+                                                                                </div>
+                                                                            <?php } else { ?>
+                                                                                <h4 class="text-center">Document tidak ada</h4>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class=" modal-footer">
+                                                                        <input type="reset" value="Close" data-dismiss="modal" class="btn btn-default">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Akhir modal invoice -->
+
+                                            <!-- Modal pembayaran -->
+                                            <div id="pembayaran_<?= $row['id_tagihan']; ?>" class="modal fade" role="dialog">
+                                                <div class="modal-dialog modal-lg">
+                                                    <!-- konten modal-->
+                                                    <div class="modal-content">
+                                                        <!-- heading modal -->
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title">Bukti Pembayaran</h4>
+                                                        </div>
+                                                        <!-- body modal -->
+                                                        <form class="form-horizontal">
+                                                            <div class="modal-body">
+                                                                <div class="perhitungan">
+                                                                    <div class="box-body">
+                                                                        <div class="form-group">
+                                                                            <?php if (file_exists("../file/bukti_pembayaran/" . $row['bukti_pembayaran']) && !empty($row['bukti_pembayaran'])) { ?>
+                                                                                <div class="embed-responsive embed-responsive-16by9">
+                                                                                    <iframe class="embed-responsive-item" src="../file/bukti_pembayaran/<?= $row['bukti_pembayaran']; ?>"></iframe>
+                                                                                </div>
+                                                                            <?php } else { ?>
+                                                                                <h4 class="text-center">Document tidak ada</h4>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class=" modal-footer">
+                                                                        <input type="reset" value="Close" data-dismiss="modal" class="btn btn-default">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Akhir modal pemabayaran -->
                                     <?php
 
-                                            $persent += $row['persentase'];
+                                            $persent += $row['tppersentase'];
                                             $no++;
                                         endwhile;
                                     }
                                     if ($jumlahData == 0) {
                                         echo "<tr>
-                                                <td style='text-align: center;' colspan='6'> Belum ada pembayaran</td>
+                                                <td style='text-align: center;' colspan='7'> Belum ada pembayaran</td>
                                             </tr>";
                                     }
 

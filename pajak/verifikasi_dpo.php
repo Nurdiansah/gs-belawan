@@ -233,10 +233,11 @@ $totalReapp = mysqli_num_rows($queryReapp);
                 </div>
 
                 <?php
-                $queryTagihan = mysqli_query($koneksi, "SELECT * FROM tagihan_po tp
-                                                                            JOIN po po
-                                                                                ON id_po = po_id
-                                                                            WHERE id_po = '$id'
+                $queryTagihan = mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase
+                                                            FROM tagihan_po tp
+                                                            JOIN po po
+                                                                ON id_po = po_id
+                                                            WHERE id_po = '$id'
                                                         ");
 
                 $no = 1;
@@ -254,7 +255,9 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                             <th>Tgl Invoice</th>
                                             <th>Tgl Tempo</th>
                                             <th>Nominal</th>
+                                            <th>%</th>
                                             <th>Status</th>
+                                            <th>Invoice</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -264,16 +267,60 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                                 <td><?= formatTanggal($dataTagihan['tgl_buat']); ?></td>
                                                 <td><?= formatTanggal($dataTagihan['tgl_tempo']); ?></td>
                                                 <td><?= formatRupiah($dataTagihan['nominal']); ?></td>
+                                                <td><?= $dataTagihan['tppersentase']; ?></td>
                                                 <td>
                                                     <?php
+
                                                     if ($dataTagihan['status_tagihan'] < 4) {
+
                                                         echo "<button class='btn btn-warning'>Belum di bayar</button>";
                                                     } else if ($dataTagihan['status_tagihan'] == 5) {
+
                                                         echo "<button class='btn btn-success'>Terbayar</button>";
                                                     }
+
                                                     ?>
                                                 </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#lihat_<?= $dataTagihan['id_tagihan']; ?>"><i class="fa fa-folder-open" title="Lihat" data-toggle="tooltip"></i></button>
+                                                </td>
                                             </tr>
+
+                                            <!-- Modal Lihat -->
+                                            <div id="lihat_<?= $dataTagihan['id_tagihan']; ?>" class="modal fade" role="dialog">
+                                                <div class="modal-dialog modal-lg">
+                                                    <!-- konten modal-->
+                                                    <div class="modal-content">
+                                                        <!-- heading modal -->
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title">Invoice PO [<?= $dataTagihan['po_number']; ?>], pembayaran ke-<?= $no . " (" .  $dataTagihan['tppersentase']; ?>%)</h4>
+                                                        </div>
+                                                        <!-- body modal -->
+                                                        <form class="form-horizontal">
+                                                            <div class="modal-body">
+                                                                <div class="perhitungan">
+                                                                    <div class="box-body">
+                                                                        <div class="form-group">
+                                                                            <?php if (file_exists("../file/invoice/" . $dataTagihan['doc_faktur']) && !empty($dataTagihan['doc_faktur'])) { ?>
+                                                                                <div class="embed-responsive embed-responsive-16by9">
+                                                                                    <iframe class="embed-responsive-item" src="../file/invoice/<?= $dataTagihan['doc_faktur']; ?>"></iframe>
+                                                                                </div>
+                                                                            <?php } else { ?>
+                                                                                <h4 class="text-center">Document tidak ada</h4>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class=" modal-footer">
+                                                                        <input type="reset" value="Close" data-dismiss="modal" class="btn btn-default">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Akhir modal lihat -->
                                         <?php $no++;
                                         } ?>
                                     </tbody>
