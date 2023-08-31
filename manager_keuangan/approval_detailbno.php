@@ -142,6 +142,14 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                                         <td class="text-center">Nilai PPh</td>
                                                         <td>(<?= "Rp." . $pph_nilai; ?>)</td>
                                                     </tr>
+                                                    <tr>
+                                                        <td class="text-center">Biaya Lain</td>
+                                                        <td><?= formatRupiah($row2['biaya_lain']); ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">Potongan</td>
+                                                        <td>(<?= "Rp." . $row2['potongan']; ?>)</td>
+                                                    </tr>
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>

@@ -129,6 +129,18 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                                         <input type="text" value="<?= "Rp." . $pph_nilai; ?>" readonly class="form-control" name="nilai_bkk">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label id="tes" for="biaya_lain" class="col-sm-2 control-label">Biaya Lain</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" value="<?= "Rp." . $row2['biaya_lain']; ?>" readonly class="form-control" name="biaya_lain">
+                                    </div>
+                                    <!-- </div>
+                    <div class="form-group"> -->
+                                    <label id="tes" for="potongan" class="col-sm-2 control-label">Potongan</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" value="<?= "Rp." . $row2['potongan']; ?>" readonly class="form-control" name="potongan">
+                                    </div>
+                                </div>
                                 <hr>
                                 <div class="form-group">
                                     <label id="tes" for="jml_bkk" class="col-sm-4 control-label">Jumlah</label>
