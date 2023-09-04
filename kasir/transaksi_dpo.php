@@ -68,14 +68,26 @@ $queryBK = mysqli_query($koneksi, "SELECT * FROM bkk_final WHERE id_kdtransaksi 
 $dataBK = mysqli_fetch_assoc($queryBK);
 $totalBK = mysqli_num_rows($queryBK);
 
-// query buat nampilin dokumen faktur
 $queryTagihan =  mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase
                                             FROM tagihan_po tp
                                             JOIN po p
                                                 ON p.id_po = tp.po_id
-                                            LEFT JOIN bkk_final bf
+                                                AND metode_pembayaran = 'Transfer'
+                                            JOIN bkk_ke_pusat bf
                                                 ON id = bkk_id
-                                            WHERE tp.po_id ='$id' ");
+                                            WHERE tp.po_id = '$id'
+                                            
+                                            UNION ALL
+
+                                            SELECT *, tp.persentase AS tppersentase
+                                            FROM tagihan_po tp
+                                            JOIN po p
+                                                ON p.id_po = tp.po_id
+                                                AND metode_pembayaran = 'Tunai'
+                                            JOIN bkk_final bf
+                                                ON id = bkk_id
+                                            WHERE tp.po_id = '$id'
+                                ");
 
 // query untuk ambil kondisi Transfer atau bukan
 $queryTagihan1 = mysqli_query($koneksi, "SELECT * FROM tagihan_po WHERE po_id = '$id' ORDER BY tgl_buat ASC");
@@ -145,29 +157,28 @@ $dataTagihan1 = mysqli_fetch_assoc($queryTagihan1);
                                 <th>Harga</th>
                             </tr>
                         </thead>
-                        <tr>
-                            <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($queryBo)) {
-                                        while ($row = mysqli_fetch_assoc($queryBo)) :
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            if (mysqli_num_rows($queryBo)) {
+                                while ($row = mysqli_fetch_assoc($queryBo)) :
 
-                                    ?>
-                                            <td> <?= $no; ?> </td>
-                                            <td> <?= $row['nm_barang']; ?> </td>
-                                            <td> <?= $row['kd_anggaran'] . ' ' . $row['nm_item']; ?> </td>
-                                            <td> <?= $row['merk']; ?> </td>
-                                            <td> <?= $row['nm_supplier']; ?> </td>
-                                            <td> <?= $row['satuan']; ?> </td>
-                                            <td> <?= $row['jumlah']; ?> </td>
-                                            <td>Rp. <?= number_format($data2['grand_totalpo'], 0, ",", "."); ?> </td>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    } ?>
-                            </tbody>
+                            ?>
+                                    <tr>
+                                        <td> <?= $no; ?> </td>
+                                        <td> <?= $row['nm_barang']; ?> </td>
+                                        <td> <?= $row['kd_anggaran'] . ' ' . $row['nm_item']; ?> </td>
+                                        <td> <?= $row['merk']; ?> </td>
+                                        <td> <?= $row['nm_supplier']; ?> </td>
+                                        <td> <?= $row['satuan']; ?> </td>
+                                        <td> <?= $row['jumlah']; ?> </td>
+                                        <td>Rp. <?= number_format($data2['grand_totalpo'], 0, ",", "."); ?> </td>
+                                    </tr>
+                            <?php
+                                    $no++;
+                                endwhile;
+                            } ?>
+                        </tbody>
                     </table>
                 </div>
                 <br>
@@ -189,55 +200,54 @@ $dataTagihan1 = mysqli_fetch_assoc($queryTagihan1);
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <?php
-                                        $no = 1;
-                                        $total = 0;
-                                        if (mysqli_num_rows($querySbo)) {
-                                            while ($row = mysqli_fetch_assoc($querySbo)) :
+                                    <?php
+                                    $no = 1;
+                                    $total = 0;
+                                    if (mysqli_num_rows($querySbo)) {
+                                        while ($row = mysqli_fetch_assoc($querySbo)) :
 
-                                        ?>
-                                    <tr>
-                                        <td> <?= $no; ?> </td>
-                                        <td> <?= $row['sub_deskripsi']; ?> </td>
-                                        <td> <?= $row['sub_qty']; ?> </td>
-                                        <td> <?= $row['sub_unit']; ?> </td>
-                                        <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
-                                        <td><?= formatRupiah($row['total_price']); ?></td>
+                                    ?>
+                                            <tr>
+                                                <td> <?= $no; ?> </td>
+                                                <td> <?= $row['sub_deskripsi']; ?> </td>
+                                                <td> <?= $row['sub_qty']; ?> </td>
+                                                <td> <?= $row['sub_unit']; ?> </td>
+                                                <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
+                                                <td><?= formatRupiah($row['total_price']); ?></td>
+                                            </tr>
+                                    <?php
+                                            $total += $row['total_price'];
+                                            $no++;
+                                        endwhile;
+                                    } ?>
+                                    <tr style="background-color :#B0C4DE;">
+                                        <td colspan="5"><b>Sub Total</b></td>
+                                        <td><b> <?= formatRupiah($data2['sub_totalpo']); ?></b></td>
                                     </tr>
-                            <?php
-                                                $total += $row['total_price'];
-                                                $no++;
-                                            endwhile;
-                                        } ?>
-                            <tr style="background-color :#B0C4DE;">
-                                <td colspan="5"><b>Sub Total</b></td>
-                                <td><b> <?= formatRupiah($data2['sub_totalpo']); ?></b></td>
-                            </tr>
-                            <tr>
-                                <td colspan="5"><b>Diskon </b></td>
-                                <td><b> <?= formatRupiah($data2['diskon_po']); ?></b></td>
-                            </tr>
-                            <?php
-                            $total = $data2['sub_totalpo'] - $data2['diskon_po'];
-                            $grandTotal = $total + $data2['nilai_ppn'];
-                            ?>
-                            <tr style="background-color :#B0C4DE;">
-                                <td colspan="5"><b>Total </b></td>
-                                <td><b> <?= formatRupiah($data2['total_po']); ?></b></td>
-                            </tr>
-                            <tr>
-                                <td colspan="5"><b> PPN 11% </b></td>
-                                <td><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
-                            </tr>
-                            <tr>
-                                <td colspan="5"><b> Nilai <?= $data2['nm_pph']; ?> </b></td>
-                                <td><b> (<?= formatRupiah($data2['nilai_pph']); ?>)</b></td>
-                            </tr>
-                            <tr style="background-color :#B0C4DE;">
-                                <td colspan="5"><b> Grand Total </b></td>
-                                <td><b> <?= formatRupiah($data2['grand_totalpo']); ?></b></td>
-                            </tr>
+                                    <tr>
+                                        <td colspan="5"><b>Diskon </b></td>
+                                        <td><b> <?= formatRupiah($data2['diskon_po']); ?></b></td>
+                                    </tr>
+                                    <?php
+                                    $total = $data2['sub_totalpo'] - $data2['diskon_po'];
+                                    $grandTotal = $total + $data2['nilai_ppn'];
+                                    ?>
+                                    <tr style="background-color :#B0C4DE;">
+                                        <td colspan="5"><b>Total </b></td>
+                                        <td><b> <?= formatRupiah($data2['total_po']); ?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5"><b> PPN 11% </b></td>
+                                        <td><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5"><b> Nilai <?= $data2['nm_pph']; ?> </b></td>
+                                        <td><b> (<?= formatRupiah($data2['nilai_pph']); ?>)</b></td>
+                                    </tr>
+                                    <tr style="background-color :#B0C4DE;">
+                                        <td colspan="5"><b> Grand Total </b></td>
+                                        <td><b> <?= formatRupiah($data2['grand_totalpo']); ?></b></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -266,6 +276,7 @@ $dataTagihan1 = mysqli_fetch_assoc($queryTagihan1);
                                     if (mysqli_num_rows($queryTagihan)) {
                                         while ($row = mysqli_fetch_assoc($queryTagihan)) :
 
+                                            $pathTagihan = $row['metode_pembayaran'] == "Tunai" ? pathBelawan() : pathPusat();
                                     ?>
                                             <tr>
                                                 <td> <?= $no; ?> </td>
@@ -338,9 +349,9 @@ $dataTagihan1 = mysqli_fetch_assoc($queryTagihan1);
                                                                 <div class="perhitungan">
                                                                     <div class="box-body">
                                                                         <div class="form-group">
-                                                                            <?php if (file_exists("../file/bukti_pembayaran/" . $row['bukti_pembayaran']) && !empty($row['bukti_pembayaran'])) { ?>
+                                                                            <?php if (file_exists($pathTagihan . "bukti_pembayaran/" . $row['bukti_pembayaran']) && !empty($row['bukti_pembayaran'])) { ?>
                                                                                 <div class="embed-responsive embed-responsive-16by9">
-                                                                                    <iframe class="embed-responsive-item" src="../file/bukti_pembayaran/<?= $row['bukti_pembayaran']; ?>"></iframe>
+                                                                                    <iframe class="embed-responsive-item" src="<?= $pathTagihan; ?>file/bukti_pembayaran/<?= $row['bukti_pembayaran']; ?>"></iframe>
                                                                                 </div>
                                                                             <?php } else { ?>
                                                                                 <h4 class="text-center">Document tidak ada</h4>

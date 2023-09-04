@@ -64,8 +64,23 @@ $rowR = mysqli_fetch_assoc($queryRealisasi);
 $queryTagihan =  mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase
                                             FROM tagihan_po tp
                                             JOIN po p
-                                            ON p.id_po = tp.po_id
-                                            WHERE tp.po_id ='$id' ");
+                                                ON p.id_po = tp.po_id
+                                                AND metode_pembayaran = 'Transfer'
+                                            JOIN bkk_ke_pusat bf
+                                                ON id = bkk_id
+                                            WHERE tp.po_id = '$id'
+                                            
+                                            UNION ALL
+
+                                            SELECT *, tp.persentase AS tppersentase
+                                            FROM tagihan_po tp
+                                            JOIN po p
+                                                ON p.id_po = tp.po_id
+                                                AND metode_pembayaran = 'Tunai'
+                                            JOIN bkk_final bf
+                                                ON id = bkk_id
+                                            WHERE tp.po_id = '$id'
+                                ");
 
 
 ?>

@@ -837,3 +837,15 @@ function DelRealisasiSem($id_kdtransaksi, $pengajuan)
 
     return $delRealSem;
 }
+
+function pathPusat()
+{
+    $path = '../../gs-system/file/';
+    return $path;
+}
+
+function pathBelawan()
+{
+    $path = '../file/';
+    return $path;
+}
