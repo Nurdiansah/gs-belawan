@@ -345,15 +345,9 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                                                 <div class="perhitungan">
                                                                     <div class="box-body">
                                                                         <div class="form-group">
-<<<<<<< HEAD
                                                                             <?php if (file_exists(pathPusat() . "bukti_pembayaran/" . $row['bukti_pembayaran']) && !empty($row['bukti_pembayaran'])) { ?>
                                                                                 <div class="embed-responsive embed-responsive-16by9">
                                                                                     <iframe class="embed-responsive-item" src="<?= pathPusat(); ?>bukti_pembayaran/<?= $row['bukti_pembayaran']; ?>"></iframe>
-=======
-                                                                            <?php if (file_exists($pathTagihan . "bukti_pembayaran/" . $row['bukti_pembayaran']) && !empty($row['bukti_pembayaran'])) { ?>
-                                                                                <div class="embed-responsive embed-responsive-16by9">
-                                                                                    <iframe class="embed-responsive-item" src="<?= $pathTagihan; ?>bukti_pembayaran/<?= $row['bukti_pembayaran']; ?>"></iframe>
->>>>>>> cb469a6ce9a8d9b695c1465397c1f094a3cc3548
                                                                                 </div>
                                                                             <?php } else { ?>
                                                                                 <h4 class="text-center">Document tidak ada</h4>
