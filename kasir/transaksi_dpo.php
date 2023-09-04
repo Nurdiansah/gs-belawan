@@ -72,12 +72,8 @@ $queryTagihan =  mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase
                                             FROM tagihan_po tp
                                             JOIN po p
                                                 ON p.id_po = tp.po_id
-<<<<<<< HEAD
-                                            LEFT JOIN bkk_ke_pusat bf
-=======
                                                 AND metode_pembayaran = 'Transfer'
                                             JOIN bkk_ke_pusat bf
->>>>>>> cb469a6ce9a8d9b695c1465397c1f094a3cc3548
                                                 ON id = bkk_id
                                             WHERE tp.po_id = '$id'
                                             
