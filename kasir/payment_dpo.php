@@ -237,12 +237,30 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                     <th>Nominal</th>
                                     <th>Pembayaran</th>
                                     <th>Status</th>
+                                    <th>Invoice</th>
                                 </thead>
 
                                 <tbody>
                                     <?php
-                                    $queryTagihan =  mysqli_query($koneksi, "SELECT * FROM tagihan_po 
-                                                                            WHERE po_id ='$id' ");
+                                    $queryTagihan =  mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase
+                                                                                FROM tagihan_po tp
+                                                                                JOIN po p
+                                                                                    ON p.id_po = tp.po_id
+                                                                                    AND metode_pembayaran = 'Transfer'
+                                                                                JOIN bkk_ke_pusat bf
+                                                                                    ON id = bkk_id
+                                                                                WHERE tp.po_id = '$id'
+                                                                                
+                                                                                UNION ALL
+
+                                                                                SELECT *, tp.persentase AS tppersentase
+                                                                                FROM tagihan_po tp
+                                                                                JOIN po p
+                                                                                    ON p.id_po = tp.po_id
+                                                                                    AND metode_pembayaran = 'Tunai'
+                                                                                JOIN bkk_final bf
+                                                                                    ON id = bkk_id
+                                                                                WHERE tp.po_id = '$id' ");
 
                                     $jumlahData = mysqli_num_rows($queryTagihan);
 
@@ -258,7 +276,7 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                                 <td> <?= $no; ?> </td>
                                                 <td> <?= formatTanggal($row['tgl_buat']); ?> </td>
                                                 <td> <?= formatTanggal($row['tgl_tempo']); ?> </td>
-                                                <td><?= $row['persentase']; ?></td>
+                                                <td><?= $row['tppersentase']; ?></td>
                                                 <td> <?= formatRupiah(round($row['nominal'])); ?> </td>
                                                 <td><?= $row['metode_pembayaran']; ?></td>
                                                 <td>
@@ -304,6 +322,7 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                                     }
                                                     ?>
                                                 </td>
+                                                <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#invoice_<?= $row['id_tagihan']; ?>"><i class="fa fa-folder-open" title="Invoice" data-toggle="tooltip"></i></button></td>
                                             </tr>
 
                                             <!-- Modal Payment  -->
@@ -353,6 +372,42 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                                 </div>
                                             </div>
                                             <!-- End Modal Payment  -->
+
+                                            <!-- Modal invoice -->
+                                            <div id="invoice_<?= $row['id_tagihan']; ?>" class="modal fade" role="dialog">
+                                                <div class="modal-dialog modal-lg">
+                                                    <!-- konten modal-->
+                                                    <div class="modal-content">
+                                                        <!-- heading modal -->
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title">Invoice PO [<?= $row['po_number']; ?>], pembayaran ke-<?= $no . " (" .  $row['tppersentase']; ?>%)</h4>
+                                                        </div>
+                                                        <!-- body modal -->
+                                                        <form class="form-horizontal">
+                                                            <div class="modal-body">
+                                                                <div class="perhitungan">
+                                                                    <div class="box-body">
+                                                                        <div class="form-group">
+                                                                            <?php if (file_exists("../file/invoice/" . $row['doc_faktur']) && !empty($row['doc_faktur'])) { ?>
+                                                                                <div class="embed-responsive embed-responsive-16by9">
+                                                                                    <iframe class="embed-responsive-item" src="../file/invoice/<?= $row['doc_faktur']; ?>"></iframe>
+                                                                                </div>
+                                                                            <?php } else { ?>
+                                                                                <h4 class="text-center">Document tidak ada</h4>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class=" modal-footer">
+                                                                        <input type="reset" value="Close" data-dismiss="modal" class="btn btn-default">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Akhir modal invoice -->
 
                                     <?php
 

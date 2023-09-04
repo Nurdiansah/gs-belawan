@@ -55,18 +55,18 @@ $jumlahData  = mysqli_num_rows($query);
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <?php
-                                        $no = 1;
-                                        if (mysqli_num_rows($query)) {
-                                            while ($row = mysqli_fetch_assoc($query)) :
+                                    <?php
+                                    $no = 1;
+                                    if (mysqli_num_rows($query)) {
+                                        while ($row = mysqli_fetch_assoc($query)) :
 
-                                        ?>
+                                    ?>
+                                            <tr>
                                                 <td> <?= $no; ?> </td>
                                                 <td> <?= formatTanggal($row['created_on_bkk']); ?> </td>
                                                 <td> <?= $row['pengajuan']; ?> </td>
                                                 <td> <?= $row['keterangan']; ?> </td>
-                                                <td> <?= $row['kd_anggaran']; ?> </td>
+                                                <td> <?= $row['kd_anggaran'] . " [" . $row['nm_item']; ?>]</td>
                                                 <td> <?= formatRupiah($row['nominal']); ?> </td>
                                                 <td>
                                                     <a href="?p=verifikasi_bkk&aksi=lihat&id=<?= $row['id']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button type="button" class="btn btn-warning"><i class="fa fa-search-plus"></i></button></span></a>
@@ -74,20 +74,20 @@ $jumlahData  = mysqli_num_rows($query);
                                                 <!-- <td>
                                                     <input type="checkbox" class="case" name="id_item[]" value="<?= $row['id']; ?>" />
                                                 </td> -->
-                                    </tr>
-                            <?php
-                                                $no++;
-                                            endwhile;
-                                        }
+                                            </tr>
+                                    <?php
+                                            $no++;
+                                        endwhile;
+                                    }
 
-                                        if ($jumlahData == 0) {
-                                            echo
-                                            "<tr>
+                                    if ($jumlahData == 0) {
+                                        echo
+                                        "<tr>
                                                 <td colspan='8'> Tidak Ada Data</td>
                                             </tr>
                                             ";
-                                        }
-                            ?>
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>

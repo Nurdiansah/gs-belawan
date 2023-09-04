@@ -249,9 +249,22 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                                                                 FROM tagihan_po tp
                                                                                 JOIN po p
                                                                                     ON p.id_po = tp.po_id
-                                                                                LEFT JOIN bkk_ke_pusat bf
+                                                                                    AND metode_pembayaran = 'Transfer'
+                                                                                JOIN bkk_ke_pusat bf
                                                                                     ON id = bkk_id
-                                                                                WHERE tp.po_id ='$id' ");
+                                                                                WHERE tp.po_id = '$id'
+                                                                                
+                                                                                UNION ALL
+
+                                                                                SELECT *, tp.persentase AS tppersentase
+                                                                                FROM tagihan_po tp
+                                                                                JOIN po p
+                                                                                    ON p.id_po = tp.po_id
+                                                                                    AND metode_pembayaran = 'Tunai'
+                                                                                JOIN bkk_final bf
+                                                                                    ON id = bkk_id
+                                                                                WHERE tp.po_id = '$id'
+                                                                    ");
 
                                     $no = 1;
                                     $total = 0;
@@ -259,6 +272,7 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                     if (mysqli_num_rows($queryTagihan)) {
                                         while ($row = mysqli_fetch_assoc($queryTagihan)) :
 
+                                            $pathTagihan = $row['metode_pembayaran'] == "Tunai" ? pathBelawan() : pathPusat();
                                     ?>
                                             <tr>
                                                 <td> <?= $no; ?> </td>
@@ -331,9 +345,15 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                                                                 <div class="perhitungan">
                                                                     <div class="box-body">
                                                                         <div class="form-group">
+<<<<<<< HEAD
                                                                             <?php if (file_exists(pathPusat() . "bukti_pembayaran/" . $row['bukti_pembayaran']) && !empty($row['bukti_pembayaran'])) { ?>
                                                                                 <div class="embed-responsive embed-responsive-16by9">
                                                                                     <iframe class="embed-responsive-item" src="<?= pathPusat(); ?>bukti_pembayaran/<?= $row['bukti_pembayaran']; ?>"></iframe>
+=======
+                                                                            <?php if (file_exists($pathTagihan . "bukti_pembayaran/" . $row['bukti_pembayaran']) && !empty($row['bukti_pembayaran'])) { ?>
+                                                                                <div class="embed-responsive embed-responsive-16by9">
+                                                                                    <iframe class="embed-responsive-item" src="<?= $pathTagihan; ?>bukti_pembayaran/<?= $row['bukti_pembayaran']; ?>"></iframe>
+>>>>>>> cb469a6ce9a8d9b695c1465397c1f094a3cc3548
                                                                                 </div>
                                                                             <?php } else { ?>
                                                                                 <h4 class="text-center">Document tidak ada</h4>

@@ -30,8 +30,7 @@ if (isset($_POST['submit'])) {
 	$lokasi_doc = ($_FILES['doc_faktur']['tmp_name']);
 	$doc = ($_FILES['doc_faktur']['name']);
 	$ekstensi = pathinfo($doc, PATHINFO_EXTENSION);
-
-
+	$namadoc = md5($id_tagihan) . "faktur-belawan." . $ekstensi;
 
 	// BEGIN/START TRANSACTION        
 	mysqli_begin_transaction($koneksi);
@@ -45,7 +44,7 @@ if (isset($_POST['submit'])) {
 		$queryMaxBKK = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT MAX(id) as max_bkk FROM bkk_final"));
 		$dataMaxBKK = $queryMaxBKK['max_bkk'];
 
-		$updateTagihan = mysqli_query($koneksi, "UPDATE tagihan_po SET status_tagihan = '2', bkk_id = '$dataMaxBKK'
+		$updateTagihan = mysqli_query($koneksi, "UPDATE tagihan_po SET status_tagihan = '2', bkk_id = '$dataMaxBKK', doc_faktur = '$namadoc'
 												 WHERE id_tagihan ='$id_tagihan' ");
 	} else {
 
@@ -69,13 +68,8 @@ if (isset($_POST['submit'])) {
 			$queryMaxBKK = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT MAX(id) as max_bkk FROM bkk_ke_pusat"));
 			$dataMaxBKK = $queryMaxBKK['max_bkk'];
 
-			$namadoc = md5($id_tagihan) . "faktur-belawan." . $ekstensi;
-
 			$updateTagihan = mysqli_query($koneksi, "UPDATE tagihan_po SET status_tagihan = '2', doc_faktur = '$namadoc', bkk_id = '$dataMaxBKK'
 		  												 WHERE id_tagihan ='$id_tagihan' ");
-
-
-			move_uploaded_file($lokasi_doc, "../file/invoice/" . $namadoc);
 		}
 	}
 
@@ -84,6 +78,7 @@ if (isset($_POST['submit'])) {
 
 	if ($insertBkk && $updatePO  && $updateTagihan) {
 
+		move_uploaded_file($lokasi_doc, "../file/invoice/" . $namadoc);
 
 		# jika semua query berhasil di jalankan
 		mysqli_commit($koneksi);

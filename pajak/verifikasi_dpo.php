@@ -139,30 +139,29 @@ $totalReapp = mysqli_num_rows($queryReapp);
                             <th>Jumlah</th>
                             <th>Harga</th>
                         </thead>
-                        <tr>
-                            <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($queryBo)) {
-                                        while ($row = mysqli_fetch_assoc($queryBo)) :
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            if (mysqli_num_rows($queryBo)) {
+                                while ($row = mysqli_fetch_assoc($queryBo)) :
 
-                                    ?>
-                                            <td> <?= $no; ?> </td>
-                                            <td> <?= $row['nm_barang']; ?> </td>
-                                            <td> <?= $row['kd_anggaran'] . ' ' . $row['nm_item']; ?> </td>
-                                            <td> <?= $row['merk']; ?> </td>
-                                            <td> <?= $row['nm_supplier']; ?> </td>
-                                            <td> <?= $row['satuan']; ?> </td>
-                                            <td> <?= $row['jumlah']; ?> </td>
-                                            <td>Rp. <?= number_format($data2['grand_totalpo'], 0, ",", "."); ?> </td>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    } ?>
-                            </tbody>
-                            <!-- </tr>
+                            ?>
+                                    <tr>
+                                        <td> <?= $no; ?> </td>
+                                        <td> <?= $row['nm_barang']; ?> </td>
+                                        <td> <?= $row['kd_anggaran'] . ' ' . $row['nm_item']; ?> </td>
+                                        <td> <?= $row['merk']; ?> </td>
+                                        <td> <?= $row['nm_supplier']; ?> </td>
+                                        <td> <?= $row['satuan']; ?> </td>
+                                        <td> <?= $row['jumlah']; ?> </td>
+                                        <td>Rp. <?= number_format($data2['grand_totalpo'], 0, ",", "."); ?> </td>
+                                    </tr>
+                            <?php
+                                    $no++;
+                                endwhile;
+                            } ?>
+                        </tbody>
+                        <!-- </tr>
                                 <tr>
                                 <td colspan="7"><b>Total Harga</b></td>
                                 <td><b> </b></td>                                
@@ -183,62 +182,75 @@ $totalReapp = mysqli_num_rows($queryReapp);
                             <th>Unit Price</th>
                             <th>Total Price</th>
                         </thead>
-                        <tr>
-                            <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($querySbo)) {
-                                        while ($row = mysqli_fetch_assoc($querySbo)) :
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            if (mysqli_num_rows($querySbo)) {
+                                while ($row = mysqli_fetch_assoc($querySbo)) :
 
-                                    ?>
-                                            <td> <?= $no; ?> </td>
-                                            <td> <?= $row['sub_deskripsi']; ?> </td>
-                                            <td> <?= $row['sub_qty']; ?> </td>
-                                            <td> <?= $row['sub_unit']; ?> </td>
-                                            <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
-                                            <td style="text-align: right;"><?= formatRupiah($row['total_price']); ?></td>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    } ?>
-                        <tr style="background-color :#B0C4DE;">
-                            <td colspan="5"><b>Sub Total</b></td>
-                            <td style="text-align: right;"><b> <?= formatRupiah($data2['sub_totalpo']); ?></b></td>
-                        </tr>
-                        <tr>
-                            <td colspan="5"><b>Diskon </b></td>
-                            <td style="text-align: right;"><b> <?= formatRupiah($data2['diskon_po']); ?></b></td>
-                        </tr>
-                        <tr style="background-color :#B0C4DE;">
-                            <td colspan="5"><b>Total </b></td>
-                            <td style="text-align: right;"><b> <?= formatRupiah($data2['total_po']); ?></b></td>
-                        </tr>
-                        <?php
-                        $total = $data2['sub_totalpo'] - $data2['diskon_po'];
-                        $grandTotal = $total + $data2['nilai_ppn'];
-                        ?>
-                        <tr>
-                            <td colspan="5"><b> PPN 11% </b></td>
-                            <td style="text-align: right;"><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
-                        </tr>
-                        <tr style="background-color :#B0C4DE;">
-                            <td colspan="5"><b> Grand Total </b></td>
-                            <td style="text-align: right;"><b> <?= formatRupiah($data2['grand_totalpo']); ?></b></td>
-                        </tr>
+                            ?>
+                                    <tr>
+                                        <td> <?= $no; ?> </td>
+                                        <td> <?= $row['sub_deskripsi']; ?> </td>
+                                        <td> <?= $row['sub_qty']; ?> </td>
+                                        <td> <?= $row['sub_unit']; ?> </td>
+                                        <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
+                                        <td style="text-align: right;"><?= formatRupiah($row['total_price']); ?></td>
+                                    </tr>
+                            <?php
+                                    $no++;
+                                endwhile;
+                            } ?>
+                            <tr style="background-color :#B0C4DE;">
+                                <td colspan="5"><b>Sub Total</b></td>
+                                <td style="text-align: right;"><b> <?= formatRupiah($data2['sub_totalpo']); ?></b></td>
+                            </tr>
+                            <tr>
+                                <td colspan="5"><b>Diskon </b></td>
+                                <td style="text-align: right;"><b> <?= formatRupiah($data2['diskon_po']); ?></b></td>
+                            </tr>
+                            <tr style="background-color :#B0C4DE;">
+                                <td colspan="5"><b>Total </b></td>
+                                <td style="text-align: right;"><b> <?= formatRupiah($data2['total_po']); ?></b></td>
+                            </tr>
+                            <?php
+                            $total = $data2['sub_totalpo'] - $data2['diskon_po'];
+                            $grandTotal = $total + $data2['nilai_ppn'];
+                            ?>
+                            <tr>
+                                <td colspan="5"><b> PPN 11% </b></td>
+                                <td style="text-align: right;"><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
+                            </tr>
+                            <tr style="background-color :#B0C4DE;">
+                                <td colspan="5"><b> Grand Total </b></td>
+                                <td style="text-align: right;"><b> <?= formatRupiah($data2['grand_totalpo']); ?></b></td>
+                            </tr>
 
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
 
                 <?php
-                $queryTagihan = mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase
+                $queryTagihan =  mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase
                                                             FROM tagihan_po tp
-                                                            JOIN po po
-                                                                ON id_po = po_id
-                                                            WHERE id_po = '$id'
-                                                        ");
+                                                            JOIN po p
+                                                                ON p.id_po = tp.po_id
+                                                                AND metode_pembayaran = 'Transfer'
+                                                            JOIN bkk_ke_pusat bf
+                                                                ON id = bkk_id
+                                                            WHERE tp.po_id = '$id'
+                                                            
+                                                            UNION ALL
+
+                                                            SELECT *, tp.persentase AS tppersentase
+                                                            FROM tagihan_po tp
+                                                            JOIN po p
+                                                                ON p.id_po = tp.po_id
+                                                                AND metode_pembayaran = 'Tunai'
+                                                            JOIN bkk_final bf
+                                                                ON id = bkk_id
+                                                            WHERE tp.po_id = '$id'
+                                                ");
 
                 $no = 1;
 
