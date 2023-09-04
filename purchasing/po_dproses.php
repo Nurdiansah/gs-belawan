@@ -179,52 +179,53 @@ $rowR = mysqli_fetch_assoc($queryRealisasi);
                             <th>Unit Price</th>
                             <th>Total Price</th>
                         </thead>
-                        <tr>
-                            <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($querySbo)) {
-                                        while ($row = mysqli_fetch_assoc($querySbo)) :
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            if (mysqli_num_rows($querySbo)) {
+                                while ($row = mysqli_fetch_assoc($querySbo)) :
 
-                                    ?>
-                                            <td> <?= $no; ?> </td>
-                                            <td> <?= $row['sub_deskripsi']; ?> </td>
-                                            <td> <?= $row['sub_qty']; ?> </td>
-                                            <td> <?= $row['sub_unit']; ?> </td>
-                                            <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
-                                            <td><?= formatRupiah($row['total_price']); ?></td>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    } ?>
-                        <tr style="background-color :#B0C4DE;">
-                            <td colspan="5"><b>Sub Total</b></td>
-                            <td><b> <?= formatRupiah($data2['sub_totalpo']); ?></b></td>
-                        </tr>
-                        <tr style="background-color :#B0C4DE;">
-                            <td colspan="5"><b>Diskon </b></td>
-                            <td><b> <?= formatRupiah($data2['diskon_po']); ?></b></td>
-                        </tr>
-                        <?php
-                        $total = $data2['sub_totalpo'] - $data2['diskon_po'];
-                        $grandTotal = $total + $data2['nilai_ppn'];
-                        ?>
-                        <tr style="background-color :#B0C4DE;">
-                            <td colspan="5"><b>Total</b></td>
-                            <td><b> <?= formatRupiah($total); ?>,00</b></td>
-                        </tr>
-                        <tr style="background-color :#B0C4DE;">
-                            <td colspan="5"><b> PPN 10% </b></td>
-                            <td><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
-                        </tr>
-                        <tr style="background-color :#B0C4DE;">
-                            <td colspan="5"><b> Grand Total </b></td>
-                            <td><b> <?= formatRupiah($data2['grand_totalpo']); ?></b></td>
-                        </tr>
+                            ?>
+                                    <tr>
+                                        <td> <?= $no; ?> </td>
+                                        <td>
+                                            <p><?= $row['sub_deskripsi']; ?></p>
+                                        </td>
+                                        <td> <?= $row['sub_qty']; ?> </td>
+                                        <td> <?= $row['sub_unit']; ?> </td>
+                                        <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
+                                        <td><?= formatRupiah($row['total_price']); ?></td>
+                                    </tr>
+                            <?php
+                                    $no++;
+                                endwhile;
+                            } ?>
+                            <tr style="background-color :#B0C4DE;">
+                                <td colspan="5"><b>Sub Total</b></td>
+                                <td><b> <?= formatRupiah($data2['sub_totalpo']); ?></b></td>
+                            </tr>
+                            <tr style="background-color :#B0C4DE;">
+                                <td colspan="5"><b>Diskon </b></td>
+                                <td><b> <?= formatRupiah($data2['diskon_po']); ?></b></td>
+                            </tr>
+                            <?php
+                            $total = $data2['sub_totalpo'] - $data2['diskon_po'];
+                            $grandTotal = $total + $data2['nilai_ppn'];
+                            ?>
+                            <tr style="background-color :#B0C4DE;">
+                                <td colspan="5"><b>Total</b></td>
+                                <td><b> <?= formatRupiah($total); ?>,00</b></td>
+                            </tr>
+                            <tr style="background-color :#B0C4DE;">
+                                <td colspan="5"><b> PPN 10% </b></td>
+                                <td><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
+                            </tr>
+                            <tr style="background-color :#B0C4DE;">
+                                <td colspan="5"><b> Grand Total </b></td>
+                                <td><b> <?= formatRupiah($data2['grand_totalpo']); ?></b></td>
+                            </tr>
 
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
                 <!--  -->

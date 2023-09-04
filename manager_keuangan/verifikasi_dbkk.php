@@ -941,7 +941,7 @@ $jmlReapp = mysqli_num_rows($reApprove);
                                         if ($row['status_tagihan'] < 4) {
                                             # code...
                                             echo "<button class='btn btn-warning'>Belum di bayar</button>";
-                                        } else if ($row['status_tagihan'] == 4) {
+                                        } else if ($row['status_tagihan'] == 5) {
                                             echo "<button class='btn btn-success'>Terbayar</button>";
                                         }
 

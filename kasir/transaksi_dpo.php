@@ -73,7 +73,7 @@ $queryTagihan =  mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase
                                             FROM tagihan_po tp
                                             JOIN po p
                                                 ON p.id_po = tp.po_id
-                                            LEFT JOIN bkk_final bf
+                                            LEFT JOIN bkk_ke_pusat bf
                                                 ON id = bkk_id
                                             WHERE tp.po_id ='$id' ");
 
@@ -338,9 +338,9 @@ $dataTagihan1 = mysqli_fetch_assoc($queryTagihan1);
                                                                 <div class="perhitungan">
                                                                     <div class="box-body">
                                                                         <div class="form-group">
-                                                                            <?php if (file_exists("../file/bukti_pembayaran/" . $row['bukti_pembayaran']) && !empty($row['bukti_pembayaran'])) { ?>
+                                                                            <?php if (file_exists(pathPusat() . "bukti_pembayaran/" . $row['bukti_pembayaran']) && !empty($row['bukti_pembayaran'])) { ?>
                                                                                 <div class="embed-responsive embed-responsive-16by9">
-                                                                                    <iframe class="embed-responsive-item" src="../file/bukti_pembayaran/<?= $row['bukti_pembayaran']; ?>"></iframe>
+                                                                                    <iframe class="embed-responsive-item" src="<?= pathPusat(); ?>bukti_pembayaran/<?= $row['bukti_pembayaran']; ?>"></iframe>
                                                                                 </div>
                                                                             <?php } else { ?>
                                                                                 <h4 class="text-center">Document tidak ada</h4>
