@@ -58,7 +58,7 @@ $tanggalCargo = date("Y-m-d");
 if (isset($_GET['aksi']) && isset($_GET['id'])) {
     //die($id = $_GET['id']);
     $id = $_GET['id'];
-
+    $foto = $_GET['doc'];
 
     if ($_GET['aksi'] == 'edit') {
         header("location:?p=edit_item&id=$id");
@@ -421,7 +421,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                                                     if (mysqli_num_rows($queryProgramKerja)) {
                                                         while ($rowPK = mysqli_fetch_assoc($queryProgramKerja)) :
                                                     ?>
-                                                            <option value="<?= $rowPK['id_programkerja']; ?>" type="checkbox"><?= $rowPK['nm_programkerja']; ?></option>
+                                                            <option value="<?= $rowPK['id_programkerja']; ?>" type="checkbox"><?= $rowPK['kd_programkerja'] . " [" . $rowPK['nm_programkerja']; ?>]</option>
                                                     <?php endwhile;
                                                     } ?>
                                                 </select>
