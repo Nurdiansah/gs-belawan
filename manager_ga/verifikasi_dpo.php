@@ -209,8 +209,7 @@ $dataReapp = mysqli_fetch_assoc($queryReapp);
                     </div>
                 <?php } else { ?>
                     <h3 class="text-center">Foto Barang</h3>
-                    <br>
-                    <div class="col-sm-12">
+                    <div class="box-header with-border">
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe class="embed-responsive-item" src="../file/foto/<?= $data2['foto_item']; ?>"></iframe>
                         </div>

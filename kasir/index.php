@@ -131,7 +131,7 @@ $queryVP = mysqli_query($koneksi, "SELECT COUNT(id_po) AS jumlah  FROM po WHERE 
 $dataVP = mysqli_fetch_assoc($queryVP);
 
 // po tempo
-$queryTP = mysqli_query($koneksi, "SELECT COUNT(id_tagihan) AS jumlah  FROM tagihan_potp
+$queryTP = mysqli_query($koneksi, "SELECT COUNT(id_tagihan) AS jumlah  FROM tagihan_po tp
                                     JOIN po p
                                       ON p.id_po = tp.po_id
                                     WHERE status_tagihan = '1' ");
