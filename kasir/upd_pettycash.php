@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
 										WHERE id_anggaran ='$id_anggaran' ";
 		$realisasi = mysqli_query($koneksi, $queryRealisasi);
 
-		$updRealSem = UpdRealisasiSem($id_pettycash, 'PCS', $total_pettycash);
+		$updRealSem = UpdRealisasiSem($id_pettycash, 'PCS', $total_pettycash, "1");
 
 		$insReaAngg = mysqli_query($koneksi, "INSERT INTO realisasi_anggaran (jenispengajuan_id, permohonan_id, anggaran_id, nominal, created_at, update_at) VALUES
                                                                                 ('7', '$id_pettycash', '$id_anggaran', '$nominal', NOW(), NOW())

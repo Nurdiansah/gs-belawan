@@ -109,7 +109,7 @@ if (isset($_POST['submit'])) {
 	$update = mysqli_query($koneksi, "UPDATE kasbon SET status_kasbon = '10'
 							WHERE id_kasbon ='$id_kasbon' ");
 
-	$updRealSem = UpdRealisasiSem($id_kasbon, 'KBN', $DPP);
+	$updRealSem = UpdRealisasiSem($id_kasbon, 'KBN', $DPP, "1");
 
 	if ($hasil && $realsiasi && $update && $updRealSem) {
 		mysqli_commit($koneksi);

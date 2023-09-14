@@ -56,6 +56,7 @@ if (isset($_POST['payment'])) {
     if ($persentase == 100) {
         // status 10 untuk transaksi sesesai
         $status_po = '10';
+        $isDelRsem = "1";
     } else {
         $qtp = mysqli_query($koneksi, "SELECT SUM(persentase) AS jumlah FROM tagihan_po
             WHERE po_id = '$id_po'");
@@ -65,13 +66,17 @@ if (isset($_POST['payment'])) {
         if ($jumlahPTP == 100) {
             # code...
             $status_po = '10';
+            $isDelRsem = "1";
         } else {
             # code...
             $status_po = '9';
+            $isDelRsem = "0";
         }
-
         // status 9 untuk outstanding po
     }
+
+    $dataPO = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM po WHERE id_po = '$id_po'"));
+    $updRealSem = UpdRealisasiSem($dataPO['id_po'], "PO", $dataBKK['nominal'], $isDelRsem);
 
     // print_r($nomorBkk);
     // die;
