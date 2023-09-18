@@ -25,7 +25,7 @@ $rowUser = mysqli_fetch_assoc($queryUser);
 $idUser = $rowUser['id_user'];
 $idDivisi = $rowUser['id_divisi'];
 
-$query = mysqli_query($koneksi, "SELECT tp.id_pettycash ,tp.created_pettycash_on, tp.keterangan_pettycash, a.kd_anggaran, tp.total_pettycash, tp.status_pettycash
+$query = mysqli_query($koneksi, "SELECT *, tp.id_pettycash, tp.created_pettycash_on, tp.keterangan_pettycash, a.kd_anggaran, tp.total_pettycash, tp.status_pettycash
                                         FROM transaksi_pettycash tp   
                                         JOIN anggaran a
                                         ON tp.id_anggaran = a.id_anggaran   
@@ -56,6 +56,7 @@ $jumlahData = mysqli_num_rows($query);
                                 <thead>
                                     <tr style="background-color :#B0C4DE;">
                                         <th>No</th>
+                                        <th>Kode Pettycash</th>
                                         <th>Tanggal</th>
                                         <th>Keterangan</th>
                                         <th>Kode Anggaran</th>
@@ -71,9 +72,10 @@ $jumlahData = mysqli_num_rows($query);
                                             while ($row = mysqli_fetch_assoc($query)) :
                                         ?>
                                                 <td> <?= $no; ?> </td>
+                                                <td> <?= $row['kd_pettycash']; ?> </td>
                                                 <td> <?= formatTanggal($row['created_pettycash_on']); ?> </td>
                                                 <td> <?= batasiKata($row['keterangan_pettycash']); ?> </td>
-                                                <td> <?= $row['kd_anggaran']; ?> </td>
+                                                <td> <?= $row['kd_anggaran'] . " [" . $row['nm_item']; ?>]</td>
                                                 <td> <?= formatRupiah($row['total_pettycash']); ?> </td>
                                                 <td> <?php if ($row['status_pettycash'] == 3) { ?>
                                                         <a href="?p=lpj_petty&aksi=lpj&id=<?= $row['id_pettycash']; ?>"><span data-placement='top' data-toggle='tooltip' title='LPJ'><button type="button" class="btn btn-success"><i class="fa fa-edit"> </i> LPJ</button></span></a>

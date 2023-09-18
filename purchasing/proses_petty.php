@@ -25,7 +25,7 @@ $rowUser = mysqli_fetch_assoc($queryUser);
 $idUser = $rowUser['id_user'];
 $idDivisi = $rowUser['id_divisi'];
 
-$query = mysqli_query($koneksi, "SELECT tp.id_pettycash ,tp.created_pettycash_on, d.nm_divisi ,  tp.keterangan_pettycash, a.kd_anggaran, tp.total_pettycash, tp.status_pettycash
+$query = mysqli_query($koneksi, "SELECT *, tp.id_pettycash, tp.created_pettycash_on, d.nm_divisi, tp.keterangan_pettycash, a.kd_anggaran, tp.total_pettycash, tp.status_pettycash
                                         FROM transaksi_pettycash tp  
                                         JOIN divisi d
                                         ON d.id_divisi = tp.id_divisi
@@ -59,6 +59,7 @@ $jumlahData = mysqli_num_rows($query);
                             <thead>
                                 <tr style="background-color :#B0C4DE;">
                                     <th>No</th>
+                                    <th>Kode Pettycash</th>
                                     <th>Tanggal</th>
                                     <th>Divisi</th>
                                     <th>Keterangan</th>
@@ -76,10 +77,11 @@ $jumlahData = mysqli_num_rows($query);
                                         while ($row = mysqli_fetch_assoc($query)) :
                                     ?>
                                             <td> <?= $no; ?> </td>
+                                            <td> <?= $row['kd_pettycash']; ?> </td>
                                             <td> <?= formatTanggal($row['created_pettycash_on']); ?> </td>
                                             <td> <?= $row['nm_divisi']; ?> </td>
                                             <td> <?= batasiKata($row['keterangan_pettycash']); ?> </td>
-                                            <td> <?= $row['kd_anggaran']; ?> </td>
+                                            <td> <?= $row['kd_anggaran'] . " [" . $row['nm_item']; ?>]</td>
                                             <td> <?= formatRupiah($row['total_pettycash']); ?> </td>
                                             <td> <?php if ($row['status_pettycash'] == 1) { ?>
                                                     <span class="label label-primary">Menunggu Approve Manager </span>

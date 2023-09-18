@@ -46,8 +46,8 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                             <thead>
                                 <tr style="background-color :#B0C4DE;">
                                     <th>No</th>
+                                    <th>Kode Pettycash</th>
                                     <th>Tanggal</th>
-                                    <th>ID Pettycash</th>
                                     <th>Divisi</th>
                                     <th>Keterangan</th>
                                     <th>Kode Anggaran</th>
@@ -64,8 +64,8 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                         while ($row = mysqli_fetch_assoc($query)) :
                                     ?>
                                             <td> <?= $no; ?> </td>
-                                            <td> <?= formatTanggal($row['created_pettycash_on']); ?> </td>
                                             <td> <?= $row['kd_pettycash']; ?> </td>
+                                            <td> <?= formatTanggal($row['created_pettycash_on']); ?> </td>
                                             <td> <?= $row['nm_divisi']; ?> </td>
                                             <td> <?= $row['keterangan_pettycash']; ?> </td>
                                             <td> <?= $row['kd_anggaran']; ?> </td>
