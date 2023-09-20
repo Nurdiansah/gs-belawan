@@ -75,8 +75,8 @@ if (isset($_POST['submit'])) {
 			$kode_otomatis = "P000001";
 		}
 
-		$query = "INSERT INTO transaksi_pettycash (kd_pettycash, id_anggaran, keterangan_pettycash, total_pettycash, doc_lpj_pettycash, id_divisi, id_manager, status_pettycash, created_pettycash_on) VALUES 
-										  ( '$kode_otomatis', '$id_anggaran', '$keterangan', '$total', '$doc_lpj', '$id_divisi', '$id_manager', '5' , '$tanggal');
+		$query = "INSERT INTO transaksi_pettycash (kd_pettycash, pengajuan, id_kdtransaksi, id_anggaran, keterangan_pettycash, total_pettycash, doc_lpj_pettycash, id_divisi, id_manager, status_pettycash, created_pettycash_on) VALUES 
+										  ( '$kode_otomatis', 'KASBON', '$id_kasbon', '$id_anggaran', '$keterangan', '$total', '$doc_lpj', '$id_divisi', '$id_manager', '5' , '$tanggal');
 				";
 
 		$hasil = mysqli_query($koneksi, $query);
