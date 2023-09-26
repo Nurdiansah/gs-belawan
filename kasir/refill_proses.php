@@ -54,9 +54,17 @@ if (isset($_POST['verifikasi'])) {
                                         WHERE id_refill = '$id_refill'
                             ");
 
-    $insert = mysqli_query($koneksi, "INSERT INTO bkk_final (pengajuan, id_kdtransaksi, nomor, tgl_bkk, no_bkk, nilai_barang, nominal, keterangan,  created_on_bkk, v_mgr_finance, v_direktur, release_on_bkk, status_bkk) VALUES
+    // cek apakah pengajuan tsb udh jadi BKK/PETTY atau belum, klo udh jadi BKK/PETTY lewatin
+    $totalBF = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM bkk_final WHERE id_kdtransaksi = '$id_refill' AND pengajuan = 'REFILL FUND'"));
+
+    // validasi supaya ngga double
+    if ($totalBF > 0) {
+        $insert = "Berhasil";
+    } else {
+        $insert = mysqli_query($koneksi, "INSERT INTO bkk_final (pengajuan, id_kdtransaksi, nomor, tgl_bkk, no_bkk, nilai_barang, nominal, keterangan,  created_on_bkk, v_mgr_finance, v_direktur, release_on_bkk, status_bkk) VALUES
                                                             ('REFILL FUND', '$id_refill', '$nomor', '$tgl_bkk', '$no_bkk', '$nominal', '$nominal', '$keterangan', '$tgl_bkk', '$app_mgr', '$app_direksi', '$tgl_bkk', '4')");
-    // $insert = "Berhasil";
+        // $insert = "Berhasil";
+    }
 
     if ($update && $insert) {
         mysqli_commit($koneksi);

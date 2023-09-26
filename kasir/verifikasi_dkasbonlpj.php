@@ -345,6 +345,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
                                 <input type="hidden" value="<?= $data['pengembalian']; ?>" class="form-control" name="pengembalian" readonly>
                                 <input type="hidden" value="<?= $data['jumlah']; ?>" class="form-control" name="qty" readonly>
                                 <input type="hidden" value="<?= $data['waktu_penerima_dana']; ?>" class="form-control" name="waktu_penerima_dana" readonly>
+                                <input type="hidden" value="verifikasi_kasbonlpj&sp=vlk_purchasing" class="form-control" name="url" readonly>
                             </div>
                         </div>
                         <div class="form-group">

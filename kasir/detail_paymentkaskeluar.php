@@ -235,6 +235,7 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                                     <input type="hidden" value="<?= $row2['pph_nilai']; ?>" name="nilai_pph">
                                     <input type="hidden" value="<?= $row2['jml_bkk']; ?>" name="nominal">
                                     <input type="hidden" value="<?= $row2['jenis']; ?>" name="jenis">
+                                    <input type="hidden" value="<?= $row2['jenis'] == "umum" ? "payment_kaskeluar" : "biayaumum_tempo"; ?>" name="url">
                                     <!-- end nilai -->
                                 </div>
                             </div>
@@ -284,7 +285,7 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                                 <div class="form-group">
                                     <label for="doc_lpj" class="col-sm-offset- col-sm-4 control-label">Tanggal BKK</label>
                                     <div class="col-sm-5">
-                                        <input class="form-control" type="date" name="tgl_bkk_release" <?php echo  $row2['jenis'] == 'umum' ? 'required' : ''; ?>>
+                                        <input class="form-control" type="datetime-local" name="tgl_bkk_release" <?php echo  $row2['jenis'] == 'umum' ? 'required' : ''; ?>>
                                     </div>
                                 </div>
                                 <div class="form-group">

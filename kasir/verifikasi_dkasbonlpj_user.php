@@ -215,12 +215,13 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
                                 <input type="hidden" value="<?= $data['pengembalian']; ?>" class="form-control" name="pengembalian" readonly>
                                 <input type="hidden" value="1" class="form-control" name="qty" readonly>
                                 <input type="hidden" value="<?= $data['waktu_penerima_dana']; ?>" class="form-control" name="waktu_penerima_dana" readonly>
+                                <input type="hidden" value="verifikasi_kasbonlpj&sp=vlk_user" class="form-control" name="url" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <label for="" class="label-control">Tanggal BKK</label>
-                                <input type="date" class="form-control" name="tgl_bkk" required>
+                                <input type="datetime-local" class="form-control" name="tgl_bkk" required>
                             </div>
                         </div>
                         <div class="mb-3">
