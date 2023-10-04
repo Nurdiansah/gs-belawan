@@ -1,11 +1,48 @@
 <?php ob_start();
 session_start();
 include "../fungsi/fungsi.php";
-include "../fungsi/koneksi.php";
+include "../fungsi/fungsiuser.php";
 if (isset($_GET['id'])) {
 
   $id = $_GET['id'];
+
+  $id = dekripRambo($id);
 }
+
+if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != 'manager_keuangan') {
+  header("location: ../index.php");
+}
+
+$queryBkk = mysqli_query($koneksi, "SELECT * 
+                                    FROM bkk_final b   
+                                    LEFT JOIN supplier s
+                                        ON b.id_supplier = s.id_supplier
+                                    LEFT JOIN anggaran a
+                                        ON b.id_anggaran = a.id_anggaran
+                                    LEFT JOIN divisi d
+                                        ON a.id_divisi = d.id_divisi
+                                    WHERE b.id = '$id' ");
+
+$data = mysqli_fetch_assoc($queryBkk);
+$id_kdtransaksi = $data['id_kdtransaksi'];
+
+// query buat ngambil data DIBAYARKAN KEPADA
+if ($data['pengajuan'] == "BIAYA UMUM") {
+  $queryDibayarkan = mysqli_query($koneksi, "SELECT * FROM bkk WHERE kd_transaksi = '$id_kdtransaksi'");
+  $dataDibayarkan = mysqli_fetch_assoc($queryDibayarkan);
+  $dibayarkan = $dataDibayarkan['nm_vendor'];
+} elseif ($data['pengajuan'] == "PO") {
+  $dibayarkan = $data['nm_supplier'];
+} elseif ($data['pengajuan'] == "KASBON") {
+  $queryDibayarkan = mysqli_query($koneksi, "SELECT * FROM kasbon WHERE id_kasbon = '$id_kdtransaksi'");
+  $dataDibayarkan = mysqli_fetch_assoc($queryDibayarkan);
+  // $dibayarkan = $dataDibayarkan['penerima_dana'];
+
+  $dibayarkan = "-";
+} else {
+  $dibayarkan = "-";
+}
+
 ?>
 
 <!-- tambahan baru include-->
@@ -45,6 +82,8 @@ if (isset($_GET['id'])) {
   .tabel2 {
     border-collapse: collapse;
     margin-left: 0px;
+    text-align: center;
+    font-size: 10px;
   }
 
   .tabel2 th,
@@ -53,240 +92,187 @@ if (isset($_GET['id'])) {
     border: 1px solid #000;
   }
 
-  .tabelhead {
+  .table {
     border-collapse: collapse;
-    margin-left: 0px;
   }
 
-  .tabelhead th,
-  .tabelhead td {
-    padding: 1px 1px;
-    border: 0px solid #000;
+  .table table,
+  .table tr,
+  .table td {
+    border: 1px solid black;
+  }
+
+  div.tengah {
+    width: 300px;
+    float: none;
+    margin-left: 125px;
+    margin-top: -140px;
   }
 
   div.kanan {
     width: 300px;
     float: right;
-    margin-left: 210px;
+    margin-left: 430px;
     margin-top: -140px;
   }
 
   div.kiri {
-    width: 300px;
+    width: 100px;
     float: left;
     margin-left: 30px;
     display: inline;
   }
 
+  div.tablekiri {
+    float: left;
+    margin-left: 30px;
+    display: inline;
+  }
+
+  div.tablekanan {
+    float: right;
+    margin-left: 10px;
+    margin-top: 0px;
+  }
+
   .right {
-    text-align: right;
+    width: 300px;
+    float: right;
+    margin-left: 480px;
+    margin-top: 0px;
+    text-align: left;
+  }
+
+  .left {
+    width: 300px;
+    float: left;
+    margin-left: 150px;
+    display: inline;
+    text-align: left;
+
+  }
+
+  .kotak {
+    width: 150px;
+    height: 40px;
+    border: 1px;
+    margin-top: 140px;
   }
 </style>
-<!-- <table> -->
 <?php
-
-$queryBkk = mysqli_query($koneksi, "SELECT * 
-                                          FROM bkk_final b   
-                                          LEFT JOIN supplier s
-                                          ON b.id_supplier = s.id_supplier
-                                          JOIN anggaran a
-                                          ON b.id_anggaran = a.id_anggaran
-                                          WHERE b.id = '$id' ");
-
-$i   = 1;
-
-while ($row = mysqli_fetch_array($queryBkk)) {
+include "../fungsi/koneksi.php";
 
 ?>
-  <br><br><br>
-  <p align="center" style="font-weight: bold; font-size: 18px;">BUKTI KAS KELUAR</p>
-  <br><br>
 
-  <table class="tabelhead text-center">
-    <tr>
-      <td style="width=20%;">Dibayarkan Kepada </td>
-      <td style="width=45%;">: <?= $row['nm_supplier']; ?></td>
-      <td style="width=1%;"></td>
-      <td style="width=14%;">No BKK </td>
-      <td style="width=20%;">: <?= $row['no_bkk']; ?></td>
-    </tr>
-    <tr>
-      <td style="text-align: left; " colspan="5" height=5px;></td>
-    </tr>
-    <tr>
-      <td>Sejumlah </td>
-      <td>: <?= formatRupiah($row['nominal']); ?></td>
-      <td></td>
-      <td>Tanggal BKK </td>
-      <td>: <?= formatTanggal($row['created_on_bkk']); ?></td>
-    </tr>
-    <tr>
-      <td style="text-align: left; " colspan="5" height=5px;></td>
-    </tr>
-    <tr>
-      <td>Terbilang </td>
-      <td  style="width=45%;">: <?= Terbilang($row['nominal']); ?> </td>
-      <td></td>
-      <td>NO.Cek/Giro </td>
-      <td>: <?= $row['no_cekbkk']; ?></td>
-    </tr>
-  </table>
-  <br>
-  <hr>
+<div class="kiri">
+  <img src="../gambar/gs.png" style="width:80px;height:50px" />
+</div>
 
-  <table class="tabel2 text-center">
-    <tr>
-      <th style="text-align: center; "> Keterangan</th>
-      <th style="text-align: center; " colspan="2"> Nilai</th>
-    </tr>
+<div class="kanan">
+  <div class="kotak">
+    FM.08/02/14
+  </div>
+</div>
 
-    <tr>
-
-      <td style="text-align: left; vertical-align: top;" height="400px;">
-
-        <?php
-        if ($row['pengajuan'] == 'BIAYA KHUSUS') {
-          # Biaya Khusus
-          echo "Biaya Operasional";
-        } else {
-          # Non Biaya Khusus
-          echo $row['keterangan'];
-        }
-
-        ?>
-
-
-        <?php if ($row['nilai_jasa'] > 0) {
-          echo "<br> - Dpp Jasa ";
-        } else {
-          echo "";
-        }
-        ?>
-        <?php if ($row['nilai_ppn'] > 0) {
-          echo "<br> - PPN Masukan ( 10% * " . formatRupiah($row['nilai_barang'] + $row['nilai_jasa']) . ")";
-        } else {
-          echo "";
-        }
-        ?>
-        <?php if ($row['nilai_pph'] > 0) {
-          echo "<br> - PPh ";
-        } else {
-          echo "";
-        }
-        ?>
-        <?php if ($row['pengembalian'] > 0) {
-          echo "<br> - Pengembalian ";
-        } else {
-          echo "";
-        }
-        ?>
-        <br><br>
-      </td>
-      <td style="text-align: top; vertical-align: top; ">
-
-        <?= $row['kd_anggaran']; ?>
-        <br><br><br><br><br><br>
-      </td>
-      <td style="text-align: center; vertical-align: top; ">
-        <?php
-        $nilai_barang = number_format($row['nilai_barang'], 0, ",", ".");
-        $nilai_jasa = number_format($row['nilai_jasa'], 0, ",", ".");
-        $ppn_nilai = number_format($row['nilai_ppn'], 0, ",", ".");
-        $pph_nilai = number_format($row['nilai_pph'], 0, ",", ".");
-        $pengembalian = number_format($row['pengembalian'], 0, ",", "."); ?>
-
-        <?= formatRupiah($row['nilai_barang']); ?>
-        <?php if ($nilai_jasa > 0) {
-          echo "<br> " . formatRupiah($row['nilai_jasa']);
-        } else {
-          echo "";
-        }
-        ?>
-        <?php if ($ppn_nilai > 0) {
-          echo "<br> " . formatRupiah($row['nilai_ppn']);
-        } else {
-          echo "";
-        }
-        ?>
-        <?php if ($pph_nilai > 0) {
-          echo "<br> ( " . formatRupiah($row['nilai_pph']) . " )";
-        } else {
-          echo "";
-        }
-        ?>
-        <?php if ($pengembalian > 0) {
-          echo "<br> ( " . $pengembalian . " )";
-        } else {
-          echo "";
-        }
-        ?>
-
-      </td>
-    </tr>
-
-    <tr>
-      <td style="text-align: center; " width=500px;"><b></b></td>
-      <td style="text-align: center; " width=80 px;><b>Jumlah</b></td>
-      <td style="text-align: center; " width=80 px;><br><?= formatRupiah($row['nominal']); ?></td>
-    </tr>
-  </table>
-
-  <br>
-  <table class="tabel2 text-center">
-    <tr>
-      <!-- <td style="text-align: center; " width="168px;">Disiapkan/Tgl</td> -->
-      <td rowspan="4" width="155px;">
-        <qrcode value="[ E-Finance GS ] | Nomor BKK : 'Nomor Bkk' | Sebesar :  <?= formatRupiah($row['nominal']); ?> " ec="H" style="width: 45mm; background-color: white; color: black;"></qrcode>
-      </td>
-      <td style="text-align: center; " width="168px;">Disiapkan/Tgl</td>
-      <td style="text-align: center; " width="155px;">Diperiksa/Tgl</td>
-      <td style="text-align: center; " width="155px;">Disetujui/Tgl </td>
-    </tr>
-    <tr>
-      <!-- <td></td> -->
-      <td style="text-align: center;" height=" 80px;"><?= formatTanggalWaktu($row['created_on_bkk']); ?></td>
-      <?php
-      if ($row['status_bkk'] == 2) {
-        # code...
-        echo "<td style='text-align: center; '> Approved </td>
-              <td style='text-align: center; '></td>";
-      } else if ($row['status_bkk'] == 3 || $row['status_bkk'] == 4) {
-        echo "<td style='text-align: center; '> Approved </td>
-              <td style='text-align: center; '> Approved </td>";
-      } else {
-        echo "<td> </td>
-              <td></td>";
-      }
-
-      ?>
-
-    </tr>
-    <tr>
-      <td style="text-align: center; ">( Neneng ) </td>
-      <td style="text-align: center; "> ( Andi K.Nasution ) </td>
-      <!-- <td style="text-align: center; ">( ................... ) </td> -->
-      <td style="text-align: center; "> </td>
-    </tr>
-    <tr>
-      <!-- <td></td> -->
-      <td style="text-align: center; ">Kasir</td>
-      <td style="text-align: center; ">GM Fin.&Acc</td>
-      <td style="text-align: center; " rowspan="">Direktur</td>
-    </tr>
-  </table>
+<h3><b>PT.GRAHA SEGARA</b></h3>
+<hr>
 
 <?php
-  $i++;
-} ?>
+
+?>
+<h3 align="center"><u>BUKTI KAS KELUAR</u></h3>
+<h4 align="" style="font-size: 12px;"><u>No BKK : [ <?= $data['no_bkk'] ?> ]</u></h4>
+<!-- <table border="1px">
+    <tr>
+        <td> -->
+<table border="0px" style="font-size: 11px;">
+  <tr>
+    <td style="text-align: left; width=150px; "><b>Di Bayarkan Kepada</b></td>
+    <td style="text-align: ; width=5%;">:</td>
+    <td style="width=380px;"><?= is_null($dibayarkan) ? '-' : $dibayarkan; ?></td>
+    <td align="right" rowspan="7">
+      <qrcode value="[ E-Finance GS ] | Kode BKK : <?= $data['nomor']; ?> | Sebesar :  <?= formatRupiah($data['nominal']); ?> " ec="H" style="width: 35mm; background-color: white; color: black;"></qrcode>
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align: left; width=150px; "><b>Kode Anggaran</b></td>
+    <td style="text-align: ; width=5%;">:</td>
+    <td style="width=380px;"><?php
+
+                              if (is_null($data['id_anggaran'])) {
+                                echo '-';
+                              } else {
+                                echo $data['kd_anggaran'] . " [" . $data['nm_item'] . "]";
+                              }
+                              ?></td>
+  </tr>
+  <tr>
+    <td style="text-align: left; width=150px; "><b>Divisi</b></td>
+    <td style="text-align: ; width=5%;">:</td>
+    <td style="width=380px;"><?= $data['nm_divisi']; ?></td>
+  </tr>
+  <tr>
+    <td style="text-align: left; width=150px; "><b>Untuk</b></td>
+    <td style="text-align: ; width=5%;">:</td>
+    <td style="width=380px;"><?= $data['keterangan']; ?></td>
+  </tr>
+  <tr>
+    <td style="text-align: left; width=150px; "><b>Jumlah</b></td>
+    <td style="text-align: ; width=5%;">:</td>
+    <td style="text-align: left; width=180px; "><?= formatRupiah($data['nominal']) ?></td>
+  </tr>
+  <tr>
+    <td style="text-align: left; width=150px; "><b>Terbilang</b></td>
+    <td style="text-align: ; width=5%;">:</td>
+    <td style="width=380px;"><?= Terbilang($data['nominal']); ?> Rupiah </td>
+  </tr>
+  <tr>
+    <td><b>Tanggal BKK</b></td>
+    <td style="text-align: ; width=5%;">:</td>
+    <td><?= formatTanggalWaktu($data['release_on_bkk']); ?></td>
+  </tr>
+  <tr>
+    <td><b>Cost Control</b></td>
+    <td style="text-align: ; width=5%;">:</td>
+    <td>APPROVED (<?= formatTanggalWaktu($data['v_mgr_finance']); ?>)</td>
+  </tr>
+  <tr>
+    <td><b>Manager</b></td>
+    <td style="text-align: ; width=5%;">:</td>
+    <?php if ($data['v_direktur'] == "") { ?>
+      <td>-</td>
+    <?php } else { ?>
+      <td>APPROVED (<?= formatTanggalWaktu($data['v_direktur']); ?>)</td>
+    <?php } ?>
+    <td style="text-align: right; width=150px; ">Medan, <?= formatTanggal($data['v_direktur']) ?></td>
+  </tr>
+  <tr>
+    <td colspan="3"></td>
+    <td style="text-align: right;">Yang Mengeluarkan,</td>
+  </tr>
+  <tr>
+    <td style="text-align: right; height=40px; " colspan="4"></td>
+  </tr>
+  <tr>
+    <td colspan="3"></td>
+    <td style="text-align: center;">System</td>
+  </tr>
+</table>
+<!-- </td> -->
+
+<!-- </tr>
+</table> -->
+
 <!-- Memanggil fungsi bawaan HTML2PDF -->
 <?php
 $content = ob_get_clean();
 include '../assets/html2pdf/html2pdf.class.php';
 try {
-  $html2pdf = new HTML2PDF('P', 'A4', 'en', false, 'UTF-8', array(10, 10, 10, 10));
+  $html2pdf = new HTML2PDF('l', 'A5', 'en', false, 'UTF-8', array(10, 10, 10, 10));
   $html2pdf->pdf->SetDisplayMode('fullpage');
   $html2pdf->writeHTML($content);
-  $html2pdf->Output('bkkno.pdf');
+  $html2pdf->Output('Laporan-Pengambilan-Dana-' . $id . '.pdf');
+  $html2pdf->setDefaultFont("roboto");
 } catch (HTML2PDF_exception $e) {
   echo $e;
   exit;

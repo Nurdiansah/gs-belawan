@@ -351,7 +351,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <label for="" class="label-control">Tanggal BKK</label>
-                                <input type="date" class="form-control" name="tgl_bkk" required>
+                                <input type="datetime-local" class="form-control" name="tgl_bkk" required>
                             </div>
                         </div>
                         <div class="mb-3">
