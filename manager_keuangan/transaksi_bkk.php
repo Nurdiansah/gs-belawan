@@ -66,7 +66,7 @@ $jumlahData  = mysqli_num_rows($query);
                                                 <td> <?= $row['keterangan']; ?> </td>
                                                 <td> <?= $row['kd_anggaran']; ?> </td>
                                                 <td>
-                                                    <a target="_blank" href="cetak_bkkfinal.php?id=<?= $row['id']; ?>" class="btn btn-success"><i class="fa fa-print"></i> BKK </a>
+                                                    <a target="_blank" href="cetak_bkkfinal.php?id=<?= enkripRambo($row['id']); ?>" class="btn btn-success"><i class="fa fa-print"></i> BKK </a>
                                                 </td>
                                                 <td> <?= formatRupiah($row['nominal']); ?> </td>
                                     </tr>
