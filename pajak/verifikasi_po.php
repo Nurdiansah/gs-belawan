@@ -59,7 +59,7 @@ $query = mysqli_query($koneksi, "SELECT tgl_po, po_number, nm_divisi, total_po, 
                         <br><br>
                     </div>
                     <div class="table-responsive">
-                        <table class="table text-center table table-striped table-hover" id=" ">
+                        <table class="table text-center table table-striped table-hover" id="material">
                             <thead>
                                 <tr style="background-color :#B0C4DE;">
                                     <th>No</th>
@@ -71,13 +71,13 @@ $query = mysqli_query($koneksi, "SELECT tgl_po, po_number, nm_divisi, total_po, 
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($query)) {
-                                        while ($row = mysqli_fetch_assoc($query)) :
+                                <?php
+                                $no = 1;
+                                if (mysqli_num_rows($query)) {
+                                    while ($row = mysqli_fetch_assoc($query)) :
 
-                                    ?>
+                                ?>
+                                        <tr>
                                             <td> <?= $no; ?> </td>
                                             <td> <?= formatTanggal($row['tgl_po']); ?> </td>
                                             <td> <?= $row['po_number']; ?> </td>
@@ -87,11 +87,11 @@ $query = mysqli_query($koneksi, "SELECT tgl_po, po_number, nm_divisi, total_po, 
                                             <td>
                                                 <a href="index.php?p=verifikasi_dpo&id=<?= enkripRambo($row['id_po']); ?>&bkk=<?= enkripRambo($row['id_bkk']); ?>&id_tagihan=<?= enkripRambo($row['id_tagihan']); ?>"><span data-placement='top' data-toggle='tooltip' title='Detail'><button class="btn btn-success"><i class="fa fa-search-plus"></i></button></span></a>
                                             </td>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    } ?>
+                                        </tr>
+                                <?php
+                                        $no++;
+                                    endwhile;
+                                } ?>
                             </tbody>
                         </table>
                     </div>

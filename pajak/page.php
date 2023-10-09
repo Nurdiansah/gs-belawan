@@ -73,4 +73,18 @@ else if ($page == "verifikasi_bno") {
     include_once "ditolak_bkm.php";
 } else if ($page == "verifikasi_dbkm") {
     include_once "verifikasi_dbkm.php";
+} else if ($page == "proses_bno") {
+    include_once "proses_bno.php";
+} else if ($page == "proses_kasbon") {
+    include_once "proses_kasbon.php";
+} else if ($page == "proses_po") {
+    include_once "proses_po.php";
+} else if ($page == "detail_prosesbno") {
+    include_once "detail_prosesbno.php";
+} else if ($page == "detail_proseskasbon") {
+    include_once "detail_proseskasbon.php";
+} else if ($page == "detail_proseskasbon_user") {
+    include_once "detail_proseskasbon_user.php";
+} else if ($page == "detail_prosespo") {
+    include_once "detail_prosespo.php";
 }

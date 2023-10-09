@@ -52,6 +52,12 @@ $dataVK3 = mysqli_fetch_assoc($queryVK3);
 
 $jvk = $dataVK1['jumlah'] + $dataVK2['jumlah'] + $dataVK3['jumlah'];
 
+$dataProsesBU = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(id_bkk) AS jumlah
+                                                            FROM bkk b
+                                                            JOIN divisi d
+                                                              ON d.id_divisi = b.id_divisi
+                                                            WHERE b.status_bkk IN ('5', '6', '7', '8')"));
+
 // po verifikasi
 $queryPV = mysqli_query($koneksi, "SELECT COUNT(bf.id) AS total FROM bkk_final bf
 JOIN po po
@@ -115,6 +121,59 @@ $dataBKM = mysqli_fetch_assoc($queryBKM);
 
 $queryTolakBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm = '202'");
 $dataTolakBKM = mysqli_fetch_assoc($queryTolakBKM);
+
+// data proses kasbon pcs
+$dataProsesKP = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah
+                                                            FROM kasbon k
+                                                            JOIN biaya_ops bo
+                                                            ON k.kd_transaksi = bo.kd_transaksi
+                                                            JOIN detail_biayaops dbo
+                                                            ON k.id_dbo = dbo.id
+                                                            JOIN divisi d
+                                                            ON d.id_divisi = bo.id_divisi
+                                                            WHERE k.status_kasbon IN ('2', '3', '4', '5', '6', '7', '8')
+                                                            AND from_user = '0'"));
+
+$dataProsesKU = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah
+                                                                FROM kasbon k
+                                                                JOIN detail_biayaops dbo
+                                                                ON k.id_dbo = dbo.id
+                                                                JOIN divisi d
+                                                                ON d.id_divisi = dbo.id_divisi
+                                                                WHERE k.status_kasbon IN ('2', '3', '4', '5', '6', '7')
+                                                                AND from_user = '1'"));
+$totalKP = $dataProsesKP['jumlah'] + $dataProsesKU['jumlah'];
+
+// proses PO
+$dataProsesPO1 = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(bf.id) as jumlah
+                                                              FROM bkk_final bf
+                                                              JOIN po po
+                                                                  ON id_po = id_kdtransaksi
+                                                              JOIN detail_biayaops dbo
+                                                                  ON id_dbo = dbo.id
+                                                              JOIN divisi dvs
+                                                                  ON dvs.id_divisi = dbo.id_divisi
+                                                              JOIN tagihan_po tp
+                                                                  ON tp.bkk_id = bf.id
+                                                              WHERE pengajuan = 'PO'
+                                                              AND status_bkk IN ('1', '2', '17')
+                                                              AND tp.status_tagihan IN ('2')"));
+
+$dataProsesPO2 = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT  COUNT(bf.id) as jumlah
+                                                              FROM bkk_ke_pusat bf
+                                                              JOIN po po
+                                                                  ON id_po = id_kdtransaksi
+                                                              JOIN detail_biayaops dbo
+                                                                  ON id_dbo = dbo.id
+                                                              JOIN divisi dvs
+                                                                  ON dvs.id_divisi = dbo.id_divisi
+                                                              JOIN tagihan_po tp
+                                                                  ON tp.bkk_id = bf.id
+                                                              WHERE pengajuan = 'PO'
+                                                              AND status_bkk IN ('1', '2', '17')
+                                                              AND tp.status_tagihan IN ('2')"));
+
+$totalProsesPO = $dataProsesPO1['jumlah'] + $dataProsesPO2['jumlah'];
 
 ?>
 <!DOCTYPE html>

@@ -6,14 +6,14 @@ $query = mysqli_query($koneksi, "SELECT *
                                 JOIN detail_biayaops dbo
                                 ON k.id_dbo = dbo.id
                                 JOIN divisi d
-                                ON d.id_divisi = bo.id_divisi                                            
+                                ON d.id_divisi = bo.id_divisi
                                 WHERE k.status_kasbon = '2'
                                 AND from_user = '0'
                                 ORDER BY k.id_kasbon DESC   ");
 ?>
 <br>
 <div class="table-responsive">
-    <table class="table text-center table table-striped table-hover" id=" ">
+    <table class="table text-center table table-striped table-hover" id="material">
         <thead>
             <tr style="background-color :#B0C4DE;">
                 <th>No</th>
@@ -26,13 +26,13 @@ $query = mysqli_query($koneksi, "SELECT *
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <?php
-                $no = 1;
-                if (mysqli_num_rows($query)) {
-                    while ($row = mysqli_fetch_assoc($query)) :
+            <?php
+            $no = 1;
+            if (mysqli_num_rows($query)) {
+                while ($row = mysqli_fetch_assoc($query)) :
 
-                ?>
+            ?>
+                    <tr>
                         <td> <?= $no; ?> </td>
                         <td> <?= $row['id_kasbon']; ?> </td>
                         <td> <?= tanggal_indo($row['tgl_pengajuan']); ?> </td>
@@ -42,22 +42,12 @@ $query = mysqli_query($koneksi, "SELECT *
                         <td>
                             <a href="?p=verifikasi_kasbon&aksi=lihat&id=<?= $row['id_kasbon']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info">Lihat</button></span></a>
                         </td>
-            </tr>
-    <?php
-                        $no++;
-                    endwhile;
-                }
-
-                $jumlahData  = mysqli_num_rows($query);
-
-                if ($jumlahData == 0) {
-                    echo
-                    "<tr>
-                                            <td colspan='7'> Tidak Ada Data</td>
-                                        </tr>
-                                        ";
-                }
-    ?>
+                    </tr>
+            <?php
+                    $no++;
+                endwhile;
+            }
+            ?>
 
         </tbody>
     </table>

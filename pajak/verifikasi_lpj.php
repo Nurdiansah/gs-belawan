@@ -28,7 +28,7 @@ $query = mysqli_query($koneksi, "SELECT *, k.komentar as kkomentar
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        <table class="table text-center table table-striped table-hover" id=" ">
+                        <table class="table text-center table table-striped table-hover" id="material">
                             <thead>
                                 <tr style="background-color :#B0C4DE;">
                                     <th>No</th>
@@ -42,13 +42,13 @@ $query = mysqli_query($koneksi, "SELECT *, k.komentar as kkomentar
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($query)) {
-                                        while ($row = mysqli_fetch_assoc($query)) :
+                                <?php
+                                $no = 1;
+                                if (mysqli_num_rows($query)) {
+                                    while ($row = mysqli_fetch_assoc($query)) :
 
-                                    ?>
+                                ?>
+                                        <tr>
                                             <td> <?= $no; ?> </td>
                                             <td> <?= $row['id_kasbon']; ?> </td>
                                             <td> <?= formatTanggal($row['tgl_kasbon']); ?> </td>
@@ -59,22 +59,12 @@ $query = mysqli_query($koneksi, "SELECT *, k.komentar as kkomentar
                                             <td>
                                                 <a href="index.php?p=verifikasi_dkasbon_lpj&id=<?= enkripRambo($row['id_kasbon']); ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info">Lihat</button></span></a>
                                             </td>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    }
-
-                                    $jumlahData  = mysqli_num_rows($query);
-
-                                    if ($jumlahData == 0) {
-                                        echo
-                                        "<tr>
-                                            <td colspan='7'> Tidak Ada Data</td>
                                         </tr>
-                                        ";
-                                    }
-                        ?>
+                                <?php
+                                        $no++;
+                                    endwhile;
+                                }
+                                ?>
 
                             </tbody>
                         </table>
@@ -84,3 +74,13 @@ $query = mysqli_query($koneksi, "SELECT *, k.komentar as kkomentar
         </div>
     </div>
 </section>
+<script>
+    $(function() {
+        $("#material").DataTable({
+            "language": {
+                "url": "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
+                "sEmptyTable": "Tidak ada data di database"
+            }
+        });
+    });
+</script>

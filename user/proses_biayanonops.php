@@ -56,14 +56,14 @@ $jumlahData = mysqli_num_rows($query);
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($query)) {
-                                        while ($row = mysqli_fetch_assoc($query)) :
-                                            $angka_format = number_format($row['jml_bkk'], 0, ",", ".");
+                                <?php
+                                $no = 1;
+                                if (mysqli_num_rows($query)) {
+                                    while ($row = mysqli_fetch_assoc($query)) :
+                                        $angka_format = number_format($row['jml_bkk'], 0, ",", ".");
 
-                                    ?>
+                                ?>
+                                        <tr>
                                             <td> <?= $no; ?> </td>
                                             <td> <?= strtoupper($row['jenis']); ?> </td>
                                             <td> <?= $row['kd_transaksi']; ?> </td>
@@ -163,12 +163,12 @@ $jumlahData = mysqli_num_rows($query);
                                                 <a href="?p=proses_biayanonops&aksi=edit&id=<?= $row['id_bkk']; ?>" class="btn btn-info" title="Lihat" data-placement="top" data-toggle="tooltip"><i class="fa fa-search"></i></a>
                                                 <!-- <a target="_blank" href="cetak_jobreportvessel.php" class="btn btn-success"><i class="fa fa-print"></i> Cetak </a> -->
                                             </td>
-                                </tr>
-                        <?php
+                                        </tr>
+                                <?php
 
-                                            $no++;
-                                        endwhile;
-                                    } ?>
+                                        $no++;
+                                    endwhile;
+                                } ?>
                             </tbody>
                         </table>
                     </div>

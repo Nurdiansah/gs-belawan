@@ -37,11 +37,11 @@
     <div class="col-lg-4 col-xs-4">
       <div class="list-group">
         <a href="#" class="list-group-item label-primary">
-          Transaksi
+          History
         </a>
-        <a href="#" class="list-group-item"> <i class="fa fa-calendar-check-o"></i> Biaya Umum<span class="badge label-danger"></span></a>
-        <a href="#" class="list-group-item"> <i class="fa fa-money"></i> Kasbon <span class="badge label-info"></span> </a>
-        <a href="#" class="list-group-item"> <i class="fa fa-list"></i> Invoice PO <span class="badge label-success"></span></a>
+        <a href="index.php?p=proses_bno" class="list-group-item"> <i class="fa fa-calendar-check-o"></i> Biaya Umum<span class="badge label-danger"><?= $dataProsesBU['jumlah'] > 0 ? $dataProsesBU['jumlah'] : ""; ?></span></a>
+        <a href="index.php?p=proses_kasbon&sp=ps_purchasing" class="list-group-item"> <i class="fa fa-money"></i> Kasbon <span class="badge label-info"><?= $totalKP > 0 ? $totalKP : ""; ?></span> </a>
+        <a href="index.php?p=proses_po" class="list-group-item"> <i class="fa fa-list"></i> Invoice PO <span class="badge label-success"><?= $totalProsesPO > 0 ? $totalProsesPO : ""; ?></span></a>
         <a href="#" class="list-group-item"> <i class="fa fa-gear"></i> Service Order <span class="badge label-success"></span></a>
         <a href="#" class="list-group-item"><i class="fa fa-window-minimize"></i><span class="badge label-warning"></span></a>
         <a href="#" class="list-group-item"><i class="fa fa-window-minimize"></i><span class="badge label-warning"></span></a>

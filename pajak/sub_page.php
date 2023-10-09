@@ -13,6 +13,9 @@ if ($sub_page == 'vk_purchasing') {
     include_once "tolak_user.php";
 } else if ($sub_page == "vk_sr") {
     include_once "vk_sr.php";
+} else if ($sub_page == "ps_user") {
+    include_once "ps_user.php";
+} else if ($sub_page == "ps_purchasing") {
+    include_once "ps_purchasing.php";
 }
-
 ?>

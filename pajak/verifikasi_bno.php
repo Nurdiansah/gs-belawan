@@ -53,7 +53,7 @@ $query = mysqli_query($koneksi, "SELECT *
                         <br><br>
                     </div>
                     <div class="table-responsive">
-                        <table class="table text-center table table-striped table-hover" id=" ">
+                        <table class="table text-center table table-striped table-hover" id="material">
                             <thead>
                                 <tr>
                                     <th>No</th>
