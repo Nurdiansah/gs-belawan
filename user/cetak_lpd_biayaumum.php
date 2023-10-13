@@ -7,6 +7,10 @@ if (isset($_GET['id'])) {
     $id = dekripRambo($_GET['id']);
 }
 
+if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != 'admin_divisi') {
+    header("location: ../index.php");
+}
+
 $query =  mysqli_query($koneksi, "SELECT * FROM bkk b
                                     JOIN anggaran a
                                         ON a.id_anggaran = b.id_anggaran

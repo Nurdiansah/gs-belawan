@@ -179,7 +179,7 @@ $no = 1;
                                 $grand_pranota += $dataChart['pra_nota'];
                                 $grand_realisasi += $dataChart['total_realisasi'];
                                 $grand_jumlah_realisasi += $dataChart['total_realisasi'] + $dataChart['pra_nota'];
-                                $grand_total += $dataChart['total_budget'] - $dataChart['total_realisasi'];
+                                $grand_total = $grand_nominal - $grand_jumlah_realisasi;
                             }
                             ?>
                             <tr>
@@ -230,7 +230,7 @@ $no = 1;
                                 $grand_pranota_capex += $dataChartCapex['pra_nota'];
                                 $grand_realisasi_capex += $dataChartCapex['total_realisasi'];
                                 $grand_jumlah_realisasi_capex += $dataChartCapex['total_realisasi'] + $dataChartCapex['pra_nota'];
-                                $grand_total_capex += $dataChartCapex['total_budget'] - $dataChartCapex['total_realisasi'];
+                                $grand_total_capex = $grand_nominal_capex - $grand_jumlah_realisasi_capex;
                             }
 
                             $total_nominal = $grand_nominal + $grand_nominal_capex;
