@@ -708,12 +708,11 @@ if ($data['nilai_ppn'] > 0) {
             jml = tandaPemisahTitik(jml);
 
 
-
             document.form.pph_nilai2.value = 0;
             document.form.jml.value = jml;
 
             if (pph_nilai > 0) {
-                var persen = (pph_nilai / nilai_jasa) * 100;
+                var persen = Math.round((pph_nilai / nilai_jasa) * 100);
 
                 document.form.pph_persen.value = persen;
             }
@@ -749,7 +748,7 @@ if ($data['nilai_ppn'] > 0) {
     function hitungCheckBox(angkaPpn) {
 
         var nilaiJasa = parseInt($("#nilai_jasa").val())
-        var pph_persen = parseInt($("#pph_persen").val())
+        var pph_persen = parseFloat($("#pph_persen").val())
         var pph_nilai = Math.floor(nilaiJasa * pph_persen / 100);
         var pph_nilaia = tandaPemisahTitik(pph_nilai);
         $("#pph").attr("value", pph_nilaia);

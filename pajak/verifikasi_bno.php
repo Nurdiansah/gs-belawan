@@ -67,14 +67,14 @@ $query = mysqli_query($koneksi, "SELECT *
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($query)) {
-                                        while ($row = mysqli_fetch_assoc($query)) :
-                                            $angka_format = number_format($row['jml_bkk'], 0, ",", ".");
+                                <?php
+                                $no = 1;
+                                if (mysqli_num_rows($query)) {
+                                    while ($row = mysqli_fetch_assoc($query)) :
+                                        $angka_format = number_format($row['jml_bkk'], 0, ",", ".");
 
-                                    ?>
+                                ?>
+                                        <tr>
                                             <td> <?= $no; ?> </td>
                                             <td> <?= $row['kd_transaksi']; ?> </td>
                                             <td> <?= tanggal_indo($row['tgl_pengajuan']); ?> </td>
@@ -93,12 +93,12 @@ $query = mysqli_query($koneksi, "SELECT *
 
                                                 <!-- <a target="_blank" href="cetak_jobreportvessel.php" class="btn btn-success"><i class="fa fa-print"></i> Cetak </a> -->
                                             </td>
-                                </tr>
-                        <?php
+                                        </tr>
+                                <?php
 
-                                            $no++;
-                                        endwhile;
-                                    } ?>
+                                        $no++;
+                                    endwhile;
+                                } ?>
                             </tbody>
                         </table>
                     </div>

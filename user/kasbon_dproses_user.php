@@ -315,7 +315,7 @@ $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran WHERE id_anggara
         var vrf_pajak = "<?php print($data['vrf_pajak']); ?>";
         var created_on = "<?php print(date("d M Y H:i", strtotime($data['tgl_kasbon']))); ?>";
 
-        var jamDefault = "01 Jan 1970 01:00";
+        var jamDefault = "01 Jan 1970 07:00";
         var waiting = "<b>Manager </b><small>Waiting....</small>";
 
         // app mgr

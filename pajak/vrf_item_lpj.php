@@ -11,8 +11,8 @@ if (isset($_POST['submit'])) {
     $nilai_barang = $_POST['nilai_barang'];
     $nilai_jasa = $_POST['nilai_jasa'];
     $biaya_lain = $_POST['biaya_lain'];
-    $nilai_ppn = str_replace(".", "", round($_POST['ppn_nilai'], 2));
-    $nilai_pph = str_replace(".", "", round($_POST['pph_nilai'], 2));
+    $nilai_ppn = str_replace(".", "", $_POST['ppn_nilai']);
+    $nilai_pph = str_replace(".", "", $_POST['pph_nilai']);
     $id_pph = $_POST['id_pph'];
     $harga = str_replace(".", "", $_POST['jml']);
 
@@ -44,7 +44,7 @@ if (isset($_POST['submit'])) {
     $nilai_jasa = $_POST['nilai_jasa'];
     $biaya_lain = $_POST['biaya_lain'];
     $nilai_ppn = str_replace(".", "", $_POST['ppn_nilai']);
-    $nilai_pph = $_POST['pph_nilai'] == 0 ? str_replace(".", "", round($_POST['pph_nilai2'], 2)) :  str_replace(".", "", round($_POST['pph_nilai'], 2));
+    $nilai_pph = $_POST['pph_nilai'] == 0 ? str_replace(".", "", $_POST['pph_nilai2']) :  str_replace(".", "", $_POST['pph_nilai']);
     $id_pph = $_POST['id_pph'];
     $harga = str_replace(".", "", $_POST['jml']);
 
