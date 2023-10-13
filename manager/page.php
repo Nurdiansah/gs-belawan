@@ -93,4 +93,10 @@ else if ($page == "approval_sr") {
     include_once "proses_sr.php";
 } else if ($page == "proses_dkasbon_user") {
     include_once "proses_dkasbon_user.php";
+} else if ($page == "laporan_anggaran") {
+    include_once "laporan_anggaran.php";
+} else if ($page == "laporan_programkerja") {
+    include_once "laporan_programkerja.php";
+} else if ($page == "dtl_laporanpk") {
+    include_once "dtl_laporanpk.php";
 }

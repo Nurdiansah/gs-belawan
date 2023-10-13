@@ -19,4 +19,8 @@ if ($sub_page == 'tolak_purchasing') {
     include_once "kp_user.php";
 } else if ($sub_page == "kp_purchasing") {
     include_once "kp_purchasing.php";
+} else if ($sub_page == "pra_nota") {
+    include_once "pra_nota.php";
+} else if ($sub_page == "realisasi_kas") {
+    include_once "realisasi_kas.php";
 }

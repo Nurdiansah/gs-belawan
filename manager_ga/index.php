@@ -455,7 +455,7 @@ $dataBKM = mysqli_fetch_assoc($queryBKM);
 
           <li class="header">Laporan</li>
           <li class="treeview">
-            <a href="#">
+            <a href="index.php?p=laporan_anggaran">
               <i class="fa fa-files-o"></i>
               <span>Laporan</span> <i class="fa fa-angle-left pull-right"></i>
             </a>

@@ -113,4 +113,10 @@ else if ($page == "approval_biayanonops") {
     include_once "verifikasi_drefill.php";
 } else if ($page == "verifikasi_bkm") {
     include_once "verifikasi_bkm.php";
+} else if ($page == "laporan_anggaran") {
+    include_once "laporan_anggaran.php";
+} else if ($page == "laporan_programkerja") {
+    include_once "laporan_programkerja.php";
+} else if ($page == "dtl_laporanpk") {
+    include_once "dtl_laporanpk.php";
 }

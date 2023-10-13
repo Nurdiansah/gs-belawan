@@ -154,4 +154,8 @@ else if ($page == "po_proses") {
     include_once "dtl_prosesbno.php";
 } else if ($page == "proses_bkm") {
     include_once "proses_bkm.php";
+} else if ($page == "laporan_programkerja") {
+    include_once "laporan_programkerja.php";
+} else if ($page == "dtl_laporanpk") {
+    include_once "dtl_laporanpk.php";
 }
