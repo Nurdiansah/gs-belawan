@@ -5,7 +5,8 @@ $queryKu = mysqli_query($koneksi, "SELECT *
                                     ON k.id_dbo = dbo.id
                                     JOIN divisi d
                                     ON d.id_divisi = dbo.id_divisi                                            
-                                    WHERE k.status_kasbon = '8' AND from_user = '1'
+                                    WHERE (k.status_kasbon = '8' AND from_user = '1'
+					                    OR k.status_kasbon = '2' AND vrf_pajak = 'as')
                                     ORDER BY k.id_kasbon DESC   ");
 ?>
 <div class="table-responsive">
@@ -19,6 +20,7 @@ $queryKu = mysqli_query($koneksi, "SELECT *
                 <th style="vertical-align: middle;" rowspan="2">Deskripsi</th>
                 <th style="vertical-align: middle;" rowspan="2">Total</th>
                 <th style="vertical-align: middle;" rowspan='2'>Pending</th>
+                <th style="vertical-align: middle;" rowspan='2'>Status</th>
                 <th style="vertical-align: middle;" rowspan="2">Detail</th>
             </tr>
             <tr style="background-color :#B0C4DE;">
@@ -56,9 +58,14 @@ $queryKu = mysqli_query($koneksi, "SELECT *
                             <h4><span class="label label-success"><?= formatRupiah($row['harga_akhir']) ?> </span></h4>
                         </td>
                         <td>
-                            <span class="label label-<?= $notifPending; ?>">
-                                <?= $pendingLpj; ?>
-                            </span>
+                            <span class="label label-<?= $notifPending; ?>"><?= $pendingLpj; ?></span>
+                        </td>
+                        <td>
+                            <?php if ($row['status_kasbon'] == '2' and $row['vrf_pajak'] == 'as') { ?>
+                                <span class="label label-info">Verifikasi Pajak</span>
+                            <?php } else { ?>
+                                <span class="label label-primary">LPJ User</span>
+                            <?php } ?>
                         </td>
                         <td>
                             <a href="?p=pending_dkasbon_user&id=<?= $row['id_kasbon']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info">Lihat</button></span></a>

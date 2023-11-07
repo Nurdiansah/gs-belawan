@@ -89,7 +89,7 @@ $dataKP3 = mysqli_fetch_assoc($queryKP3);
 $jumlahKP = $dataKP1['jumlah'] + $dataKP2['jumlah'] + $dataKP3['jumlah'];
 
 // kasbon pending lpj
-$queryKPL = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon WHERE status_kasbon IN ('8')");
+$queryKPL = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon WHERE (status_kasbon IN ('8') OR status_kasbon = '2' AND vrf_pajak = 'as')");
 $dataKPL = mysqli_fetch_assoc($queryKPL);
 
 // kasbon pending lpj 1
@@ -97,7 +97,7 @@ $queryKPL1 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kas
 $dataKPL1 = mysqli_fetch_assoc($queryKPL1);
 
 // kasbon pending lpj 2
-$queryKPL2 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon WHERE status_kasbon = '8' AND from_user = '1' ");
+$queryKPL2 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah  FROM kasbon WHERE (status_kasbon = '8' AND from_user = '1' OR status_kasbon = '2' AND vrf_pajak = 'as')");
 $dataKPL2 = mysqli_fetch_assoc($queryKPL2);
 
 // kasbon pending lpj 3
