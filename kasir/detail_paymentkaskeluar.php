@@ -134,13 +134,6 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label id="tes" for="jml_bkk" class="col-sm-4 control-label">Saldo Anggaran</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" value="<?= $saldoAnggaran; ?>" readonly class="form-control" name="jml_bkk">
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="form-group">
                                     <label id="tes" for="nilai_bkk" class="col-sm-2 control-label">Nilai Barang</label>
                                     <div class="col-sm-3">
                                         <input type="text" value="<?= "Rp." . $nilai_barang; ?>" readonly class="form-control" name="nilai_bkk">
@@ -176,11 +169,29 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                                         <input type="text" value="<?= "Rp." . $pph_nilai; ?>" readonly class="form-control" name="nilai_bkk">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label id="tes" for="nilai_bkk" class="col-sm-2 control-label">Biaya Lain</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" value="<?= formatRupiah($row2['biaya_lain']); ?>" readonly class="form-control" name="nilai_bkk">
+                                    </div>
+                                    <!-- </div>
+                    <div class="form-group"> -->
+                                    <label id="tes" for="nilai_bkk" class="col-sm-2 control-label">Potongan</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" value="<?= formatRupiah($row2['potongan']); ?>" readonly class="form-control" name="nilai_bkk">
+                                    </div>
+                                </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label id="tes" for="jml_bkk" class="col-sm-4 control-label">Jumlah</label>
+                                    <label id="tes" for="jml_bkk" class="col-sm-2 control-label">Jumlah</label>
                                     <div class="col-sm-3">
                                         <input type="text" value="<?= "Rp." . $jml_bkk; ?>" readonly class="form-control" name="jml_bkk">
+                                    </div>
+                                    <!-- </div>
+                                <div class="form-group"> -->
+                                    <label id="tes" for="jml_bkk" class="col-sm-2 control-label">Saldo Anggaran</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" value="<?= $saldoAnggaran; ?>" readonly class="form-control" name="jml_bkk">
                                     </div>
                                 </div>
                                 <hr>

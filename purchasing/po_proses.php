@@ -29,8 +29,8 @@ $query = mysqli_query($koneksi, "SELECT *
                                             ON p.id_dbo = dbo.id
                                             JOIN divisi d
                                             ON d.id_divisi = bo.id_divisi     
-                                            LEFT JOIN bkk_final
-											ON id_po = id_kdtransaksi                                        
+                                            -- LEFT JOIN bkk_final
+											-- ON id_po = id_kdtransaksi                                        
                                             WHERE status_po NOT BETWEEN 6 AND 10 AND status_po NOT IN (0, 1, 88)
                                             ORDER BY p.id_po DESC   ");
 

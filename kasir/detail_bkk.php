@@ -118,7 +118,6 @@ $jmlReapp = mysqli_num_rows($reApprove);
         <!-- <div class="col-md-2">
             <a href="index.php?p=verifikasi_bkk" class="btn btn-primary"><i class="fa fa-backward"></i> Kembali</a>
         </div> -->
-        <br><br>
     </div>
     <div class="row">
         <div class="col-sm-12 col-xs-12">
@@ -164,6 +163,14 @@ $jmlReapp = mysqli_num_rows($reApprove);
                             <label for="tgl_pengajuan" class="col-sm-offset-2 col-sm-3 control-label">Nilai PPh</label>
                             <div class="col-sm-3">
                                 <input type="text" disabled class="form-control is-valid" name="id_anggaran" value="<?= "( " . formatRupiah($data2['nilai_pph']) . " )"; ?>">
+                            </div>
+                            <label for="tgl_pengajuan" class="col-sm-offset-6 col-sm-3 control-label">Biaya Lain</label>
+                            <div class="col-sm-3">
+                                <input type="text" disabled class="form-control is-valid" name="id_anggaran" value="<?= formatRupiah($data2['biaya_lain']); ?>">
+                            </div>
+                            <label for="tgl_pengajuan" class="col-sm-offset-6 col-sm-3 control-label">Potongan</label>
+                            <div class="col-sm-3">
+                                <input type="text" disabled class="form-control is-valid" name="id_anggaran" value="<?= "( " . formatRupiah($data2['potongan']) . " )"; ?>">
                             </div>
                         </div>
                         <div class="form-group">
@@ -792,6 +799,14 @@ $jmlReapp = mysqli_num_rows($reApprove);
                                         <tr>
                                             <td class="text-center">Nilai PPh</td>
                                             <td><?= formatRupiah($dataBU['pph_nilai']);  ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Biaya Lain</td>
+                                            <td><?= formatRupiah($dataBU['biaya_lain']);  ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Potongan</td>
+                                            <td>(<?= formatRupiah($dataBU['potongan']);  ?>)</td>
                                         </tr>
                                     </tbody>
                                     <tfoot>

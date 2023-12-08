@@ -853,6 +853,14 @@ $jmlReapp = mysqli_num_rows($reApprove);
                                             <td class="text-center">Nilai PPh</td>
                                             <td><?= formatRupiah($dataBU['pph_nilai']);  ?></td>
                                         </tr>
+                                        <tr>
+                                            <td class="text-center">Biaya Lain</td>
+                                            <td><?= formatRupiah($dataBU['biaya_lain']);  ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Potongan</td>
+                                            <td>(<?= formatRupiah($dataBU['potongan']);  ?>)</td>
+                                        </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>

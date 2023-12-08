@@ -68,7 +68,7 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                     <div class="form-group"> -->
                                     <label for="kd_transaksi" class="col-sm-2 control-label">Kode Anggaran</label>
                                     <div class="col-sm-3">
-                                        <input type="text" value="<?= $row2['kd_anggaran']; ?>" class="form-control " name="kd_transaksi" readonly>
+                                        <input type="text" value="<?= $row2['kd_anggaran'] . " [" . $row2['nm_item']; ?>]" class="form-control " name="kd_transaksi" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group">
