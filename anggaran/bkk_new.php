@@ -255,7 +255,9 @@ $gabung->addPDF('../file/bkk_temp/BKK-' . $data['id'] . '.pdf');
 if ($data['pengajuan'] == "BIAYA UMUM") {
     $dataBU = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM bkk WHERE kd_transaksi = '$id_kdtransaksi'"));
 
-    $gabung->addPDF('../file/' . $dataBU['invoice']);
+    if (!is_null($dataBU['invoice']) && file_exists("../file/" . $dataBU['invoice'])) {
+        $gabung->addPDF('../file/' . $dataBU['invoice']);
+    }
 }
 
 // klo pengajuan PO
@@ -280,7 +282,9 @@ if ($data['pengajuan'] == "PO") {
 
     $dataPO = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM tagihan_po WHERE bkk_id = '$id_bkk'"));
 
-    $gabung->addPDF('../file/invoice/' . $dataPO['doc_faktur']);
+    if (!is_null($dataPO['doc_faktur']) && file_exists("../file/invoice/" . $dataPO['doc_faktur'])) {
+        $gabung->addPDF("../file/invoice/" . $dataPO['doc_faktur']);
+    }
 }
 
 // klo pengajuannya kasbon
