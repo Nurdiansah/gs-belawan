@@ -238,7 +238,8 @@ if (!file_exists("../file/bkk_temp/BKK-" . $data['id'] . ".pdf")) {
         echo $e;
         exit;
     }
-    header("Location: index.php?p=transaksi_bkk&sp=" . $_GET['sp'] . "");
+    // header("Location: index.php?p=transaksi_bkk&sp=" . $_GET['sp'] . "");
+    header("Location: index.php?p=bkk_petty&project=" . $_GET['project'] . "&tgl_1=" . $_GET['tgl_1'] . "&tgl_2=" . $_GET['tgl_2']);
 }
 
 
