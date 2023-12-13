@@ -27,6 +27,7 @@ if (isset($_POST['simpan'])) {
     $bank_tujuan = $_POST['bank_tujuan'];
     $norek_tujuan = $_POST['norek_tujuan'];
     $penerima_tujuan = $_POST['penerima_tujuan'];
+    $terbilang = Terbilang($jml_bkk);
 
     // buat ngapus invoice yg lama
     $cek_invoice = ($_FILES['invoice']['name']);
@@ -55,6 +56,7 @@ if (isset($_POST['simpan'])) {
                                                         ppn_nilai = '$ppn_nilai',
                                                         pph_persen = '$pph_persen',
                                                         pph_nilai = '$pph_nilai',
+                                                        terbilang_bkk = '$terbilang',
                                                         jml_bkk = '$jml_bkk',
                                                         bank_tujuan = '$bank_tujuan',
                                                         norek_tujuan = '$norek_tujuan',

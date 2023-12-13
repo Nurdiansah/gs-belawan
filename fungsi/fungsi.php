@@ -743,7 +743,16 @@ function nomorBKM($tanggal, $divisi)
     $tahun     = date('Y', strtotime($tanggal));
     $nomor     = "/GS-GM/" . $romawi . "/" . $tahun;
 
-    $queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor) FROM bkm WHERE MONTH(tgl_bkm) = '$bulan' AND YEAR(tgl_bkm) = '$tahun' AND id_divisi = '$divisi'");
+    // nomor BKM didivisi billing berbeda dengan divisi lain, permintaan Pak Amin kasir GS Belawan : 20231122
+    // jadi klo billing : 001, 002, 003, dst
+    // kasir : 001, 002, 003
+    // divisi accounting (lanjut) : 004, 005
+    // divisi pajak (lanjut) : 006, 007, dst
+    if ($divisi == "3") {
+        $queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor) FROM bkm WHERE MONTH(tgl_bkm) = '$bulan' AND YEAR(tgl_bkm) = '$tahun' AND id_divisi = '3'");
+    } else {
+        $queryNomor = mysqli_query($koneksi, "SELECT MAX(nomor) FROM bkm WHERE MONTH(tgl_bkm) = '$bulan' AND YEAR(tgl_bkm) = '$tahun' AND id_divisi <> '3'");
+    }
 
     $nomorMax = mysqli_fetch_array($queryNomor);
     if ($nomorMax) {

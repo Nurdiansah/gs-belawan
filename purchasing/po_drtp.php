@@ -61,23 +61,23 @@ $queryRealisasi = mysqli_query($koneksi, " SELECT *
 $rowR = mysqli_fetch_assoc($queryRealisasi);
 // $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $rowR['maret_realisasi'] + $rowR['april_realisasi'] + $rowR['mei_realisasi'] + $rowR['juni_realisasi'] + $rowR['juli_realisasi'] + $rowR['agustus_realisasi'] + $rowR['september_realisasi'] + $rowR['oktober_realisasi'] + $rowR['november_realisasi'] + $rowR['desember_realisasi'];        
 
-$queryTagihan =  mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase
+$queryTagihan =  mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase, tp.nominal AS tpnominal
                                             FROM tagihan_po tp
                                             JOIN po p
                                                 ON p.id_po = tp.po_id
                                                 AND metode_pembayaran = 'Transfer'
-                                            JOIN bkk_ke_pusat bf
+                                            LEFT JOIN bkk_ke_pusat bf
                                                 ON id = bkk_id
                                             WHERE tp.po_id = '$id'
                                             
                                             UNION ALL
 
-                                            SELECT *, tp.persentase AS tppersentase
+                                            SELECT *, tp.persentase AS tppersentase, tp.nominal AS tpnominal
                                             FROM tagihan_po tp
                                             JOIN po p
                                                 ON p.id_po = tp.po_id
                                                 AND metode_pembayaran = 'Tunai'
-                                            JOIN bkk_final bf
+                                            LEFT JOIN bkk_final bf
                                                 ON id = bkk_id
                                             WHERE tp.po_id = '$id'
                                 ");
@@ -280,7 +280,7 @@ $queryTagihan =  mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase
                                                 <td><?= $no; ?></td>
                                                 <td><?= formatTanggal($row['tgl_buat']); ?></td>
                                                 <td><?= formatTanggal($row['tgl_tempo']); ?></td>
-                                                <td><?= formatRupiah(round($row['nominal'])); ?></td>
+                                                <td><?= formatRupiah(round($row['tpnominal'])); ?></td>
                                                 <td><?= $row['tppersentase']; ?></td>
                                                 <td>
                                                     <?php

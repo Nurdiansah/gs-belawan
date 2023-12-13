@@ -126,7 +126,11 @@ $jumlahData = mysqli_num_rows($query);
                                                     <span class="label label-danger">Ditolak Pajak</span>
                                                 <?php   } else if ($row['status_bkk'] == 101) { ?>
                                                     <span class="label label-danger">Ditolak Supervisor</span>
-                                                    <?php   } else if ($row['status_bkk'] == 7) {
+                                                <?php   } else if ($row['status_bkk'] == 7) { ?>
+                                                    <span class="label label-primary">Approval GM Finance</span>
+                                                <?php   } else if ($row['status_bkk'] == 8) { ?>
+                                                    <span class="label label-primary">Approval Direktur</span>
+                                                    <?php   } else if ($row['status_bkk'] == 9) {
                                                         if ($row['metode_pembayaran'] == 'tunai') { ?>
                                                         <a target="_blank" onclick="window.open('cetak_lpd_biayaumum.php?id=<?= enkripRambo($row['id_bkk']); ?>','name','width=800,height=600')" class="btn btn-success"><i class="fa fa-print"></i> LPD </a>
                                                 <?php   }
