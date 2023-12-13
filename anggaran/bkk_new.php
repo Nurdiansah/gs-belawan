@@ -259,6 +259,24 @@ if ($data['pengajuan'] == "BIAYA UMUM") {
 
 // klo pengajuan PO
 if ($data['pengajuan'] == "PO") {
+    $dataMR = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM po po
+                                                            JOIN detail_biayaops db
+                                                                ON id_dbo = id
+                                                            WHERE id_po = '$id_kdtransaksi'
+                                                "));
+
+    if (!is_null($dataMR['foto_item']) && file_exists("../file/foto/" . $dataMR['foto_item'])) {
+        $gabung->addPDF("../file/foto/" . $dataMR['foto_item']);
+    }
+
+    if (!is_null($dataMR['doc_penawaran']) && file_exists("../file/doc_penawaran/" . $dataMR['doc_penawaran'])) {
+        $gabung->addPDF("../file/doc_penawaran/" . $dataMR['doc_penawaran']);
+    }
+
+    if (!is_null($dataMR['doc_quotation']) && file_exists("../file/doc_quotation/" . $dataMR['doc_quotation'])) {
+        $gabung->addPDF("../file/doc_quotation/" . $dataMR['doc_quotation']);
+    }
+
     $dataPO = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM tagihan_po WHERE bkk_id = '$id_bkk'"));
 
     $gabung->addPDF('../file/invoice/' . $dataPO['doc_faktur']);
@@ -270,12 +288,24 @@ if ($data['pengajuan'] == "KASBON") {
     $id_dbo = $dataKasbon['id_dbo'];
 
     if ($dataKasbon['from_user'] == "1") {
-        $gabung->addPDF('../file/doc_pendukung/' . $dataKasbon['doc_pendukung']);
+        if (!is_null($dataKasbon['doc_pendukung']) && file_exists("../file/doc_pendukung/" . $dataKasbon['doc_pendukung'])) {
+            $gabung->addPDF('../file/doc_pendukung/' . $dataKasbon['doc_pendukung']);
+        }
     } else {
         $dataDBO = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM detail_biayaops WHERE id = '$id_dbo'"));
 
-        $gabung->addPDF('../file/foto/' . $dataDBO['foto_item']);
+        if (!is_null($dataDBO['foto_item']) && file_exists("../file/foto/" . $dataDBO['foto_item'])) {
+            $gabung->addPDF('../file/foto/' . $dataDBO['foto_item']);
+        }
     }
+
+    if (!is_null($dataKasbon['doc_lpj']) && file_exists("../file/doc_lpj/" . $dataKasbon['doc_lpj'])) {
+        $gabung->addPDF("../file/doc_lpj/" . $dataKasbon['doc_lpj']);
+    }
+}
+
+if (!is_null($data['bukti_pembayaran']) && file_exists("../file/bukti_pembayaran/" . $data['bukti_pembayaran'])) {
+    $gabung->addPDF("../file/bukti_pembayaran/" . $data['bukti_pembayaran']);
 }
 
 // $gabung->merge('download', 'merged.pdf');

@@ -205,7 +205,7 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
         </ul>
         </li>
 
-        <li class="header">Monitoring Transaksi</li>
+        <!-- <li class="header">Monitoring Transaksi</li>
 
         <li class="treeview">
           <a href="#">
@@ -251,7 +251,7 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
             <li><a href="#"><i class="fa fa-money"></i>Kasbon</a></li>
             <li><a href="#"><i class="fa fa-list"></i>PO</a></li>
           </ul>
-        </li>
+        </li> -->
 
         <li class="header">Laporan</li>
         <li class="treeview">
@@ -263,6 +263,7 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
             <!-- <li><a href="index.php?p=laporan-xls"><i class="fa fa-file-excel-o"></i>Export To Excel</a></li> -->
             <li><a href="index.php?p=laporan_lr&sp=lr_01"><i class="fa fa-file-excel-o"></i>Laba Rugi</a></li>
             <li><a href="index.php?p=laporan_rk&sp=rk_01"><i class="fa fa-file-excel-o"></i>Rencana Kerja</a></li>
+            <li><a href="index.php?p=bkk_petty"><i class="fa fa-print"></i>BKK</a></li>
           </ul>
         </li>
 

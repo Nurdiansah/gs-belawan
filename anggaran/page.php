@@ -118,4 +118,8 @@ if ($page == 'formpesan') {
     include_once "dtl_laporanpk.php";
 } else if ($page == "edit_realisasi") {
     include_once "edit_realisasi.php";
+} else if ($page == "bkk_petty") {
+    include_once "bkk_petty.php";
+} else if ($page == "detail_bkk") {
+    include_once "detail_bkk.php";
 }
