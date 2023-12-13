@@ -190,7 +190,7 @@ include "../fungsi/koneksi.php";
         <td style="text-align: left; width=150px; "><b>Di Bayarkan Kepada</b></td>
         <td style="text-align: ; width=5%;">:</td>
         <td style="width=380px;"><?= is_null($dibayarkan) ? '-' : $dibayarkan; ?></td>
-        <td align="right" rowspan="7">
+        <td align="right" rowspan="8">
             <qrcode value="[ E-Finance GS ] | Kode BKK : <?= $data['nomor']; ?> | Sebesar :  <?= formatRupiah($data['nominal']); ?> " ec="H" style="width: 35mm; background-color: white; color: black;"></qrcode>
         </td>
     </tr>
@@ -244,7 +244,7 @@ include "../fungsi/koneksi.php";
         <?php } else { ?>
             <td>APPROVED (<?= formatTanggalWaktu($data['v_direktur']); ?>)</td>
         <?php } ?>
-        <td style="text-align: right; width=150px; ">Medan, <?= formatTanggal($data['v_direktur']) ?></td>
+        <td style="text-align: right; width=150px; ">Medan, <?= formatTanggal($data['release_on_bkk']) ?></td>
     </tr>
     <tr>
         <td colspan="3"></td>

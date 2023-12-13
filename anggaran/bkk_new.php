@@ -14,12 +14,14 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != 'anggaran') {
 }
 
 $queryBkk = mysqli_query($koneksi, "SELECT * 
-                                          FROM bkk_final b   
-                                          LEFT JOIN supplier s
-                                          ON b.id_supplier = s.id_supplier
-                                          LEFT JOIN anggaran a
-                                          ON b.id_anggaran = a.id_anggaran
-                                          WHERE b.id = '$id' ");
+                                        FROM bkk_final b   
+                                        LEFT JOIN supplier s
+                                            ON b.id_supplier = s.id_supplier
+                                        LEFT JOIN anggaran a
+                                            ON b.id_anggaran = a.id_anggaran
+                                        LEFT JOIN divisi d
+                                            ON a.id_divisi = d.id_divisi
+                                        WHERE b.id = '$id' ");
 
 $data = mysqli_fetch_assoc($queryBkk);
 $id_kdtransaksi = $data['id_kdtransaksi'];
@@ -96,8 +98,8 @@ if (!file_exists("../file/bkk_temp/BKK-" . $data['id'] . ".pdf")) {
         div.kanan {
             width: 300px;
             float: right;
-            margin-left: 10px;
-            margin-top: 0px;
+            margin-left: 430px;
+            margin-top: -140px;
         }
 
         div.kiri {
@@ -135,6 +137,13 @@ if (!file_exists("../file/bkk_temp/BKK-" . $data['id'] . ".pdf")) {
             text-align: left;
 
         }
+
+        .kotak {
+            width: 150px;
+            height: 40px;
+            border: 1px;
+            margin-top: 140px;
+        }
     </style>
     <?php
     include "../fungsi/koneksi.php";
@@ -144,6 +153,13 @@ if (!file_exists("../file/bkk_temp/BKK-" . $data['id'] . ".pdf")) {
     <div class="kiri">
         <img src="../gambar/gs.png" style="width:80px;height:50px" />
     </div>
+
+    <div class="kanan">
+        <div class="kotak">
+            FM.08/02/14
+        </div>
+    </div>
+
     <h3><b>PT.GRAHA SEGARA</b></h3>
     <hr>
 
@@ -160,7 +176,7 @@ if (!file_exists("../file/bkk_temp/BKK-" . $data['id'] . ".pdf")) {
             <td style="text-align: left; width=150px; "><b>Di Bayarkan Kepada</b></td>
             <td style="text-align: ; width=5%;">:</td>
             <td style="width=380px;">-</td>
-            <td align="right" rowspan="6">
+            <td align="right" rowspan="8">
                 <qrcode value="[ E-Finance GS ] | Kode BKK : <?= $data['nomor']; ?> | Sebesar :  <?= formatRupiah($data['nominal']); ?> " ec="H" style="width: 35mm; background-color: white; color: black;"></qrcode>
             </td>
         </tr>
@@ -175,6 +191,11 @@ if (!file_exists("../file/bkk_temp/BKK-" . $data['id'] . ".pdf")) {
                                             echo $data['kd_anggaran'] . " [" . $data['nm_item'] . "]";
                                         }
                                         ?></td>
+        </tr>
+        <tr>
+            <td style="text-align: left; width=150px; "><b>Divisi</b></td>
+            <td style="text-align: ; width=5%;">:</td>
+            <td style="width=380px;"><?= $data['nm_divisi']; ?></td>
         </tr>
         <tr>
             <td style="text-align: left; width=150px; "><b>Untuk</b></td>
@@ -192,19 +213,24 @@ if (!file_exists("../file/bkk_temp/BKK-" . $data['id'] . ".pdf")) {
             <td style="width=380px;"><?= Terbilang($data['nominal']); ?> Rupiah </td>
         </tr>
         <tr>
-            <td><b>Manager Finance</b></td>
+            <td><b>Tanggal BKK</b></td>
+            <td style="text-align: ; width=5%;">:</td>
+            <td><?= formatTanggalWaktu($data['release_on_bkk']); ?></td>
+        </tr>
+        <tr>
+            <td><b>Cost Control</b></td>
             <td style="text-align: ; width=5%;">:</td>
             <td>APPROVED (<?= formatTanggalWaktu($data['v_mgr_finance']); ?>)</td>
         </tr>
         <tr>
-            <td><b>Direktur</b></td>
+            <td><b>Manager</b></td>
             <td style="text-align: ; width=5%;">:</td>
-            <?php if ($data['v_direktur'] == "" || $data['v_direktur'] == "0000-00-00 00:00:00") { ?>
+            <?php if ($data['v_direktur'] == "") { ?>
                 <td>-</td>
             <?php } else { ?>
                 <td>APPROVED (<?= formatTanggalWaktu($data['v_direktur']); ?>)</td>
             <?php } ?>
-            <td style="text-align: right; width=150px; ">Jakarta, <?= formatTanggal($data['release_on_bkk']) ?></td>
+            <td style="text-align: right; width=150px; ">Medan, <?= formatTanggal($data['release_on_bkk']) ?></td>
         </tr>
         <tr>
             <td colspan="3"></td>
