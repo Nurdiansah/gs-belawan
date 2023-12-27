@@ -333,8 +333,8 @@ $dataProsesSO = mysqli_fetch_assoc($queryProsesSO);
               <span>Master Data</span> <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-              <li><a href="index.php?p=lihat_anggaran&act=view"><i class="fa fa-chevron-right"></i>Anggaran</a></li>
-              <li><a href="index.php?p=tambah_anggaran"><i class="fa fa-chevron-right"></i>Tambah Anggaran</a></li>
+              <!-- <li><a href="index.php?p=lihat_anggaran&act=view"><i class="fa fa-chevron-right"></i>Anggaran</a></li>
+              <li><a href="index.php?p=tambah_anggaran"><i class="fa fa-chevron-right"></i>Tambah Anggaran</a></li> -->
               <li><a href="index.php?p=supplier"><i class="fa fa-chevron-right"></i>Supplier</a></li>
           </li>
         </ul>
