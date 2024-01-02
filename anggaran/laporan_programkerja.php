@@ -57,7 +57,7 @@ if ($divisi == "all") {
                                                 AND id_programkerja <> 0
                                                 AND jenis_anggaran = 'BIAYA'
                                                 AND tipe_anggaran = 'CAPEX'
-                                                GROUP BY nm_programkerja, nm_user
+                                                GROUP BY id_programkerja, nm_programkerja, nm_user
                                                 ORDER BY nm_programkerja ASC");
 
     $queryChart2 = mysqli_query($koneksi, "SELECT DISTINCT id_programkerja AS id_pk, nm_programkerja, kd_programkerja, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_budget,
@@ -77,7 +77,7 @@ if ($divisi == "all") {
                                             AND p.tahun = '$tahun'
                                             AND id_programkerja <> 0
                                             AND jenis_anggaran = 'BIAYA'
-                                            GROUP BY nm_programkerja, nm_user
+                                            GROUP BY id_programkerja, nm_programkerja, nm_user
                                             ORDER BY nm_programkerja ASC");
 } else {
     // query opex
@@ -100,7 +100,7 @@ if ($divisi == "all") {
                                             AND id_programkerja <> 0
                                             AND jenis_anggaran = 'BIAYA'
                                             AND tipe_anggaran = 'OPEX'
-                                            GROUP BY nm_programkerja, nm_user
+                                            GROUP BY id_programkerja, nm_programkerja, nm_user
                                             ORDER BY nm_programkerja ASC");
 
     // query capex
@@ -123,7 +123,7 @@ if ($divisi == "all") {
                                                 AND id_programkerja <> 0
                                                 AND jenis_anggaran = 'BIAYA'
                                                 AND tipe_anggaran = 'CAPEX'
-                                                GROUP BY nm_programkerja, nm_user
+                                                GROUP BY id_programkerja, nm_programkerja, nm_user
                                                 ORDER BY nm_programkerja ASC");
 
     $queryChart2 = mysqli_query($koneksi, "SELECT DISTINCT id_programkerja AS id_pk, nm_programkerja, kd_programkerja, nm_user, SUM(januari_nominal) + SUM(februari_nominal) + SUM(maret_nominal) + SUM(april_nominal) + SUM(mei_nominal) + SUM(juni_nominal) + SUM(juli_nominal) + SUM(agustus_nominal) + SUM(september_nominal) + SUM(oktober_nominal) + SUM(november_nominal) + SUM(desember_nominal) AS total_budget,
@@ -144,7 +144,7 @@ if ($divisi == "all") {
                                             AND id_divisi = '$divisi'
                                             AND id_programkerja <> 0
                                             AND jenis_anggaran = 'BIAYA'
-                                            GROUP BY nm_programkerja, nm_user
+                                            GROUP BY id_programkerja, nm_programkerja, nm_user
                                             ORDER BY nm_programkerja ASC");
 
     $queryDiv = mysqli_query($koneksi, "SELECT * FROM divisi WHERE id_divisi = '$divisi'");
