@@ -295,6 +295,7 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
       // input anggaran (program kerja)
       $('.id_divisi').on('change', function() {
         let divisiId = this.value;
+        let tahun = document.getElementById('tahun').value
         // if (divisiId == '') {
         // $('.ktkPK').hide();
         // } else {
@@ -304,7 +305,8 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
         $.ajax({
           url: host + 'api/anggaran/getPK.php',
           data: {
-            id: divisiId
+            id: divisiId,
+            tahun: tahun
           },
           method: 'post',
           dataType: 'json',
@@ -313,7 +315,7 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
 
             $('#id_programkerja').empty();
             $.each(data, function(i, value) {
-              $('#id_programkerja').append($('<option>').text(value.nm_programkerja).attr('value', value.id_programkerja));
+              $('#id_programkerja').append($('<option>').text(value.kd_programkerja + " [" + value.nm_programkerja + "]").attr('value', value.id_programkerja));
             });
           }
         });

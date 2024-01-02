@@ -1,7 +1,7 @@
 <?php
 include "../../fungsi/koneksi.php";
 $id = $_POST['id'];
-$tahun = date("Y");
+$tahun = $_POST['tahun'];
 
 // $query = mysqli_query($koneksi, "SELECT id_programkerja, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi) AS cost_center, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_programkerja
 // FROM cost_center
@@ -25,7 +25,7 @@ $tahun = date("Y");
 // }
 // 
 
-$query = mysqli_query($koneksi, "SELECT id_programkerja, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi) AS cost_center, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_programkerja
+$query = mysqli_query($koneksi, "SELECT id_programkerja, kd_programkerja, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi) AS cost_center, CONCAT(kd_pt, '.', kd_parent, '.', kd_divisi, '.', kd_programkerja) AS program_kerja, nm_programkerja
                                       FROM cost_center
                                     JOIN pt
                                         ON id_pt = pt_id
@@ -41,6 +41,7 @@ $query = mysqli_query($koneksi, "SELECT id_programkerja, CONCAT(kd_pt, '.', kd_p
 $no = 0;
 while ($row = mysqli_fetch_array($query)) {
     $data[$no]['id_programkerja'] = $row['id_programkerja'];
+    $data[$no]['kd_programkerja'] = $row['kd_programkerja'];
     $data[$no]['program_kerja'] = $row['program_kerja'];
     $data[$no]['nm_programkerja'] = $row['nm_programkerja'];
 
