@@ -191,7 +191,7 @@ $dataHdr = $dataSHeader['id_header'];
                                                                                     JOIN program_kerja
                                                                                         ON id_costcenter = costcenter_id
                                                                                     WHERE id_divisi = '$idDivisi'
-                                                                                    AND tahun = '$tahunAyeuna'
+                                                                                    AND tahun = '$tahun'
                                                                                     ORDER BY nm_programkerja ASC");
 
                                         while ($dataPK = mysqli_fetch_assoc($queryPK)) { ?>
