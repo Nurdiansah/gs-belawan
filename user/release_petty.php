@@ -13,15 +13,23 @@ if (isset($_GET['id'])) {
     date_default_timezone_set('Asia/Jakarta');
     $tanggal = date("Y-m-d H:i:s");
 
-    $queryManager = mysqli_query($koneksi, "SELECT * -- email, nama, nm_divisi
+    $queryManager = mysqli_query($koneksi, "SELECT *, tp.id_manager as tpid_manager, u.id_manager as uid_manager -- email, nama, nm_divisi
                                             FROM transaksi_pettycash tp   
-                                            JOIN user u
+                                            LEFT JOIN user u
                                                 ON u.id_user = tp.id_manager       
                                             JOIN divisi d
                                                 ON d.id_divisi = u.id_divisi
                                             WHERE id_pettycash = '$id'
                                             ");
     $dataManager = mysqli_fetch_assoc($queryManager);
+
+    // update id_manager apabila dia kosong
+    $dataUsr = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM user WHERE id_divisi IN (SELECT id_divisi FROM transaksi_pettycash WHERE id_pettycash = '$id')"));
+    $id_mgr = $dataUsr['id_manager'];
+
+    if ($dataManager['tpid_manager'] == "" || is_null($dataManager['tpid_manager'])) {
+        $updMgr = mysqli_query($koneksi, "UPDATE transaksi_pettycash SET id_manager = '$id_mgr' WHERE id_pettycash = '$id'");
+    }
 
     $link = "url=index.php?p=approval_pettycash&lvl=manager";
 

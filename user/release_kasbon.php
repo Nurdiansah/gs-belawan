@@ -8,8 +8,9 @@ if (isset($_POST['release'])) {
     $id_dbo = $_POST['id_dbo'];
     $vrf_pajak = $_POST['vrf_pajak'];
 
-    $queryManager = mysqli_query($koneksi, "SELECT * FROM kasbon ks
-                                            JOIN user u
+    $queryManager = mysqli_query($koneksi, "SELECT *, ks.id_manager as ksid_manager
+                                            FROM kasbon ks
+                                            LEFT JOIN user u
                                                 ON u.id_user = ks.id_manager   
                                             JOIN detail_biayaops dbo
                                                 ON id_dbo = dbo.id    
@@ -18,6 +19,14 @@ if (isset($_POST['release'])) {
                                             WHERE id_kasbon = '$id_kasbon'
                                     ");
     $dataManager = mysqli_fetch_assoc($queryManager);
+
+    // update id_manager apabila dia kosong
+    $dataUsr = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM user WHERE id_divisi IN (SELECT id_divisi FROM detail_biayaops WHERE id = '$id_dbo')"));
+    $id_mgr = $dataUsr['id_manager'];
+
+    if ($dataManager['ksid_manager'] == "" || is_null($dataManager['ksid_manager'])) {
+        $updMgr = mysqli_query($koneksi, "UPDATE kasbon SET id_manager = '$id_mgr' WHERE id_kasbon = '$id_kasbon'");
+    }
 
     $link = "url=index.php?p=approval_kasbon&lvl=manager";
 

@@ -10,7 +10,7 @@ if (isset($_GET['id'])) {
     date_default_timezone_set('Asia/Jakarta');
     $tanggal = date("Y-m-d H:i:s");
 
-    $queryEmail = mysqli_query($koneksi, "SELECT *, mgr.nama as nm_mgr, usr.nama as nm_pemohon, mgr.email as email_mgr, bkk.nilai_barang + bkk.nilai_jasa AS nominal
+    $queryEmail = mysqli_query($koneksi, "SELECT *, mgr.nama as nm_mgr, usr.nama as nm_pemohon, mgr.email as email_mgr, bkk.nilai_barang + bkk.nilai_jasa AS nominal, bkk.id_manager as bkid_manager, usr.id_manager as usrid_manager
                                             FROM bkk bkk
                                             JOIN divisi dvs
                                                 ON bkk.id_divisi = dvs.id_divisi
@@ -20,6 +20,12 @@ if (isset($_GET['id'])) {
                                                 ON id_pemohon = usr.id_user
                                             WHERE id_bkk = '$id'");
     $dataEmail = mysqli_fetch_assoc($queryEmail);
+
+    // update id_manager apabila dia kosong
+    $id_mgr = $dataEmail['usrid_manager'];
+    if ($dataEmail['bkid_manager'] == "" || is_null($dataEmail['bkid_manager'])) {
+        $updMgr = mysqli_query($koneksi, "UPDATE bkk SET id_manager = '$id_mgr' WHERE id_bkk = '$id'");
+    }
 
     $link = "url=index.php?p=approval_biayanonops&lvl=manager";
     // data email

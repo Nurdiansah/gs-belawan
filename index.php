@@ -68,6 +68,7 @@ if (isset($_POST['login'])) {
 	} else {
 
 		$row = mysqli_fetch_array($hasil);
+		$_SESSION['id_usr_blw'] = $row['id_user'];
 		$_SESSION['username_blw'] = $row['username'];
 		$User = $_SESSION['username_blw'];
 		$_SESSION['level_blw'] = $row['level'];

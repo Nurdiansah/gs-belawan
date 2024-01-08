@@ -10,6 +10,7 @@ if (isset($_POST['submit'])) {
     $id_anggaran = $_POST['id_anggaran'] == "" ? $_POST['id_anggaran_spj'] : $_POST['id_anggaran'];
     $totalPengajuan = penghilangTitik($_POST['nominal']);
     $keterangan = $_POST['keterangan'];
+    $id_user = $_SESSION['id_usr_blw'];
 
     // if ($ekstensi != 'pdf') {
     //     setcookie('pesan', 'File yang anda upload bukan berbentuk pdf , silahkan upload ulang dengan extensi pdf !', time() + (3), '/');
@@ -79,8 +80,8 @@ if (isset($_POST['submit'])) {
             $id_dbo = $id_dbo['id'];
 
             //query kasbon
-            $queryKasbon = "INSERT kasbon ( id_kasbon , id_dbo, nilai_barang, harga_akhir, tgl_kasbon, id_manager, from_user, doc_pendukung,  status_kasbon) VALUES
-                                    ('$kode_otomatis', '$id_dbo', '$totalPengajuan', '$totalPengajuan','$tanggal', '$id_manager', 1, '$namabaru', 0 );
+            $queryKasbon = "INSERT kasbon ( id_kasbon , id_dbo, nilai_barang, harga_akhir, tgl_kasbon, user_id, id_manager, from_user, doc_pendukung,  status_kasbon) VALUES
+                                    ('$kode_otomatis', '$id_dbo', '$totalPengajuan', '$totalPengajuan','$tanggal', '$id_user', '$id_manager', 1, '$namabaru', 0 );
                                     ";
             $hasil = mysqli_query($koneksi, $queryKasbon);
 
