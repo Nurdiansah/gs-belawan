@@ -8,6 +8,17 @@ if (!isset($_GET['id'])) {
     header("location:index.php");
 }
 
+if (isset($_POST['update_petty'])) {
+    $id = $_POST['id_pettycash'];
+    $keterangan = $_POST['keterangan'];
+
+    $update = mysqli_query($koneksi, "UPDATE transaksi_pettycash SET keterangan_pettycash = '$keterangan' WHERE id_pettycash = '$id'");
+
+    if ($update) {
+        header("Location: index.php?p=transaksi_dpettycash&id=$id");
+    }
+}
+
 $queryNama =  mysqli_query($koneksi, "SELECT nama from user WHERE username  = '$_SESSION[username_blw]'");
 $rowNama = mysqli_fetch_assoc($queryNama);
 $Nama = $rowNama['nama'];
@@ -47,6 +58,7 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                     <h3 class="text-center">Petty Cash</h3>
                 </div>
                 <form method="post" enctype="multipart/form-data" class="form-horizontal">
+                    <input type="hidden" name="id_pettycash" value="<?= $id; ?>">
                     <div class="box-body">
                         <div class="form-group">
                             <label id="tes" for="divisi" class="col-sm-offset col-sm-1 control-label">Divisi</label>
@@ -71,7 +83,9 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                         <div class="form-group">
                             <label for="keterangan" class="col-sm-offset- col-sm-1 control-label">Keterangan</label>
                             <div class="col-sm-3">
-                                <textarea rows="5" type="text" name="keterangan" disabled class="form-control "> <?= $data2['keterangan_pettycash']; ?></textarea>
+                                <textarea rows="5" type="text" name="keterangan" class="form-control "> <?= $data2['keterangan_pettycash']; ?></textarea>
+                                <br>
+                                <button type="submit" name="update_petty" class=" btn bg-primary"><i class="fa fa-save"></i> Simpan</button>
                             </div>
                             <label for="tgl_pengajuan" class="col-sm-offset-2 col-sm-3 control-label">Total Pengajuan</label>
                             <div class="col-sm-3">

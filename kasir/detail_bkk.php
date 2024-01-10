@@ -4,6 +4,17 @@ include "../fungsi/fungsi.php";
 
 $id = $_GET['id'];
 
+if (isset($_POST['update_bkk'])) {
+    $id = $_POST['id_bkk'];
+    $keterangan = $_POST['keterangan'];
+
+    $update = mysqli_query($koneksi, "UPDATE bkk_final SET keterangan = '$keterangan' WHERE id = '$id'");
+
+    if ($update) {
+        header("Location: index.php?p=detail_bkk&id=$id");
+    }
+}
+
 if (!isset($_GET['id'])) {
     header("location:index.php");
 }
@@ -130,7 +141,7 @@ $jmlReapp = mysqli_num_rows($reApprove);
                     <h3 class="text-center">Verifikasi BKK</h3>
                 </div>
                 <br>
-                <form method="post" action="simpan_bkk.php" enctype="multipart/form-data" class="form-horizontal">
+                <form method="post" action="" enctype="multipart/form-data" class="form-horizontal">
                     <input type="hidden" name="id_bkk" value="<?= $data2['id'] ?>">
                     <div class="box-body">
                         <div class="form-group">
@@ -146,7 +157,9 @@ $jmlReapp = mysqli_num_rows($reApprove);
                         <div class="form-group">
                             <label for="keterangan" class="col-sm-offset- col-sm-1 control-label">Keterangan</label>
                             <div class="col-sm-3">
-                                <textarea rows="5" type="text" name="keterangan" disabled class="form-control "> <?= $data2['keterangan']; ?></textarea>
+                                <textarea rows="5" type="text" name="keterangan" class="form-control "> <?= $data2['keterangan']; ?></textarea>
+                                <br>
+                                <button type="submit" name="update_bkk" class=" btn bg-primary"><i class="fa fa-save"></i> Simpan</button>
                             </div>
                             <label for="tgl_pengajuan" class="col-sm-offset-2 col-sm-3 control-label">DPP Barang</label>
                             <div class="col-sm-3">
