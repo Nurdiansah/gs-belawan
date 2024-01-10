@@ -126,9 +126,9 @@
       </div>
     </div>
   </div>
-  <br>
 
-
+  <a href="https://wa.me/6289508012755?text=Assalamu'alaikum saya <?= $Nama; ?> mau tanya perihal Efin" target="_blank" title="Revisi/Hapus data, bisa di Email"><i class="fa fa-whatsapp kontak-wa"></i></a>
+  <a href="mailto:develop@ekanuri.com?cc=nurdiansah@ekanuri.com&subject=Revisi Pengajuan xxx" target="_blank" title="Revisi/Hapus data, bisa request disini"><i class="fa fa-envelope kontak-email"></i></a>
 
 </section>
 

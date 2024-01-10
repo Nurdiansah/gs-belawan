@@ -117,6 +117,39 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
   <script src="https://www.amcharts.com/lib/4/charts.js"></script>
   <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 
+  <style>
+    /* untk kontak dibawah */
+    .kontak-email {
+      background-color: cadetblue;
+      color: white;
+      padding: 10px;
+      text-decoration: none;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+
+    .kontak-email {
+      position: fixed;
+      right: 50px;
+      bottom: 10px;
+    }
+
+    .kontak-wa {
+      background-color: #25D366;
+      color: white;
+      padding: 10px;
+      text-decoration: none;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+
+    .kontak-wa {
+      position: fixed;
+      right: 10px;
+      bottom: 10px;
+    }
+  </style>
+
 </head>
 
 <body class="hold-transition skin-red sidebar-collapse sidebar-mini">
