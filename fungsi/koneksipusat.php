@@ -1,9 +1,9 @@
 <?php
 
 $host = "localhost";
-$username = "usr_gs_jakarta";
+$username = "usr_system";
 // $password = "";
-$password = "K@mbingjawir";
+$password = base64_decode("U3lzdGVtMTM1Nzk=");
 $database = "gs";
 
 $koneksiPusat = mysqli_connect($host, $username, $password, $database);
