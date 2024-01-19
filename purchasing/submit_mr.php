@@ -68,21 +68,7 @@ if (isset($_GET['id'])) {
 		$insReaSem =  insRealisasiSem('PO', $id_po, $id_anggaran, $totalPengajuan);
 	} else if ($totalPengajuan > 100000 && $totalPengajuan <= 5000000) {  //jika total pengajuan kurang dari 10 jt menjadi kasbon
 
-		$queryHight = mysqli_query($koneksi, "SELECT MAX(id_kasbon) from kasbon ");
-
-		$id_joborder = mysqli_fetch_array($queryHight);
-		if ($id_joborder) {
-
-			$nilaikode = substr($id_joborder[0], 2);
-			$kode = (int) $nilaikode;
-
-			//setiap kode ditambah 1
-			$kode = $kode + 1;
-			$kode_otomatis = "KS" . str_pad($kode, 4, "0", STR_PAD_LEFT);
-		} else {
-			$kode_otomatis = "KS0001";
-		}
-
+		$kode_otomatis = nomorKasbon();
 
 		//query kasbon
 		$queryKasbon = "INSERT kasbon ( id_kasbon , id_dbo, kd_transaksi, harga_akhir, tgl_kasbon, status_kasbon ) VALUES
@@ -159,20 +145,8 @@ if (isset($_GET['id'])) {
 	} elseif ($totalPengajuan <= 100000) {
 
 		// KODE OTOMATIS
-		$query = mysqli_query($koneksi, "SELECT MAX(kd_pettycash) FROM transaksi_pettycash ");
 
-		$id_joborder = mysqli_fetch_array($query);
-		if ($id_joborder) {
-
-			$nilaikode = substr($id_joborder[0], 2);
-			$kode = (int) $nilaikode;
-
-			//setiap kode ditambah 1
-			$kode = $kode + 1;
-			$kode_otomatis = "P" . str_pad($kode, 6, "0", STR_PAD_LEFT);
-		} else {
-			$kode_otomatis = "P000001";
-		}
+		$kode_otomatis = nomorPettycash();
 
 		$hasil = mysqli_query($koneksi, "INSERT INTO transaksi_pettycash (kd_pettycash, id_dbo, id_anggaran, keterangan_pettycash, total_pettycash, id_divisi, id_manager, status_pettycash, created_pettycash_on, created_pettycash_by, `from`) 
 																SELECT '$kode_otomatis', dbo.id ,id_anggaran, keterangan, harga_estimasi, dbo.id_divisi, '53', '1', created_on, created_by, 'mr'

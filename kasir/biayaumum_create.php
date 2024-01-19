@@ -287,7 +287,7 @@ $tanggalCargo = date("Y-m-d");
                 $('#id_programkerja').empty();
                 $('#id_programkerja').append($('<option>').text('--- Pilih Program Kerja ---').attr('value', ''));
                 $.each(data, function(i, value) {
-                    $('#id_programkerja').append($('<option>').text(value.nm_programkerja).attr('value', value.id_programkerja));
+                    $('#id_programkerja').append($('<option>').text(value.kd_programkerja + ' [' + value.nm_programkerja + ']').attr('value', value.id_programkerja));
                 });
 
             }
@@ -318,7 +318,7 @@ $tanggalCargo = date("Y-m-d");
 
                     $('#id_anggaran').empty();
                     $.each(data, function(i, value) {
-                        $('#id_anggaran').append($('<option>').text(value.nm_item).attr('value', value.id_anggaran));
+                        $('#id_anggaran').append($('<option>').text(value.kd_anggaran + ' [' + value.nm_item + ']').attr('value', value.id_anggaran));
                     });
 
                 }

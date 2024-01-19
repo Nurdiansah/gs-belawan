@@ -123,19 +123,7 @@ if (isset($_POST['approve'])) {
         }
     } elseif ($grand_total > 100000 && $grand_total <= 10000000) {
         // jika dibawah 10 juta dan diatas 100 rb , maka masuknya ke tbl kasbon
-        $queryID = mysqli_query($koneksi, "SELECT MAX(id_kasbon) from kasbon ");
-        $id_kasbon = mysqli_fetch_array($queryID);
-
-        if ($id_kasbon) {
-            $nilaikode = substr($id_kasbon[0], 2);
-            $kode = (int) $nilaikode;
-
-            //setiap kode ditambah 1
-            $kode = $kode + 1;
-            $kode_otomatis = "KS" . str_pad($kode, 4, "0", STR_PAD_LEFT);
-        } else {
-            $kode_otomatis = "KS0001";
-        }
+        $kode_otomatis = nomorKasbon();
 
         //query kasbon
         $queryIns = mysqli_query($koneksi, "INSERT kasbon (id_kasbon, id_dbo, sr_id, divisi_id, nilai_barang, nilai_ppn, harga_akhir, tgl_kasbon, user_id, id_manager, status_kasbon) VALUES
@@ -223,20 +211,7 @@ if (isset($_POST['approve'])) {
         $total_pettycash = $_POST['total'];
 
         // KODE OTOMATIS
-        $query = mysqli_query($koneksi, "SELECT MAX(kd_pettycash) FROM transaksi_pettycash ");
-        $id_joborder = mysqli_fetch_array($query);
-        if ($id_joborder) {
-
-            $nilaikode = substr($id_joborder[0], 2);
-            $kode = (int) $nilaikode;
-
-            //setiap kode ditambah 1
-            $kode = $kode + 1;
-            $kode_otomatis = "P" . str_pad($kode, 6, "0", STR_PAD_LEFT);
-        } else {
-            $kode_otomatis = "P000001";
-        }
-
+        $kode_otomatis = nomorPettycash();
 
         $queryIns = mysqli_query($koneksi, "INSERT INTO transaksi_pettycash (kd_pettycash, id_anggaran, keterangan_pettycash, total_pettycash, id_divisi, id_manager, `from` ,status_pettycash,  created_pettycash_on, created_pettycash_by) VALUES 
                                                                           ( '$kode_otomatis', '$id_anggaran', '$keterangan_pettycash', '$total_pettycash', '$id_divisi', '$idManagerGa', 'sr','1','$tanggal','$nama' );

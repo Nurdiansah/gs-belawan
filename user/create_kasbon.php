@@ -34,22 +34,7 @@ if (isset($_POST['submit'])) {
         date_default_timezone_set('Asia/Jakarta');
         $tanggal = date("Y-m-d H:i:s");
 
-        $queryHight = mysqli_query($koneksi, "SELECT MAX(id_kasbon) from kasbon ");
-
-        $id_joborder = mysqli_fetch_array($queryHight);
-
-
-        if ($id_joborder) {
-
-            $nilaikode = substr($id_joborder[0], 2);
-            $kode = (int) $nilaikode;
-
-            //setiap kode ditambah 1
-            $kode = $kode + 1;
-            $kode_otomatis = "KS" . str_pad($kode, 4, "0", STR_PAD_LEFT);
-        } else {
-            $kode_otomatis = "KS0001";
-        }
+        $kode_otomatis = nomorKasbon();
 
         //baca lokasi file sementara dan nama file dari form (doc_ptw)		
         $lokasi_doc = ($_FILES['doc']['tmp_name']);

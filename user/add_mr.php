@@ -6,20 +6,7 @@ include "../fungsi/fungsi.php";
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
 
-	$query = mysqli_query($koneksi, "SELECT MAX(kd_transaksi) from biaya_ops ");
-
-	$id_joborder = mysqli_fetch_array($query);
-	if ($id_joborder) {
-
-		$nilaikode = substr($id_joborder[0], 2);
-		$kode = (int) $nilaikode;
-
-		//setiap kode ditambah 1
-		$kode = $kode + 1;
-		$kode_otomatis = "B" . str_pad($kode, 5, "0", STR_PAD_LEFT);
-	} else {
-		$kode_otomatis = "B00001";
-	}
+	$kode_otomatis = nomorMR();
 
 	$queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SESSION[username_blw]'");
 	$rowUser = mysqli_fetch_assoc($queryUser);

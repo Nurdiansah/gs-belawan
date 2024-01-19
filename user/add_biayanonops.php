@@ -34,20 +34,8 @@ if (isset($_POST['simpan'])) {
 	// 		return "Maaf Tidak Dapat di Prose Karena Jumlah nilai Terlalu Besar ";
 	// 	}
 	// }
-	$query = mysqli_query($koneksi, "SELECT MAX(kd_transaksi) from bkk ");
 
-	$id_joborder = mysqli_fetch_array($query);
-	if ($id_joborder) {
-
-		$nilaikode = substr($id_joborder[0], 2);
-		$kode = (int) $nilaikode;
-
-		//setiap kode ditambah 1
-		$kode = $kode + 1;
-		$kode_otomatis = "A" . str_pad($kode, 5, "0", STR_PAD_LEFT);
-	} else {
-		$kode_otomatis = "A00001";
-	}
+	$kode_otomatis = nomorBiayaUmum();
 
 	$nm_vendor = $_POST['nm_vendor'];
 	$tgl_bkk = $tanggalCargo = date("Y-m-d");

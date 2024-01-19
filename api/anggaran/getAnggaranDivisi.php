@@ -14,6 +14,7 @@ $query = mysqli_query($koneksi, "SELECT *
 $no = 0;
 while ($row = mysqli_fetch_array($query)) {
     $data[$no]['id_programkerja'] = $row['id_programkerja'];
+    $data[$no]['kd_programkerja'] = $row['kd_programkerja'];
     $data[$no]['nm_programkerja'] = $row['nm_programkerja'];
 
     $no++;

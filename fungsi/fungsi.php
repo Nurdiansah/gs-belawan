@@ -858,3 +858,119 @@ function pathBelawan()
     $path = '../file/';
     return $path;
 }
+
+function nomorKasbon()
+{
+    global $koneksi;
+
+    $tahun = date("y");
+
+    $queryHight = mysqli_query($koneksi, "SELECT MAX(id_kasbon)
+                                            FROM kasbon
+                                            WHERE DATE_FORMAT(tgl_kasbon, '%y') = '$tahun'
+                                            AND SUBSTRING(id_kasbon, 3, 2) = '$tahun'");
+
+    $max_kode = mysqli_fetch_array($queryHight);
+
+
+    if ($max_kode) {
+
+        $nilaikode = substr($max_kode[0], 5);
+        $kode = (int) $nilaikode;
+
+        //setiap kode ditambah 1
+        $kode = $kode + 1;
+        $kode = "KS" . $tahun . "-" . str_pad($kode, 4, "0", STR_PAD_LEFT);
+    } else {
+        $kode = "KS" . $tahun . "-0001";
+    }
+
+    return $kode;
+}
+
+function nomorBiayaUmum()
+{
+    global $koneksi;
+
+    $tahun = date("y");
+
+    $queryHight = mysqli_query($koneksi, "SELECT MAX(kd_transaksi)
+                                            FROM bkk
+                                            WHERE DATE_FORMAT(tgl_pengajuan, '%y') = '$tahun'
+                                            AND SUBSTRING(kd_transaksi, 3, 2) = '$tahun'");
+
+    $max_kode = mysqli_fetch_array($queryHight);
+
+
+    if ($max_kode) {
+
+        $nilaikode = substr($max_kode[0], 5);
+        $kode = (int) $nilaikode;
+
+        //setiap kode ditambah 1
+        $kode = $kode + 1;
+        $kode = "BU" . $tahun .  "-" . str_pad($kode, 4, "0", STR_PAD_LEFT);
+    } else {
+        $kode = "BU" . $tahun . "-0001";
+    }
+
+    return $kode;
+}
+
+function nomorMR()
+{
+    global $koneksi;
+
+    $tahun = date("y");
+
+    $queryHight = mysqli_query($koneksi, "SELECT MAX(kd_transaksi)
+                                            FROM biaya_ops
+                                            WHERE DATE_FORMAT(tgl_pengajuan, '%y') = '$tahun'
+                                            AND SUBSTRING(kd_transaksi, 3, 2) = '$tahun'");
+
+    $max_kode = mysqli_fetch_array($queryHight);
+
+
+    if ($max_kode) {
+
+        $nilaikode = substr($max_kode[0], 5);
+        $kode = (int) $nilaikode;
+
+        //setiap kode ditambah 1
+        $kode = $kode + 1;
+        $kode = "MR" . $tahun . "-" . str_pad($kode, 4, "0", STR_PAD_LEFT);
+    } else {
+        $kode = "MR" . $tahun . "-0001";
+    }
+
+    return $kode;
+}
+
+function nomorPettycash()
+{
+    global $koneksi;
+
+    $tahun = date("y");
+
+    $queryHight = mysqli_query($koneksi, "SELECT MAX(kd_pettycash)
+                                            FROM transaksi_pettycash
+                                            WHERE DATE_FORMAT(created_pettycash_on, '%y') = '$tahun'
+                                            AND SUBSTRING(kd_pettycash, 3, 2) = '$tahun'");
+
+    $max_kode = mysqli_fetch_array($queryHight);
+
+
+    if ($max_kode) {
+
+        $nilaikode = substr($max_kode[0], 5);
+        $kode = (int) $nilaikode;
+
+        //setiap kode ditambah 1
+        $kode = $kode + 1;
+        $kode = "PC" . $tahun . "-" .  str_pad($kode, 4, "0", STR_PAD_LEFT);
+    } else {
+        $kode = "PC" . $tahun . "-0001";
+    }
+
+    return $kode;
+}

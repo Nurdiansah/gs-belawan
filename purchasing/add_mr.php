@@ -4,20 +4,7 @@ include "../fungsi/koneksi.php";
 
 if (isset($_POST['submit'])) {
 
-	$query = mysqli_query($koneksi, "SELECT MAX(kd_transaksi) from biaya_ops ");
-
-	$id_joborder = mysqli_fetch_array($query);
-	if ($id_joborder) {
-
-		$nilaikode = substr($id_joborder[0], 2);
-		$kode = (int) $nilaikode;
-
-		//setiap kode ditambah 1
-		$kode = $kode + 1;
-		$kode_otomatis = "B" . str_pad($kode, 5, "0", STR_PAD_LEFT);
-	} else {
-		$kode_otomatis = "B00001";
-	}
+	$kode_otomatis = nomorMR();
 
 	$tgl_pengajuan = $_POST['tgl_pengajuan'];
 
