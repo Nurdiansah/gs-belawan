@@ -11,6 +11,23 @@ if (!isset($_GET['id'])) {
 
 $id = $_GET['id'];
 
+if (isset($_POST['simpan_edit'])) {
+    $id = $_POST['id'];
+    $sub_deskripsi = $_POST['sub_deskripsi'];
+    $sub_qty = $_POST['sub_qty'];
+    $sub_unit = $_POST['sub_unit'];
+
+    $update = mysqli_query($koneksi, "UPDATE sub_dbo SET sub_deskripsi = '$sub_deskripsi', 
+                                                sub_qty = '$sub_qty',
+                                                sub_unit = '$sub_unit'
+                                        WHERE id_subdbo = '$id'
+                            ");
+
+    if ($update) {
+        header("Location: index.php?p=edit_item&id=" . $_POST['id_dbo']);
+    }
+}
+
 $queryUser =  mysqli_query($koneksi, "SELECT *
                                                      from user u
                                                      JOIN divisi d
@@ -214,26 +231,79 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
                             <th>Satuan</th>
                             <th>Delete</th>
                         </thead>
-                        <tr>
-                            <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($querySbo)) {
-                                        while ($row = mysqli_fetch_assoc($querySbo)) :
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            if (mysqli_num_rows($querySbo)) {
+                                while ($row = mysqli_fetch_assoc($querySbo)) :
 
-                                    ?>
-                                            <td> <?= $no; ?> </td>
-                                            <td> <?= $row['sub_deskripsi']; ?> </td>
-                                            <td> <?= $row['sub_qty']; ?> </td>
-                                            <td> <?= $row['sub_unit']; ?> </td>
-                                            <td> <a href="?p=edit_item_tolak&aksi=hapus&id=<?= $row['id_subdbo']; ?>"><span data-placement='top' title='Hapus' onclick="javascript: return confirm('Anda yakin hapus ?')"><button class="btn btn-danger" onclick=”return confirm(‘Yakin Hapus?’)”><i class="fa fa-trash"></i></button></span></a> </td>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    } ?>
-                            </tbody>
+                            ?>
+                                    <tr>
+                                        <td> <?= $no; ?> </td>
+                                        <td> <?= $row['sub_deskripsi']; ?> </td>
+                                        <td> <?= $row['sub_qty']; ?> </td>
+                                        <td> <?= $row['sub_unit']; ?> </td>
+                                        <td>
+                                            <button type="button" title="Edit" class="btn btn-warning " data-toggle="modal" data-target="#modal_edit_<?= $row['id_subdbo']; ?>"><i class="fa fa-edit"></i></button>
+                                            <a href="?p=edit_item_tolak&aksi=hapus&id=<?= $row['id_subdbo']; ?>"><span data-placement='top' title='Hapus' onclick="javascript: return confirm('Anda yakin hapus ?')"><button class="btn btn-danger" onclick=”return confirm(‘Yakin Hapus?’)”><i class="fa fa-trash"></i></button></span></a>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Modal Tambah -->
+                                    <div id="modal_edit_<?= $row['id_subdbo']; ?>" class="modal fade" role="dialog">
+                                        <div class="modal-dialog lg">
+                                            <!-- konten modal-->
+                                            <div class="modal-content">
+                                                <!-- heading modal -->
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Edit Barang</h4>
+                                                </div>
+                                                <!-- body modal -->
+                                                <div class="modal-body">
+                                                    <form method="post" enctype="multipart/form-data" action="" class="form-horizontal">
+                                                        <div class="box-body">
+                                                            <input type="hidden" name="id" value="<?= $row['id_subdbo']; ?>">
+                                                            <input type="hidden" name="id_dbo" value="<?= $id; ?>">
+                                                            <input type="hidden" name="url" value="edit_item">
+                                                            <div class="form-group">
+                                                                <label for="nm_barang" class="col-sm-offset- col-sm-3 control-label">Deskripsi</label>
+                                                                <div class="col-sm-8">
+                                                                    <textarea rows="6" type="textarea" required class="form-control" name="sub_deskripsi" placeholder="Deskripsi"><?= $row['sub_deskripsi']; ?></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <br><br><br><br><br><br><br>
+                                                            <div class="form-group ">
+                                                                <label for="merk" class="col-sm-offset- col-sm-3 control-label">QTY</label>
+                                                                <div class="col-sm-5">
+                                                                    <input type="number" step="any" required class="form-control" name="sub_qty" value="<?= $row['sub_qty']; ?>">
+                                                                </div>
+                                                            </div>
+                                                            <br><br>
+                                                            <div class="form-group">
+                                                                <label id="tes" for="type" class="col-sm-offset- col-sm-3 control-label">Unit</label>
+                                                                <div class="col-sm-5 ">
+                                                                    <input type="text" required class="form-control" name="sub_unit" placeholder="Unit" value="<?= $row['sub_unit']; ?>">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class=" modal-footer">
+                                                            <input type="submit" name="simpan_edit" class="btn btn-primary col-sm-offset-1 " value="Simpan">
+                                                            &nbsp;
+                                                            <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Akhir Modal Tambah  -->
+
+                            <?php
+                                    $no++;
+                                endwhile;
+                            } ?>
+                        </tbody>
                     </table>
                 </div>
                 <br>
