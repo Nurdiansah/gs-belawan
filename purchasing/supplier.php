@@ -27,7 +27,8 @@ $query = mysqli_query($koneksi, "SELECT * FROM supplier WHERE id_supplier <> '0'
 
                 <!-- <div class="box-header with-border"> -->
                 <!-- Tombol untuk menampilkan modal-->
-                <button type="button" title="Tambah Data" class="btn btn-primary col-sm-offset-11" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i></button>
+                <a href="excel_supplier.php" title="Cetal Excel" class="btn btn-success col-sm-offset-11"><i class="fa fa-file-excel-o"></i></a>
+                <button type="button" title="Tambah Data" class="btn btn-primary " data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i></button>
                 <!-- </div> -->
 
                 <div class="box-body">
