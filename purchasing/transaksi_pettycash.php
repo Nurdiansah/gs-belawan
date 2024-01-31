@@ -73,81 +73,15 @@ $jumlahData  = mysqli_num_rows($query);
                         <div class="form-group">
                             <div class="col-sm-offset- col-sm-2">
                                 <select name="bulan" class="form-control" required>
-                                    <?php if (isset($_POST['cari'])) { ?>
-                                        <option value="01" <?php if ("01" == $_POST['bulan']) {
-                                                                echo "selected=selected";
-                                                            } ?>>Januari</option>
-                                        <option value="02" <?php if ("02" == $_POST['bulan']) {
-                                                                echo "selected=selected";
-                                                            } ?>>Februari</option>
-                                        <option value="03" <?php if ("03" == $_POST['bulan']) {
-                                                                echo "selected=selected";
-                                                            } ?>>Maret</option>
-                                        <option value="04" <?php if ("04" == $_POST['bulan']) {
-                                                                echo "selected=selected";
-                                                            } ?>>April</option>
-                                        <option value="05" <?php if ("05" == $_POST['bulan']) {
-                                                                echo "selected=selected";
-                                                            } ?>>Mei</option>
-                                        <option value="06" <?php if ("06" == $_POST['bulan']) {
-                                                                echo "selected=selected";
-                                                            } ?>>Juni</option>
-                                        <option value="07" <?php if ("07" == $_POST['bulan']) {
-                                                                echo "selected=selected";
-                                                            } ?>>Juli</option>
-                                        <option value="08" <?php if ("08" == $_POST['bulan']) {
-                                                                echo "selected=selected";
-                                                            } ?>>Agustus</option>
-                                        <option value="09" <?php if ("09" == $_POST['bulan']) {
-                                                                echo "selected=selected";
-                                                            } ?>>September</option>
-                                        <option value="10" <?php if ("10" == $_POST['bulan']) {
-                                                                echo "selected=selected";
-                                                            } ?>>Oktober</option>
-                                        <option value="11" <?php if ("11" == $_POST['bulan']) {
-                                                                echo "selected=selected";
-                                                            } ?>>November</option>
-                                        <option value="12" <?php if ("12" == $_POST['bulan']) {
-                                                                echo "selected=selected";
-                                                            } ?>>Desember</option>
-                                    <?php } else { ?>
-                                        <option value="01" <?php if ("01" == $bulanSekarang) {
-                                                                echo "selected=selected";
-                                                            } ?>>Januari</option>
-                                        <option value="02" <?php if ("02" == $bulanSekarang) {
-                                                                echo "selected=selected";
-                                                            } ?>>Februari</option>
-                                        <option value="03" <?php if ("03" == $bulanSekarang) {
-                                                                echo "selected=selected";
-                                                            } ?>>Maret</option>
-                                        <option value="04" <?php if ("04" == $bulanSekarang) {
-                                                                echo "selected=selected";
-                                                            } ?>>April</option>
-                                        <option value="05" <?php if ("05" == $bulanSekarang) {
-                                                                echo "selected=selected";
-                                                            } ?>>Mei</option>
-                                        <option value="06" <?php if ("06" == $bulanSekarang) {
-                                                                echo "selected=selected";
-                                                            } ?>>Juni</option>
-                                        <option value="07" <?php if ("07" == $bulanSekarang) {
-                                                                echo "selected=selected";
-                                                            } ?>>Juli</option>
-                                        <option value="08" <?php if ("08" == $bulanSekarang) {
-                                                                echo "selected=selected";
-                                                            } ?>>Agustus</option>
-                                        <option value="09" <?php if ("09" == $bulanSekarang) {
-                                                                echo "selected=selected";
-                                                            } ?>>September</option>
-                                        <option value="10" <?php if ("10" == $bulanSekarang) {
-                                                                echo "selected=selected";
-                                                            } ?>>Oktober</option>
-                                        <option value="11" <?php if ("11" == $bulanSekarang) {
-                                                                echo "selected=selected";
-                                                            } ?>>November</option>
-                                        <option value="12" <?php if ("12" == $bulanSekarang) {
-                                                                echo "selected=selected";
-                                                            } ?>>Desember</option>
-                                    <?php } ?>
+                                    <?php if (isset($_POST['cari'])) {
+                                        foreach (bulanLoop() as $no_bln => $bln) { ?>
+                                            <option value="<?= $no_bln; ?>" <?= $no_bln == $_POST['bulan'] ? "selected" : ""; ?>><?= $bln; ?></option>;
+                                        <?php }
+                                    } else {
+                                        foreach (bulanLoop() as $no_bln => $bln) { ?>
+                                            <option value="<?= $no_bln; ?>" <?= $no_bln == $bulanSekarang ? "selected" : ""; ?>><?= $bln; ?></option>;
+                                    <?php }
+                                    } ?>
                                 </select>
                             </div>
                         </div>

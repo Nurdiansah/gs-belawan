@@ -36,7 +36,7 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "purchasing")
     header("Content-type: application/vnd-ms-excel");
 
     // membuat nama file ekspor "export-to-excel.xls"
-    header("Content-Disposition: attachment; filename=Pettycash-" . bulanArray($bulan) . "-" . $tahun . ".xls");
+    header("Content-Disposition: attachment; filename=Pettycash-" . GetBulanIndo($bulan) . "-" . $tahun . ".xls");
 
     $no = 1;
 ?>
