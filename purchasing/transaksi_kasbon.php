@@ -36,9 +36,11 @@ if (isset($_POST['cari'])) {
                                         JOIN divisi d
                                             ON d.id_divisi = bo.id_divisi                                            
                                         WHERE k.status_kasbon = '8'
-                                        AND MONTH(tgl_pengajuan) = '$bulan'
-                                        AND YEAR(tgl_pengajuan) = '$tahun'
+                                        AND MONTH(waktu_penerima_dana) = '$bulan'
+                                        AND YEAR(waktu_penerima_dana) = '$tahun'
                                         ORDER BY k.id_kasbon DESC   ");
+} elseif (isset($_POST['cetak_excel'])) {
+    header('Location: cetak_excel_kasbon.php?bulan=' . enkripRambo($_POST['bulan']) . '&tahun=' . enkripRambo($_POST['tahun']) . '');
 } else {
     $query = mysqli_query($koneksi, "SELECT * 
                                         FROM kasbon k
@@ -49,8 +51,8 @@ if (isset($_POST['cari'])) {
                                         JOIN divisi d
                                             ON d.id_divisi = bo.id_divisi                                            
                                         WHERE k.status_kasbon = '8'
-                                        AND MONTH(tgl_pengajuan) = '$bulanSekarang'
-                                        AND YEAR(tgl_pengajuan) = '$tahunSekarang'
+                                        AND MONTH(waktu_penerima_dana) = '$bulanSekarang'
+                                        AND YEAR(waktu_penerima_dana) = '$tahunSekarang'
                                         ORDER BY k.id_kasbon DESC   ");
 }
 
@@ -171,6 +173,7 @@ $jumlahData = mysqli_num_rows($query);
                             </div>
                         </div>
                         <button type="submit" name="cari" class="btn bg-primary"><i class="fa fa-search"></i> Cari</button>
+                        <button type="submit" name="cetak_excel" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Cetak</button>
                     </form>
                 </div>
                 <div class="box-body">

@@ -40,6 +40,8 @@ if (isset($_POST['cari'])) {
                                     AND YEAR(tgl_po) = '$tahun'
                                     ORDER BY p.kd_transaksi DESC
                         ");
+} elseif (isset($_POST['cetak_excel'])) {
+    header('Location: cetak_excel_po.php?bulan=' . enkripRambo($_POST['bulan']) . '&tahun=' . enkripRambo($_POST['tahun']) . '');
 } else {
     $query = mysqli_query($koneksi, "SELECT * 
                                     FROM po p
@@ -173,6 +175,7 @@ $jumlahData = mysqli_num_rows($query);
                             </div>
                         </div>
                         <button type="submit" name="cari" class="btn bg-primary"><i class="fa fa-search"></i> Cari</button>
+                        <button type="submit" name="cetak_excel" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Cetak</button>
                     </form>
                 </div>
                 <div class="box-body">

@@ -39,6 +39,8 @@ if (isset($_POST['cari'])) {
                                         AND YEAR(created_pettycash_on) = '$tahun'
                                         ORDER BY tp.created_pettycash_on DESC
                             ");
+} elseif (isset($_POST['cetak_excel'])) {
+    header('Location: cetak_excel_petty.php?bulan=' . enkripRambo($_POST['bulan']) . '&tahun=' . enkripRambo($_POST['tahun']) . '');
 } else {
     $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp   
                                         JOIN anggaran a
@@ -171,6 +173,7 @@ $jumlahData  = mysqli_num_rows($query);
                             </div>
                         </div>
                         <button type="submit" name="cari" class="btn bg-primary"><i class="fa fa-search"></i> Cari</button>
+                        <button type="submit" name="cetak_excel" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Cetak</button>
                     </form>
                 </div>
                 <div class="box-body">
