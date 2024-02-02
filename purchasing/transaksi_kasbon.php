@@ -35,12 +35,14 @@ if (isset($_POST['cari'])) {
                                             ON k.id_dbo = dbo.id
                                         JOIN divisi d
                                             ON d.id_divisi = bo.id_divisi                                            
-                                        WHERE k.status_kasbon = '8'
-                                        AND MONTH(waktu_penerima_dana) = '$bulan'
-                                        AND YEAR(waktu_penerima_dana) = '$tahun'
-                                        ORDER BY k.id_kasbon DESC   ");
+                                        WHERE k.status_kasbon = '10'
+                                        AND MONTH(tgl_kasbon) = '$bulan'
+                                        AND YEAR(tgl_kasbon) = '$tahun'
+                                        ORDER BY k.id_kasbon, tgl_kasbon DESC   ");
 } elseif (isset($_POST['cetak_excel'])) {
     header('Location: cetak_excel_kasbon.php?bulan=' . enkripRambo($_POST['bulan']) . '&tahun=' . enkripRambo($_POST['tahun']) . '');
+} elseif (isset($_POST['cetak_timeline'])) {
+    header('Location: cetak_excel_timeline.php?bulan=' . enkripRambo($_POST['bulan']) . '&tahun=' . enkripRambo($_POST['tahun']) . '');
 } else {
     $query = mysqli_query($koneksi, "SELECT * 
                                         FROM kasbon k
@@ -50,9 +52,9 @@ if (isset($_POST['cari'])) {
                                             ON k.id_dbo = dbo.id
                                         JOIN divisi d
                                             ON d.id_divisi = bo.id_divisi                                            
-                                        WHERE k.status_kasbon = '8'
-                                        AND MONTH(waktu_penerima_dana) = '$bulanSekarang'
-                                        AND YEAR(waktu_penerima_dana) = '$tahunSekarang'
+                                        WHERE k.status_kasbon = '10'
+                                        AND MONTH(tgl_kasbon) = '$bulanSekarang'
+                                        AND YEAR(tgl_kasbon) = '$tahunSekarang'
                                         ORDER BY k.id_kasbon DESC   ");
 }
 
@@ -108,6 +110,7 @@ $jumlahData = mysqli_num_rows($query);
                         </div>
                         <button type="submit" name="cari" class="btn bg-primary"><i class="fa fa-search"></i> Cari</button>
                         <button type="submit" name="cetak_excel" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Cetak</button>
+                        <button type="submit" name="cetak_timeline" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Timeline</button>
                     </form>
                 </div>
                 <div class="box-body">

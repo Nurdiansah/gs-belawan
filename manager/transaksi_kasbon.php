@@ -29,7 +29,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                             ON k.id_dbo = dbo.id
                                             JOIN divisi d
                                             ON d.id_divisi = bo.id_divisi                                            
-                                            WHERE status_kasbon = 8 AND bo.id_manager = '$idUser'
+                                            WHERE status_kasbon = 10 AND bo.id_manager = '$idUser'
                                             ORDER BY k.id_kasbon DESC   ");
 
 

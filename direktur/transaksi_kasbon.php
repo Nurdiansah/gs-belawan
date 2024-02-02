@@ -28,7 +28,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                             ON k.id_dbo = dbo.id
                                             JOIN divisi d
                                             ON d.id_divisi = bo.id_divisi                                            
-                                            WHERE k.status_kasbon = '8'
+                                            WHERE k.status_kasbon = '10'
                                             ORDER BY k.id_kasbon DESC   ");
 
 

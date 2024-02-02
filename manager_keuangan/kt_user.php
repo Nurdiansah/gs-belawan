@@ -6,7 +6,7 @@ $queryKu = mysqli_query($koneksi, "SELECT *
                                             ON k.id_dbo = dbo.id
                                             JOIN divisi d
                                             ON d.id_divisi = dbo.id_divisi                                            
-                                            WHERE k.status_kasbon = 8 AND from_user = '1' AND id_manager='$idUser'
+                                            WHERE k.status_kasbon = 10 AND from_user = '1' AND id_manager='$idUser'
                                             ");
 ?>
 <!-- <form method="post" enctype="multipart/form-data" action="setuju_kasbon2.php" class="form-horizontal"> -->

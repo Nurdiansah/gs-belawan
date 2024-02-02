@@ -22,10 +22,10 @@ $query = mysqli_query($koneksi, "SELECT id_kasbon, tgl_kasbon, dbo.kd_transaksi 
                                         ON ph.id_pph = k.id_pph
                                     JOIN sub_dbo sdbo
                                         ON sdbo.id_dbo = id
-                                    WHERE k.status_kasbon = '8'
-                                    AND MONTH(waktu_penerima_dana) = '$bulan'
-                                    AND YEAR(waktu_penerima_dana) = '$tahun'
-                                    ORDER BY id_kasbon, waktu_penerima_dana ASC");
+                                    WHERE k.status_kasbon = '10'
+                                    AND MONTH(tgl_kasbon) = '$bulan'
+                                    AND YEAR(tgl_kasbon) = '$tahun'
+                                    ORDER BY id_kasbon, tgl_kasbon ASC");
 
 $total = mysqli_num_rows($query);
 
