@@ -8,7 +8,7 @@ $query = mysqli_query($koneksi, "SELECT *, k.komentar as kkomentar
                                     ON k.id_dbo = dbo.id
                                 JOIN divisi d
                                     ON d.id_divisi = dbo.id_divisi
-                                WHERE k.status_kasbon = '707'
+                                WHERE k.status_kasbon = '808'
                                 -- AND from_user = '0'
                                 ORDER BY k.id_kasbon DESC   ");
 ?>

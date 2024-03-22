@@ -68,7 +68,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                         <td> <?= formatTanggal($row['created_on']); ?> </td>
                                         <td> <?php if ($row['status_biayaops'] == 1) {
 
-                                                    if ($row['id_manager'] == '17' || $row['id_manager'] == '20') {
+                                                    if ($row['id_manager'] == '17' || $row['id_manager'] == '20' || $row['id_manager'] == '33') {
                                                         echo "<span class='label label-success'>Menunggu Approve Manager </span>";
                                                     } else {
                                                         echo "<span class='label label-success'>Menunggu Approve Supervisor </span>";

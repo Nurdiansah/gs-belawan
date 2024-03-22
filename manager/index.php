@@ -209,8 +209,12 @@ $totalProsesKasbon = $dataProsesKP['jumlah'] + $dataProsesKP['jumlah'];
                 <li class="user-header">
                   <img src="../gambar/avatar1.jpg" class="img-circle" alt="User Image">
                   <p>
-                    <?php echo " $Nama " ?>
-                    <small>- Supervisor -</small>
+                    <?php echo " $Nama ";
+                    if ($idUser == '17' || $idUser == '20' || $idUser == '33') { ?>
+                      <small>- Manager -</small>
+                    <?php } else { ?>
+                      <small>- Supervisor -</small>
+                    <?php } ?>
                   </p>
                 </li>
 

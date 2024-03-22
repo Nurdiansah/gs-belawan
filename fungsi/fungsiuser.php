@@ -15,7 +15,7 @@ function cekUsername($id_user)
     global $koneksi;
 
     $query = mysqli_query($koneksi, " SELECT username
-                                                FROM user
+                                                FROM gs.user
                                                 WHERE id_user = '$id_user' ");
     $row = mysqli_fetch_assoc($query);
     $username = $row['username'];

@@ -74,7 +74,7 @@ $jumlahData = mysqli_num_rows($query);
                                             <td> <?php if ($row['status_bkk'] == 0) {
                                                         echo "<h4><span class='label label-warning'> Draft </span></h4>";
                                                     } else if ($row['status_bkk'] == 1) {
-                                                        if ($row['id_manager'] == '17' || $row['id_manager'] == '20') {
+                                                        if ($row['id_manager'] == '17' || $row['id_manager'] == '20' || $row['id_manager'] == '33') {
                                                             echo "<h4><span class='label label-primary'> Approval Manager </span></h4>";
                                                         } else {
                                                             echo "<h4><span class='label label-primary'> Approval Supervisor </span></h4>";

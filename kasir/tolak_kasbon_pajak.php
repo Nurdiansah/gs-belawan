@@ -7,7 +7,7 @@ if (isset($_POST['tolak'])) {
     $id_kasbon = $_POST['id_kasbon'];
     $komentar = "@" .  $_POST['Nama'] . " : " . $_POST['komentar'];
 
-    $query = mysqli_query($koneksi, "UPDATE kasbon SET status_kasbon = '707',
+    $query = mysqli_query($koneksi, "UPDATE kasbon SET status_kasbon = '808',
                                         komentar = '$komentar'
                                         WHERE id_kasbon = '$id_kasbon'");
 

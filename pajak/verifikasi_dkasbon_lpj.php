@@ -448,18 +448,18 @@ if ($data['nilai_ppn'] > 0) {
             <!-- body modal -->
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" action="vrf_item_lpj.php" class="form-horizontal">
-                    <input type="text" name="id_kasbon" value="<?= $data['id_kasbon'] ?>" class="form-control">
-                    <input type="text" name="from_user" value="<?= $data['from_user'] ?>" class="form-control">
-                    <input type="text" name="id" value="<?= $data['id'] ?>" class="form-control">
-                    <input type="text" name="vrf_pajak" value="<?= $data['vrf_pajak'] ?>" class="form-control">
-                    <input type="text" value="<?= round($data['nilai_barang']); ?>" class="form-control" name="nilai_barang" readonly>
-                    <input type="text" value="<?= round($data['nilai_jasa']); ?>" class="form-control" name="nilai_jasa" readonly>
-                    <input type="text" value="<?= round($data['nilai_ppn']); ?>" class="form-control" name="ppn_nilai" readonly>
-                    <input type="text" value="<?= $data['id_pph']; ?>" class="form-control" name="id_pph" readonly>
-                    <input type="text" value="<?= round($data['nilai_pph']); ?>" class="form-control" name="pph_nilai" readonly>
-                    <input type="text" value="<?= round($data['potongan']); ?>" class="form-control" name="diskon" readonly>
-                    <input type="text" value="<?= round($data['biaya_lain']); ?>" class="form-control" name="biaya_lain" readonly>
-                    <input type="text" value="<?= round($data['harga_akhir']); ?>" class="form-control" name="jml" readonly>
+                    <input type="hidden" name="id_kasbon" value="<?= $data['id_kasbon'] ?>" class="form-control">
+                    <input type="hidden" name="from_user" value="<?= $data['from_user'] ?>" class="form-control">
+                    <input type="hidden" name="id" value="<?= $data['id'] ?>" class="form-control">
+                    <input type="hidden" name="vrf_pajak" value="<?= $data['vrf_pajak'] ?>" class="form-control">
+                    <input type="hidden" value="<?= round($data['nilai_barang']); ?>" class="form-control" name="nilai_barang" readonly>
+                    <input type="hidden" value="<?= round($data['nilai_jasa']); ?>" class="form-control" name="nilai_jasa" readonly>
+                    <input type="hidden" value="<?= round($data['nilai_ppn']); ?>" class="form-control" name="ppn_nilai" readonly>
+                    <input type="hidden" value="<?= $data['id_pph']; ?>" class="form-control" name="id_pph" readonly>
+                    <input type="hidden" value="<?= round($data['nilai_pph']); ?>" class="form-control" name="pph_nilai" readonly>
+                    <input type="hidden" value="<?= round($data['potongan']); ?>" class="form-control" name="diskon" readonly>
+                    <input type="hidden" value="<?= round($data['biaya_lain']); ?>" class="form-control" name="biaya_lain" readonly>
+                    <input type="hidden" value="<?= round($data['harga_akhir']); ?>" class="form-control" name="jml" readonly>
 
                     <div class="box-body">
                         <div class="form-group ">

@@ -113,7 +113,7 @@ $dataTolakPO = mysqli_fetch_assoc($queryTolakPO);
 $querySO = mysqli_query($koneksi, "SELECT COUNT(id_so) AS jumlah FROM so WHERE status = '2'");
 $dataSO = mysqli_fetch_assoc($querySO);
 
-$queryLPJ = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '707' AND sr_id IS NULL");
+$queryLPJ = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon WHERE status_kasbon = '808' AND sr_id IS NULL");
 $dataLPJ = mysqli_fetch_assoc($queryLPJ);
 
 $queryBKM = mysqli_query($koneksi, "SELECT COUNT(id_bkm) AS jumlah FROM bkm WHERE status_bkm = '1'");

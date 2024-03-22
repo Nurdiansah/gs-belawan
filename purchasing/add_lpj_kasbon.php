@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
 	$doc_lpj = ($_FILES['doc_lpj']['name']);
 	$ekstensi = pathinfo($doc_lpj, PATHINFO_EXTENSION);
 
-	$nama_doc = $id_kasbon . "-doc-lpj-kasbon." . $ekstensi;
+	$nama_doc = $id_kasbon . md5(time()) . "-doc-lpj-kasbon." . $ekstensi;
 	move_uploaded_file($lokasi_doc_lpj, "../file/doc_lpj/" . $nama_doc);
 
 	date_default_timezone_set('Asia/Jakarta');

@@ -34,7 +34,7 @@ if ($metode_pembayaran == 'Transfer') {
     $tableBkk = 'bkk_final';
 }
 
-$query =  mysqli_query($koneksi, "SELECT *, bf.nilai_barang as n_barang, bf.nilai_jasa as n_jasa, bf.nilai_ppn as n_ppn, bf.id_pph as bf_id_pph, bf.nilai_pph as n_pph
+$query =  mysqli_query($koneksi, "SELECT *, bf.nilai_barang as n_barang, bf.nilai_jasa as n_jasa, bf.nilai_ppn as n_ppn, bf.id_pph as bf_id_pph, bf.nilai_pph as n_pph, bf.nominal
                                     FROM tagihan_po  tp
                                     JOIN po p
                                         ON p.id_po = tp.po_id

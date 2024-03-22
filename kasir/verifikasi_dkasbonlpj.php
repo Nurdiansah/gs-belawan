@@ -165,22 +165,23 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
                             <div class="table-responsive datatab">
                                 <table class="table text-center table table-striped table-dark table-hover ">
                                     <thead style="background-color :#B0C4DE;">
+                                    <tr>
                                         <th>No</th>
                                         <th>Deskripsi</th>
                                         <th>QTY</th>
                                         <th>Unit</th>
                                         <th>Unit Price</th>
                                         <th>Total Price</th>
+                                </tr>
                                     </thead>
-                                    <tr>
                                         <tbody>
-                                            <tr>
                                                 <?php
                                                 $no = 1;
                                                 $total = 0;
                                                 while ($row = mysqli_fetch_assoc($querySbo)) :
 
                                                 ?>
+                                                <tr>
                                                     <td> <?= $no; ?> </td>
                                                     <td> <?= $row['sub_deskripsi']; ?> </td>
                                                     <td> <?= $row['sub_qty']; ?> </td>
@@ -213,7 +214,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
                             <?php } else { ?>
                                 <h3 class="text-center">Foto Barang</h3>
                                 <br>
-                                <div class="row ">
+                                <div class="box-header with-border">
                                     <!-- <div class="col-sm-offset-2">
                                         <img src="../file/foto/<?= $data['foto_item']; ?>" width="80%" alt="...">
                                     </div> -->
@@ -233,6 +234,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
                                     <div class="embed-responsive embed-responsive-16by9">
                                         <iframe class="embed-responsive-item" src="../file/doc_penawaran/<?php echo $data['doc_penawaran']; ?> "></iframe>
                                     </div>
+                                </div>
                                 <?php    } ?>
 
                                 <!-- Embed Document    LPJ           -->
@@ -241,62 +243,8 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
                                     <div class="embed-responsive embed-responsive-16by9">
                                         <iframe class="embed-responsive-item" src="../file/doc_lpj/<?php echo $data['doc_lpj']; ?> "></iframe>
                                     </div>
-                                    <div class="box-header with-border">
-                                        <h3 class="text-center">Rincian Barang</h3>
-                                    </div>
-                                    <div class="table-responsive datatab">
-                                        <table class="table text-center table table-striped table-dark table-hover ">
-                                            <thead style="background-color :#B0C4DE;">
-                                                <th>No</th>
-                                                <th>Deskripsi</th>
-                                                <th>QTY</th>
-                                                <th>Unit</th>
-                                                <th>Unit Price</th>
-                                                <th>Total Price</th>
-                                            </thead>
-                                            <tr>
-                                                <tbody>
-                                                    <tr>
-                                                        <?php
-                                                        $no = 1;
-                                                        $total = 0;
-                                                        if (mysqli_num_rows($querySbo)) {
-                                                            while ($row = mysqli_fetch_assoc($querySbo)) :
 
-                                                        ?>
-                                                                <td> <?= $no; ?> </td>
-                                                                <td> <?= $row['sub_deskripsi']; ?> </td>
-                                                                <td> <?= $row['sub_qty']; ?> </td>
-                                                                <td> <?= $row['sub_unit']; ?> </td>
-                                                                <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
-                                                                <td><?= formatRupiah($row['total_price']); ?></td>
-                                                    </tr>
-                                            <?php
-                                                                $total += $row['total_price'];
-                                                                $no++;
-                                                            endwhile;
-                                                        } ?>
-                                            <tr style="background-color :#B0C4DE;">
-                                                <td colspan="5"><b>Total</b></td>
-                                                <td><b><?= formatRupiah($total); ?></b></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5"><b>PPN</b></td>
-                                                <td><b><?= formatRupiah($data['nilai_ppn']); ?></b></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5"><b>PPh</b></td>
-                                                <td><b>(<?= formatRupiah($data['nilai_pph']); ?>)</b></td>
-                                            </tr>
-                                            <tr style="background-color :#B0C4DE;">
-                                                <td colspan="5"><b>Grand Total</b></td>
-                                                <td><b><?= formatRupiah($data['harga_akhir']); ?></b></td>
-                                            </tr>
-                                                </tbody>
-                                        </table>
-                                    </div>
-
-                                    <br><br><br>
+                                    <br>
 
                                     <div class="form-group">
                                         <div class="col-sm-offset-8 col-sm-4 control-label">
@@ -305,7 +253,6 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#tolakPurchasing">Reject To Purchasing</button></span></a>
                                         </div>
                                     </div>
-                                </div>
                                 </div>
                     </form>
                 </div>

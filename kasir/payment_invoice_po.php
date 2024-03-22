@@ -14,7 +14,6 @@ if (isset($_POST['payment'])) {
     $ekstensi = pathinfo($bukti_pembayaran, PATHINFO_EXTENSION);
     $nm_baru = time() . "-bukti-pembayaran-outstanding-cek." . $ekstensi;
 
-
     mysqli_begin_transaction($koneksi);
 
     $status = '4';
@@ -22,7 +21,7 @@ if (isset($_POST['payment'])) {
     $bulan    = date('n', strtotime($tanggal));
     $bulan    = date('n');
 
-    $nomorBkk = getNomorBkk($bulan);
+    $nomorBkk = nomorBkkNew($tanggal);
 
     $nomorAkhir = substr($nomorBkk, 0, 3);
 
