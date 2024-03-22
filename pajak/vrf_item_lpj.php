@@ -5,9 +5,6 @@ include "../fungsi/fungsi.php";
 
 if (isset($_POST['submit'])) {
     $id_kasbon = $_POST['id_kasbon'];
-
-    // str_replace(".", "", $_POST['harga']);
-
     $nilai_barang = $_POST['nilai_barang'];
     $nilai_jasa = $_POST['nilai_jasa'];
     $biaya_lain = $_POST['biaya_lain'];
@@ -16,6 +13,8 @@ if (isset($_POST['submit'])) {
     $id_pph = $_POST['id_pph'];
     $harga = str_replace(".", "", $_POST['jml']);
 
+    $status_kasbon = $_POST['status_kasbon'] == "808" ? "9" : "7";
+
     $query = mysqli_query($koneksi, "UPDATE kasbon SET nilai_barang = '$nilai_barang',
                                             nilai_jasa = '$nilai_jasa', 
                                             biaya_lain = '$biaya_lain', 
@@ -23,8 +22,8 @@ if (isset($_POST['submit'])) {
                                             nilai_pph = '$nilai_pph', 
                                             id_pph = '$id_pph',
                                             harga_akhir = '$harga',
-                                            status_kasbon = '7',
-                                            komentar = NULL
+                                            status_kasbon = '$status_kasbon'
+                                            -- komentar = NULL
                                         WHERE id_kasbon ='$id_kasbon' ");
 
     if ($query) {

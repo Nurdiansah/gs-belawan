@@ -3,7 +3,7 @@ include "../fungsi/koneksi.php";
 
 if (isset($_POST['tolak'])) {
     $id_kasbon = $_POST['id_kasbon'];
-    $komentar = $_POST['komentar'];
+    $komentar = "@" . $_POST['Nama'] . " : " . $_POST['komentar'];
 
     // cek tabel tolak_kasbon, jika kosong maka insert jika udah ada maka update aja
     // $cekTolak = mysqli_query($koneksi, "SELECT * FROM tolak_kasbon WHERE kasbon_id = '$id_kasbon'");
@@ -30,7 +30,9 @@ if (isset($_POST['tolak'])) {
     // }
     // selesai cek tabel reapprove_kasbon
 
-    $tolak = mysqli_multi_query($koneksi, "UPDATE kasbon SET status_kasbon = '404', komentar_pajak = '$komentar'
+    $status_kasbon = $_POST['status_kasbon'] == "808" ? "707" : "404";
+
+    $tolak = mysqli_multi_query($koneksi, "UPDATE kasbon SET status_kasbon = '$status_kasbon', komentar_pajak = '$komentar'
                                                 WHERE id_kasbon = '$id_kasbon';
 
                                             -- $aksi_reapp;

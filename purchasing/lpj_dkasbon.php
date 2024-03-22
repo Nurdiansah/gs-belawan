@@ -130,7 +130,7 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
 
                                 <label for="alasan_ditolak" class="col-sm-offset- col-sm-2 control-label">Alasan Ditolak</label>
                                 <div class="col-sm-3">
-                                    <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "> <?= $data['kkomentar']; ?></textarea>
+                                    <textarea rows="5" type="text" name="alasan_ditolak" disabled class="form-control "> <?= $data['kkomentar'] . "&#13;&#10;" . $data['komentar_pajak']; ?></textarea>
                                 </div>
                             </div>
                             <br>

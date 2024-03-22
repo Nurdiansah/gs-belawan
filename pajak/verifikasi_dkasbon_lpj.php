@@ -452,6 +452,7 @@ if ($data['nilai_ppn'] > 0) {
                     <input type="hidden" name="from_user" value="<?= $data['from_user'] ?>" class="form-control">
                     <input type="hidden" name="id" value="<?= $data['id'] ?>" class="form-control">
                     <input type="hidden" name="vrf_pajak" value="<?= $data['vrf_pajak'] ?>" class="form-control">
+                    <input type="hidden" name="status_kasbon" value="<?= $data['status_kasbon'] ?>" class="form-control">
                     <input type="hidden" value="<?= round($data['nilai_barang']); ?>" class="form-control" name="nilai_barang" readonly>
                     <input type="hidden" value="<?= round($data['nilai_jasa']); ?>" class="form-control" name="nilai_jasa" readonly>
                     <input type="hidden" value="<?= round($data['nilai_ppn']); ?>" class="form-control" name="ppn_nilai" readonly>
@@ -497,12 +498,14 @@ if ($data['nilai_ppn'] > 0) {
 
                             <div class="col-sm-4">
                                 <input type="hidden" value="<?= $data['id_kasbon']; ?>" class="form-control" name="id_kasbon">
+                                <input type="hidden" value="<?= $data['status_kasbon']; ?>" class="form-control" name="status_kasbon">
+                                <input type="hidden" value="<?= $Nama; ?>" class="form-control" name="Nama">
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="validationTextarea">Komentar</label>
-                            <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required>@<?php echo $Nama ?> : </textarea>
+                            <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required></textarea>
                             <div class="invalid-feedback">
                                 Please enter a message in the textarea.
                             </div>
