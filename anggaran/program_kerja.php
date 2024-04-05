@@ -303,7 +303,7 @@ $totalRow = mysqli_num_rows($queryPK);
                                                                     <label id="tes" for="tahun" class="col-sm-offset-1 col-sm-3 control-label">Tahun</label>
                                                                     <div class="col-sm-5">
                                                                         <select name="tahun" class="form-control" required>
-                                                                            <?php foreach (range(2021, $tahunAyeuna + 1) as $tahunLoop) { ?>
+                                                                            <?php foreach (range($row['tahun'] - 1, $row['tahun'] + 1) as $tahunLoop) { ?>
                                                                                 <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $row['tahun'] ? "selected=selected" : ''; ?>><?= $tahunLoop; ?></option>
                                                                             <?php } ?>
                                                                         </select>
@@ -400,7 +400,7 @@ $totalRow = mysqli_num_rows($queryPK);
                             <label id="tes" for="tahun" class="col-sm-offset-2 col-sm-2 control-label">Tahun</label>
                             <div class="col-sm-5">
                                 <select name="tahun" class="form-control" required>
-                                    <?php foreach (range(2021, $tahunAyeuna + 1) as $tahunLoop) { ?>
+                                    <?php foreach (range($tahunAyeuna - 1, $tahunAyeuna + 1) as $tahunLoop) { ?>
                                         <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $tahunAyeuna ? "selected=selected" : ''; ?>><?= $tahunLoop; ?></option>
                                     <?php } ?>
                                 </select>

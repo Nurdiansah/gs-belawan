@@ -49,6 +49,8 @@
                                 <span class="label label-danger">Ditolak Pajak</span>
                             <?php  } else if ($row['status_kasbon'] == 505) { ?>
                                 <span class="label label-danger">Ditolak Direksi/Manager Finance</span>
+                            <?php  } else if ($row['status_kasbon'] == 808) { ?>
+                                <span class="label label-danger">Ditolak Kasir to Pajak</span>
                             <?php  } else {
                                 echo "-";
                             }  ?>

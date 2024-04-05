@@ -153,7 +153,7 @@ $dataHdr = $dataSHeader['id_header'];
                             <label id="tes" for="tahun" class="col-sm-offset-1 col-sm-3 control-label">Anggaran Tahun</label>
                             <div class="col-sm-5">
                                 <select name="tahun" id="tahun" class="form-control" required>
-                                    <?php foreach (range(2021, $tahunAyeuna + 1) as $tahunLoop) { ?>
+                                    <?php foreach (range($dataAnggaran['tahun'] - 1, $dataAnggaran['tahun'] + 1) as $tahunLoop) { ?>
                                         <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $dataAnggaran['tahun'] ? "selected=selected" : ''; ?>><?= $tahunLoop; ?></option>
                                     <?php } ?>
                                 </select>

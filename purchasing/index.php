@@ -74,7 +74,7 @@ $queryKp = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon
                                       ON k.kd_transaksi = bo.kd_transaksi
                                     JOIN detail_biayaops dbo
                                       ON k.id_dbo = dbo.id                                  
-                                    WHERE status_kasbon IN (1, 2, 3, 4, 5, 6, 7, 101, 202, 303, 404) ");
+                                    WHERE status_kasbon IN (1, 2, 3, 4, 5, 6, 7, 101, 202, 303, 404, 808) ");
 $dataKp = mysqli_fetch_assoc($queryKp);
 
 $queryKs = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) as jumlah FROM kasbon k

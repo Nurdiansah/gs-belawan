@@ -16,7 +16,7 @@ $queryMR = mysqli_query($koneksi, "SELECT *
                                             ON k.id_dbo = dbo.id
                                             JOIN divisi d
                                             ON d.id_divisi = bo.id_divisi
-                                            WHERE status_kasbon IN (1, 2, 3, 4, 5, 6, 7, 101, 202, 303, 404, 505)
+                                            WHERE status_kasbon IN (1, 2, 3, 4, 5, 6, 7, 101, 202, 303, 404, 505, 808)
                                             ORDER BY tgl_kasbon DESC
                                 ");
 

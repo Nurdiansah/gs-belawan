@@ -94,7 +94,7 @@ $queryKP1 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbo
                                                                       JOIN detail_biayaops dbo 
                                                                       ON k.id_dbo = dbo.id  
                                                                       WHERE dbo.id_divisi = '$idDivisi'
-                                                                      AND (k.status_kasbon IN (2, 3, 4, 5, 6, 7, 202, 606) OR k.status_kasbon IS NULL)
+                                                                      AND (k.status_kasbon IN (2, 3, 4, 5, 6, 7, 202, 606, 808) OR k.status_kasbon IS NULL)
                                                                       AND k.from_user = '0'
                                                                       AND sr_id IS NULL");
 $dataKP1 = mysqli_fetch_assoc($queryKP1);

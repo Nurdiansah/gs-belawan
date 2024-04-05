@@ -70,6 +70,8 @@
                                 <span class="label label-danger">Ditolak Costcontrol</span>
                             <?php  } else if ($row['status_kasbon'] == 606) { ?>
                                 <span class="label label-danger">Ditolak Kasir</span>
+                            <?php  } else if ($row['status_kasbon'] == 808) { ?>
+                                <span class="label label-danger">Ditolak Kasir to Pajak</span>
                             <?php  } elseif (is_null($row['status_kasbon'])) { ?>
                                 <span class="label label-info">Submit Kembali Purchasing</span>
                             <?php }  ?>
