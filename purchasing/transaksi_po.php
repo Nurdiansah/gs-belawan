@@ -42,6 +42,8 @@ if (isset($_POST['cari'])) {
                         ");
 } elseif (isset($_POST['cetak_excel'])) {
     header('Location: cetak_excel_po.php?bulan=' . enkripRambo($_POST['bulan']) . '&tahun=' . enkripRambo($_POST['tahun']) . '');
+} elseif (isset($_POST['cetak_timeline'])) {
+    header('Location: cetak_timeline_po.php?bulan=' . enkripRambo($_POST['bulan']) . '&tahun=' . enkripRambo($_POST['tahun']) . '');
 } else {
     $query = mysqli_query($koneksi, "SELECT * 
                                     FROM po p
@@ -109,7 +111,8 @@ $jumlahData = mysqli_num_rows($query);
                             </div>
                         </div>
                         <button type="submit" name="cari" class="btn bg-primary"><i class="fa fa-search"></i> Cari</button>
-                        <button type="submit" name="cetak_excel" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Cetak</button>
+                        <button type="submit" name="cetak_excel" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Cetak PO</button>
+                        <button type="submit" name="cetak_timeline" class="btn btn-warning"><i class="fa fa-file-excel-o"></i> Timeline</button>
                     </form>
                 </div>
                 <div class="box-body">

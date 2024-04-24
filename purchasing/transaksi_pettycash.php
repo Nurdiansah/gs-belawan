@@ -107,7 +107,7 @@ $jumlahData  = mysqli_num_rows($query);
                             </div>
                         </div>
                         <button type="submit" name="cari" class="btn bg-primary"><i class="fa fa-search"></i> Cari</button>
-                        <button type="submit" name="cetak_excel" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Cetak</button>
+                        <button type="submit" name="cetak_excel" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Cetak Pettycash</button>
                     </form>
                 </div>
                 <div class="box-body">
