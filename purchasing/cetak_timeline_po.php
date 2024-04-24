@@ -46,11 +46,11 @@ if (!isset($_SESSION['username_gs']) || $_SESSION['level_gs'] != "purchasing") {
             <th>Request User</th>
             <th>Input Sistem</th>
             <th>Bidding</th>
-            <th>Pajak</th>
             <th>Manager GA</th>
             <th>Manager Finance</th>
             <th>Direksi 1</th>
             <th>Direksi 2</th>
+            <th>Pajak</th>
         </tr>
         <?php while ($data = mysqli_fetch_assoc($query)) { ?>
             <tr>
@@ -61,11 +61,11 @@ if (!isset($_SESSION['username_gs']) || $_SESSION['level_gs'] != "purchasing") {
                 <td><?= $data['created_on']; ?></td>
                 <td><?= $data['app_purchasing']; ?></td>
                 <td><?= $data['tgl_po']; ?></td>
-                <td><?= $data['app_pajak']; ?></td>
                 <td><?= $data['app_mgr_ga']; ?></td>
                 <td><?= $data['app_mgr_finance']; ?></td>
                 <td><?= $data['app_direksi']; ?></td>
                 <td><?= $data['app_direksi2']; ?></td>
+                <td><?= $data['app_pajak']; ?></td>
             </tr>
         <?php $no++;
         } ?>
