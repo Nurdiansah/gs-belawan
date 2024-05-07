@@ -139,6 +139,7 @@ $dataCC = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM program_kerja
                                                                         ON id_programkerja = programkerja_id
                                                                     WHERE divisi_id = '$data[id_dvs_spj]'
                                                                     AND spj = '1'
+                                                                    AND tahun = '$tahun'
                                                                     ORDER BY nm_programkerja ASC
                                                         ");
                                                     if (mysqli_num_rows($queryProgramKerja)) {
@@ -165,6 +166,7 @@ $dataCC = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM program_kerja
                                                                                                 JOIN cost_center
                                                                                                     ON id_costcenter = costcenter_id
                                                                                                 WHERE divisi_id = '$idDivisi'
+                                                                                                AND tahun = '$tahun'
                                                                                                 ORDER BY nm_programkerja ASC
                                                         ");
                                                 if (mysqli_num_rows($queryProgramKerja)) {

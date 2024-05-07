@@ -35,7 +35,7 @@ if (isset($_POST['cari'])) {
                                         ON k.id_dbo = dbo.id
                                     JOIN divisi d
                                         ON d.id_divisi = bo.id_divisi
-                                    WHERE k.status_kasbon = '8'
+                                    WHERE k.status_kasbon = '10'
                                      AND MONTH(tgl_pengajuan) = '$bulan'
                                     AND YEAR(tgl_pengajuan) = '$tahun'
 

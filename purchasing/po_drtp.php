@@ -4,6 +4,19 @@ include "../fungsi/fungsi.php";
 
 $id = $_GET['id'];
 
+// edit supplier
+if (isset($_POST['edit_supplier'])) {
+    $id_po = $_POST['id_po'];
+    $id_dbo = $_POST['id_dbo'];
+    $supplier = $_POST['supplier'];
+
+    $editSup = mysqli_query($koneksi, "UPDATE detail_biayaops SET id_supplier = '$supplier' WHERE id = '$id_dbo'");
+
+    if ($editSup) {
+        header("Location: index.php?p=po_drtp&id=$id_po");
+    }
+}
+
 $queryNama =  mysqli_query($koneksi, "SELECT nama from user WHERE username  = '$_SESSION[username_blw]'");
 $rowNama = mysqli_fetch_assoc($queryNama);
 $Nama = $rowNama['nama'];
@@ -153,20 +166,19 @@ $queryTagihan =  mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase
                             <th>Jumlah</th>
                             <th>Harga</th>
                         </thead>
-                        <tr>
                             <tbody>
-                                <tr>
-                                    <?php
+                                <?php
                                     $no = 1;
                                     if (mysqli_num_rows($queryBo)) {
                                         while ($row = mysqli_fetch_assoc($queryBo)) :
-
-                                    ?>
+                                            
+                                            ?>
+                                            <tr>
                                             <td> <?= $no; ?> </td>
                                             <td> <?= $row['nm_barang']; ?> </td>
                                             <td> <?= $row['kd_anggaran'] . ' ' . $row['nm_item']; ?> </td>
                                             <td> <?= $row['merk']; ?> </td>
-                                            <td> <?= $row['nm_supplier']; ?> </td>
+                                            <td> <?= $row['nm_supplier']; ?> <sup><button type="button" class="btn btn- btn-xs" data-toggle="modal" data-target="#edit_supplier"><i class="fa fa-edit" title="Edit" data-toggle="tooltip" style="color: blue;"></i></button> </sup></td>
                                             <td> <?= $row['satuan']; ?> </td>
                                             <td> <?= $row['jumlah']; ?> </td>
                                             <td> <b> Rp. <?= number_format($row['grand_totalpo'], 0, ",", "."); ?> </b></td>
@@ -393,6 +405,47 @@ $queryTagihan =  mysqli_query($koneksi, "SELECT *, tp.persentase AS tppersentase
         </div>
     </div>
     </div>
+    
+    <!-- Modal edit supplier -->
+    <div id="edit_supplier" class="modal fade" role="dialog">
+        <div class="modal-dialog ">
+            <!-- konten modal-->
+            <div class="modal-content">
+                <!-- heading modal -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Supplier</h4>
+                </div>
+                <!-- body modal -->
+                <form class="form-horizontal" method="POST">
+                    <input type="hidden" name="id_po" value="<?= $data2['id_po']; ?>">
+                    <input type="hidden" name="id_dbo" value="<?= $data2['id_dbo']; ?>">
+                    <div class="modal-body">
+                        <div class="perhitungan">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="supplier" class="col-sm-offset-1 col-sm-3 control-label">Supplier/Vendor</label>
+                                    <div class="col-sm-6">
+                                        <select name="supplier" class="form-control">
+                                            <?php $querySupplier = mysqli_query($koneksi, "SELECT * FROM supplier  ORDER BY nm_supplier ASC");
+                                            while ($dataSupplier = mysqli_fetch_assoc($querySupplier)) { ?>
+                                                <option value="<?= $dataSupplier['id_supplier'] ?>" <?= $dataSupplier['id_supplier'] == $data2['id_supplier'] ? "selected" : ""; ?>><?= $dataSupplier['nm_supplier']; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" modal-footer">
+                                <input type="submit" class="btn btn-info" name="edit_supplier" value="Simpan">
+                                <input type="reset" value="Batal" data-dismiss="modal" class="btn btn-default">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Akhir modal edit supplier -->
 </section>
 
 <script>
