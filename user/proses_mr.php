@@ -51,6 +51,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                 <th>No</th>
                                 <th>Kode Transaksi</th>
                                 <th>Tanggal Pengajuan</th>
+                                <th>Nama Barang</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -66,6 +67,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                         <td> <?= $no; ?> </td>
                                         <td> <?= $row['kd_transaksi']; ?> </td>
                                         <td> <?= formatTanggal($row['created_on']); ?> </td>
+                                        <td> <?= $row['nm_barang']; ?> </td>
                                         <td> <?php if ($row['status_biayaops'] == 1) {
 
                                                     if ($row['id_manager'] == '17' || $row['id_manager'] == '20' || $row['id_manager'] == '33') {

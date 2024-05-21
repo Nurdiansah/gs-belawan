@@ -45,6 +45,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM biaya_ops WHERE id_divisi = '$id_
                                 <th>No</th>
                                 <th>Kode Transaksi</th>
                                 <th>Tanggal Pengajuan</th>
+                                <th>Nama Barang</th>
                                 <th>Komentar</th>
                                 <th>Aksi</th>
                             </tr>
@@ -60,6 +61,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM biaya_ops WHERE id_divisi = '$id_
                                         <td> <?= $no; ?> </td>
                                         <td> <?= $row['kd_transaksi']; ?> </td>
                                         <td> <?= formatTanggal($row['created_on']); ?> </td>
+                                        <td> <?= $row['nm_barang']; ?> </td>
                                         <th><?= batasiKata($row['komentar']); ?> </th>
                                         <td>
                                             <a href="?p=tolak_mr&aksi=lihat&id=<?= $row['kd_transaksi']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info">Lihat</button></span></a>

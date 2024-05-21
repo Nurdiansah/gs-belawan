@@ -51,6 +51,13 @@ if ($data['nilai_ppn'] > 0) {
 } else {
     $ppn_persen = "0";
 }
+
+if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
+    $pph_persen = 0;
+} else {
+    $pph_persen = round($data['nilai_pph'] / $data['nilai_jasa'] * 100, 2);
+}
+
 ?>
 
 
@@ -201,16 +208,15 @@ if ($data['nilai_ppn'] > 0) {
                                         <th>Unit Price</th>
                                         <th>Total Price</th>
                                     </thead>
-                                    <tr>
                                         <tbody>
-                                            <tr>
-                                                <?php
+                                            <?php
                                                 $no = 1;
                                                 $total = 0;
                                                 if (mysqli_num_rows($querySbo)) {
                                                     while ($row = mysqli_fetch_assoc($querySbo)) :
-
-                                                ?>
+                                                        
+                                                        ?>
+                                                        <tr>
                                                         <td> <?= $no; ?> </td>
                                                         <td> <?= $row['sub_deskripsi']; ?> </td>
                                                         <td> <?= $row['sub_qty']; ?> </td>
@@ -370,7 +376,7 @@ if ($data['nilai_ppn'] > 0) {
                                                     <div class="col-sm-5">
                                                         <div class="input-group">
                                                             <span class="input-group-addon">PPh</span>
-                                                            <input type="text" required class="form-control " name="pph_persen" value="0" id="pph_persen" />
+                                                            <input type="text" required class="form-control " name="pph_persen" value="<?= $pph_persen; ?>" id="pph_persen" />
                                                             <span class="input-group-addon">%</span>
                                                         </div>
                                                     </div>
@@ -637,7 +643,7 @@ if ($data['nilai_ppn'] > 0) {
         var nj_ui = tandaPemisahTitik(nilaiJasa);
         $('#nj_ui').text('Rp.' + nj_ui);
 
-        var pph_persen = parseInt($("#pph_persen").val())
+        var pph_persen = parseFloat($("#pph_persen").val())
         var pph_nilai = Math.floor(nilaiJasa * pph_persen / 100);
 
         var pph_nilaia = tandaPemisahTitik(pph_nilai);
@@ -715,7 +721,7 @@ if ($data['nilai_ppn'] > 0) {
             document.form.jml.value = jml;
 
             if (pph_nilai > 0) {
-                var persen = Math.round((pph_nilai / nilai_jasa) * 100);
+                var persen = (pph_nilai / nilai_jasa) * 100;
 
                 document.form.pph_persen.value = persen;
             }

@@ -39,6 +39,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM kasbon
                                     AND status_kasbon = '10'
                                     -- AND from_user = '1'
                                     -- AND sr_id IS NULL
+                                    ORDER BY tgl_kasbon DESC
                     ");
 
 
