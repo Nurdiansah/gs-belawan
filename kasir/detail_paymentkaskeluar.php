@@ -110,13 +110,14 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                                 <div class="form-group">
                                     <label for="keterangan" class="col-sm-2 control-label">Keterangan</label>
                                     <div class="col-sm-3">
-                                        <input type="text" value="<?= $row2['keterangan']; ?>" class="form-control " name="keterangan" readonly>
+                                        <textarea rows="5" name="keterangan" class="form-control" readonly id="" cols="30" rows="10"><?= $row2['keterangan']; ?></textarea>
                                     </div>
                                     <!-- </div>
                     <div class="form-group"> -->
                                     <label for="terbilang_bkk" class=" col-sm-2 control-label">Terbilang</label>
                                     <div class="col-sm-3">
-                                        <input type="text" value="<?= $row2['terbilang_bkk'] . ' Rupiah'; ?>" disabled class="form-control tanggal" name="terbilang_bkk">
+                                        <!-- <input type="text" value="<?= $row2['terbilang_bkk'] . ' Rupiah'; ?>" disabled class="form-control tanggal" name="terbilang_bkk"> -->
+                                        <textarea rows="5" name="keterangan" class="form-control" readonly id="" cols="30" rows="10"><?= $row2['terbilang_bkk']; ?> Rupiah</textarea>
                                     </div>
                                 </div>
                                 <hr>
