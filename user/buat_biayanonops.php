@@ -60,7 +60,7 @@ $tanggalCargo = date("Y-m-d");
                                 <div class="col-sm-4">
                                     <!-- <input type="radio" value="spj" name="spj" id="spj" onclick="spj()"> <label for="spj">SPJ</label><br>
                                     <input type="radio" value="non_spj" name="spj" id="non_spj" onclick="spj()" checked> <label for="non_spj">Non SPJ</label> -->
-                                    <input type="checkbox" name="spj" id="mySPJ" onclick="checkBox()"><label for="mySPJ">&nbsp;&nbsp;Pengajuan SPJ</label>
+                                    <input type="checkbox" name="spj" id="mySPJ" value="1" onclick="checkBox()"><label for="mySPJ">&nbsp;&nbsp;Pengajuan SPJ</label>
                                 </div>
                             </div>
                         <?php } ?>
@@ -68,7 +68,7 @@ $tanggalCargo = date("Y-m-d");
                             <div class="form-group">
                                 <label id="tes" for="divisi" class="col-sm-offset-1 col-sm-3 control-label">Divisi</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control select2 divisi_id" name="id_divisi">
+                                    <select class="form-control select2 divisi_id" name="id_divisi_spj">
                                         <option value="">--Divisi--</option>
                                         <?php
                                         $queryDivsi = mysqli_query($koneksi, "SELECT *

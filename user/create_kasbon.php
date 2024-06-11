@@ -6,11 +6,12 @@ include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
 if (isset($_POST['submit'])) {
-    $id_divisi = $_POST['id_divisi'];
     $id_anggaran = $_POST['id_anggaran'] == "" ? $_POST['id_anggaran_spj'] : $_POST['id_anggaran'];
     $totalPengajuan = penghilangTitik($_POST['nominal']);
     $keterangan = $_POST['keterangan'];
     $id_user = $_SESSION['id_usr_blw'];
+
+    $id_divisi = $_POST['spj'] == "1" ? $_POST['id_divisi_spj'] : $_POST['id_divisi'];
 
     // if ($ekstensi != 'pdf') {
     //     setcookie('pesan', 'File yang anda upload bukan berbentuk pdf , silahkan upload ulang dengan extensi pdf !', time() + (3), '/');

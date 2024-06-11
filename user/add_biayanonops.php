@@ -86,8 +86,9 @@ if (isset($_POST['simpan'])) {
 	$rowUser = mysqli_fetch_assoc($queryUser);
 	$id_user = $rowUser['id_user'];
 	$nama = $rowUser['nama'];
-	$id_divisi = $rowUser['id_divisi'];
 	$id_manager = $rowUser['id_manager'];
+
+	$id_divisi = $_POST['spj'] == "1" ? $_POST['id_divisi_spj'] : $rowUser['id_divisi'];
 
 	date_default_timezone_set('Asia/Jakarta');
 	$tanggal = date("Y-m-d H:i:s");
