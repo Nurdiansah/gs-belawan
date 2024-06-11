@@ -211,6 +211,8 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                             <div class="col-sm-4">
                                 <input type="hidden" value="<?= $totalPengajuan; ?>" class="form-control" name="harga" readonly>
                                 <input type="hidden" value="<?= $data['id_kasbon']; ?>" class="form-control" name="id_kasbon" readonly>
+                                <input type="hidden" value="<?= round($data['nilai_barang']); ?>" class="form-control" name="nilai_barang" readonly>
+                                <input type="hidden" value="<?= round($data['nilai_jasa']); ?>" class="form-control" name="nilai_jasa" readonly>
                             </div>
                         </div>
                         <div class="form-group ">

@@ -7,17 +7,39 @@ if (isset($_POST['submit'])) {
 	$harga = $_POST['harga'];
 	$nominal_pengembalian = str_replace(".", "", $_POST['nominal_pengembalian']);
 	$aksi = $_POST['aksi'];
+    $nilai_barang = $_POST['nilai_barang'];
+    $nilai_jasa = $_POST['nilai_jasa'];
 
-	if ($aksi == "pengembalian") {
-		$hargaAkhir = $harga - $nominal_pengembalian;
-		$field = $aksi . " = '" . $nominal_pengembalian . "', ";
-	} elseif ($aksi == "penambahan") {
-		$hargaAkhir = $harga + $nominal_pengembalian;
-		$field = $aksi . " = '" . $nominal_pengembalian . "', ";
-	} else {
-		$hargaAkhir = $harga;
-		$field = "";
-	}
+    if ($aksi == "pengembalian") {
+        $hargaAkhir = $harga - $nominal_pengembalian;
+        $field = $aksi . " = '" . $nominal_pengembalian . "', ";
+
+        if ($nilai_barang > 0) {
+            // Nilai Barang
+            $nilai_barang = $nilai_barang - $nominal_pengembalian;
+        } else {
+            if ($nilai_jasa > 0) {
+                // Nilai Jasa
+                $nilai_jasa = $nilai_jasa - $nominal_pengembalian;
+            }
+        }
+    } elseif ($aksi == "penambahan") {
+        $hargaAkhir = $harga + $nominal_pengembalian;
+        $field = $aksi . " = '" . $nominal_pengembalian . "', ";
+
+        if ($nilai_barang > 0) {
+            // Nilai Barang
+            $nilai_barang = $nilai_barang + $nominal_pengembalian;
+        } else {
+            if ($nilai_jasa > 0) {
+                // Nilai Jasa
+                $nilai_jasa = $nilai_jasa + $nominal_pengembalian;
+            }
+        }
+    } else {
+        $hargaAkhir = $harga;
+        $field = "";
+    }
 
 	// echo $hargaAkhir . "<br>" . $field;
 	// die;
@@ -44,8 +66,9 @@ if (isset($_POST['submit'])) {
 	mysqli_query($koneksi, $queryLog);
 
 	$query = "UPDATE kasbon SET doc_lpj = '$nama_doc', $field
-									status_kasbon = '9', waktu_lpj = '$tanggal' , harga_akhir = '$hargaAkhir', komentar = NULL
-                                    WHERE id_kasbon ='$id_kasbon' ";
+									status_kasbon = '9', waktu_lpj = '$tanggal' , harga_akhir = '$hargaAkhir', komentar = NULL,
+									nilai_barang = '$nilai_barang', nilai_jasa = '$nilai_jasa'
+                                WHERE id_kasbon ='$id_kasbon' ";
 
 	$hasil = mysqli_query($koneksi, $query);
 

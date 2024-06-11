@@ -35,28 +35,31 @@ if (isset($_POST['submit'])) {
 
     if ($metode_pembayaran == 'Transfer') {
         // bkk ke pusat
-        $updateBkkPusat = mysqli_query($koneksiPusat, "UPDATE bkk_final SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa', potongan = '$potongan',
-                                                                        nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', biaya_lain = '$biaya_lain',
-                                                                        id_pph = '$id_pph', nominal = '$harga', status_bkk = '1'
+        $updateBkkPusat = mysqli_query($koneksiPusat, "UPDATE bkk_final SET status_bkk = '1'
+                                                                        -- nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa', potongan = '$potongan',
+                                                                        -- nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', biaya_lain = '$biaya_lain',
+                                                                        -- id_pph = '$id_pph', nominal = '$harga', status_bkk = '1'
                                                                     WHERE id_tagihan = '$id_tagihan' AND id_area = '2'
                                                                     ");
 
-        $hasil = mysqli_query($koneksi, "UPDATE bkk_ke_pusat SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa', potongan = '$potongan', 
-                                nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', biaya_lain = '$biaya_lain',
-                                id_pph = '$id_pph', nominal = '$harga', status_bkk = '1'
-                            WHERE id = '$id_bkk'
-                ");
+        $hasil = mysqli_query($koneksi, "UPDATE bkk_ke_pusat SET status_bkk = '1'
+                                                    -- nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa', potongan = '$potongan', 
+                                                    -- nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', biaya_lain = '$biaya_lain',
+                                                    -- id_pph = '$id_pph', nominal = '$harga', status_bkk = '1'
+                                                WHERE id = '$id_bkk'
+                                        ");
     } else {
-        $hasil = mysqli_query($koneksi, "UPDATE bkk_final SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa', potongan = '$potongan',
-                                nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', biaya_lain = '$biaya_lain',
-                                id_pph = '$id_pph', nominal = '$harga', status_bkk = '1'
-                            WHERE id = '$id_bkk'
-                ");
+        $hasil = mysqli_query($koneksi, "UPDATE bkk_final SET status_bkk = '1'
+                                                        -- nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa', potongan = '$potongan',
+                                                        -- nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', biaya_lain = '$biaya_lain',
+                                                        -- id_pph = '$id_pph', nominal = '$harga', status_bkk = '1'
+                                                    WHERE id = '$id_bkk'
+                                        ");
     }
 
-    $updTagihan = mysqli_query($koneksi, "UPDATE tagihan_po SET nominal = '$harga' WHERE bkk_id = '$id_bkk'");
+    // $updTagihan = mysqli_query($koneksi, "UPDATE tagihan_po SET nominal = '$harga' WHERE bkk_id = '$id_bkk'");
 
-    $updPO = mysqli_query($koneksi, "UPDATE po SET app_pajak = NOW() WHERE id_po = '$id_po'");
+    // $updPO = mysqli_query($koneksi, "UPDATE po SET app_pajak = NOW() WHERE id_po = '$id_po'");
 
 
     if ($hasil) {

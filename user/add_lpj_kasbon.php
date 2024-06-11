@@ -18,9 +18,11 @@ if (isset($_POST['submit'])) {
         if ($nilai_barang > 0) {
             // Nilai Barang
             $nilai_barang = $nilai_barang - $nominal_pengembalian;
-        } else if ($nilai_jasa > 0) {
-            // Nilai Jasa
-            $nilai_jasa = $nilai_jasa - $nominal_pengembalian;
+        } else {
+            if ($nilai_jasa > 0) {
+                // Nilai Jasa
+                $nilai_jasa = $nilai_jasa - $nominal_pengembalian;
+            }
         }
     } elseif ($aksi == "penambahan") {
         $hargaAkhir = $harga + $nominal_pengembalian;
@@ -29,9 +31,11 @@ if (isset($_POST['submit'])) {
         if ($nilai_barang > 0) {
             // Nilai Barang
             $nilai_barang = $nilai_barang + $nominal_pengembalian;
-        } else if ($nilai_jasa > 0) {
-            // Nilai Jasa
-            $nilai_jasa = $nilai_jasa + $nominal_pengembalian;
+        } else {
+            if ($nilai_jasa > 0) {
+                // Nilai Jasa
+                $nilai_jasa = $nilai_jasa + $nominal_pengembalian;
+            }
         }
     } else {
         $hargaAkhir = $harga;
