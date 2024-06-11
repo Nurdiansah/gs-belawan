@@ -18,13 +18,22 @@ $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SE
 $rowUser = mysqli_fetch_assoc($queryUser);
 $id_divisi = $rowUser['id_divisi'];
 
-$query = mysqli_query($koneksi, "SELECT *, b.tgl_bkk as btgl_bkk, b.keterangan as keterangan
+if ($id_divisi == "6") {
+    $query = mysqli_query($koneksi, "SELECT *, b.tgl_bkk as btgl_bkk, b.keterangan as keterangan
                                         FROM bkk b
                                         LEFT JOIN bkk_final bf
-                                        ON bf.id_kdtransaksi=b.kd_transaksi
+                                            ON bf.id_kdtransaksi=b.kd_transaksi
+                                        WHERE (b.id_divisi = '$id_divisi' OR b.id_anggaran IN (SELECT id_anggaran FROM anggaran WHERE spj = '1'))
+                                        AND b.status_bkk ='10' 
+                                        ORDER BY b.kd_transaksi DESC  ");
+} else {
+    $query = mysqli_query($koneksi, "SELECT *, b.tgl_bkk as btgl_bkk, b.keterangan as keterangan
+                                        FROM bkk b
+                                        LEFT JOIN bkk_final bf
+                                            ON bf.id_kdtransaksi=b.kd_transaksi
                                         WHERE b.id_divisi = '$id_divisi' AND b.status_bkk ='10' 
                                         ORDER BY b.kd_transaksi DESC  ");
-
+}
 
 ?>
 <!-- Main content -->

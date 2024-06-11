@@ -19,21 +19,33 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
     }
 }
 
-$query = mysqli_query($koneksi, "SELECT * 
-                                            FROM kasbon k                                            
+if ($idDivisi == "6") {
+    $query = mysqli_query($koneksi, "SELECT * 
+                                                FROM kasbon k                                            
+                                                JOIN detail_biayaops dbo
+                                                ON k.id_dbo = dbo.id
+                                                join anggaran ag    
+                                                on dbo.id_anggaran = ag.id_anggaran
+                                                JOIN divisi d
+                                                ON d.id_divisi = dbo.id_divisi                                            
+                                                WHERE k.status_kasbon = 0
+                                                AND k.from_user = 1
+                                                AND (dbo.id_divisi = '$idDivisi' OR dbo.id_anggaran IN (SELECT id_anggaran FROM anggaran WHERE spj = '1'))
+                                                ");
+} else {
+    $query = mysqli_query($koneksi, "SELECT * 
+                                            FROM kasbon k
                                             JOIN detail_biayaops dbo
                                             ON k.id_dbo = dbo.id
                                             join anggaran ag    
                                             on dbo.id_anggaran = ag.id_anggaran
                                             JOIN divisi d
-                                            ON d.id_divisi = dbo.id_divisi                                            
+                                            ON d.id_divisi = dbo.id_divisi
                                             WHERE k.status_kasbon = 0
                                             AND k.from_user = 1
                                             AND dbo.id_divisi = '$idDivisi'
                                             ");
-
-
-
+}
 
 ?>
 <!-- Main content -->

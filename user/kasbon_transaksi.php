@@ -32,7 +32,18 @@ $idDivisi = $rowUser['id_divisi'];
 //                                     WHERE status_kasbon = 8 AND bo.id_divisi = '$idDivisi'
 //                                     ORDER BY k.id_kasbon DESC   ");
 
-$query = mysqli_query($koneksi, "SELECT * FROM kasbon
+if ($idDivisi == "6") {
+    $query = mysqli_query($koneksi, "SELECT * FROM kasbon
+                                        JOIN detail_biayaops
+                                            ON id = id_dbo
+                                        WHERE (id_divisi = '$idDivisi' OR id_anggaran IN (SELECT id_anggaran FROM anggaran WHERE spj = '1'))
+                                        AND status_kasbon = '10'
+                                        -- AND from_user = '1'
+                                        -- AND sr_id IS NULL
+                                        ORDER BY tgl_kasbon DESC
+                        ");
+} else {
+    $query = mysqli_query($koneksi, "SELECT * FROM kasbon
                                     JOIN detail_biayaops
                                         ON id = id_dbo
                                     WHERE id_divisi = '$idDivisi'
@@ -41,7 +52,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM kasbon
                                     -- AND sr_id IS NULL
                                     ORDER BY tgl_kasbon DESC
                     ");
-
+}
 
 ?>
 <!-- Main content -->

@@ -18,7 +18,17 @@ $queryUser =  mysqli_query($koneksi, "SELECT * from user WHERE username  = '$_SE
 $rowUser = mysqli_fetch_assoc($queryUser);
 $id_divisi = $rowUser['id_divisi'];
 
-$query = mysqli_query($koneksi, "SELECT * FROM bkk WHERE id_divisi = '$id_divisi' AND status_bkk IN (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 202, 303, 404, 17) ORDER BY kd_transaksi DESC  ");
+if ($id_divisi == "6") {
+    $query = mysqli_query($koneksi, "SELECT * FROM bkk
+                                    WHERE (id_divisi = '$id_divisi' OR id_anggaran IN (SELECT id_anggaran FROM anggaran WHERE spj = '1'))
+                                    AND status_bkk IN (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 202, 303, 404, 17)
+                                    ORDER BY kd_transaksi DESC  ");
+} else {
+    $query = mysqli_query($koneksi, "SELECT * FROM bkk
+                                        WHERE id_divisi = '$id_divisi'
+                                        AND status_bkk IN (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 202, 303, 404, 17)
+                                        ORDER BY kd_transaksi DESC  ");
+}
 
 $jumlahData = mysqli_num_rows($query);
 

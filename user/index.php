@@ -61,14 +61,25 @@ $dataPM = mysqli_fetch_assoc($queryPM);
 $queryTM = mysqli_query($koneksi, "SELECT COUNT(kd_transaksi) AS jumlah_proses FROM biaya_ops WHERE status_biayaops = '0' AND id_divisi='$idDivisi'");
 $dataTM = mysqli_fetch_assoc($queryTM);
 
-$queryKC = mysqli_query($koneksi, "SELECT COUNT(k.id_kasbon) AS jumlah 
-                                            FROM kasbon k                                            
+if ($idDivisi == "6") {
+  $queryKC = mysqli_query($koneksi, "SELECT COUNT(k.id_kasbon) AS jumlah 
+                                              FROM kasbon k                                            
+                                              JOIN detail_biayaops dbo
+                                              ON k.id_dbo = dbo.id                                            
+                                              WHERE k.status_kasbon = 0
+                                              AND from_user = 1
+                                              AND (dbo.id_divisi = '$idDivisi' OR dbo.id_anggaran IN (SELECT id_anggaran FROM anggaran WHERE spj = '1'))
+                                              ");
+} else {
+  $queryKC = mysqli_query($koneksi, "SELECT COUNT(k.id_kasbon) AS jumlah 
+                                            FROM kasbon k
                                             JOIN detail_biayaops dbo
-                                            ON k.id_dbo = dbo.id                                            
+                                            ON k.id_dbo = dbo.id
                                             WHERE k.status_kasbon = 0
                                             AND from_user = 1
                                             AND dbo.id_divisi = '$idDivisi'
                                             ");
+}
 $dataKC = mysqli_fetch_assoc($queryKC);
 
 // Pettycash proses
@@ -100,10 +111,21 @@ $queryKP1 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbo
 $dataKP1 = mysqli_fetch_assoc($queryKP1);
 
 // kasbon proses 2
-$queryKP2 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon k
+if ($idDivisi == "6") {
+  $queryKP2 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon k
+                                                                        JOIN detail_biayaops dbo 
+                                                                        ON k.id_dbo = dbo.id  
+                                                                        WHERE (dbo.id_divisi = '$idDivisi' OR dbo.id_anggaran IN (SELECT id_anggaran FROM anggaran WHERE spj = '1'))
+                                                                        AND k.status_kasbon BETWEEN 1 AND 9
+                                                                        AND k.from_user = '1'");
+} else {
+  $queryKP2 = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon k
                                                                       JOIN detail_biayaops dbo 
                                                                       ON k.id_dbo = dbo.id  
-                                                                      WHERE dbo.id_divisi = '$idDivisi' AND k.status_kasbon  BETWEEN 1 AND 9 AND k.from_user = '1'");
+                                                                      WHERE dbo.id_divisi = '$idDivisi'
+                                                                      AND k.status_kasbon BETWEEN 1 AND 9
+                                                                      AND k.from_user = '1'");
+}
 $dataKP2 = mysqli_fetch_assoc($queryKP2);
 
 $dataKP = $dataKP1['jumlah'] + $dataKP2['jumlah'];
@@ -138,15 +160,26 @@ $dataPP = mysqli_fetch_assoc($queryPP);
 // KASBON
 
 //----------kasbon user
-$queryTKU = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon k                                            
+if ($idDivisi == "6") {
+  $queryTKU = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon k                                            
+                                                                        JOIN detail_biayaops dbo
+                                                                        ON k.id_dbo = dbo.id
+                                                                        JOIN divisi d
+                                                                        ON d.id_divisi = dbo.id_divisi                                            
+                                                                        WHERE k.status_kasbon IN ('101', '202', '303', '707', '606')
+                                                                        AND from_user = '1'
+                                                                        AND (dbo.id_divisi = '$idDivisi' OR dbo.id_anggaran IN (SELECT id_anggaran FROM anggaran WHERE spj = '1'))
+                                                        ");
+} else {
+  $queryTKU = mysqli_query($koneksi, "SELECT COUNT(id_kasbon) AS jumlah FROM kasbon k
                                                                       JOIN detail_biayaops dbo
                                                                       ON k.id_dbo = dbo.id
                                                                       JOIN divisi d
-                                                                      ON d.id_divisi = dbo.id_divisi                                            
+                                                                      ON d.id_divisi = dbo.id_divisi
                                                                       WHERE k.status_kasbon IN ('101', '202', '303', '707', '606')
                                                                       AND from_user = '1'
                                                                       AND dbo.id_divisi = '$idDivisi'");
-
+}
 $dataTKU = mysqli_fetch_assoc($queryTKU);
 
 //----------kasbon purchasing

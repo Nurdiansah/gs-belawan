@@ -1,13 +1,25 @@
 <?php
-$queryKu = mysqli_query($koneksi, "SELECT * 
+if ($idDivisi == "6") {
+    $queryKu = mysqli_query($koneksi, "SELECT * 
+                                        FROM kasbon k
+                                        LEFT JOIN detail_biayaops dbo
+                                            ON k.id_dbo = dbo.id
+                                        JOIN divisi d
+                                            ON d.id_divisi = dbo.id_divisi                                            
+                                        WHERE status_kasbon BETWEEN 1 AND 606 AND status_kasbon != '10'
+                                        AND k.from_user = '1' AND (dbo.id_divisi = '$idDivisi' OR dbo.id_anggaran IN (SELECT id_anggaran FROM anggaran WHERE spj = '1'))
+                                        ORDER BY k.id_kasbon DESC   ");
+} else {
+    $queryKu = mysqli_query($koneksi, "SELECT * 
                                     FROM kasbon k
                                     LEFT JOIN detail_biayaops dbo
                                         ON k.id_dbo = dbo.id
                                     JOIN divisi d
-                                        ON d.id_divisi = dbo.id_divisi                                            
+                                        ON d.id_divisi = dbo.id_divisi
                                     WHERE status_kasbon BETWEEN 1 AND 606 AND status_kasbon != '10'
                                     AND k.from_user = '1' AND dbo.id_divisi = '$idDivisi'
                                     ORDER BY k.id_kasbon DESC   ");
+}
 ?>
 <!-- <form method="post" enctype="multipart/form-data" action="setuju_kasbon2.php" class="form-horizontal"> -->
 <div class="table-responsive">

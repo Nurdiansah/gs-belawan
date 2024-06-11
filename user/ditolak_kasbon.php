@@ -7,17 +7,32 @@ if (isset($_COOKIE['pesan'])) {
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
-$queryUser = mysqli_query($koneksi, "SELECT * 
-                                        FROM kasbon k                                            
+if ($idDivisi == "6") {
+    $queryUser = mysqli_query($koneksi, "SELECT * 
+                                            FROM kasbon k
+                                            JOIN detail_biayaops dbo
+                                                ON k.id_dbo = dbo.id
+                                            JOIN divisi d
+                                                ON d.id_divisi = dbo.id_divisi 
+                                            LEFT JOIN anggaran ag
+                                                ON dbo.id_anggaran = ag.id_anggaran
+                                            WHERE k.status_kasbon IN ('101', '202', '303', '707', '606')
+                                            AND from_user = '1'
+                                            AND (dbo.id_divisi = '$idDivisi' OR dbo.id_anggaran IN (SELECT id_anggaran FROM anggaran WHERE spj = '1'))
+                                        ");
+} else {
+    $queryUser = mysqli_query($koneksi, "SELECT * 
+                                        FROM kasbon k
                                         JOIN detail_biayaops dbo
                                             ON k.id_dbo = dbo.id
                                         JOIN divisi d
                                             ON d.id_divisi = dbo.id_divisi 
                                         LEFT JOIN anggaran ag
-                                            ON dbo.id_anggaran = ag.id_anggaran                                           
+                                            ON dbo.id_anggaran = ag.id_anggaran
                                         WHERE k.status_kasbon IN ('101', '202', '303', '707', '606')
                                         AND from_user = '1'
                                         AND dbo.id_divisi = '$idDivisi'");
+}
 
 $queryPurchasing = mysqli_query($koneksi, "SELECT * FROM kasbon ks
                                             JOIN detail_biayaops db
