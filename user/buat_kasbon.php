@@ -178,7 +178,7 @@ $query = mysqli_query($koneksi, "SELECT *
                             <div class="form-group">
                                 <label id="tes" for="pengajuan" class="col-sm-offset-1 col-sm-3 control-label"></label>
                                 <div class="col-sm-5">
-                                    <input type="checkbox" name="spj" id="mySPJ" onclick="checkBox()"><label for="mySPJ">&nbsp;&nbsp;Pengajuan SPJ</label>
+                                    <input type="checkbox" name="spj" id="mySPJ" value="1" onclick="checkBox()"><label for="mySPJ">&nbsp;&nbsp;Pengajuan SPJ</label>
                                 </div>
                             </div>
                         <?php } ?>
@@ -187,7 +187,7 @@ $query = mysqli_query($koneksi, "SELECT *
                             <div class="form-group">
                                 <label id="tes" for="divisi" class="col-sm-offset-1 col-sm-3 control-label">Divisi</label>
                                 <div class="col-sm-5">
-                                    <select class="form-control select2 divisi_id" name="">
+                                    <select class="form-control select2 divisi_id" name="id_divisi_spj">
                                         <option value="">--Divisi--</option>
                                         <?php
                                         $queryDivsi = mysqli_query($koneksi, "SELECT *
