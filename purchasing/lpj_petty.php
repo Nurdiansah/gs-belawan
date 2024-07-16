@@ -65,12 +65,12 @@ $jumlahData = mysqli_num_rows($query);
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <?php
-                                        $no = 1;
-                                        if (mysqli_num_rows($query)) {
-                                            while ($row = mysqli_fetch_assoc($query)) :
-                                        ?>
+                                    <?php
+                                    $no = 1;
+                                    if (mysqli_num_rows($query)) {
+                                        while ($row = mysqli_fetch_assoc($query)) :
+                                    ?>
+                                            <tr>
                                                 <td> <?= $no; ?> </td>
                                                 <td> <?= $row['kd_pettycash']; ?> </td>
                                                 <td> <?= formatTanggal($row['created_pettycash_on']); ?> </td>
@@ -87,11 +87,11 @@ $jumlahData = mysqli_num_rows($query);
                                                         <a href="?p=lpj_petty&aksi=lpj&id=<?= $row['id_pettycash']; ?>"><span data-placement='top' data-toggle='tooltip' title='LPJ'><button type="button" class="btn btn-success"><i class="fa fa-edit"> </i> LPJ</button></span></a>
                                                     <?php  } ?>
                                                 </td>
-                                    </tr>
-                            <?php
-                                                $no++;
-                                            endwhile;
-                                        } ?>
+                                            </tr>
+                                    <?php
+                                            $no++;
+                                        endwhile;
+                                    } ?>
                                 </tbody>
                             </table>
                         </div>

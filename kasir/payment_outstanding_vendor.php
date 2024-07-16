@@ -23,7 +23,7 @@ if (isset($_POST['payment'])) {
     }
 
     $bulan    = date('n', strtotime($tanggal));
-    $bulan    = date('n');
+    // $bulan    = date('n');
 
     $nomorBkk = getNomorBkk($bulan);
 
@@ -122,8 +122,6 @@ if (isset($_POST['payment'])) {
     $id = $_POST['id'];
     $id_tagihan = $_POST['id_tagihan'];
 
-    $bulan    = date('n');
-    $tanggal = dateNow();
     //baca lokasi file sementara dan nama file dari form (doc_ptw)		
     $lokasi_doc = ($_FILES['doc_faktur']['tmp_name']);
     $doc = ($_FILES['doc_faktur']['name']);
@@ -148,8 +146,7 @@ if (isset($_POST['payment'])) {
 
 
         # jika semua query berhasil di jalankan
-        $queryUpdate = mysqli_query($koneksi, "UPDATE bkk_final SET release_on_bkk = '$tanggal',                                               
-                                                status_bkk = '4'
+        $queryUpdate = mysqli_query($koneksi, "UPDATE bkk_final SET status_bkk = '4'
                                                 WHERE id = '$id'");
 
 
