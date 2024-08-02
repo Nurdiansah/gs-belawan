@@ -805,7 +805,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
         var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
         document.form.ppn_nilai.value = ppn_nilaia;
 
-        var jmla = nilaiBarang + nilaiJasa + ppn_nilai - pph_nilai - pph_nilai2 + biayaLain;
+        var jmla = (nilaiBarang + nilaiJasa + ppn_nilai + biayaLain) - (pph_nilai + pph_nilai2 + potongan);
         var jml = tandaPemisahTitik(jmla);
         $("#jml").attr("value", jml);
 
@@ -910,7 +910,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
 
         var pph_nilai2 = parseInt($("#pph_nilai2").val())
 
-        var jmla = nilaiBarang + nilaiJasa + ppn_nilai - pph_nilai - pph_nilai2 + biayaLain;
+        var jmla = (nilaiBarang + nilaiJasa + ppn_nilai + biayaLain) - (pph_nilai + pph_nilai2 + potongan);
         var jml = tandaPemisahTitik(jmla);
         $("#jml").attr("value", jml);
         document.form.jml.value = jml;

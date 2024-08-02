@@ -208,32 +208,32 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
                                         <th>Unit Price</th>
                                         <th>Total Price</th>
                                     </thead>
-                                        <tbody>
-                                            <?php
-                                                $no = 1;
-                                                $total = 0;
-                                                if (mysqli_num_rows($querySbo)) {
-                                                    while ($row = mysqli_fetch_assoc($querySbo)) :
-                                                        
-                                                        ?>
-                                                        <tr>
-                                                        <td> <?= $no; ?> </td>
-                                                        <td> <?= $row['sub_deskripsi']; ?> </td>
-                                                        <td> <?= $row['sub_qty']; ?> </td>
-                                                        <td> <?= $row['sub_unit']; ?> </td>
-                                                        <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
-                                                        <td><?= formatRupiah($row['total_price']); ?></td>
-                                            </tr>
-                                    <?php
-                                                        $total += $row['total_price'];
-                                                        $no++;
-                                                    endwhile;
-                                                } ?>
-                                    <tr style="background-color :#B0C4DE;">
-                                        <td colspan="5"><b>Total</b></td>
-                                        <td><b><?= formatRupiah($total); ?></b></td>
-                                    </tr>
-                                        </tbody>
+                                    <tbody>
+                                        <?php
+                                        $no = 1;
+                                        $total = 0;
+                                        if (mysqli_num_rows($querySbo)) {
+                                            while ($row = mysqli_fetch_assoc($querySbo)) :
+
+                                        ?>
+                                                <tr>
+                                                    <td> <?= $no; ?> </td>
+                                                    <td> <?= $row['sub_deskripsi']; ?> </td>
+                                                    <td> <?= $row['sub_qty']; ?> </td>
+                                                    <td> <?= $row['sub_unit']; ?> </td>
+                                                    <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
+                                                    <td><?= formatRupiah($row['total_price']); ?></td>
+                                                </tr>
+                                        <?php
+                                                $total += $row['total_price'];
+                                                $no++;
+                                            endwhile;
+                                        } ?>
+                                        <tr style="background-color :#B0C4DE;">
+                                            <td colspan="5"><b>Total</b></td>
+                                            <td><b><?= formatRupiah($total); ?></b></td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                             <br>

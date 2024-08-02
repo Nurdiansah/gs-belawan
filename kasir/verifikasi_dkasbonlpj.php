@@ -141,7 +141,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
                                     <input type="text" disabled class="form-control is-valid" name="harga" value="<?= formatRupiah($data['nilai_pengajuan']); ?>">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <?php if ($data['pengembalian'] > 0) { ?>
                                     <label id="tes" for="harga" class="col-sm-offset-1 col-sm-1 control-label">Pengembalian</label>
                                     <div class="col-sm-3">
@@ -149,7 +149,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
                                     </div>
                                 <?php } ?>
                                 <?php if ($data['penambahan'] > 0) { ?>
-                                    <label id="tes" for="harga" class="col-sm-offset-1 col-sm-1 control-label">Peambahan</label>
+                                    <label id="tes" for="harga" class="col-sm-offset-1 col-sm-1 control-label">Penambahan</label>
                                     <div class="col-sm-3">
                                         <input type="text" disabled class="form-control is-valid" name="harga" value="<?= formatRupiah($data['penambahan']); ?>">
                                     </div>
@@ -158,49 +158,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
                                 <div class="col-sm-3">
                                     <input type="text" disabled class="form-control is-valid" name="harga" value="<?= formatRupiah($totalPengajuan); ?>">
                                 </div>
-                            </div>
-                            <div class="box-header with-border">
-                                <h3 class="text-center">Rincian Barang</h3>
-                            </div>
-                            <div class="table-responsive datatab">
-                                <table class="table text-center table table-striped table-dark table-hover ">
-                                    <thead style="background-color :#B0C4DE;">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Deskripsi</th>
-                                        <th>QTY</th>
-                                        <th>Unit</th>
-                                        <th>Unit Price</th>
-                                        <th>Total Price</th>
-                                </tr>
-                                    </thead>
-                                        <tbody>
-                                                <?php
-                                                $no = 1;
-                                                $total = 0;
-                                                while ($row = mysqli_fetch_assoc($querySbo)) :
-
-                                                ?>
-                                                <tr>
-                                                    <td> <?= $no; ?> </td>
-                                                    <td> <?= $row['sub_deskripsi']; ?> </td>
-                                                    <td> <?= $row['sub_qty']; ?> </td>
-                                                    <td> <?= $row['sub_unit']; ?> </td>
-                                                    <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
-                                                    <td><?= formatRupiah($row['total_price']); ?></td>
-                                            </tr>
-                                        <?php
-                                                    $total += $row['total_price'];
-                                                    $no++;
-                                                endwhile;
-                                        ?>
-                                        <tr style="background-color :#B0C4DE;">
-                                            <td colspan="5"><b>Total</b></td>
-                                            <td><b><?= formatRupiah($total); ?></b></td>
-                                        </tr>
-                                        </tbody>
-                                </table>
-                            </div>
+                            </div> -->
                             <?php
                             $foto = $data['foto_item'];
                             if ($foto === '0') { ?>
@@ -235,25 +193,101 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
                                         <iframe class="embed-responsive-item" src="../file/doc_penawaran/<?php echo $data['doc_penawaran']; ?> "></iframe>
                                     </div>
                                 </div>
-                                <?php    } ?>
+                            <?php    } ?>
 
-                                <!-- Embed Document    LPJ           -->
+                            <!-- Embed Document    LPJ           -->
+                            <div class="box-header with-border">
+                                <h3 class="text-center">Document LPJ</h3>
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="../file/doc_lpj/<?php echo $data['doc_lpj']; ?> "></iframe>
+                                </div>
+
                                 <div class="box-header with-border">
-                                    <h3 class="text-center">Document LPJ</h3>
-                                    <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item" src="../file/doc_lpj/<?php echo $data['doc_lpj']; ?> "></iframe>
-                                    </div>
+                                    <h3 class="text-center">Rincian Barang</h3>
+                                </div>
+                                <div class="table-responsive datatab">
+                                    <table class="table text-center table table-striped table-dark table-hover ">
+                                        <thead style="background-color :#B0C4DE;">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Deskripsi</th>
+                                                <th>QTY</th>
+                                                <th>Unit</th>
+                                                <th>Unit Price</th>
+                                                <th>Total Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $no = 1;
+                                            $total = 0;
+                                            while ($row = mysqli_fetch_assoc($querySbo)) :
 
-                                    <br>
+                                            ?>
+                                                <tr>
+                                                    <td> <?= $no; ?> </td>
+                                                    <td> <?= $row['sub_deskripsi']; ?> </td>
+                                                    <td> <?= $row['sub_qty']; ?> </td>
+                                                    <td> <?= $row['sub_unit']; ?> </td>
+                                                    <td> <?= formatRupiah($row['sub_unitprice']); ?> </td>
+                                                    <td><?= formatRupiah($row['total_price']); ?></td>
+                                                </tr>
+                                            <?php
+                                                $total += $row['total_price'];
+                                                $no++;
+                                            endwhile;
+                                            ?>
+                                            <tr style="background-color :#B0C4DE;">
+                                                <td colspan="5"><b>Total Rincian</b></td>
+                                                <td><b><?= formatRupiah($total); ?></b></td>
+                                            </tr>
+                                            <tr style="background-color : gray;">
+                                                <td colspan="6"></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5"><b>Nilai Barang</b></td>
+                                                <td><b><?= formatRupiah($data['nilai_barang']); ?></b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5"><b>Nilai Jasa</b></td>
+                                                <td><b><?= formatRupiah($data['nilai_jasa']); ?></b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5"><b>PPN</b></td>
+                                                <td><b><?= formatRupiah($data['nilai_ppn']); ?></b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5"><b>PPh</b></td>
+                                                <td><b>(<?= formatRupiah($data['nilai_pph']); ?>)</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5"><b>Potongan/Diskon</b></td>
+                                                <td><b>(<?= formatRupiah($data['potongan']); ?>)</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5"><b>Pengembalian</b></td>
+                                                <td><b>(<?= formatRupiah($data['pengembalian']); ?>)</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5"><b>Penambahan</b></td>
+                                                <td><b><?= formatRupiah($data['penambahan']); ?></b></td>
+                                            </tr>
+                                            <tr style="background-color :#B0C4DE;">
+                                                <td colspan="5"><b>Grand Total</b></td>
+                                                <td><b><?= formatRupiah($data['harga_akhir']); ?></b></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
 
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-8 col-sm-4 control-label">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#konfirmasi">Done</button></span></a>
-                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#tolakPajak">Verifikasi To Pajak</button></span></a>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#tolakPurchasing">Reject To Purchasing</button></span></a>
-                                        </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-8 col-sm-4 control-label">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#konfirmasi">Done</button></span></a>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#tolakPajak">Verifikasi To Pajak</button></span></a>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#tolakPurchasing">Reject To Purchasing</button></span></a>
                                     </div>
                                 </div>
+                            </div>
                     </form>
                 </div>
 
