@@ -183,7 +183,7 @@ $dataProsesSO = mysqli_fetch_assoc($queryProsesSO);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>GS | SYSTEM</title>
+  <title>E-FIN | GS</title>
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/icon" href="../gambar/fav-gs.png">
   <!-- Tell the browser to be responsive to screen width -->

@@ -67,7 +67,7 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>GS | FINANCE</title>
+  <title>E-FIN | GS</title>
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/icon" href="../gambar/fav-gs.png">
   <!-- Tell the browser to be responsive to screen width -->
@@ -195,7 +195,7 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
                     <a href="index.php?p=rubah_password" class="btn btn-default btn-flat">Change Password</a>
                   </div>
                   <div class="pull-right">
-                    <a href="../logout.php" onclick="javascript: return confirm('Yakin Ingin Logout ?')" class="btn btn-default btn-flat">Sign out</a>
+                    <a href="../logout.php" class="btn btn-default btn-flat">Sign out</a>
                   </div>
                 </li>
               </ul>
