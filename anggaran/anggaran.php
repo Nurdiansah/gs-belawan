@@ -106,6 +106,7 @@ $sp = $_GET['sp'];
                         </div>
                     </div>
                     <button type="submit" name="cari" class="btn btn-primary"><i class="fa fa-search"></i> Cari</button>
+                    <a href="index.php?p=input_anggaran" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</a>
                 </form>
                 <!-- </div> -->
                 <br>
