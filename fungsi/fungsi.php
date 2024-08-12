@@ -460,7 +460,7 @@ function kurungMinus($nilai)
 {
     $minus = substr($nilai, 0, 1);
 
-    return $nilai = $minus == "-" ? "(" . formatRupiah2($nilai) . ")" : formatRupiah2($nilai);
+    return $nilai = $minus == "-" ? "(" . formatRupiah2(substr($nilai, 1)) . ")" : formatRupiah2($nilai);
 }
 
 function tahunSekarang()

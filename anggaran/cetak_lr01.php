@@ -562,7 +562,7 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
             // LABA SEBELUM PAJAK
             $labasebelum_pajak_nominal =  $laba_operasional_nominal + $pendapatanlain_biayalain_nominal;
             $labasebelum_pajak_realisasi = $laba_operasional_realisasi + $pendapatanlain_biayalain_realisasi;
-            $labasebelum_pajak_nota = $laba_operasional_nota + $pendapatanlain_biayalain__nota;
+            $labasebelum_pajak_nota = $laba_operasional_nota + $pendapatanlain_biayalain_nota;
             $labasebelum_pajak_pranota = $laba_operasional_pranota + $pendapatanlain_biayalain_pranota;
             $labasebelum_pajak_jumlah = $laba_operasional_jumlah + $pendapatanlain_biayalain_jumlah;
             $labasebelum_pajak_sisa = $laba_operasional_sisa + $pendapatanlain_biayalain_sisa;
