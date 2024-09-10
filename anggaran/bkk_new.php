@@ -27,7 +27,7 @@ $data = mysqli_fetch_assoc($queryBkk);
 $id_kdtransaksi = $data['id_kdtransaksi'];
 $id_bkk = $data['id'];
 
-if (!file_exists("../file/bkk_temp/BKK-" . $data['id'] . ".pdf")) {
+if (!file_exists("../file/lampiran_temp/BKK-" . $data['id'] . ".pdf")) {
 
 ?>
 
@@ -258,14 +258,14 @@ if (!file_exists("../file/bkk_temp/BKK-" . $data['id'] . ".pdf")) {
         $html2pdf->pdf->SetDisplayMode('fullpage');
         $html2pdf->writeHTML($content);
         // $html2pdf->Output('Laporan-Pengambilan-Dana-' . $id . '.pdf');
-        $html2pdf->Output('../file/bkk_temp/BKK-' . $data['id'] . '.pdf', 'F');
+        $html2pdf->Output('../file/lampiran_temp/BKK-' . $data['id'] . '.pdf', 'F');
         $html2pdf->setDefaultFont("roboto");
     } catch (HTML2PDF_exception $e) {
         echo $e;
         exit;
     }
     // header("Location: index.php?p=transaksi_bkk&sp=" . $_GET['sp'] . "");
-    header("Location: index.php?p=bkk_petty&project=" . $_GET['project'] . "&tgl_1=" . $_GET['tgl_1'] . "&tgl_2=" . $_GET['tgl_2']);
+    header("Location: index.php?p=laporan_bkk&project=" . $_GET['project'] . "&tgl_1=" . $_GET['tgl_1'] . "&tgl_2=" . $_GET['tgl_2']);
 }
 
 
@@ -275,7 +275,7 @@ include '../assets/PDFMerger/PDFMerger.php';
 use PDFMerger\PDFMerger;
 
 $gabung = new PDFMerger;
-$gabung->addPDF('../file/bkk_temp/BKK-' . $data['id'] . '.pdf');
+$gabung->addPDF('../file/lampiran_temp/BKK-' . $data['id'] . '.pdf');
 
 // jika pengajuan BIAYA UMUM
 if ($data['pengajuan'] == "BIAYA UMUM") {
@@ -342,4 +342,4 @@ if (!is_null($data['bukti_pembayaran']) && file_exists("../file/bukti_pembayaran
 // $gabung->merge('download', 'merged.pdf');
 $gabung->merge('output', 'Merge-' . $data['no_bkk'] . '.pdf');
 
-// unlink('../file/bkk_temp/BKK-' . $data['id'] . '.pdf');
+// unlink('../file/lampiran_temp/BKK-' . $data['id'] . '.pdf');

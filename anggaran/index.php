@@ -295,18 +295,19 @@ $dataKV2 = mysqli_fetch_assoc($queryKV2);
             <!-- <li><a href="index.php?p=laporan-xls"><i class="fa fa-file-excel-o"></i>Export To Excel</a></li> -->
             <li><a href="index.php?p=laporan_lr&sp=lr_01"><i class="fa fa-file-excel-o"></i>Laba Rugi</a></li>
             <li><a href="index.php?p=laporan_rk&sp=rk_01"><i class="fa fa-file-excel-o"></i>Rencana Kerja</a></li>
-            <li><a href="index.php?p=bkk_petty"><i class="fa fa-print"></i>BKK</a></li>
+            <li><a href="index.php?p=laporan_bkk"><i class="fa fa-print"></i>BKK</a></li>
+            <li><a href="index.php?p=laporan_pettycash"><i class="fa fa-print"></i>Pettycash</a></li>
           </ul>
         </li>
 
-        <li class="header">User Management</li>
+        <!-- <li class="header">User Management</li>
 
         <li class="treeview">
           <a href="index.php?p=user">
             <i class="fa fa-users"></i>
             <span>User Management</span>
           </a>
-        </li>
+        </li> -->
       </section>
       <!-- /.sidebar -->
     </aside>

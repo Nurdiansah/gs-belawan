@@ -95,7 +95,7 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
             <th>PPh 23</th>
             <th>PPh 4</th>
             <th>Nominal</th>
-            <th>#</th>
+            <!-- <th>#</th> -->
         </tr>
         <?php while ($data = mysqli_fetch_assoc($query)) { ?>
             <tr>
@@ -116,7 +116,7 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
                 <td style="text-align: right;"><?= formatRupiah2($data['pph_23']); ?></td>
                 <td style="text-align: right;"><?= formatRupiah2($data['pph_4']); ?></td>
                 <td style="text-align: right;"><?= formatRupiah2($data['nominal']); ?></td>
-                <td><a href="<?= host(); ?>anggaran/bkk_new.php?id=<?= enkripRambo($data['id']); ?>" download">Lihat BKK</a></td>
+                <!-- <td><a href="<?= host(); ?>anggaran/bkk_new.php?id=<?= enkripRambo($data['id']); ?>" download">Lihat BKK</a></td> -->
             </tr>
         <?php
             // $totalDpp += $data['nilai_barang'] + $data['nilai_jasa'];
@@ -130,6 +130,6 @@ if (!isset($_SESSION['username_blw']) || $_SESSION['level_blw'] != "anggaran") {
     </table>
 <?php } else {
     echo "<script>alert('Data yang ingin dicetak tidak ada!');
-        location='index.php?p=bkk_petty'
+        location='index.php?p=laporan_bkk'
     </script>";;
 } ?>

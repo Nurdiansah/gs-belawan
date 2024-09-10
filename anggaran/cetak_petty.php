@@ -1,0 +1,267 @@
+<?php
+ob_start();
+session_start();
+include "../fungsi/fungsi.php";
+include "../fungsi/fungsiuser.php";
+
+include "../fungsi/koneksi.php";
+
+if (isset($_GET['id'])) {
+    $id = dekripRambo($_GET['id']);
+}
+
+if (!isset($_SESSION['username_gs']) || $_SESSION['level_gs'] != 'anggaran') {
+    header("location: ../index.php");
+}
+
+$query =  mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
+                                    JOIN anggaran a
+                                        ON a.id_anggaran = tp.id_anggaran
+                                    JOIN divisi d
+                                        ON d.id_divisi = tp.id_divisi
+                                    WHERE id_pettycash = '$id'  ");
+$data = mysqli_fetch_assoc($query);
+
+$tgl_sekarang = date("Y-m-d");
+
+if (!file_exists("../file/lampiran_temp/PETTY-" . $data['id_pettycash'] . "-" . $_SESSION['session_db_gs'] . ".pdf")) {
+
+?>
+
+    <!-- tambahan baru include-->
+    <!-- Setting CSS bagian header/ kop -->
+    <style type="text/css">
+        table.page_header {
+            width: 1020px;
+            border: none;
+            background-color: #DDDDFF;
+            border-bottom: solid 1mm #AAAADD;
+            padding: 2mm
+        }
+
+        table.page_footer {
+            width: 1020px;
+            border: none;
+            background-color: #DDDDFF;
+            border-top: solid 1mm #AAAADD;
+            padding: 2mm
+        }
+
+        h1 {
+            color: #000033
+        }
+
+        h2 {
+            color: #000055
+        }
+
+        h3 {
+            color: #000077
+        }
+    </style>
+    <!-- Setting Margin header/ kop -->
+    <!-- Setting CSS Tabel data yang akan ditampilkan -->
+    <style type="text/css">
+        .tabel2 {
+            border-collapse: collapse;
+            margin-left: 0px;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        .tabel2 th,
+        .tabel2 td {
+            padding: 5px 5px;
+            border: 1px solid #000;
+        }
+
+        .table {
+            border-collapse: collapse;
+        }
+
+        .table table,
+        .table tr,
+        .table td {
+            border: 1px solid black;
+        }
+
+        div.tengah {
+            width: 300px;
+            float: none;
+            margin-left: 125px;
+            margin-top: -140px;
+        }
+
+        div.kanan {
+            width: 300px;
+            float: right;
+            margin-left: 10px;
+            margin-top: 0px;
+        }
+
+        div.kiri {
+            width: 100px;
+            float: left;
+            margin-left: 30px;
+            display: inline;
+        }
+
+        div.kiriEtl {
+            width: 100px;
+            float: left;
+            margin-left: 0px;
+            display: inline;
+        }
+
+        div.tablekiri {
+            float: left;
+            margin-left: 30px;
+            display: inline;
+        }
+
+        div.tablekanan {
+            float: right;
+            margin-left: 10px;
+            margin-top: 0px;
+        }
+
+        .right {
+            width: 300px;
+            float: right;
+            margin-left: 480px;
+            margin-top: 0px;
+            text-align: left;
+        }
+
+        .left {
+            width: 300px;
+            float: left;
+            margin-left: 150px;
+            display: inline;
+            text-align: left;
+
+        }
+    </style>
+
+    <body>
+
+        <?php
+        if ($_SESSION['session_db_gs'] == "etl_fin") {
+        ?>
+            <div class="kiriEtl">
+                <img src="../gambar/etl.png" style="width:190px;height:40px" />
+            </div>
+        <?php } else { ?>
+            <div class="kiri">
+                <img src="../gambar/gs.png" style="width:80px;height:50px" />
+            </div>
+            <h3><b>PT.GRAHA SEGARA</b></h3>
+        <?php } ?>
+        <hr>
+
+        <h3 align="center"><u>LAPORAN PENGAMBILAN DANA</u></h3>
+        <h5 align="" style="font-size: 12px;"><u>KODE ID : [ <?= $data['kd_pettycash'] ?> ]</u></h5>
+        <table border="0px" style="font-size: 11px;">
+            <tr>
+                <td style="text-align: left; width=120px; "><b>Keperluan</b></td>
+                <td style="text-align: ; width=5%;">:</td>
+                <td style="width=400px;">
+                    <?= $data['keterangan_pettycash']; ?>
+                </td>
+                <td align="right" rowspan="6">
+                    <qrcode value="[ E-Finance GS ] | Kode Pettycash : <?= $data['kd_pettycash']; ?> | Sebesar :  <?= formatRupiah($data['total_pettycash']); ?> " ec="H" style="width: 40mm; background-color: white; color: black;"></qrcode>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Kode Anggaran</b></td>
+                <td>:</td>
+                <td style="width=400px;"><?= $data['kd_anggaran'] . " [" . $data['nm_item'] . "]"; ?></td>
+            </tr>
+            <tr>
+                <td><b>Divisi</b></td>
+                <td>:</td>
+                <td><?= $data['nm_divisi']; ?></td>
+            </tr>
+            <tr>
+                <td><b>Nominal</b></td>
+                <td>:</td>
+                <td><?= formatRupiah(round($data['total_pettycash'], 2)) ?></td>
+            </tr>
+            <tr>
+                <td><b>Terbilang</b></td>
+                <td>:</td>
+                <td><?= Terbilang($data['total_pettycash']); ?> Rupiah </td>
+            </tr>
+            <tr>
+                <td><b>Dibuat</b></td>
+                <td>:</td>
+                <td><?= formatTanggalWaktu($data['created_pettycash_on']); ?></td>
+            </tr>
+            <tr>
+                <td><b>Manager </b></td>
+                <td>:</td>
+                <td>APPROVED (<?= formatTanggalWaktu($data['app_mgr']); ?>)</td>
+                <td>Jakarta, <?= tanggal_indo($tgl_sekarang); ?></td>
+            </tr>
+        </table>
+        <br>
+        <table border="0" style="font-size: 10px;">
+            <tr>
+                <th style="text-align: center; width=350px;">Penerima,<br><br><br><br><br>(..............................)</th>
+                <th style="text-align: center; width=350px;">Kasir,<br><br><br><br><br>(..............................)</th>
+            </tr>
+        </table>
+    </body>
+    <!-- </td> -->
+
+    <!-- </tr>
+</table> -->
+
+    <!-- Memanggil fungsi bawaan HTML2PDF -->
+<?php
+    $content = ob_get_clean();
+    include '../assets/html2pdf/html2pdf.class.php';
+    try {
+        $html2pdf = new HTML2PDF('l', 'A5', 'en', false, 'UTF-8', array(10, 10, 10, 10));
+        $html2pdf->pdf->SetDisplayMode('fullpage');
+        $html2pdf->writeHTML($content);
+        // $html2pdf->Output('Laporan-Pengambilan-Dana-Pettycash-' . $data['kd_pettycash']  . '.pdf');
+        $html2pdf->Output('../file/lampiran_temp/PETTY-' . $data['id_pettycash'] . "-" . $_SESSION['session_db_gs'] . '.pdf', 'F');
+        $html2pdf->setDefaultFont("Calibri");
+    } catch (HTML2PDF_exception $e) {
+        echo $e;
+        exit;
+    }
+
+    header("Location: index.php?p=laporan_pettycash&project=" . $_GET['project'] . "&tgl_1=" . $_GET['tgl_1'] . "&tgl_2=" . $_GET['tgl_2']);
+}
+
+
+// BUAT MERGE PDF
+include '../assets/PDFMerger/PDFMerger.php';
+
+use PDFMerger\PDFMerger;
+
+$gabung = new PDFMerger;
+$gabung->addPDF('../file/lampiran_temp/PETTY-' . $data['id_pettycash'] . "-" . $_SESSION['session_db_gs'] . '.pdf');
+
+if ($data['from'] == "mr") {
+    $id_dbo = $data['id_dbo'];
+    $dataDBO = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM detail_biayaops WHERE id = '$id_dbo'"));
+
+    if (!is_null($dataDBO['foto_item']) && file_exists("../file/foto/" . $dataDBO['foto_item'])) {
+        $gabung->addPDF("../file/foto/" . $dataDBO['foto_item']);
+    }
+
+    if (!is_null($dataDBO['doc_penawaran']) && file_exists("../file/doc_penawaran/" . $dataDBO['doc_penawaran'])) {
+        $gabung->addPDF("../file/doc_penawaran/" . $dataDBO['doc_penawaran']);
+    }
+}
+
+if (!is_null($data['doc_lpj_pettycash']) && file_exists("../file/doc_lpj/" . $data['doc_lpj_pettycash'])) {
+    $gabung->addPDF("../file/doc_lpj/" . $data['doc_lpj_pettycash']);
+}
+
+$gabung->merge('output', 'PETTY-' . $data['kd_pettycash'] . '.pdf');
+
+?>

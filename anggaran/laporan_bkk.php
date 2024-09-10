@@ -4,7 +4,7 @@ include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
 
-$queryUser =  mysqli_query($koneksi, "SELECT * FROM en_fin.user WHERE username  = '$_SESSION[username_en]'");
+$queryUser =  mysqli_query($koneksi, "SELECT * FROM user WHERE username  = '$_SESSION[username_blw]'");
 $rowUser = mysqli_fetch_assoc($queryUser);
 $idUser = $rowUser['id_user'];
 
@@ -149,7 +149,7 @@ $jumlahData = mysqli_num_rows($query);
                                                 <td> <?= $row['keterangan']; ?> </td>
                                                 <td> <?= $row['kd_anggaran']; ?> [<?= $row['nm_item']; ?>]</td>
                                                 <td>
-                                                    <?php if (!file_exists('../file/bkk_temp/BKK-' . $row['id'] . '.pdf')) { ?>
+                                                    <?php if (!file_exists('../file/lampiran_temp/BKK-' . $row['id'] . '.pdf')) { ?>
                                                         <a title="Gabungkan BKK" href="bkk_new.php?id=<?= enkripRambo($row['id']); ?>&project=<?= enkripRambo($project); ?>&tgl_1=<?= enkripRambo($tgl_1); ?>&tgl_2=<?= enkripRambo($tgl_2); ?>" class="btn btn-primary"><i class="fa fa-repeat"></i></a>
                                                         <?php } else {
 

@@ -64,7 +64,7 @@ $no = 1;
                                         <td><?= formatRupiah2($dataBKK['nilai_pph']); ?></td>
                                         <td><?= formatRupiah2($dataBKK['nominal']); ?></td>
                                         <td>
-                                            <?php if (!file_exists('../file/bkk_temp/BKK-' . $dataBKK['id'] . '.pdf')) { ?>
+                                            <?php if (!file_exists('../file/lampiran_temp/BKK-' . $dataBKK['id'] . '.pdf')) { ?>
                                                 <a href="bkk_new.php?id=<?= enkripRambo($dataBKK['id']); ?>&sp=<?= enkripRambo($anggaran); ?>" class="btn btn-primary"><i class="fa fa-repeat"></i> Gabungkan BKK</a>
                                             <?php } else { ?>
                                                 <a target="_blank" title="Cetak BKK" onclick="window.open('bkk_new.php?id=<?= enkripRambo($dataBKK['id']); ?>','name','width=800,height=600')" class="btn btn-success"><i class="fa fa-print"></i> Cetak BKK</a>
