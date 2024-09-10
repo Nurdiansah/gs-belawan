@@ -131,7 +131,7 @@ $tahunAyeuna = date("Y");
                                             <td> <?= $row['keterangan_pettycash']; ?> </td>
                                             <td> <?= $row['kd_anggaran'] . " [" . $row['nm_item']; ?>]</td>
                                             <td>
-                                                <?php if (!file_exists('../file/lampiran_temp/PETTY-' . $row['id_pettycash'] . "-" . $_SESSION['session_db_gs'] . '.pdf')) { ?>
+                                                <?php if (!file_exists('../file/lampiran_temp/PETTY-' . $row['id_pettycash'] . '.pdf')) { ?>
                                                     <a title="Gabungkan LPD" href="cetak_petty.php?id=<?= enkripRambo($row['id_pettycash']); ?>&project=<?= enkripRambo($project); ?>&tgl_1=<?= enkripRambo($tgl_1); ?>&tgl_2=<?= enkripRambo($tgl_2); ?>" class="btn btn-primary"><i class="fa fa-repeat"></i></a>
                                                 <?php } else { ?>
                                                     <a target="_blank" title="Cetak LPD" onclick="window.open('cetak_petty.php?id=<?= enkripRambo($row['id_pettycash']); ?>','name','width=800,height=600')" class="btn btn-success"><i class="fa fa-print"></i></a>

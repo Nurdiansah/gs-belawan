@@ -132,14 +132,14 @@ $dataCC = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM program_kerja
                                                     <?php
 
                                                     $queryProgramKerja = mysqli_query($koneksi, "SELECT DISTINCT id_programkerja, kd_programkerja, nm_programkerja
-                                                                    FROM program_kerja
+                                                                    FROM program_kerja pk
                                                                     JOIN cost_center
                                                                         ON id_costcenter = costcenter_id
-                                                                    JOIN anggaran
+                                                                    JOIN anggaran agg
                                                                         ON id_programkerja = programkerja_id
-                                                                    WHERE divisi_id = '$data[id_dvs_spj]'
+                                                                    WHERE divisi_id = '$id_dvs_spj'
                                                                     AND spj = '1'
-                                                                    AND tahun = '$tahun'
+                                                                    AND agg.tahun = '$tahun'
                                                                     ORDER BY nm_programkerja ASC
                                                         ");
                                                     if (mysqli_num_rows($queryProgramKerja)) {
@@ -186,11 +186,20 @@ $dataCC = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM program_kerja
                                     <div class="col-sm-8">
                                         <select class="form-control select2 id_anggaran_edit" name="id_anggaran" id="id_anggaran_edit" required>
                                             <?php
-                                            $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran 
+                                            if ($data['spj'] == "1") {
+                                                $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran 
+                                                                                        WHERE programkerja_id = '$idPk'
+                                                                                        AND tahun = '$tahun'
+                                                                                        AND spj = '1'
+                                                                                        ORDER BY nm_item ASC
+                                                    ");
+                                            } else {
+                                                $queryAnggaran = mysqli_query($koneksi, "SELECT * FROM anggaran 
                                                                                     WHERE programkerja_id = '$idPk'
                                                                                     AND tahun = '$tahun'
                                                                                     ORDER BY nm_item ASC
                                                 ");
+                                            }
                                             if (mysqli_num_rows($queryAnggaran)) {
                                                 while ($rowAnggaran = mysqli_fetch_assoc($queryAnggaran)) :
                                             ?>

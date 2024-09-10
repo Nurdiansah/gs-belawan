@@ -649,6 +649,14 @@ $jmlReapp = mysqli_num_rows($reApprove);
                                                 <td><b>(<?= formatRupiah($dataKU['nilai_pph']); ?>)</b></td>
                                             </tr>
                                             <tr style="background-color :#B0C4DE;">
+                                                <td colspan="5"><b>Pengembalian</b></td>
+                                                <td><b>(<?= formatRupiah($dataKU['pengembalian']); ?>)</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5"><b>Penambahan</b></td>
+                                                <td><b>(<?= formatRupiah($dataKU['penambahan']); ?>)</b></td>
+                                            </tr>
+                                            <tr style="background-color :#B0C4DE;">
                                                 <td colspan="5"><b>Grand Total</b></td>
                                                 <td style="float-right"><b><?= formatRupiah($dataKU['harga_akhir']); ?></b></td>
                                             </tr>

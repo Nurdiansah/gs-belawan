@@ -22,9 +22,24 @@ $query =  mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                     WHERE id_pettycash = '$id'  ");
 $data = mysqli_fetch_assoc($query);
 
+$bln_tgl = array(
+    '01' => 'Januari',
+    '02' => 'Februari',
+    '03' => 'Maret',
+    '04' => 'April',
+    '05' => 'Mei',
+    '06' => 'Juni',
+    '07' => 'Juli',
+    '08' => 'Agustus',
+    '09' => 'September',
+    '10' => 'Oktober',
+    '11' => 'November',
+    '12' => 'Desember',
+);
+
 $tgl_sekarang = date("Y-m-d");
 
-if (!file_exists("../file/lampiran_temp/PETTY-" . $data['id_pettycash'] . "-" . $_SESSION['session_db_gs'] . ".pdf")) {
+if (!file_exists("../file/lampiran_temp/PETTY-" . $data['id_pettycash'] . ".pdf")) {
 
 ?>
 
@@ -95,21 +110,14 @@ if (!file_exists("../file/lampiran_temp/PETTY-" . $data['id_pettycash'] . "-" . 
         div.kanan {
             width: 300px;
             float: right;
-            margin-left: 10px;
-            margin-top: 0px;
+            margin-left: 430px;
+            margin-top: -140px;
         }
 
         div.kiri {
             width: 100px;
             float: left;
             margin-left: 30px;
-            display: inline;
-        }
-
-        div.kiriEtl {
-            width: 100px;
-            float: left;
-            margin-left: 0px;
             display: inline;
         }
 
@@ -141,31 +149,45 @@ if (!file_exists("../file/lampiran_temp/PETTY-" . $data['id_pettycash'] . "-" . 
             text-align: left;
 
         }
+
+        .kotak {
+            width: 150px;
+            height: 40px;
+            border: 1px;
+            margin-top: 140px;
+        }
     </style>
+    <?php
+    include "../fungsi/koneksi.php";
+
+    ?>
 
     <body>
 
-        <?php
-        if ($_SESSION['session_db_gs'] == "etl_fin") {
-        ?>
-            <div class="kiriEtl">
-                <img src="../gambar/etl.png" style="width:190px;height:40px" />
+
+        <div class="kiri">
+            <img src="../gambar/gs.png" style="width:80px;height:50px" />
+        </div>
+
+        <div class="kanan">
+            <div class="kotak">
+                FM.08/02/15
             </div>
-        <?php } else { ?>
-            <div class="kiri">
-                <img src="../gambar/gs.png" style="width:80px;height:50px" />
-            </div>
-            <h3><b>PT.GRAHA SEGARA</b></h3>
-        <?php } ?>
+        </div>
+
+        <h2><b>PT.GRAHA SEGARA</b></h2>
         <hr>
 
+        <?php
+
+        ?>
         <h3 align="center"><u>LAPORAN PENGAMBILAN DANA</u></h3>
-        <h5 align="" style="font-size: 12px;"><u>KODE ID : [ <?= $data['kd_pettycash'] ?> ]</u></h5>
+        <h5 align=""><u>KODE ID : [ <?= $data['kd_pettycash'] ?> ]</u></h5>
         <table border="0px" style="font-size: 11px;">
             <tr>
                 <td style="text-align: left; width=120px; "><b>Keperluan</b></td>
                 <td style="text-align: ; width=5%;">:</td>
-                <td style="width=400px;">
+                <td style="width=420px;">
                     <?= $data['keterangan_pettycash']; ?>
                 </td>
                 <td align="right" rowspan="6">
@@ -175,7 +197,7 @@ if (!file_exists("../file/lampiran_temp/PETTY-" . $data['id_pettycash'] . "-" . 
             <tr>
                 <td><b>Kode Anggaran</b></td>
                 <td>:</td>
-                <td style="width=400px;"><?= $data['kd_anggaran'] . " [" . $data['nm_item'] . "]"; ?></td>
+                <td style="width=420px;"><?= $data['kd_anggaran'] . " [" . $data['nm_item'] . "]"; ?></td>
             </tr>
             <tr>
                 <td><b>Divisi</b></td>
@@ -185,7 +207,7 @@ if (!file_exists("../file/lampiran_temp/PETTY-" . $data['id_pettycash'] . "-" . 
             <tr>
                 <td><b>Nominal</b></td>
                 <td>:</td>
-                <td><?= formatRupiah(round($data['total_pettycash'], 2)) ?></td>
+                <td><?= formatRupiah($data['total_pettycash']) ?></td>
             </tr>
             <tr>
                 <td><b>Terbilang</b></td>
@@ -201,14 +223,14 @@ if (!file_exists("../file/lampiran_temp/PETTY-" . $data['id_pettycash'] . "-" . 
                 <td><b>Manager </b></td>
                 <td>:</td>
                 <td>APPROVED (<?= formatTanggalWaktu($data['app_mgr']); ?>)</td>
-                <td>Jakarta, <?= tanggal_indo($tgl_sekarang); ?></td>
+                <td>Medan, <?= date('d', strtotime($tgl_sekarang)) . ' ' . ($bln_tgl[date('m', strtotime($tgl_sekarang))]) . ' ' . date('Y', strtotime($tgl_sekarang)); ?></td>
             </tr>
         </table>
         <br>
         <table border="0" style="font-size: 10px;">
             <tr>
-                <th style="text-align: center; width=350px;">Penerima,<br><br><br><br><br>(..............................)</th>
-                <th style="text-align: center; width=350px;">Kasir,<br><br><br><br><br>(..............................)</th>
+                <th style="text-align: center; width=350px;">Mengeluarkan<br><br><br><br><br>(..............................)</th>
+                <th style="text-align: center; width=350px;">Penerima<br><br><br><br><br>(..............................)</th>
             </tr>
         </table>
     </body>
@@ -226,7 +248,7 @@ if (!file_exists("../file/lampiran_temp/PETTY-" . $data['id_pettycash'] . "-" . 
         $html2pdf->pdf->SetDisplayMode('fullpage');
         $html2pdf->writeHTML($content);
         // $html2pdf->Output('Laporan-Pengambilan-Dana-Pettycash-' . $data['kd_pettycash']  . '.pdf');
-        $html2pdf->Output('../file/lampiran_temp/PETTY-' . $data['id_pettycash'] . "-" . $_SESSION['session_db_gs'] . '.pdf', 'F');
+        $html2pdf->Output('../file/lampiran_temp/PETTY-' . $data['id_pettycash'] . '.pdf', 'F');
         $html2pdf->setDefaultFont("Calibri");
     } catch (HTML2PDF_exception $e) {
         echo $e;
@@ -243,7 +265,7 @@ include '../assets/PDFMerger/PDFMerger.php';
 use PDFMerger\PDFMerger;
 
 $gabung = new PDFMerger;
-$gabung->addPDF('../file/lampiran_temp/PETTY-' . $data['id_pettycash'] . "-" . $_SESSION['session_db_gs'] . '.pdf');
+$gabung->addPDF('../file/lampiran_temp/PETTY-' . $data['id_pettycash'] . '.pdf');
 
 if ($data['from'] == "mr") {
     $id_dbo = $data['id_dbo'];

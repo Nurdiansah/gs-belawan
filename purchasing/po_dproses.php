@@ -34,8 +34,6 @@ $query =  mysqli_query($koneksi, "SELECT *, dbo.keterangan AS dbo_keterangan
                                         ON dbo.id_anggaran = a.id_anggaran
                                     LEFT JOIN tolak_po
                                         ON p.id_po = po_id
-                                    LEFT JOIN bkk_final
-                                        ON id_po = id_kdtransaksi
                                     WHERE p.id_po ='$id' ");
 $data2 = mysqli_fetch_assoc($query);
 
