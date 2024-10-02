@@ -10,8 +10,15 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
     if ($_GET['aksi'] == 'lihat') {
         header("location:?p=detail_tolakmr&id=$id");
     } else if ($_GET['aksi'] == 'hapus') {
+        $dataMR = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM detail_biayaops WHERE kd_transaksi = '$id'"));
+        $id_mr = $dataMR['id'];
+
         $hapus = mysqli_multi_query($koneksi, "DELETE FROM biaya_ops WHERE kd_transaksi = '$id';
-                                    DELETE FROM detail_biayaops WHERE kd_transaksi = '$id';");
+                                    DELETE FROM detail_biayaops WHERE kd_transaksi = '$id';
+                                    DELETE FROM sub_dbo WHERE id_dbo = '$id_mr'");
+
+        unlink("../file/foto/" . $dataMR['foto_item']);
+        unlink("../file/doc_penawaran/" . $dataMR['doc_penawaran']);
 
         if ($hapus) {
             header('Location: index.php?p=tolak_mr');

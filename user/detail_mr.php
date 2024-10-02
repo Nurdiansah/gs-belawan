@@ -152,7 +152,7 @@ $tanggalCargo = date("Y-m-d");
         // purchasing
         var app_purchasing = "<?php print(date("d M Y H:i", strtotime($data2['app_purchasing']))); ?>";
         var content_purchasing = '<b>purchasing</b><small> sudah melakukan bidding</small>'
-        if (app_purchasing == "30 Nov -0001 00:00") {
+        if (app_purchasing == "01 Jan 1970 07:00") {
             app_purchasing = " ";
             content_purchasing = "<b>purchasing </b><small>Waiting....</small>";
         }
@@ -185,31 +185,11 @@ $tanggalCargo = date("Y-m-d");
             {
                 date: app_purchasing,
                 content: content_purchasing
-            },
-            {
-                date: app_pajak,
-                content: content_pajak
-            },
-            {
-                date: '',
-                content: '<b>Manager GA</b><small>Waiting.....</small>'
-            },
-            {
-                date: '',
-                content: '<b>Manager Finance</b><small>Waiting.....</small>'
-            },
-            {
-                date: '',
-                content: '<b>Direktur </b><small>Waiting.....</small>'
-            },
-            {
-                date: '',
-                content: '<b>Direktur Eksekutif</b><small>Waiting.....</small>'
             }
         ];
 
         $('#my-timeline').roadmap(events, {
-            eventsPerSlide: 8,
+            eventsPerSlide: 4,
             slide: 1,
             prevArrow: '<i class="material-icons">keyboard_arrow_left</i>',
             nextArrow: '<i class="material-icons">keyboard_arrow_right</i>'

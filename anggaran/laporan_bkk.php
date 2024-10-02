@@ -55,14 +55,14 @@ if ($project == "all") {
                                         WHERE DATE(release_on_bkk) BETWEEN '$tgl_1'  AND '$tgl_2'
                                         -- WHERE SUBSTRING(no_bkk, 12, $jmlKarakter) = '$bulan/'     -- ngambil bulan romawi ditambah /
                                         -- AND RIGHT(no_bkk, 4) = '$tahun'     -- ngambil tahun paling kanan dari field no_bkk, (minggir2 kanan kaya belek)
-                                        AND pengajuan <> 'REFILL FUND'
+                                        -- AND pengajuan <> 'REFILL FUND'
                                         ORDER BY no_bkk DESC");
 } else {
     $query = mysqli_query($koneksi, "SELECT * FROM bkk_final b    
                                         LEFT JOIN anggaran a
                                             ON b.id_anggaran = a.id_anggaran
                                         WHERE DATE(release_on_bkk) BETWEEN '$tgl_1'  AND '$tgl_2'
-                                        AND pengajuan <> 'REFILL FUND'
+                                        -- AND pengajuan <> 'REFILL FUND'
                                         AND a.programkerja_id IN (SELECT id_programkerja
                                                                     FROM program_kerja
                                                                     JOIN cost_center
