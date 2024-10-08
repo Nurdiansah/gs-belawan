@@ -440,7 +440,7 @@ $dataHdr = $dataSHeader['id_header'];
                                 <hr>
                                 <div class="col-auto">
                                     <div class="form-group">
-                                        <label id="tes" for="jml_bkk" class="col-sm-offset- col-sm-4 control-label">Jumlah Nominal </label>
+                                        <label id="tes" for="jml_bkk" class="col-sm-offset- col-sm-4 control-label">Jumlah Budget </label>
                                         <div class="col-sm-5">
                                             <div class="input-group">
                                                 <span class="input-group-addon">Rp.</span>

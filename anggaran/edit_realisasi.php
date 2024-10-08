@@ -145,6 +145,16 @@ $readonly = $dataAnggaran['jenis_anggaran'] == "PENDAPATAN" ? "" : "readonly";
                         <div class="col-sm-6">
                             <br>
                             <div class="form-group">
+                                <label id="tes" for="tahun" class="col-sm-offset-1 col-sm-3 control-label">Anggaran Tahun</label>
+                                <div class="col-sm-5">
+                                    <select name="tahun" class="form-control" required disabled>
+                                        <?php foreach (range(2021, $tahunAyeuna + 1) as $tahunLoop) { ?>
+                                            <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $dataAnggaran['tahun'] ? "selected=selected" : ''; ?>><?= $tahunLoop; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label id="tes" for="divisi" class="col-sm-offset-1 col-sm-3 control-label">Divisi</label>
                                 <div class="col-sm-5">
                                     <select name="id_divisi" id="id_divisi" class="form-control id_divisi" required disabled>
@@ -185,17 +195,6 @@ $readonly = $dataAnggaran['jenis_anggaran'] == "PENDAPATAN" ? "" : "readonly";
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label id="tes" for="tahun" class="col-sm-offset-1 col-sm-3 control-label">Anggaran Tahun</label>
-                                <div class="col-sm-5">
-                                    <select name="tahun" class="form-control" required disabled>
-                                        <?php foreach (range(2021, $tahunAyeuna + 1) as $tahunLoop) { ?>
-                                            <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $dataAnggaran['tahun'] ? "selected=selected" : ''; ?>><?= $tahunLoop; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-
                             </div>
                             <div class="form-group">
                                 <label id="tes" for="tahun" class="col-sm-offset-1 col-sm-3 control-label">Segmen/Job Code</label>
@@ -291,7 +290,7 @@ $readonly = $dataAnggaran['jenis_anggaran'] == "PENDAPATAN" ? "" : "readonly";
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label id="tes" for="kd_anggaran" class="col-sm-offset-1 col-sm- control-label"><i>(Dibuat oleh : <?= $dataAnggaran['created_by'] . " " . $dataAnggaran['created_on'] ?>, Dirubah oleh : <?= $dataAnggaran['last_modified_by'] . " " . $dataAnggaran['last_modified_on'] ?>)</i></label>
+                                <label id="tes" for="kd_anggaran" class="col-sm-offset- col-sm- control-label"><i>(Dibuat oleh : <?= $dataAnggaran['created_by'] . " " . $dataAnggaran['created_on'] ?>, Dirubah oleh : <?= $dataAnggaran['last_modified_by'] . " " . $dataAnggaran['last_modified_on'] ?>)</i></label>
                             </div>
                         </div>
 
@@ -435,11 +434,13 @@ $readonly = $dataAnggaran['jenis_anggaran'] == "PENDAPATAN" ? "" : "readonly";
                             </fieldset>
                         </div>
                         <br>
-                        <div class="form-group">
-                            <input type="submit" name="simpan" class="btn btn-primary col-sm-offset-5" value="Simpan">
-                            &nbsp;
-                            <input type="reset" class="btn btn-danger" value="Batal">
-                        </div>
+                        <?php if ($readonly != "readonly") { ?>
+                            <div class="form-group">
+                                <input type="submit" name="simpan" class="btn btn-primary col-sm-offset-5" value="Simpan">
+                                &nbsp;
+                                <input type="reset" class="btn btn-danger" value="Batal">
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
