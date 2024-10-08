@@ -42,7 +42,7 @@ if (isset($_GET['id'])) {
 		$nomorMax = mysqli_fetch_array($queryNomor);
 		if ($nomorMax) {
 
-			$nilaikode = substr($nomorMax[0], 2);
+			$nilaikode = substr($nomorMax[0], 0);
 			$kode = (int) $nilaikode;
 
 			//setiap kode ditambah 1

@@ -124,4 +124,6 @@ if ($page == 'formpesan') {
     include_once "detail_bkk.php";
 } else if ($page == "laporan_pettycash") {
     include_once "laporan_pettycash.php";
+} else if ($page == "detail_pettycash") {
+    include_once "detail_pettycash.php";
 }
