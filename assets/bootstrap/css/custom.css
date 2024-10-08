@@ -53,3 +53,25 @@
   margin-left: 15px;
   margin-right: 15px;
 }
+
+/* fieldset */
+fieldset.scheduler-border {
+  border: 1px groove #ddd !important;
+  padding: 0 1.2em 1.2em 1.2em !important;
+  margin: 0 0 1.5em 0 !important;
+  -webkit-box-shadow:  0px 0px 0px 0px #000;
+          box-shadow:  0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+  width:inherit;
+  padding:0 05px;
+  border-bottom:none;
+}
+/* contoh fieldset cuiii */
+/* <fieldset class="scheduler-border">
+    <legend class="scheduler-border">Test</legend>
+    <p>jaksjka</p>
+
+    <p>kaslakl</p>
+</fieldset> */

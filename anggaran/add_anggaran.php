@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "../fungsi/koneksi.php";
+include "../fungsi/fungsi.php";
 
 date_default_timezone_set('Asia/Jakarta');
 $tanggal = date("Y-m-d H:i:s");
@@ -46,8 +47,14 @@ if (isset($_POST['simpan'])) {
 			                ");
 
     if ($query) {
-        header("location:index.php?p=anggaran");
+        setcookie('pesan', 'Anggaran Berhasil ditambah !', time() + (3), '/');
+        setcookie('warna', 'alert-success', time() + (3), '/');
+
+        header("location:index.php?p=anggaran&sp=budget&tahun=" . enkripRambo($tahun) . "&divisi=" . enkripRambo($id_divisi));
     } else {
+        setcookie('pesan', 'Anggaran Gagal ditambah !', time() + (3), '/');
+        setcookie('warna', 'alert-danger', time() + (3), '/');
+
         die("ada kesalahan : " . mysqli_error($koneksi));
     }
 }
