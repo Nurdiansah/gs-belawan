@@ -87,4 +87,12 @@ else if ($page == "verifikasi_bno") {
     include_once "detail_proseskasbon_user.php";
 } else if ($page == "detail_prosespo") {
     include_once "detail_prosespo.php";
+} else if ($page == "transaksi_bkk") {
+    include_once "transaksi_bkk.php";
+} else if ($page == "transaksi_pettycash") {
+    include_once "transaksi_pettycash.php";
+} else if ($page == "detail_bkk") {
+    include_once "detail_bkk.php";
+} else if ($page == "detail_pettycash") {
+    include_once "detail_pettycash.php";
 }

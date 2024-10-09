@@ -136,4 +136,12 @@
         include_once "dtl_pettycash.php";
     } else if ($page == "kasbon_detail") {
         include_once "kasbon_detail.php";
+    } else if ($page == "laporan_bkk") {
+        include_once "laporan_bkk.php";
+    } else if ($page == "laporan_pettycash") {
+        include_once "laporan_pettycash.php";
+    } else if ($page == "detail_bkk") {
+        include_once "detail_bkk.php";
+    } else if ($page == "detail_pettycash") {
+        include_once "detail_pettycash.php";
     }

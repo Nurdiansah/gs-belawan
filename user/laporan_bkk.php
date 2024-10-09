@@ -3,14 +3,17 @@
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
-
 $queryUser =  mysqli_query($koneksi, "SELECT * FROM user WHERE username  = '$_SESSION[username_blw]'");
 $rowUser = mysqli_fetch_assoc($queryUser);
 $idUser = $rowUser['id_user'];
 
-// if (isset($_POST['cetak'])) {
-//     header('Location: cetak_bkk_excel.php?bulan=' . enkripRambo($_POST['bulan']) . '&tahun=' . enkripRambo($_POST['tahun']) . '');
-// }
+if ($rowUser['id_divisi'] != "1") {
+    header("Location: ../.");
+}
+
+if (isset($_POST['cetak'])) {
+    header('Location: cetak_bkk_excel.php?bulan=' . enkripRambo($_POST['bulan']) . '&tahun=' . enkripRambo($_POST['tahun']) . '');
+}
 
 // $bulanSekarang =  getRomawi(date("m"));
 // $tahunSekarang = date('Y');
@@ -30,49 +33,26 @@ $idUser = $rowUser['id_user'];
 //     $jmlKarakter = strlen($bulan) + 1;
 // }
 
-if (isset($_POST['cetak'])) {
-    header('Location: cetak_bkk_excel.php?project=' . enkripRambo($_POST['project']) . '&tgl_1=' . enkripRambo($_POST['tgl_1']) . '&tgl_2=' . enkripRambo($_POST['tgl_2']));
-}
-
 if (isset($_POST['cari'])) {
-    $tgl_1 = $_POST['tgl_1'];
-    $tgl_2 = $_POST['tgl_2'];
-    $project = $_POST['project'];
-} elseif (isset($_GET['project']) && isset($_GET['tgl_1']) && isset($_GET['tgl_2'])) {
-    $project = dekripRambo($_GET['project']);
-    $tgl_1 = dekripRambo($_GET['tgl_1']);
-    $tgl_2 = dekripRambo($_GET['tgl_2']);
+    $bulan = $_POST['bulan'];
+    $tahun = $_POST['tahun'];
+} elseif (isset($_GET['bulan']) && isset($_GET['tahun'])) {
+    $bulan = dekripRambo($_GET['bulan']);
+    $tahun = dekripRambo($_GET['tahun']);
 } else {
-    $tgl_1 = date("Y-m-d");
-    $tgl_2 = date('Y-m-d');
-    $project = "all";
+    $bulan =  getRomawi(date("m"));
+    $tahun = date('Y');
 }
 
-if ($project == "all") {
-    $query = mysqli_query($koneksi, "SELECT * FROM bkk_final b    
+$query = mysqli_query($koneksi, "SELECT * FROM bkk_final b    
                                         LEFT JOIN anggaran a
                                             ON b.id_anggaran = a.id_anggaran
-                                        WHERE DATE(release_on_bkk) BETWEEN '$tgl_1'  AND '$tgl_2'
-                                        -- WHERE SUBSTRING(no_bkk, 12, $jmlKarakter) = '$bulan/'     -- ngambil bulan romawi ditambah /
-                                        -- AND RIGHT(no_bkk, 4) = '$tahun'     -- ngambil tahun paling kanan dari field no_bkk, (minggir2 kanan kaya belek)
-                                        -- AND pengajuan <> 'REFILL FUND'
+                                        WHERE no_bkk LIKE '%/$bulan/$tahun'
                                         ORDER BY no_bkk DESC");
-} else {
-    $query = mysqli_query($koneksi, "SELECT * FROM bkk_final b    
-                                        LEFT JOIN anggaran a
-                                            ON b.id_anggaran = a.id_anggaran
-                                        WHERE DATE(release_on_bkk) BETWEEN '$tgl_1'  AND '$tgl_2'
-                                        -- AND pengajuan <> 'REFILL FUND'
-                                        AND a.programkerja_id IN (SELECT id_programkerja
-                                                                    FROM program_kerja
-                                                                    JOIN cost_center
-                                                                        ON id_costcenter = costcenter_id
-                                                                    WHERE pt_id = '$project'
-                                                                    )
-                                        ORDER BY no_bkk DESC");
-}
 
 $jumlahData = mysqli_num_rows($query);
+
+$tahunSekarang = date("Y");
 
 ?>
 <!-- Main content -->
@@ -88,28 +68,30 @@ $jumlahData = mysqli_num_rows($query);
                     <form method="POST" action="">
                         <div class="form-group">
                             <div class="col-sm-offset- col-sm-2">
-                                <select name="project" class="form-control" required>
-                                    <!-- <option value="all" <?= $project == "all" ? "selected" : ""; ?>>Semua Project</option> -->
-                                    <?php
-                                    $queryProject = mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt <> 0 ORDER BY nm_pt ASC");
-                                    while ($dataProject = mysqli_fetch_assoc($queryProject)) {
-                                        // foreach (range(2021, $tahunSekarang) as $tahunAyeuna) { 
-                                    ?>
-                                        <!-- <option value="<?= $tahunAyeuna; ?>" <?= $tahunAyeuna == $tahun ? "selected" : ""; ?>><?= $tahunAyeuna; ?></option> -->
-                                        <option value="<?= $dataProject['id_pt']; ?>" <?= $dataProject['id_pt'] == $project ? "selected" : ""; ?>><?= $dataProject['nm_pt']; ?></option>
-                                    <?php }
-                                    ?>
+                                <select name="bulan" class="form-control" required>
+                                    <option value="I" <?= "I" == $bulan ? "selected" : ""; ?>>Januari</option>
+                                    <option value="II" <?= "II" == $bulan ? "selected" : ""; ?>>Februari</option>
+                                    <option value="III" <?= "III" == $bulan ? "selected" : ""; ?>>Maret</option>
+                                    <option value="IV" <?= "IV" == $bulan ? "selected" : ""; ?>>April</option>
+                                    <option value="V" <?= "V" == $bulan ? "selected" : ""; ?>>Mei</option>
+                                    <option value="VI" <?= "VI" == $bulan ? "selected" : ""; ?>>Juni</option>
+                                    <option value="VII" <?= "VII" == $bulan ? "selected" : ""; ?>>Juli</option>
+                                    <option value="VIII" <?= "VIII" == $bulan ? "selected" : ""; ?>>Agustus</option>
+                                    <option value="IX" <?= "IX" == $bulan ? "selected" : ""; ?>>September</option>
+                                    <option value="X" <?= "X" == $bulan ? "selected" : ""; ?>>Oktober</option>
+                                    <option value="XI" <?= "XI" == $bulan ? "selected" : ""; ?>>November</option>
+                                    <option value="XII" <?= "XII" == $bulan ? "selected" : ""; ?>>Desember</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset- col-sm-2">
-                                <input type="date" class="form-control" name="tgl_1" value="<?= $tgl_1; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset- col-sm-2">
-                                <input type="date" class="form-control" name="tgl_2" value="<?= $tgl_2; ?>">
+                                <select name="tahun" class="form-control" required>
+                                    <?php
+                                    foreach (range(2021, $tahunSekarang) as $tahunLoop) { ?>
+                                        <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $tahun ? "selected" : ""; ?>><?= $tahunLoop; ?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
                         </div>
                         <button type="submit" name="cari" class="btn btn-primary"><i class="fa fa-search"></i> Cari</button>
