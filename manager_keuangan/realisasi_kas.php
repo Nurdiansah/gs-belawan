@@ -6,27 +6,27 @@
         $totalBKK = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah
                                                                     FROM bkk_final
                                                                     WHERE id_anggaran = '$id_anggaran'
-                                                                    AND status_bkk = '4'"));
+                                                                    AND (status_bkk = '4' OR no_bkk IS NOT NULL)"));
 
         // gs belawan yg dibayarin dijakarta (dibuat dijakarta)
         $BKKJkt = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah
                                                                 FROM gs.bkk_final
                                                                 WHERE id_anggaran = '$id_anggaran'
-                                                                AND status_bkk = '4'
+                                                                AND (status_bkk = '4' OR no_bkk IS NOT NULL)
                                                                 AND id_area = '2'"));
 
         // gs belawan yg dibayarin dijakarta (dibuat dibelawan)
         $BKKBlwJkt = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah
                                                                     FROM bkk_ke_pusat
                                                                     WHERE id_anggaran = '$id_anggaran'
-                                                                    AND status_bkk = '4'
+                                                                    AND (status_bkk = '4' OR no_bkk IS NOT NULL)
                                                                     AND id_kdtransaksi NOT IN (SELECT id_kdtransaksi FROM gs.bkk_final
                                                                                                 WHERE id_anggaran = '$id_anggaran'
-                                                                                                AND status_bkk = '4'
+                                                                                                AND (status_bkk = '4' OR no_bkk IS NOT NULL)
                                                                                                 AND id_area = '2')
                                                                     AND pengajuan NOT IN (SELECT pengajuan FROM gs.bkk_final
                                                                                             WHERE id_anggaran = '$id_anggaran'
-                                                                                            AND status_bkk = '4'
+                                                                                            AND (status_bkk = '4' OR no_bkk IS NOT NULL)
                                                                                             AND id_area = '2')"));
 
         $totalPetty = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(id_pettycash) AS jumlah
@@ -76,7 +76,7 @@
                                                                                 IF(pengajuan = 'PO', (SELECT po_number FROM po WHERE id_po = id_kd), id_kdtransaksi) AS id_kdtransaksi, 'Belawan' AS pembayaran, 'success' AS warna
                                                                             FROM bkk_final
                                                                             WHERE id_anggaran = '$id_anggaran'
-                                                                            AND status_bkk = '4'
+                                                                            AND (status_bkk = '4' OR no_bkk IS NOT NULL)
                                                                             
                                                                             UNION ALL
 
@@ -85,7 +85,7 @@
                                                                                 IF(pengajuan = 'PO', (SELECT po_number FROM po WHERE id_po = id_kd), id_kdtransaksi) AS id_kdtransaksi, 'Jakarta' AS pembayaran, 'primary' AS warna
                                                                             FROM gs.bkk_final
                                                                             WHERE id_anggaran = '$id_anggaran'
-                                                                            AND status_bkk = '4'
+                                                                            AND (status_bkk = '4' OR no_bkk IS NOT NULL)
                                                                             AND id_area = '2'
 
                                                                             UNION ALL
@@ -95,14 +95,14 @@
                                                                                 IF(pengajuan = 'PO', (SELECT po_number FROM po WHERE id_po = id_kd), id_kdtransaksi) AS id_kdtransaksi, 'Jakarta' AS pembayaran, 'primary' AS warna
                                                                             FROM bkk_ke_pusat
                                                                             WHERE id_anggaran = '$id_anggaran'
-                                                                            AND status_bkk = '4'
+                                                                            AND (status_bkk = '4' OR no_bkk IS NOT NULL)
                                                                             AND id_kdtransaksi NOT IN (SELECT id_kdtransaksi FROM gs.bkk_final
                                                                                                         WHERE id_anggaran = '$id_anggaran'
-                                                                                                        AND status_bkk = '4'
+                                                                                                        AND (status_bkk = '4' OR no_bkk IS NOT NULL)
                                                                                                         AND id_area = '2')
                                                                             AND pengajuan NOT IN (SELECT pengajuan FROM gs.bkk_final
                                                                                                     WHERE id_anggaran = '$id_anggaran'
-                                                                                                    AND status_bkk = '4'
+                                                                                                    AND (status_bkk = '4' OR no_bkk IS NOT NULL)
                                                                                                     AND id_area = '2')
 
                                                                             UNION ALL

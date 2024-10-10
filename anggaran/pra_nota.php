@@ -28,6 +28,7 @@
                                         <th>No</th>
                                         <th>Pengajuan</th>
                                         <th>Kode Pengajuan</th>
+                                        <th>Keterangan</th>
                                         <th>Nominal</th>
                                         <th>Status</th>
                                         <th>Tanggal</th>
@@ -38,10 +39,10 @@
                                     // nampilin data relisasi sementara
                                     $queryPraNota = mysqli_query($koneksi, "SELECT id_rs, id_anggaran, id_kdtransaksi AS id_kd,
                                                                                 IF(pengajuan = 'PO', 'PO',
-                                                                                    IF(pengajuan = 'KBN', 'Kasbon',
-                                                                                        IF(pengajuan = 'BUM', 'Biaya Umum',
-                                                                                            IF(pengajuan = 'PCS', 'Pettycash',
-                                                                                                IF(pengajuan = 'BKS', 'Biaya Khusus', '')
+                                                                                    IF(pengajuan = 'KBN', 'KASBON',
+                                                                                        IF(pengajuan = 'BUM', 'BIAYA UMUM',
+                                                                                            IF(pengajuan = 'PCS', 'PETTY CASH',
+                                                                                                IF(pengajuan = 'BKS', 'BIAYA KHUSUS', '')
                                                                                             )
                                                                                         )
                                                                                     )
@@ -57,6 +58,17 @@
                                                                                         )
                                                                                     )
                                                                                 ) AS kd_pengajuan,
+
+                                                                                IF(pengajuan = 'PO', (SELECT keterangan FROM po JOIN detail_biayaops ON id = id_dbo WHERE id_po = id_kd),
+                                                                                    IF(pengajuan = 'KBN', (SELECT keterangan FROM kasbon JOIN detail_biayaops ON id = id_dbo WHERE id_kasbon = id_kd),
+                                                                                        IF(pengajuan = 'BUM', (SELECT keterangan FROM bkk WHERE id_bkk = id_kd),
+                                                                                            IF(pengajuan = 'PCS', (SELECT keterangan_pettycash FROM transaksi_pettycash WHERE id_pettycash = id_kd),
+                                                                                                IF(pengajuan = 'BKS', (SELECT keterangan FROM bkk_final WHERE id = id_kd), ''
+                                                                                                )
+                                                                                            )
+                                                                                        )
+                                                                                    )
+                                                                                ) AS ket_pengajuan,
                                                                                 nominal, is_deleted, created_at
                                                                             FROM realisasi_sementara
                                                                             WHERE id_anggaran = '$id_anggaran'
@@ -71,6 +83,7 @@
                                             <td><?= $noPraNota; ?></td>
                                             <td><?= $dataPraNota['pengajuan']; ?></td>
                                             <td><?= is_null($dataPraNota['kd_pengajuan']) ? "?" : $dataPraNota['kd_pengajuan']; ?></td>
+                                            <td><?= $dataPraNota['ket_pengajuan']; ?></td>
                                             <td><?= formatRupiah2($dataPraNota['nominal']); ?></td>
                                             <td><?= is_null($dataPraNota['kd_pengajuan']) ? "<span class='label label-danger'>Silahkan Tanyakan IT</scan>" : "<span class='label label-default'>Active Pranota</span>"; ?></td>
                                             <td><?= $dataPraNota['created_at']; ?></td>
