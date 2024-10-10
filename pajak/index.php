@@ -495,9 +495,10 @@ $totalProsesPO = $dataProsesPO1['jumlah'] + $dataProsesPO2['jumlah'];
               <i class="fa fa-files-o"></i>
               <span>Laporan</span> <i class="fa fa-angle-left pull-right"></i>
             </a>
-            <!-- <ul class="treeview-menu">
-                <li><a href="?pg=laprekap&act=view"><i class="fa fa-check-square-o"></i> Laporan Rekapitulasi</a></li>
-              </ul> -->
+            <ul class="treeview-menu">
+              <li><a href="index.php?p=transaksi_bkk"><i class="fa fa-print"></i> BKK</a></li>
+              <li><a href="index.php?p=transaksi_pettycash"><i class="fa fa-print"></i> Pettycash</a></li>
+            </ul>
           </li>
 
         </ul>

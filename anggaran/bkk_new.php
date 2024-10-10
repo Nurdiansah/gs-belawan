@@ -264,8 +264,11 @@ if (!file_exists("../file/lampiran_temp/BKK-" . $data['id'] . ".pdf")) {
         echo $e;
         exit;
     }
-    // header("Location: index.php?p=transaksi_bkk&sp=" . $_GET['sp'] . "");
-    header("Location: index.php?p=laporan_bkk&project=" . $_GET['project'] . "&tgl_1=" . $_GET['tgl_1'] . "&tgl_2=" . $_GET['tgl_2']);
+
+    // header("Location: index.php?p=laporan_bkk&project=" . $_GET['project'] . "&tgl_1=" . $_GET['tgl_1'] . "&tgl_2=" . $_GET['tgl_2']);
+    echo "<script type='text/javascript'>
+                window.open('bkk_new.php?id=" . enkripRambo($id) . "','name','width=800,height=600');
+            </script>";
 }
 
 
@@ -342,4 +345,4 @@ if (!is_null($data['bukti_pembayaran']) && file_exists("../file/bukti_pembayaran
 // $gabung->merge('download', 'merged.pdf');
 $gabung->merge('output', 'Merge-' . $data['no_bkk'] . '.pdf');
 
-// unlink('../file/lampiran_temp/BKK-' . $data['id'] . '.pdf');
+unlink('../file/lampiran_temp/BKK-' . $data['id'] . '.pdf');
