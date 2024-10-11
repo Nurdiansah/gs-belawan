@@ -155,4 +155,6 @@ if ($page == 'formpesan') {
     include_once "proses_bkm.php";
 } else if ($page == "transaksi_bkm") {
     include_once "transaksi_bkm.php";
+} else if ($page == "rekening_bank") {
+    include_once "rekening_bank.php";
 }

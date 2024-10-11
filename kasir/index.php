@@ -350,6 +350,13 @@ $dataBKM = mysqli_fetch_assoc($queryBKM);
             </a>
           </li>
 
+          <li class="header">Master Data</li>
+          <li class="treeview">
+            <a href="index.php?p=rekening_bank">
+              <i class="fa fa-bank"></i> <span>Rekening Bank</span>
+            </a>
+          </li>
+
           <li class="header">Transaksi</li>
 
           <li class="treeview">

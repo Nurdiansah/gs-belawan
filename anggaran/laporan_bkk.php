@@ -3,10 +3,13 @@
 include "../fungsi/koneksi.php";
 include "../fungsi/fungsi.php";
 
-
 $queryUser =  mysqli_query($koneksi, "SELECT * FROM user WHERE username  = '$_SESSION[username_blw]'");
 $rowUser = mysqli_fetch_assoc($queryUser);
 $idUser = $rowUser['id_user'];
+
+if ($rowUser['id_divisi'] != "1") {
+    header("Location: ../.");
+}
 
 // if (isset($_POST['cetak'])) {
 //     header('Location: cetak_bkk_excel.php?bulan=' . enkripRambo($_POST['bulan']) . '&tahun=' . enkripRambo($_POST['tahun']) . '');

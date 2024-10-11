@@ -144,4 +144,6 @@
         include_once "detail_bkk.php";
     } else if ($page == "detail_pettycash") {
         include_once "detail_pettycash.php";
+    } else if ($page == "rekening_bank") {
+        include_once "rekening_bank.php";
     }
