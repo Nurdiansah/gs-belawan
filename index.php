@@ -146,6 +146,7 @@ if (isset($_POST['login'])) {
 	<link href="assets/dist/css/AdminLTE.min.css" rel="stylesheet">
 	<link href="assets/plugins/iCheck/square/blue.css" rel="stylesheet">
 	<link href="assets/fa/css/font-awesome.min.css" rel="stylesheet">
+	<script src="assets/dist/js/warning.js" type="text/javascript"></script>
 
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />

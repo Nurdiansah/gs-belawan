@@ -91,7 +91,7 @@ if (isset($_GET['id'])) {
     $query1 = mysqli_query($koneksi, "UPDATE bkk SET status_bkk = 1, tgl_bkk = '$tanggal' WHERE id_bkk = '$id' ");
 
     $id_anggaran = $dataEmail['id_anggaran'];
-    $nominal = $dataEmail['nominal'];
+    $nominal = $dataEmail['nilai_barang'] + $dataEmail['nilai_jasa'];
     $insReaSem =  insRealisasiSem('BUM', $id, $id_anggaran, $nominal);
 
     if ($query1 && $insReaSem) {

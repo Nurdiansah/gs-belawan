@@ -311,21 +311,19 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                                         <!-- body modal -->
                                                         <form class="form-horizontal">
                                                             <div class="modal-body">
-                                                                <div class="perhitungan">
-                                                                    <div class="box-body">
-                                                                        <div class="form-group">
-                                                                            <?php if (file_exists("../file/invoice/" . $dataTagihan['doc_faktur']) && !empty($dataTagihan['doc_faktur'])) { ?>
-                                                                                <div class="embed-responsive embed-responsive-16by9">
-                                                                                    <iframe class="embed-responsive-item" src="../file/invoice/<?= $dataTagihan['doc_faktur']; ?>"></iframe>
-                                                                                </div>
-                                                                            <?php } else { ?>
-                                                                                <h4 class="text-center">Document tidak ada</h4>
-                                                                            <?php } ?>
-                                                                        </div>
+                                                                <div class="box-body">
+                                                                    <div class="form-group">
+                                                                        <?php if (file_exists("../file/invoice/" . $dataTagihan['doc_faktur']) && !empty($dataTagihan['doc_faktur'])) { ?>
+                                                                            <div class="embed-responsive embed-responsive-16by9">
+                                                                                <iframe class="embed-responsive-item" src="../file/invoice/<?= $dataTagihan['doc_faktur']; ?>"></iframe>
+                                                                            </div>
+                                                                        <?php } else { ?>
+                                                                            <h4 class="text-center">Document tidak ada</h4>
+                                                                        <?php } ?>
                                                                     </div>
-                                                                    <div class=" modal-footer">
-                                                                        <input type="reset" value="Close" data-dismiss="modal" class="btn btn-default">
-                                                                    </div>
+                                                                </div>
+                                                                <div class=" modal-footer">
+                                                                    <input type="reset" value="Close" data-dismiss="modal" class="btn btn-default">
                                                                 </div>
                                                             </div>
                                                         </form>

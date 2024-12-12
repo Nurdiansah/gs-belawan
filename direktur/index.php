@@ -311,6 +311,7 @@ $dataSO = mysqli_fetch_assoc($querySO);
     <script src="../assets/plugins/fastclick/fastclick.js"></script>
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/app.min.js"></script>
+    <script src="assets/dist/js/warning.js" type="text/javascript"></script>
 
     <script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../assets/plugins/datatables/dataTables.bootstrap.min.js"></script>

@@ -200,6 +200,7 @@ $id_dbo = $row['id_dbo'];
 $diskon_po  = $row['diskon_po'];
 $total_po  = $row['total_po'];
 $nilai_ppn  = $row['nilai_ppn'];
+$biaya_lain  = $row['biaya_lain'];
 $grand_total  = $row['grand_totalpo'];
 
 $app_create  = $row['tgl_po'];
@@ -329,6 +330,10 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
     <tr>
         <td colspan="5" style="text-align: right;"><b> PPN 11 % </b></td>
         <td style="text-align: right;"><?= formatRupiah(round($nilai_ppn)); ?> </td>
+    </tr>
+    <tr>
+        <td colspan="5" style="text-align: right;"><b> Biaya Lain </b></td>
+        <td style="text-align: right;"><?= formatRupiah(round($biaya_lain)); ?> </td>
     </tr>
     <tr>
         <td colspan="5" style="text-align: right;"><b> Grand Total</b></td>

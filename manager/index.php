@@ -455,7 +455,7 @@ $totalProsesKasbon = $dataProsesKP['jumlah'] + $dataProsesKP['jumlah'];
 
     <!-- Include jQuery Timeline Plugin -->
     <script src="../assets/dist/js/jquery.roadmap.js" type="text/javascript"></script>
-
+    <script src="assets/dist/js/warning.js" type="text/javascript"></script>
 </body>
 
 </html>
