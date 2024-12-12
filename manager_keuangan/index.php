@@ -600,7 +600,7 @@ $dataProsesPO = mysqli_fetch_assoc($queryProsesPO);
 
     <!-- Include jQuery Timeline Plugin -->
     <script src="../assets/dist/js/jquery.roadmap.js" type="text/javascript"></script>
-    <script src="assets/dist/js/warning.js" type="text/javascript"></script>
+    <script src="../assets/dist/js/warning.js" type="text/javascript"></script>
 </body>
 
 </html>
