@@ -233,7 +233,7 @@ $tanggal = date("Y-m-d H:i:s");
                                         <td style="text-align: right;"><b> <?= formatRupiah($data2['total_po']); ?></b></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="5" style="text-align: right;"><b> PPN 11% </b></td>
+                                        <td colspan="5" style="text-align: right;"><b> PPN </b></td>
                                         <td style="text-align: right;"><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
                                     </tr>
                                     <tr style="background-color :#B0C4DE;">

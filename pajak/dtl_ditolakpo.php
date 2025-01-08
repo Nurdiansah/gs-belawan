@@ -204,7 +204,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT *
                         $grandTotal = $total + $data2['nilai_ppn'];
                         ?>
                         <tr style="background-color :#B0C4DE;">
-                            <td colspan="5"><b> PPN 11% </b></td>
+                            <td colspan="5"><b> PPN </b></td>
                             <td style="text-align: right;"><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
                         </tr>
                         <tr style="background-color :#B0C4DE;">
@@ -373,7 +373,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT *
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN 11%</label>
+                                        <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN</label>
                                         <div class="col-sm-1">
                                             <input type="checkbox" name="all" id="myCheck" onclick="checkBox()">
                                         </div>

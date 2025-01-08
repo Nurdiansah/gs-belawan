@@ -218,7 +218,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                             $grandTotal = $total + $data2['nilai_ppn'];
                             ?>
                             <tr>
-                                <td colspan="5"><b> PPN 11% </b></td>
+                                <td colspan="5"><b> PPN </b></td>
                                 <td style="text-align: right;"><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
                             </tr>
                             <tr style="background-color :#B0C4DE;">

@@ -327,7 +327,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT * FROM sub_dbo
     <td style="text-align: right;"><?= formatRupiah(round($total_po)); ?> </td>
   </tr>
   <tr>
-    <td colspan="5" style="text-align: right;"><b> PPN 11 % </b></td>
+    <td colspan="5" style="text-align: right;"><b> PPN </b></td>
     <td style="text-align: right;"><?= formatRupiah(round($nilai_ppn)); ?> </td>
   </tr>
   <tr>

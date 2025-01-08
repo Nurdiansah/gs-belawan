@@ -237,7 +237,7 @@ $dataTagihan1 = mysqli_fetch_assoc($queryTagihan1);
                                         <td><b> <?= formatRupiah($data2['total_po']); ?></b></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="5"><b> PPN 11% </b></td>
+                                        <td colspan="5"><b> PPN </b></td>
                                         <td><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
                                     </tr>
                                     <tr>

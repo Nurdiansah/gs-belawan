@@ -178,7 +178,7 @@ $no = 1;
                                                                         </div>
                                                                     </div> -->
                                                                     <div class="form-group">
-                                                                        <label id="tes" for="nilai_ppn" class="col-sm-2 control-label">PPN 11%</label>
+                                                                        <label id="tes" for="nilai_ppn" class="col-sm-2 control-label">PPN</label>
                                                                         <div class="col-sm-2">
                                                                             <input type="checkbox" name="all" id="myCheck" onclick="checkBox()" <?= $dataBKM['nilai_ppn'] != 0 && !is_null($dataBKM['nilai_ppn']) ? 'checked' : ''; ?> disabled>
                                                                             <!-- <input type="checkbox" name="all" id="myCheck" onclick="checkBox()"> -->

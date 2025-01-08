@@ -231,18 +231,30 @@ $rowTotal = mysqli_fetch_assoc($queryTotal);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group ">
-                                    <label for="doc_quotation" class="col-sm-offset-1 col-sm-3 control-label">PPN 11%</label>
-                                    <div class="col-sm-5">
+                                <div class="form-group">
+                                    <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN
+                                        <select name="pilih_ppn" id="setppn">
+                                            <!-- <?php $queryPPN = mysqli_query($koneksi, "SELECT * FROM ppn WHERE status_aktif = '1' ORDER BY nm_ppn DESC");
+                                                    if (mysqli_num_rows($queryPPN)) {
+                                                        while ($rowPPN = mysqli_fetch_assoc($queryPPN)) :
+                                                    ?>
+                                                    <option value="<?= $rowPPN['nilai_ppn']; ?>"><?= $rowPPN['nm_ppn'] ?>%</option>
+                                            <?php endwhile;
+                                                    } ?> -->
+
+                                            <option value="0.12" <?= $perc_ppn == "12" ? "selected" : ""; ?>>12%</option>
+                                            <option value="0.11" <?= $perc_ppn == "11" ? "selected" : ""; ?>>11%</option>
+                                            <option value="0.012" <?= $perc_ppn == "1.2" ? "selected" : ""; ?>>1.2%</option>
+                                            <option value="0.011" <?= $perc_ppn == "1.1" ? "selected" : ""; ?>>1.1%</option>
+                                        </select>
+                                    </label>
+                                    <div class="col-sm-1">
                                         <input type="checkbox" name="all" id="myCheck" onclick="checkBox()">
                                     </div>
-                                </div>
-                                <div class="form-group ">
-                                    <label for="doc_quotation" class="col-sm-offset-1 col-sm-3 control-label">Nilai PPN</label>
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-4">
                                         <div class="input-group">
-                                            <span class="input-group-addon ">Rp.</span>
-                                            <input type="text" class="form-control" name="nilai_ppn" id="nilai_ppn" value="0" readonly>
+                                            <span class="input-group-addon">Rp.</span>
+                                            <input type="text" class="form-control " name="nilai_ppn" id="nilai_ppn" value="<?= formatRibuan($data2['nilai_ppn']) ?>" readonly />
                                         </div>
                                     </div>
                                 </div>
@@ -371,6 +383,17 @@ $rowTotal = mysqli_fetch_assoc($queryTotal);
 
     });
 
+    function ppnPersen() {
+        return $('#setppn').val();
+    }
+
+    // jika ada perubahan ppn
+    $('#setppn').on('change', function() {
+        let ppnTemp = this.value;
+
+        checkBox()
+    });
+
     function checkBox() {
         var checkBox = document.getElementById("myCheck");
         if (checkBox.checked == true) {
@@ -383,7 +406,7 @@ $rowTotal = mysqli_fetch_assoc($queryTotal);
 
             var total_poa = tandaPemisahTitik(total_po);
 
-            var nilai_ppn = Math.floor(0.11 * total_po);
+            var nilai_ppn = Math.floor(ppnPersen() * total_po);
             var nilai_ppna = tandaPemisahTitik(nilai_ppn);
 
             document.form.nilai_ppn.value = nilai_ppna;
