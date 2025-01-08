@@ -24,6 +24,7 @@ $queryOpex = mysqli_query($koneksi, "SELECT DISTINCT nm_header, nm_subheader, no
                                                     WHERE no_coa = nocoa
                                                     AND pengajuan = 'BUM'
                                                     AND is_deleted = '0'
+                                                    AND ag.tahun = '$tahun'
                                                     GROUP BY no_coa), '0') AS nota,
                                         IFNULL((SELECT SUM(nominal)
                                                     FROM realisasi_sementara rs
@@ -32,6 +33,7 @@ $queryOpex = mysqli_query($koneksi, "SELECT DISTINCT nm_header, nm_subheader, no
                                                     WHERE no_coa = nocoa
                                                     AND pengajuan = 'PO'
                                                     AND is_deleted = '0'
+                                                    AND ag.tahun = '$tahun'
                                                     GROUP BY no_coa), '0') AS pra_nota
                                         FROM program_kerja pk
                                         JOIN anggaran agg
@@ -65,6 +67,7 @@ $queryCapex = mysqli_query($koneksi, "SELECT DISTINCT nm_header, nm_subheader, n
                                                     WHERE no_coa = nocoa
                                                     AND pengajuan = 'BUM'
                                                     AND is_deleted = '0'
+                                                    AND ag.tahun = '$tahun'
                                                     GROUP BY no_coa), '0') AS nota,
                                         IFNULL((SELECT SUM(nominal)
                                                     FROM realisasi_sementara rs
@@ -73,6 +76,7 @@ $queryCapex = mysqli_query($koneksi, "SELECT DISTINCT nm_header, nm_subheader, n
                                                     WHERE no_coa = nocoa
                                                     AND pengajuan = 'PO'
                                                     AND is_deleted = '0'
+                                                    AND ag.tahun = '$tahun'
                                                     GROUP BY no_coa), '0') AS pra_nota
                                         FROM program_kerja pk
                                         JOIN anggaran agg
@@ -122,7 +126,7 @@ $queryDivisi = mysqli_query($koneksi, "SELECT DISTINCT id_parent, nm_parent
             <label id="tes" for="divisi" class="col-sm-offset-4 col-sm-1 control-label">Tahun</label>
             <div class="col-sm-offset- col-sm-3">
                 <select name="tahun" class="form-control" required>
-                    <?php foreach (range(2019, $tahunAyeuna) as $tahunLoop) { ?>
+                    <?php foreach (range(2021, $tahunAyeuna + 1) as $tahunLoop) { ?>
                         <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $tahun ? "selected" : ""; ?>><?= $tahunLoop; ?></option>
                     <?php } ?>
                 </select>

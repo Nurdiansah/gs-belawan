@@ -377,8 +377,9 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
                                 <div class="form-group">
                                     <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN
                                         <select name="pilih_ppn" id="setppn">
+                                            <option value="0.12" <?= $perc_ppn == "12" ? "selected" : ""; ?>>12%</option>
                                             <option value="0.11" <?= $perc_ppn == "11" ? "selected" : ""; ?>>11%</option>
-                                            <option value="0.10" <?= $perc_ppn == "10" ? "selected" : ""; ?>>10%</option>
+                                            <option value="0.012" <?= $perc_ppn == "1.2" ? "selected" : ""; ?>>1.2%</option>
                                             <option value="0.011" <?= $perc_ppn == "1.1" ? "selected" : ""; ?>>1.1%</option>
                                         </select>
                                     </label>
@@ -675,7 +676,7 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
     let persentasePpn = np / dpp;
 
     // set ppn default 11%
-    let setPpn = 0.11;
+    let setPpn = 0.12;
     if (persentasePpn != 0 && dpp != 0) {
         // $('#setppn').val(persentasePpn);
 

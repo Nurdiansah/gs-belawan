@@ -104,7 +104,7 @@ $sp = $_GET['sp'];
                     <div class="form-group">
                         <div class="col-sm-offset- col-sm-2">
                             <select name="tahun" class="form-control" required>
-                                <?php foreach (range(2019, $tahunAyeuna + 1) as $tahunLoop) { ?>
+                                <?php foreach (range(2021, $tahunAyeuna + 1) as $tahunLoop) { ?>
                                     <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $tahun ? "selected=selected" : ''; ?>><?= $tahunLoop; ?></option>
                                 <?php } ?>
                             </select>

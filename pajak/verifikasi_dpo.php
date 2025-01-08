@@ -388,8 +388,9 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                     <div class="form-group">
                                         <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN
                                             <select name="pilih_ppn" id="setppn">
+                                                <option value="0.12">12%</option>
                                                 <option value="0.11">11%</option>
-                                                <option value="0.1">10%</option>
+                                                <option value="0.012">1.2%</option>
                                                 <option value="0.011">1.1%</option>
                                             </select>
                                         </label>
@@ -721,7 +722,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
     let persentasePpn = np / dpp;
 
     // set ppn default 11%
-    let setPpn = 0.11;
+    let setPpn = 0.12;
     if (np != 0 && dpp != 0) {
 
         $('#setppn').val(persentasePpn);
@@ -795,7 +796,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
 
         var checkBox = document.getElementById("myCheck");
         if (checkBox.checked == true) {
-            var ppn_nilai = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(setPpn * (nilaiBarang + nilaiJasa));
         } else if (checkBox.checked == false) {
             var ppn_nilai = 0;
         }
@@ -1047,12 +1048,12 @@ $totalReapp = mysqli_num_rows($queryReapp);
         if (pembulatan == 'keatas') {
 
             // pembulatan ke atas
-            var ppn_nilai = Math.ceil(0.11 * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.ceil(setPpn * (nilaiBarang + nilaiJasa));
 
         } else if (pembulatan == 'kebawah') {
 
             // pembulatan ke bawah
-            var ppn_nilai = Math.floor(0.11 * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(setPpn * (nilaiBarang + nilaiJasa));
         }
 
         var ppn_nilaia = tandaPemisahTitik(ppn_nilai);

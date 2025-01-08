@@ -472,8 +472,9 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
                                         <div class="form-group">
                                             <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN
                                                 <select name="pilih_ppn" id="setppn">
+                                                    <option value="0.12">12%</option>
                                                     <option value="0.11">11%</option>
-                                                    <option value="0.10">10%</option>
+                                                    <option value="0.012">1.2%</option>
                                                     <option value="0.011">1.1%</option>
                                                 </select>
                                             </label>
@@ -764,7 +765,7 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
     let persentasePpn = getPersentasePpn();
 
     // set ppn default 11%
-    let setPpn = 0.11;
+    let setPpn = 0.12;
     // set default sesuai dari db
     if (persentasePpn != 0) {
         $('#setppn').val(persentasePpn);

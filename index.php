@@ -3,6 +3,35 @@ session_start();
 include "fungsi/koneksi.php";
 include "fungsi/ceklogin.php";
 
+// redirect ke sub domain
+// $subdomain = "http://efin.enc.co.id/";
+
+// if ($_SERVER['SERVER_NAME'] == "103.167.112.237") {
+// 	// Tambahkan header no-cache
+// 	header("Cache-Control: no-cache, no-store, must-revalidate");
+// 	header("Pragma: no-cache");
+// 	header("Expires: 0");
+
+// 	// JavaScript dengan popup konfirmasi
+// 	echo '<script>
+// 			// Menghapus cookies
+//             document.cookie.split(";").forEach(function(c) {
+//                 document.cookie = c.trim().split("=")[0] + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+//             });
+
+//             // Membersihkan cache
+//             if (window.caches) {
+//                 caches.keys().then(function(names) {
+//                     for (let name of names) caches.delete(name);
+//                 });
+//             }
+
+//             // Redirect ke subdomain
+//             window.location.href = "' . $subdomain . 'gs-belawan";
+//     	</script>';
+// 	exit;
+// }
+
 // biar kalo udh masuk sebelumnya, klo ngakses URL dia masuk lagi
 if (isset($_SESSION['username_blw']) || !empty($_SESSION['username_blw'])) {
 	if ($_SESSION['level_blw'] == "anggaran") {

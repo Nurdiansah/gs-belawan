@@ -82,7 +82,7 @@ $link = "url=index.php?p=transaksi_bkk&lvl=anggaran";
             <label id="tes" for="tahun" class="col-sm-offset-4 col-sm-1 control-label">Tahun</label>
             <div class="col-sm-offset- col-sm-3">
                 <select name="tahun" class="form-control" required>
-                    <?php foreach (range(2021, $tahunAyeuna) as $tahunLoop) { ?>
+                    <?php foreach (range(2021, $tahunAyeuna + 1) as $tahunLoop) { ?>
                         <option value="<?= $tahunLoop; ?>" <?= $tahunLoop == $tahun ? "selected" : ""; ?>><?= $tahunLoop; ?></option>
                     <?php } ?>
                 </select>
