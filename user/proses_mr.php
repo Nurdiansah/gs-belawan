@@ -70,7 +70,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                         <td> <?= $row['nm_barang']; ?> </td>
                                         <td> <?php if ($row['status_biayaops'] == 1) {
 
-                                                    if ($row['id_manager'] == '17' || $row['id_manager'] == '20' || $row['id_manager'] == '33') {
+                                                    if ($row['id_manager'] == '17' || $row['id_manager'] == '20' || $row['id_manager'] == '33' || $row['id_manager'] == '19') {
                                                         echo "<span class='label label-success'>Menunggu Approve Manager </span>";
                                                     } else {
                                                         echo "<span class='label label-success'>Menunggu Approve Supervisor </span>";

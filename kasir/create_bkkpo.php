@@ -57,8 +57,8 @@ if (isset($_POST['submit'])) {
 		} else {
 
 			// insert bkk pusat
-			$insertBkk = mysqli_query($koneksiPusat, "INSERT INTO bkk_final (id_anggaran, id_supplier, id_jenispengajuan, pengajuan, id_kdtransaksi, id_tagihan, created_on_bkk, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, id_area, status_bkk) VALUES
-																			('$id_anggaran', '$id_supplier' , '4', 'PO', '$id_po', '$id_tagihan','$tanggal', '$nilai_barang', '$nilai_jasa', '$nilai_ppn', '$id_pph', '$nilai_pph', '$total', '$keterangan', '2','0'); ");
+			$insertBkk = mysqli_query($koneksiPusat, "INSERT INTO bkk_final (id_anggaran, id_supplier, id_jenispengajuan, pengajuan, id_kdtransaksi, id_tagihan, created_on_bkk, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, id_area, status_bkk, is_parent) VALUES
+																			('$id_anggaran', '$id_supplier' , '4', 'PO', '$id_po', '$id_tagihan','$tanggal', '$nilai_barang', '$nilai_jasa', '$nilai_ppn', '$id_pph', '$nilai_pph', '$total', '$keterangan', '2','0', '0'); ");
 
 			// insert bkk belawan
 			$insertBkk = mysqli_query($koneksi, "INSERT INTO bkk_ke_pusat (id_anggaran, id_supplier, id_jenispengajuan, pengajuan, id_kdtransaksi, id_tagihan, created_on_bkk, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, status_bkk) VALUES

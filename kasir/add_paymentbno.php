@@ -114,8 +114,8 @@ if (isset($_POST['simpan'])) {
 			$hasil = mysqli_query($koneksi, "UPDATE bkk SET tgl_bkk = '$tgl_bkk',keterangan = '$keterangan',  doc_lpj = '$namabaru', status_bkk = '17' 
 												WHERE id_bkk ='$id' ");
 			// 
-			$bkkPusat = mysqli_query($koneksiPusat, "INSERT INTO bkk_final (id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk,  id_anggaran, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, id_area, v_mgr_finance, v_direktur, status_bkk) VALUES
-																		('1', 'BIAYA UMUM','$kd_transaksi', '$tgl_bkk', '$id_anggaran', '$nilai_barang', '$nilai_jasa', '$nilai_ppn','$id_pph', '$nilai_pph', '$nominal', '$keterangan', '2', '$dateNow', '$dateNow', '17');
+			$bkkPusat = mysqli_query($koneksiPusat, "INSERT INTO bkk_final (id_jenispengajuan, pengajuan, id_kdtransaksi, created_on_bkk,  id_anggaran, nilai_barang, nilai_jasa, nilai_ppn, id_pph, nilai_pph, nominal, keterangan, id_area, v_mgr_finance, v_direktur, status_bkk, is_parent) VALUES
+																		('1', 'BIAYA UMUM','$kd_transaksi', '$tgl_bkk', '$id_anggaran', '$nilai_barang', '$nilai_jasa', '$nilai_ppn','$id_pph', '$nilai_pph', '$nominal', '$keterangan', '2', '$dateNow', '$dateNow', '17', '0');
 									");
 		}
 	}
