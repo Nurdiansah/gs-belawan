@@ -102,8 +102,10 @@ if ($idDivisi == "6") {
                         </td> -->
                         <td>
                             <?php if ($row['status_kasbon'] == 1) {
-                                if ($row['id_manager'] == '17' || $row['id_manager'] == '20' || $row['id_manager'] == '33' || $row['id_manager'] == '19') {
+                                if ($row['id_manager'] == '17' || $row['id_manager'] == '20' || $row['id_manager'] == '33') {
                                     echo "<span class='label label-primary'>Verifikasi Manager</span>";
+                                } elseif ($row['id_manager'] == '19') {
+                                    echo "<h4><span class='label label-primary'> Approval Assistant Manager </span></h4>";
                                 } else {
                                     echo "<span class='label label-primary'>Verifikasi Supervisor</span>";
                                 }
