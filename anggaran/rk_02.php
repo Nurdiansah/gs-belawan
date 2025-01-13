@@ -41,7 +41,7 @@ $queryOpex = mysqli_query($koneksi, "SELECT DISTINCT agg.id_anggaran, kd_pt, nm_
                                         AND id_pt = '$project'
                                         AND tipe_anggaran = 'OPEX'
                                         GROUP BY agg.id_anggaran
-                                        ORDER BY jenis_anggaran DESC, nm_pt, nm_divisi, nm_programkerja ASC
+                                        ORDER BY jenis_anggaran DESC, nm_pt, nm_divisi, kd_programkerja ASC
                             ");
 
 $queryCapex = mysqli_query($koneksi, "SELECT DISTINCT agg.id_anggaran, kd_pt, nm_pt, nm_divisi, kd_programkerja, nm_programkerja, no_coa, nm_coa, nm_item, 
@@ -72,7 +72,7 @@ $queryCapex = mysqli_query($koneksi, "SELECT DISTINCT agg.id_anggaran, kd_pt, nm
                                         AND id_pt = '$project'
                                         AND tipe_anggaran = 'CAPEX'
                                         GROUP BY agg.id_anggaran
-                                        ORDER BY jenis_anggaran DESC, nm_pt, nm_divisi, nm_programkerja ASC
+                                        ORDER BY jenis_anggaran DESC, nm_pt, nm_divisi, kd_programkerja ASC
                             ");
 
 
@@ -149,7 +149,7 @@ $queryPT = mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt <> '0' ORDER BY 
             $pk_nm_pt = "";
             $pk_kd_dept = "";
             $pk_kd_subdept = "";
-            $pk_kd_subrenja = "";
+            $pk_nm_subrenja = "";
             $sub_pk_nominal = 0;
             $sub_pk_realisasi = 0;
             $sub_pk_nota = 0;
@@ -179,15 +179,15 @@ $queryPT = mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt <> '0' ORDER BY 
             while ($dataOpex = mysqli_fetch_assoc($queryOpex)) {
 
                 // sub total per program kerja ditengah
-                if ($no > 1 && $program_kerja != $dataOpex['nm_programkerja']) {  ?>
+                if ($no > 1 && $program_kerja != $dataOpex['kd_programkerja']) {  ?>
                     <!-- tampilin sub total per PK nya -->
                     <tr>
                         <th><?= $pk_kd_pt; ?></th>
                         <th><?= $pk_nm_pt; ?></th>
                         <th><?= $pk_kd_dept; ?></th>
                         <th><?= $pk_kd_subdept; ?></th>
-                        <th><?= $pk_kd_subrenja; ?></th>
-                        <th style="text-align: left;"><?= $program_kerja; ?></th>
+                        <th><?= $program_kerja; ?></th>
+                        <th style="text-align: left;"><?= $pk_nm_subrenja; ?></th>
                         <th></th>
                         <th></th>
                         <th>Total</th>
@@ -207,7 +207,7 @@ $queryPT = mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt <> '0' ORDER BY 
                     $pk_nm_pt = "";
                     $pk_kd_dept = "";
                     $pk_kd_subdept = "";
-                    $pk_kd_subrenja = "";
+                    $pk_nm_subrenja = "";
                     $sub_pk_nominal = 0;
                     $sub_pk_realisasi = 0;
                     $sub_pk_nota = 0;
@@ -220,7 +220,7 @@ $queryPT = mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt <> '0' ORDER BY 
                 $pk_nm_pt = $dataOpex['nm_pt'];
                 $pk_kd_dept = substr($dataOpex['kd_programkerja'], 5, 2);
                 $pk_kd_subdept = substr($dataOpex['kd_programkerja'], 5, 4);
-                $pk_kd_subrenja = $dataOpex['kd_programkerja'];
+                $pk_nm_subrenja = $dataOpex['nm_programkerja'];
                 $sub_pk_nominal += $dataOpex['jml_nominal'];
                 $sub_pk_realisasi += $dataOpex['jml_realisasi'];
                 $sub_pk_nota += $dataOpex['nota'];
@@ -343,7 +343,7 @@ $queryPT = mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt <> '0' ORDER BY 
                 <!-- end isi -->
 
             <?php
-                $program_kerja = $dataOpex['nm_programkerja'];
+                $program_kerja = $dataOpex['kd_programkerja'];
                 $divisi = $dataOpex['nm_divisi'];
                 $pt = $dataOpex['nm_pt'];
                 $no++;
@@ -359,8 +359,8 @@ $queryPT = mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt <> '0' ORDER BY 
                 <th><?= $pk_nm_pt; ?></th>
                 <th><?= $pk_kd_dept; ?></th>
                 <th><?= $pk_kd_subdept; ?></th>
-                <th><?= $pk_kd_subrenja; ?></th>
-                <th style="text-align: left;"><?= $program_kerja; ?></th>
+                <th><?= $program_kerja; ?></th>
+                <th style="text-align: left;"><?= $pk_nm_subrenja; ?></th>
                 <th></th>
                 <th></th>
                 <th>Total</th>
@@ -454,7 +454,7 @@ $queryPT = mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt <> '0' ORDER BY 
             $pk_nm_pt = "";
             $pk_kd_dept = "";
             $pk_kd_subdept = "";
-            $pk_kd_subrenja = "";
+            $pk_nm_subrenja = "";
             $sub_pk_nominal = 0;
             $sub_pk_realisasi = 0;
             $sub_pk_nota = 0;
@@ -484,15 +484,15 @@ $queryPT = mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt <> '0' ORDER BY 
             while ($dataCapex = mysqli_fetch_assoc($queryCapex)) {
 
                 // sub total per program kerja ditengah
-                if ($no > 1 && $program_kerja != $dataCapex['nm_programkerja']) {  ?>
+                if ($no > 1 && $program_kerja != $dataCapex['kd_programkerja']) {  ?>
                     <!-- tampilin sub total per PK nya -->
                     <tr>
                         <th><?= $pk_kd_pt; ?></th>
                         <th><?= $pk_nm_pt; ?></th>
                         <th><?= $pk_kd_dept; ?></th>
                         <th><?= $pk_kd_subdept; ?></th>
-                        <th><?= $pk_kd_subrenja; ?></th>
-                        <th style="text-align: left;"><?= $program_kerja; ?></th>
+                        <th><?= $program_kerja; ?></th>
+                        <th style="text-align: left;"><?= $pk_nm_subrenja; ?></th>
                         <th></th>
                         <th></th>
                         <th>Total</th>
@@ -512,7 +512,7 @@ $queryPT = mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt <> '0' ORDER BY 
                     $pk_nm_pt = "";
                     $pk_kd_dept = "";
                     $pk_kd_subdept = "";
-                    $pk_kd_subrenja = "";
+                    $pk_nm_subrenja = "";
                     $sub_pk_nominal = 0;
                     $sub_pk_realisasi = 0;
                     $sub_pk_nota = 0;
@@ -525,7 +525,7 @@ $queryPT = mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt <> '0' ORDER BY 
                 $pk_nm_pt = $dataCapex['nm_pt'];
                 $pk_kd_dept = substr($dataCapex['kd_programkerja'], 5, 2);
                 $pk_kd_subdept = substr($dataCapex['kd_programkerja'], 5, 4);
-                $pk_kd_subrenja = $dataCapex['kd_programkerja'];
+                $pk_nm_subrenja = $dataCapex['nm_programkerja'];
                 $sub_pk_nominal += $dataCapex['jml_nominal'];
                 $sub_pk_realisasi += $dataCapex['jml_realisasi'];
                 $sub_pk_nota += $dataCapex['nota'];
@@ -648,7 +648,7 @@ $queryPT = mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt <> '0' ORDER BY 
                 <!-- end isi -->
 
             <?php
-                $program_kerja = $dataCapex['nm_programkerja'];
+                $program_kerja = $dataCapex['kd_programkerja'];
                 $divisi = $dataCapex['nm_divisi'];
                 $pt = $dataCapex['nm_pt'];
                 $no++;
@@ -664,8 +664,8 @@ $queryPT = mysqli_query($koneksi, "SELECT * FROM pt WHERE id_pt <> '0' ORDER BY 
                 <th><?= $pk_nm_pt; ?></th>
                 <th><?= $pk_kd_dept; ?></th>
                 <th><?= $pk_kd_subdept; ?></th>
-                <th><?= $pk_kd_subrenja; ?></th>
-                <th style="text-align: left;"><?= $program_kerja; ?></th>
+                <th><?= $program_kerja; ?></th>
+                <th style="text-align: left;"><?= $pk_nm_subrenja; ?></th>
                 <th></th>
                 <th></th>
                 <th>Total</th>
