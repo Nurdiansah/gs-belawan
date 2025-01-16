@@ -23,7 +23,7 @@ if ($idDivisi == "6") {
 ?>
 <!-- <form method="post" enctype="multipart/form-data" action="setuju_kasbon2.php" class="form-horizontal"> -->
 <div class="table-responsive">
-    <table class="table text-center table table-striped table-hover" id=" ">
+    <table class="table text-center table table-striped table-hover" id="material">
         <thead>
             <tr style="background-color :#B0C4DE;">
                 <th style="vertical-align: middle;" rowspan="2">No</th>
