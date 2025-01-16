@@ -35,6 +35,7 @@ function store($data)
 	$permohonan_id = $data['permohonan_id'];
 	$nilai_barang = $data['nilai_barang'];
 	$nilai_jasa = $data['nilai_jasa'];
+	$dpp_nilai_lain = $data['dpp_nilai_lain'];
 	$total_harga = $data['total_harga'];
 	$nilai_dpp = $data['nilai_dpp'];
 	$ppn_nilai = $data['ppn_nilai'];
@@ -53,8 +54,8 @@ function store($data)
 	$updated_at = $data['updated_at'];
 
 	$insert = mysqli_query($koneksi, "INSERT INTO verifikasi_pajak 
-	( jenispengajuan_id, permohonan_id, nilai_barang, nilai_jasa, total_harga, nilai_dpp, ppn_nilai, id_pph, pph_persen, pph_nilai, biaya_lain, potongan, grand_total, with_ppn, ppn_of, rounding,created_by, updated_by, created_at, updated_at) VALUES
-	( '$jenispengajuan_id', '$permohonan_id', '$nilai_barang', '$nilai_jasa', '$total_harga', '$nilai_dpp', '$ppn_nilai', '$id_pph', '$pph_persen', '$pph_nilai', '$biaya_lain', '$potongan', '$grand_total', '$with_ppn', '$ppn_of', '$rounding', '$created_by', '$updated_by', '$created_at', '$updated_at')
+	( jenispengajuan_id, permohonan_id, nilai_barang, nilai_jasa, dpp_nilai_lain, total_harga, nilai_dpp, ppn_nilai, id_pph, pph_persen, pph_nilai, biaya_lain, potongan, grand_total, with_ppn, ppn_of, rounding,created_by, updated_by, created_at, updated_at) VALUES
+	( '$jenispengajuan_id', '$permohonan_id', '$nilai_barang', '$nilai_jasa', '$dpp_nilai_lain', '$total_harga', '$nilai_dpp', '$ppn_nilai', '$id_pph', '$pph_persen', '$pph_nilai', '$biaya_lain', '$potongan', '$grand_total', '$with_ppn', '$ppn_of', '$rounding', '$created_by', '$updated_by', '$created_at', '$updated_at')
 	");
 
 	return $insert;
@@ -67,6 +68,7 @@ function update($data)
 	$permohonan_id = $data['permohonan_id'];
 	$nilai_barang = $data['nilai_barang'];
 	$nilai_jasa = $data['nilai_jasa'];
+	$dpp_nilai_lain = $data['dpp_nilai_lain'];
 	$total_harga = $data['total_harga'];
 	$nilai_dpp = $data['nilai_dpp'];
 	$ppn_nilai = $data['ppn_nilai'];
@@ -82,7 +84,7 @@ function update($data)
 	$updated_by = $data['updated_by'];
 	$updated_at = $data['updated_at'];
 
-	$update = mysqli_query($koneksi, "UPDATE verifikasi_pajak SET nilai_barang = '$nilai_barang', nilai_jasa = '$nilai_jasa',total_harga = '$total_harga',
+	$update = mysqli_query($koneksi, "UPDATE verifikasi_pajak SET nilai_barang = '$nilai_barang', nilai_jasa = '$nilai_jasa', dpp_nilai_lain = '$dpp_nilai_lain',total_harga = '$total_harga',
 										nilai_dpp = '$nilai_dpp',ppn_nilai = '$ppn_nilai',id_pph = '$id_pph',pph_persen = '$pph_persen',pph_nilai = '$pph_nilai',
 										biaya_lain = '$biaya_lain',potongan = '$potongan',grand_total = '$grand_total',with_ppn = '$with_ppn',ppn_of = '$ppn_of',
 										rounding = '$rounding',updated_by = '$updated_by',updated_at = '$updated_at'

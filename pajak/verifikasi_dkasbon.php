@@ -253,34 +253,48 @@ $tanggalCargo = date("Y-m-d");
                                         </div>
                                     </div>
                                 </div>
+                                <div id="bgn-dpp-lain">
+                                    <div class="form-group">
+                                        <label id="tes" for="dpp_nilai_lain" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">DPP Nilai Lain</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Rp.</span>
+                                                <input type="text" class="form-control " name="dpp_nilai_lain" id="dpp_nilai_lain" min="0" value="<?= formatRibuan($data['dpp_nilai_lain']); ?>" readonly />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah"></label>
                                     <div class="col-sm-2">
                                         <div class="input-group">
                                             <span class="input-group-addon">PPN</span>
-                                            <input type="number" required min="0" max="11" class="form-control " id="ppn_persen" name="ppn_persen" value="<?= round(($data['nilai_ppn'] / ($data['nilai_barang'] + $data['nilai_jasa'])) * 100) ?>" id="ppn_persen" />
+                                            <input type="number" required min="0" max="12" class="form-control " id="ppn_persen" name="ppn_persen" value="<?= round(($data['nilai_ppn'] / ($data['nilai_barang'] + $data['nilai_jasa'])) * 100) ?>" id="ppn_persen" />
                                             <span class="input-group-addon">%</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="input-group">
                                             <span class="input-group-addon">Rp.</span>
-                                            <input type="text" readonly class="form-control " name="ppn_nilai" value="<?= round($data['nilai_ppn']) ?>" id="ppn_nilai" />
+                                            <input type="text" readonly class="form-control " name="ppn_nilai" value="<?= formatRibuan(round($data['nilai_ppn'])); ?>" id="ppn_nilai" />
                                         </div>
                                     </div>
                                 </div>
                                 <div id="bgn-pembulatan" class="bg-warning col-sm-offset-2 col-sm-3 mb-2" style="width: 60%;">
-                                    <hr>
+                                    <br>
                                     <div class="form-group">
                                         <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-2 control-label" id="rupiah">PPN Atas</label>
                                         <div class="col-sm-3">
-                                            <input type="radio" name="ppn_atas" value="all" id="all" onclick="checkPpnAtas()" checked=" checked"> Barang & Jasa
+                                            <input type="radio" name="ppn_atas" value="all" id="all" onclick="checkPpnAtas()" checked="checked"> Barang & Jasa
                                         </div>
                                         <div class=" col-sm-3">
                                             <input type="radio" name="ppn_atas" value="barang" id="barang" onclick="checkPpnAtas()"> Hanya Barang
                                         </div>
                                         <div class=" col-sm-3">
                                             <input type="radio" name="ppn_atas" value="jasa" id="jasa" onclick="checkPpnAtas()"> Hanya Jasa
+                                        </div>
+                                        <div class=" col-sm-3">
+                                            <input type="radio" name="ppn_atas" value="dpp_lain" id="dpp_lain" onclick="checkPpnAtas()"> (11/12)
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -292,8 +306,8 @@ $tanggalCargo = date("Y-m-d");
                                             <input type="radio" name="pembulatan" value="kebawah" id="kebawah" onclick="checkPembulatan()" checked="checked"> Ke bawah
                                         </div>
                                     </div>
-                                    <hr>
                                 </div>
+
                                 <div class="form-group">
                                     <label id="tes" for="id_pph" class="col-sm-offset-1 col-sm-3 control-label">Jenis PPh</label>
                                     <div class="col-sm-2">
@@ -459,6 +473,15 @@ $tanggalCargo = date("Y-m-d");
         });
     });
 
+    let dpp_nilai_lain = '<?= $data['dpp_nilai_lain'] ?>'
+    if (dpp_nilai_lain > 0) {
+        $("#bgn-dpp-lain").show();
+    } else {
+        $("#bgn-dpp-lain").hide();
+    }
+
+    ppn_atas = $("input[name='ppn_atas']:checked").val();
+
     function checkPpnAtas() {
         // ambil cek ppn atas
         ppn_atas = $("input[name='ppn_atas']:checked").val();
@@ -525,12 +548,26 @@ $tanggalCargo = date("Y-m-d");
 
     function getDpp() {
         // var nilaiDpp = 0;
+
         if (ppn_atas == 'all') {
+            $("#bgn-dpp-lain").hide();
             var nilaiDpp = getNilaiBarang() + getNilaiJasa();
+
         } else if (ppn_atas == 'barang') {
+            $("#bgn-dpp-lain").hide();
             var nilaiDpp = getNilaiBarang();
+
         } else if (ppn_atas == 'jasa') {
+            $("#bgn-dpp-lain").hide();
             var nilaiDpp = getNilaiJasa();
+
+        } else if (ppn_atas == 'dpp_lain') {
+            $("#bgn-dpp-lain").show();
+
+            dpp_lain = (11 / 12) * (getNilaiBarang() + getNilaiJasa());
+            $('#dpp_nilai_lain').val(tandaPemisahTitik(Math.round(dpp_lain)))
+
+            var nilaiDpp = getDPPNilaiLain();
         }
 
         return nilaiDpp;
@@ -546,23 +583,24 @@ $tanggalCargo = date("Y-m-d");
         return grandTotal;
     }
 
+
     $(".perhitungan").keyup(function() {
         var nilaiJasa = parseInt($("#nilai_jasa").val())
         var pph_nilai = parseInt($("#pph_nilai").val())
 
         var nilaiBarang = parseInt($("#nilai_barang").val())
         var ppn_persen = parseInt($("#ppn_persen").val())
-        var ppn_nilai = (nilaiJasa + nilaiBarang) * ppn_persen / 100;
+        var potongan = parseInt($("#potongan").val())
+
+        var ppn_nilai = (getDpp() * ppn_persen / 100);
         var ppn_nilaia = tandaPemisahTitik(Math.round(ppn_nilai));
         $("#ppn").attr("value", ppn_nilaia);
-        var potongan = parseInt($("#potongan").val())
         document.form.ppn_nilai.value = ppn_nilaia;
 
         var jmla = Math.round(nilaiBarang) + Math.round(nilaiJasa) + Math.round(ppn_nilai) - Math.round(pph_nilai) - Math.round(potongan);
         var jml = tandaPemisahTitik(Math.round(jmla));
         $("#jml").attr("value", Math.round(jml));
         document.form.jml_bkk.value = jml;
-
     });
 
     if (parseInt($('#ppn_nilai').val()) == '0') {
@@ -580,15 +618,19 @@ $tanggalCargo = date("Y-m-d");
     });
 
     function getNilaiBarang() {
-        return hilangkanTitik('nilai_barang');
+        return parseInt($("#nilai_barang").val())
     }
 
     function getNilaiJasa() {
-        return hilangkanTitik('nilai_jasa');
+        return parseInt($("#nilai_jasa").val())
+    }
+
+    function getDPPNilaiLain() {
+        return parseInt(hilangkanTitik($("#dpp_nilai_lain").val()));
     }
 
     function getPpnNilai() {
-        return hilangkanTitik('nilai_ppn');
+        return hilangkanTitik(parseInt($("#nilai_ppn").val()));
     }
 
     function getPpnAtas() {
@@ -596,11 +638,11 @@ $tanggalCargo = date("Y-m-d");
     }
 
     function getBiayaLain() {
-        return hilangkanTitik('biaya_lain');
+        return parseInt($("#biaya_lain").val());
     }
 
     function getPotongan() {
-        return hilangkanTitik('potongan');
+        return parseInt($("#potongan").val());
     }
 
     function getPphNilai() {
@@ -608,7 +650,7 @@ $tanggalCargo = date("Y-m-d");
         // if (jenis == 'fixed') {
 
         // pph nilai 1 untuk tarif fix
-        var pph_nilai = hilangkanTitik('pph_nilai')
+        var pph_nilai = parseInt($("#pph_nilai").val())
 
         // } else if (jenis == 'progresive') {
 
@@ -623,7 +665,7 @@ $tanggalCargo = date("Y-m-d");
     }
 
     function hilangkanTitik(idTag) {
-        var angka = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById(idTag).value))))); //input ke dalam angka tanpa titik
+        var angka = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(idTag))))); //input ke dalam angka tanpa titik
 
         return angka;
     }

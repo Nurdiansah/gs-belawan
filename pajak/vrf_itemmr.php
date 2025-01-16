@@ -17,13 +17,14 @@ if (isset($_POST['submit']) || isset($_POST['simpan'])) {
 
     $nilai_barang = $_POST['nilai_barang'];
     $nilai_jasa = $_POST['nilai_jasa'];
-    $nilai_ppn = str_replace(".", "", $_POST['ppn_nilai']);
+    $dpp_nilai_lain = penghilangTitik($_POST['dpp_nilai_lain']);
+    $nilai_ppn = penghilangTitik($_POST['ppn_nilai']);
     $nilai_pph = $_POST['pph_nilai'];
     $id_pph = $_POST['id_pph'];
     $harga = penghilangTitik($_POST['jml_bkk']);
 
     if (isset($_POST['simpan'])) {
-        $querySimpan = mysqli_query($koneksi, "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa', 
+        $querySimpan = mysqli_query($koneksi, "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa', dpp_nilai_lain = '$dpp_nilai_lain',
                                                     nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', potongan = '$potongan',
                                                     id_pph = '$id_pph', harga_akhir = '$harga'
                                                 WHERE id_kasbon ='$id_kasbon'
@@ -75,7 +76,7 @@ if (isset($_POST['submit']) || isset($_POST['simpan'])) {
                 }
 
                 #kondisi jika verfikasi pajak sebelum pembayaran
-                $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+                $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa', dpp_nilai_lain = '$dpp_nilai_lain',
                                     nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
                                     id_pph = '$id_pph', harga_akhir = '$harga', status_kasbon = '$status_kasbon', app_pajak = '$tanggal'                                              
                                     WHERE id_kasbon ='$id_kasbon' ";
@@ -152,7 +153,7 @@ if (isset($_POST['submit']) || isset($_POST['simpan'])) {
                 }
             } else {
                 # kondisi jika verifikasi pajak setelah pembelian atau pembayaran
-                $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+                $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa', dpp_nilai_lain = '$dpp_nilai_lain',
                                     nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
                                     id_pph = '$id_pph', harga_akhir = '$harga', status_kasbon = '7', app_pajak = '$tanggal'                                              
                                     WHERE id_kasbon ='$id_kasbon' ";
@@ -166,7 +167,7 @@ if (isset($_POST['submit']) || isset($_POST['simpan'])) {
 
             if ($free_approve == '1') {
                 # code...
-                $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+                $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa', dpp_nilai_lain = '$dpp_nilai_lain',
                                     nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
                                     id_pph = '$id_pph', harga_akhir = '$harga', status_kasbon = '7', app_pajak = '$tanggal' , app_mgr_finance = '$tanggal' , app_direktur = '$tanggal' , app_direktur2 = '$tanggal'                                                                                     
                                     WHERE id_kasbon ='$id_kasbon' ";
@@ -174,7 +175,7 @@ if (isset($_POST['submit']) || isset($_POST['simpan'])) {
                 $hasil = mysqli_query($koneksi, $query);
             } else {
                 # code...
-                $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa' , 
+                $query = "UPDATE kasbon SET nilai_barang = '$nilai_barang' , nilai_jasa = '$nilai_jasa', dpp_nilai_lain = '$dpp_nilai_lain',
                                                 nilai_ppn = '$nilai_ppn', nilai_pph = '$nilai_pph', 
                                                 id_pph = '$id_pph', harga_akhir = '$harga', status_kasbon = '5', app_pajak = '$tanggal'
                                                 WHERE id_kasbon ='$id_kasbon' ";

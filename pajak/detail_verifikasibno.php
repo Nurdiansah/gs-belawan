@@ -12,11 +12,12 @@ if (isset($_POST['simpan'])) {
     // mysqli_begin_transaction($koneksi);
 
     $id_bkk = $_POST['id_bkk'];
-    $id_pph = $_POST['id_pph'];
+    $id_pph = $_POST['id_pph'] == "" ? "0" : $_POST['id_pph'];
     $nilai_baranga = $_POST['nilai_barang'];
     $nilai_barang = str_replace(".", "", $nilai_baranga);
     $nilai_jasaa = $_POST['nilai_jasa'];
     $nilai_jasa = str_replace(".", "", $nilai_jasaa);
+    $dpp_nilai_lain = str_replace(".", "", $_POST['dpp_nilai_lain']);
     $ppn_nilaia = $_POST['ppn_nilai'];
 
     // Opsional
@@ -48,8 +49,6 @@ if (isset($_POST['simpan'])) {
         $with_ppn = 0;
     }
 
-
-
     mysqli_begin_transaction($koneksi);
 
     $data = [
@@ -57,6 +56,7 @@ if (isset($_POST['simpan'])) {
         'permohonan_id' => $id_bkk,
         'nilai_barang' => $nilai_barang,
         'nilai_jasa' => $nilai_jasa,
+        'dpp_nilai_lain' => $dpp_nilai_lain,
         'total_harga' => $nilai_barang + $nilai_jasa,
         'nilai_dpp' => $nilai_barang,
         'ppn_nilai' => $ppn_nilai,
@@ -75,17 +75,14 @@ if (isset($_POST['simpan'])) {
         'updated_at' => dateNow()
     ];
 
-
-
     // verifikasi pajak
     $verifikasi = verifikasi($data);
 
-    $update = mysqli_query($koneksi, "UPDATE bkk SET nilai_barang='$nilai_barang', nilai_jasa='$nilai_jasa', ppn_nilai='$ppn_nilai', pph_persen= '$pph_persent',
+    $update = mysqli_query($koneksi, "UPDATE bkk SET nilai_barang='$nilai_barang', nilai_jasa='$nilai_jasa', dpp_nilai_lain = '$dpp_nilai_lain', ppn_nilai='$ppn_nilai', pph_persen= '$pph_persent',
                                         biaya_lain = '$biaya_lain' ,pph_nilai='$pph_nilai', id_pph='$id_pph', jml_bkk='$jml_bkk', terbilang_bkk='$terbilang_bkk', potongan = '$potongan'
     WHERE id_bkk ='$id_bkk' ");
 
-
-    if ($update & $verifikasi) {
+    if ($update && $verifikasi) {
         mysqli_commit($koneksi);
 
         setcookie('pesan', 'Data Tersimpan', time() + (3), '/');
@@ -108,6 +105,7 @@ if (isset($_POST['simpan'])) {
     $nilai_barang = str_replace(".", "", $nilai_baranga);
     $nilai_jasaa = $_POST['nilai_jasa'];
     $nilai_jasa = str_replace(".", "", $nilai_jasaa);
+    $dpp_nilai_lain = str_replace(".", "", $_POST['dpp_nilai_lain']);
     $ppn_nilaia = $_POST['ppn_nilai'];
     $ppn_nilai = str_replace(".", "", $ppn_nilaia);
     $pph_persent = $_POST['pph_persen'];
@@ -123,8 +121,8 @@ if (isset($_POST['simpan'])) {
     // BEGIN TRAN, mysql
     mysqli_begin_transaction($koneksi);
 
-    $queryUbah = mysqli_query($koneksi, "UPDATE bkk SET nilai_barang='$nilai_barang', nilai_jasa='$nilai_jasa', ppn_nilai='$ppn_nilai', pph_persen= '$pph_persent',
-                                        pph_nilai='$pph_nilai', id_pph='$id_pph', jml_bkk='$jml_bkk', terbilang_bkk='$terbilang_bkk', potongan = '$potongan', status_bkk= 5
+    $queryUbah = mysqli_query($koneksi, "UPDATE bkk SET status_bkk= 5, app_pajak = NOW() -- nilai_barang='$nilai_barang', nilai_jasa='$nilai_jasa', dpp_nilai_lain = '$dpp_nilai_lain', ppn_nilai='$ppn_nilai', pph_persen= '$pph_persent',
+                                         -- pph_nilai='$pph_nilai', id_pph='$id_pph', jml_bkk='$jml_bkk', terbilang_bkk='$terbilang_bkk', potongan = '$potongan', status_bkk= 5
                                         WHERE id_bkk ='$id_bkk' ");
 
     // query data BU
@@ -469,6 +467,17 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
                                                 <i><span id="nj_ui"></span></i>
                                             </div>
                                         </div>
+                                        <div id="bgn-dpp-lain">
+                                            <div class="form-group">
+                                                <label id="tes" for="dpp_nilai_lain" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">DPP Nilai Lain</label>
+                                                <div class="col-sm-5">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Rp.</span>
+                                                        <input type="text" class="form-control " name="dpp_nilai_lain" id="dpp_nilai_lain" min="0" value="<?= formatRibuan($row2['dpp_nilai_lain']); ?>" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN
                                                 <select name="pilih_ppn" id="setppn">
@@ -501,6 +510,9 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
                                                 <div class=" col-sm-3">
                                                     <input type="radio" name="ppn_atas" value="jasa" id="jasa" onclick="checkPpnAtas()"> Hanya Jasa
                                                 </div>
+                                                <div class=" col-sm-3">
+                                                    <input type="radio" name="ppn_atas" value="dpp_lain" id="dpp_lain" onclick="checkPpnAtas()"> (11/12)
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">Pembulatan</label>
@@ -529,7 +541,7 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
                                             <label id="tes" for="id_pph" class="col-sm-offset-1 col-sm-3 control-label">Jenis PPh</label>
                                             <div class="col-sm-5">
                                                 <select name="id_pph" class="form-control" id="id_pph" value="<?= $row2['id_pph'] ?>">
-                                                    <option value="">--Jenis PPh--</option>
+                                                    <option value="0">--Jenis PPh--</option>
                                                     <?php
                                                     $queryPph = mysqli_query($koneksi, "SELECT * FROM pph ORDER BY nm_pph ASC");
                                                     if (mysqli_num_rows($queryPph)) {
@@ -746,7 +758,6 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
 
     // perhitungan pajak
     var np = <?= $np ?>;
-    console.log(np);
 
     // Deklarasi
     var id_pph = '<?= $row2['id_pph']; ?>';
@@ -757,10 +768,10 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
     let ppn_of = '<?= $row2['ppn_of']; ?>';
     let rounding = '<?= $row2['rounding']; ?>';
 
-    var ppn_atas = $("input[name='ppn_atas']:checked").val();
-
     $("#" + ppn_of).attr('checked', 'checked');
     $("#" + rounding).attr('checked', 'checked');
+
+    var ppn_atas = $("input[name='ppn_atas']:checked").val();
 
     let persentasePpn = getPersentasePpn();
 
@@ -783,9 +794,20 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
             checkBox();
 
         }
+
+        if (ppn_atas == 'dpp_lain') {
+            $("#bgn-dpp-lain").show();
+        } else {
+            $("#bgn-dpp-lain").hide();
+        }
     });
 
-
+    let dpp_nilai_lain = '<?= $row2['dpp_nilai_lain'] ?>'
+    if (dpp_nilai_lain > 0) {
+        $("#bgn-dpp-lain").show();
+    } else {
+        $("#bgn-dpp-lain").hide();
+    }
 
     $("#bgn-pembulatan").hide();
     if (np > 0) {
@@ -852,6 +874,7 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
         var np_ui = tandaPemisahTitik(potongan);
         $('#np_ui').text('Rp.' + np_ui);
 
+        checkBox()
         hitungTotal();
 
     });
@@ -908,11 +931,10 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
 
             var ppn_nilai = Math.floor(setPpn * (getDpp()));
 
-
         } else if (checkBox.checked == false) {
 
             $("#bgn-pembulatan").hide();
-
+            $("#bgn-dpp-lain").hide();
 
             var ppn_nilai = 0;
         }
@@ -947,11 +969,24 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
         // var nilaiDpp = 0;
 
         if (ppn_atas == 'all') {
+            $("#bgn-dpp-lain").hide();
             var nilaiDpp = getNilaiBarang() + getNilaiJasa();
+
         } else if (ppn_atas == 'barang') {
+            $("#bgn-dpp-lain").hide();
+
             var nilaiDpp = getNilaiBarang();
         } else if (ppn_atas == 'jasa') {
+            $("#bgn-dpp-lain").hide();
             var nilaiDpp = getNilaiJasa();
+
+        } else if (ppn_atas == 'dpp_lain') {
+            $("#bgn-dpp-lain").show();
+
+            dpp_lain = (11 / 12) * getNilaiBarang() + getNilaiJasa();
+            $('#dpp_nilai_lain').val(tandaPemisahTitik(Math.round(dpp_lain)))
+
+            var nilaiDpp = getDPPNilaiLain();
         }
 
         return nilaiDpp;
@@ -1015,6 +1050,10 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
         return hilangkanTitik('nilai_jasa');
     }
 
+    function getDPPNilaiLain() {
+        return hilangkanTitik('dpp_nilai_lain');
+    }
+
     function getPpnNilai() {
         return hilangkanTitik('ppn_nilai');
     }
@@ -1053,10 +1092,8 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
     }
 
 
-
-
     function hilangkanTitik(idTag) {
-        var angka = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById(idTag).value))))); //input ke dalam angka tanpa titik
+        var angka = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(idTag))))); //input ke dalam angka tanpa titik
 
         return angka;
     }
