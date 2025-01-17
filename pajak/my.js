@@ -82,3 +82,8 @@ function numbersonly(ini, e){
 
 }
 
+function bersihPemisah(ini){
+	a = ini.toString().replace(".","");
+	//a = a.replace(".","");
+	return a;
+}

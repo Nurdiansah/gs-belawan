@@ -385,6 +385,17 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                             <i><span id="nj_ui"></span></i>
                                         </div>
                                     </div>
+                                    <div id="bgn-dpp-lain">
+                                        <div class="form-group">
+                                            <label id="tes" for="dpp_nilai_lain" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">DPP Nilai Lain</label>
+                                            <div class="col-sm-5">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Rp.</span>
+                                                    <input type="text" class="form-control " name="dpp_nilai_lain" id="dpp_nilai_lain" min="0" value="<?= formatRibuan($data['dpp_nilai_lain']); ?>" readonly />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN
                                             <select name="pilih_ppn" id="setppn">
@@ -416,6 +427,9 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                             </div>
                                             <div class=" col-sm-3">
                                                 <input type="radio" name="ppn_atas" value="jasa" id="jasa" onclick="checkPpnAtas()"> Hanya Jasa
+                                            </div>
+                                            <div class=" col-sm-3">
+                                                <input type="radio" name="ppn_atas" value="dpp_lain" id="dpp_lain" onclick="checkPpnAtas()"> (11/12)
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -689,6 +703,16 @@ $totalReapp = mysqli_num_rows($queryReapp);
         });
     });
 
+    let dpp_nilai_lain = '<?= $data2['dpp_nilai_lain'] ?>'
+    if (dpp_nilai_lain > 0) {
+        $("#bgn-dpp-lain").show();
+    } else {
+        $("#bgn-dpp-lain").hide();
+    }
+
+    ppn_atas = $("input[name='ppn_atas']:checked").val();
+
+
     // cek apakah ada nilai ppn
     var np = <?= $data2['nilai_ppn'] ?>;
 
@@ -813,27 +837,20 @@ $totalReapp = mysqli_num_rows($queryReapp);
         hitungTotal();
     });
 
-    function hilangkanTitik(data) {
-        var angka = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById(data).value))))); //input ke dalam angka tanpa titik
-
-        return angka;
-    }
-
     function showPph(data) {
 
         var nilai_barang = parseInt($("#nilai_barang").val())
-        var nilai_jasa = hilangkanTitik('nilai_jasa')
-        var ppn_nilai = hilangkanTitik('ppn_nilai')
-        var biaya_lain = hilangkanTitik('biaya_lain')
+        var nilai_jasa = parseInt($("#nilai_jasa").val()) // hilangkanTitik('nilai_jasa')
+        var ppn_nilai = parseInt(hilangkanTitik($("#ppn_nilai").val()));
 
-        // console.log(biaya_lain);
-
+        var biaya_lain = parseInt($("#biaya_lain").val()) // hilangkanTitik('biaya_lain')
+        // var biaya_lain = hilangkanTitik('biaya_lain')
 
         // var jml = hilangkanTitik('jml')
-        var pph_nilai = hilangkanTitik('pph_nilai')
+        var pph_nilai = parseInt(hilangkanTitik($("#pph_nilai").val())); // hilangkanTitik('pph_nilai')
 
         // pph nilai 2 untuk tarif progresive
-        var pph_nilai2 = hilangkanTitik('pph_nilai2')
+        var pph_nilai2 = parseInt(hilangkanTitik($("#pph_nilai2").val())); // hilangkanTitik('pph_nilai2')
 
 
         if (data == 'fixed') {
@@ -898,7 +915,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
 
         var checkBox = document.getElementById("myCheck");
         if (checkBox.checked == true) {
-            var ppn_nilai = Math.floor(angkaPpn * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(angkaPpn * (getDpp()));
         } else if (checkBox.checked == false) {
             var ppn_nilai = 0;
         }
@@ -986,6 +1003,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
         } else if (checkBox.checked == false) {
 
             $("#bgn-pembulatan").hide();
+            $("#bgn-dpp-lain").hide();
 
             hitungCheckBox(setPpn);
         }
@@ -1008,7 +1026,6 @@ $totalReapp = mysqli_num_rows($queryReapp);
         // var grandTotal = getNilaiBarang() + getNilaiJasa() + ppn_nilai + getBiayaLain() - getPphNilai() - getPotongan();
 
         // var jml = tandaPemisahTitik(grandTotal);
-        // console.log('jumlah ', jml)
 
         // document.form.jml.value = jml;
         hitungTotal()
@@ -1018,11 +1035,24 @@ $totalReapp = mysqli_num_rows($queryReapp);
         // var nilaiDpp = 0;
 
         if (ppn_atas == 'all') {
+            $("#bgn-dpp-lain").hide();
             var nilaiDpp = getNilaiBarang() + getNilaiJasa();
+
         } else if (ppn_atas == 'barang') {
+            $("#bgn-dpp-lain").hide();
             var nilaiDpp = getNilaiBarang();
+
         } else if (ppn_atas == 'jasa') {
+            $("#bgn-dpp-lain").hide();
             var nilaiDpp = getNilaiJasa();
+
+        } else if (ppn_atas == 'dpp_lain') {
+            $("#bgn-dpp-lain").show();
+
+            dpp_lain = (11 / 12) * (getNilaiBarang() + getNilaiJasa());
+            $('#dpp_nilai_lain').val(tandaPemisahTitik(Math.round(dpp_lain)))
+
+            var nilaiDpp = getDPPNilaiLain();
         }
 
         return nilaiDpp;
@@ -1079,15 +1109,19 @@ $totalReapp = mysqli_num_rows($queryReapp);
     }
 
     function getNilaiBarang() {
-        return hilangkanTitik('nilai_barang');
+        return parseInt($("#nilai_barang").val())
     }
 
     function getNilaiJasa() {
-        return hilangkanTitik('nilai_jasa');
+        return parseInt($("#nilai_jasa").val())
+    }
+
+    function getDPPNilaiLain() {
+        return parseInt(hilangkanTitik($("#dpp_nilai_lain").val()));
     }
 
     function getPpnNilai() {
-        return hilangkanTitik('ppn_nilai');
+        return parseInt(hilangkanTitik($("#ppn_nilai").val()));
     }
 
     function getPpnAtas() {
@@ -1095,11 +1129,11 @@ $totalReapp = mysqli_num_rows($queryReapp);
     }
 
     function getBiayaLain() {
-        return hilangkanTitik('biaya_lain');
+        return parseInt($("#biaya_lain").val());
     }
 
     function getPotongan() {
-        return hilangkanTitik('potongan');
+        return parseInt($("#potongan").val());
     }
 
     function getPphNilai() {
@@ -1107,12 +1141,12 @@ $totalReapp = mysqli_num_rows($queryReapp);
         if (jenis == 'fixed') {
 
             // pph nilai 1 untuk tarif fix
-            var pph_nilai = hilangkanTitik('pph_nilai')
+            var pph_nilai = parseInt(hilangkanTitik($("#pph_nilai").val()));
 
         } else if (jenis == 'progresive') {
 
             // pph nilai 2 untuk tarif progresive
-            var pph_nilai = hilangkanTitik('pph_nilai2')
+            var pph_nilai = parseInt(hilangkanTitik($("#pph_nilai2").val()));
 
         } else {
             var pph_nilai = 0;
@@ -1124,7 +1158,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
     }
 
     function hilangkanTitik(idTag) {
-        var angka = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById(idTag).value))))); //input ke dalam angka tanpa titik
+        var angka = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(idTag))))); //input ke dalam angka tanpa titik
 
         return angka;
     }

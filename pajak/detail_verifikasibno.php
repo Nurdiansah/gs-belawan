@@ -983,7 +983,7 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
         } else if (ppn_atas == 'dpp_lain') {
             $("#bgn-dpp-lain").show();
 
-            dpp_lain = (11 / 12) * getNilaiBarang() + getNilaiJasa();
+            dpp_lain = (11 / 12) * (getNilaiBarang() + getNilaiJasa());
             $('#dpp_nilai_lain').val(tandaPemisahTitik(Math.round(dpp_lain)))
 
             var nilaiDpp = getDPPNilaiLain();

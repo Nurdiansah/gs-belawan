@@ -630,7 +630,7 @@ $tanggalCargo = date("Y-m-d");
     }
 
     function getPpnNilai() {
-        return hilangkanTitik(parseInt($("#nilai_ppn").val()));
+        return parseInt(hilangkanTitik($("#nilai_ppn").val()));
     }
 
     function getPpnAtas() {

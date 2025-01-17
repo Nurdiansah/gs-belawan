@@ -947,7 +947,7 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
         } else if (ppn_atas == 'dpp_lain') {
             $("#bgn-dpp-lain").show();
 
-            dpp_lain = (11 / 12) * getNilaiBarang() + getNilaiJasa();
+            dpp_lain = (11 / 12) * (getNilaiBarang() + getNilaiJasa());
             $('#dpp_nilai_lain').val(tandaPemisahTitik(Math.round(dpp_lain)))
 
             var nilaiDpp = getDPPNilaiLain();
