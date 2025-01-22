@@ -216,7 +216,7 @@ $totalRealisasi = $rowR['januari_realisasi'] + $rowR['februari_realisasi'] + $ro
                             <td><b> <?= formatRupiah($data2['total_po']); ?></b></td>
                         </tr>
                         <tr>
-                            <td colspan="5"><b> PPN 10% </b></td>
+                            <td colspan="5"><b> PPN </b></td>
                             <td><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
                         </tr>
                         <tr>

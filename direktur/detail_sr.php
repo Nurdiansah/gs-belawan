@@ -223,7 +223,7 @@ $totalRealisasi = $data['jumlah_realisasi'];
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN 10%</label>
+                                <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN</label>
                                 <div class="col-sm-1">
                                     <input type="checkbox" name="all" id="myCheck" onclick="checkBox()" disabled>
                                 </div>

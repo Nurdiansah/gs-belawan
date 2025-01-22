@@ -164,7 +164,7 @@ $jumlahData = mysqli_num_rows($query);
                                 </div>
                             </div>
                             <div class="form-group ">
-                                <label for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label">PPN 10% </label>
+                                <label for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label">PPN </label>
                                 <div class="col-sm-5">
                                     <div class="input-group">
                                         <span class="input-group-addon ">Rp.</span>
