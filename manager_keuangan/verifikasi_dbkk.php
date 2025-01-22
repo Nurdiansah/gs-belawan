@@ -1131,7 +1131,7 @@ $jmlReapp = mysqli_num_rows($reApprove);
                                 <td style="text-align: right;"><b> <?= formatRupiah($dataPO['total_po']); ?></b></td>
                             </tr>
                             <tr>
-                                <td style="text-align: right;" colspan="5"><b> PPN 10% </b></td>
+                                <td style="text-align: right;" colspan="5"><b> PPN </b></td>
                                 <td style="text-align: right;"><b> <?= formatRupiah($dataPO['nilai_ppn']); ?></b></td>
                             </tr>
                             <tr>

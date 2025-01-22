@@ -942,7 +942,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                 <td><b> <?= formatRupiah($dataPO['total_po']); ?></b></td>
                             </tr>
                             <tr>
-                                <td colspan="5"><b> PPN 10% </b></td>
+                                <td colspan="5"><b> PPN </b></td>
                                 <td><b> <?= formatRupiah($dataPO['nilai_ppn']); ?></b></td>
                             </tr>
                             <tr>

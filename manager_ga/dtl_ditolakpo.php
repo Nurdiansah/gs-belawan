@@ -190,7 +190,7 @@ $querySbo =  mysqli_query($koneksi, "SELECT *
                         $grandTotal = $total + $data2['nilai_ppn'];
                         ?>
                         <tr style="background-color :#B0C4DE;">
-                            <td colspan="5"><b> PPN 10% </b></td>
+                            <td colspan="5"><b> PPN </b></td>
                             <td><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
                         </tr>
                         <tr style="background-color :#B0C4DE;">

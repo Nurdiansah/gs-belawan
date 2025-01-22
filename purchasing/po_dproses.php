@@ -215,7 +215,7 @@ $rowR = mysqli_fetch_assoc($queryRealisasi);
                                 <td><b> <?= formatRupiah($total); ?>,00</b></td>
                             </tr>
                             <tr style="background-color :#B0C4DE;">
-                                <td colspan="5"><b> PPN 10% </b></td>
+                                <td colspan="5"><b> PPN </b></td>
                                 <td><b> <?= formatRupiah($data2['nilai_ppn']); ?></b></td>
                             </tr>
                             <tr style="background-color :#B0C4DE;">

@@ -1043,19 +1043,19 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
     }
 
     function getNilaiBarang() {
-        return hilangkanTitik('nilai_barang');
+        return parseInt($("#nilai_barang").val())
     }
 
     function getNilaiJasa() {
-        return hilangkanTitik('nilai_jasa');
+        return parseInt($("#nilai_jasa").val())
     }
 
     function getDPPNilaiLain() {
-        return hilangkanTitik('dpp_nilai_lain');
+        return parseInt(hilangkanTitik($("#dpp_nilai_lain").val()));
     }
 
     function getPpnNilai() {
-        return hilangkanTitik('ppn_nilai');
+        return parseInt(hilangkanTitik($("#ppn_nilai").val()));
     }
 
     function getPpnAtas() {
@@ -1063,11 +1063,11 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
     }
 
     function getBiayaLain() {
-        return hilangkanTitik('biaya_lain');
+        return parseInt($("#biaya_lain").val());
     }
 
     function getPotongan() {
-        return hilangkanTitik('potongan');
+        return parseInt($("#potongan").val());
     }
 
     function getPphNilai() {
@@ -1075,12 +1075,12 @@ $sub_total = $row2['nilai_barang'] + $row2['nilai_jasa'] + $row2['ppn_nilai'];
         if (jenis == 'fixed') {
 
             // pph nilai 1 untuk tarif fix
-            var pph_nilai = hilangkanTitik('pph_nilai')
+            var pph_nilai = parseInt(hilangkanTitik($("#pph_nilai").val()));
 
         } else if (jenis == 'progresive') {
 
             // pph nilai 2 untuk tarif progresive
-            var pph_nilai = hilangkanTitik('pph_nilai2')
+            var pph_nilai = parseInt(hilangkanTitik($("#pph_nilai2").val()));
 
         } else {
             var pph_nilai = 0;

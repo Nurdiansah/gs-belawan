@@ -391,7 +391,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
                                             <div class="col-sm-5">
                                                 <div class="input-group">
                                                     <span class="input-group-addon">Rp.</span>
-                                                    <input type="text" class="form-control " name="dpp_nilai_lain" id="dpp_nilai_lain" min="0" value="<?= formatRibuan($data['dpp_nilai_lain']); ?>" readonly />
+                                                    <input type="text" class="form-control " name="dpp_nilai_lain" id="dpp_nilai_lain" min="0" value="<?= formatRibuan($data2['dpp_nilai_lain']); ?>" readonly />
                                                 </div>
                                             </div>
                                         </div>
