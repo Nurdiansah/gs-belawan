@@ -10,7 +10,7 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
     echo $id;
 
     if ($_GET['aksi'] == 'lihat') {
-        header("location:?p=transaksi_dkasbon&id=$id");
+        header("location:?p=proses_dkasbon_user&id=$id");
     } else if ($_GET['aksi'] == 'hapus') {
         header("location:?p=verifikasi_dmr&id=$id");
     }
@@ -50,7 +50,7 @@ $query = mysqli_query($koneksi, "SELECT *
                         <br><br>
                     </div>
                     <div class="table-responsive">
-                        <table class="table text-center table table-striped table-hover" id=" ">
+                        <table class="table text-center table table-striped table-hover" id="material">
                             <thead>
                                 <tr style="background-color :#B0C4DE;">
                                     <th>No</th>
@@ -62,13 +62,13 @@ $query = mysqli_query($koneksi, "SELECT *
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($query)) {
-                                        while ($row = mysqli_fetch_assoc($query)) :
+                                <?php
+                                $no = 1;
+                                if (mysqli_num_rows($query)) {
+                                    while ($row = mysqli_fetch_assoc($query)) :
 
-                                    ?>
+                                ?>
+                                        <tr>
                                             <td> <?= $no; ?> </td>
                                             <td> <?= $row['id_kasbon']; ?> </td>
                                             <td> <?= tanggal_indo($row['tgl_pengajuan']); ?> </td>
@@ -77,11 +77,11 @@ $query = mysqli_query($koneksi, "SELECT *
                                             <td>
                                                 <a href="?p=transaksi_kasbon&aksi=lihat&id=<?= $row['id_kasbon']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info">Lihat</button></span></a>
                                             </td>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    } ?>
+                                        </tr>
+                                <?php
+                                        $no++;
+                                    endwhile;
+                                } ?>
                             </tbody>
                         </table>
                     </div>

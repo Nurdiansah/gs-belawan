@@ -41,7 +41,7 @@ $query = mysqli_query($koneksi, "SELECT *
                     <br>
                 </div>
                 <div class="table-responsive">
-                    <table class="table text-center table table-striped table-hover" id=" ">
+                    <table class="table text-center table table-striped table-hover" id="material">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -56,14 +56,14 @@ $query = mysqli_query($koneksi, "SELECT *
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <?php
-                                $no = 1;
-                                if (mysqli_num_rows($query)) {
-                                    while ($row = mysqli_fetch_assoc($query)) :
-                                        $angka_format = number_format($row['jml_bkk'], 0, ",", ".");
+                            <?php
+                            $no = 1;
+                            if (mysqli_num_rows($query)) {
+                                while ($row = mysqli_fetch_assoc($query)) :
+                                    $angka_format = number_format($row['jml_bkk'], 0, ",", ".");
 
-                                ?>
+                            ?>
+                                    <tr>
                                         <td> <?= $no; ?> </td>
                                         <td> <?= $row['kd_transaksi']; ?> </td>
                                         <td> <?= formatTanggal($row['tgl_pengajuan']); ?> </td>
@@ -73,16 +73,16 @@ $query = mysqli_query($koneksi, "SELECT *
                                         <td> <?= $row['nm_vendor']; ?> </td>
                                         <td> <?= "Rp." . $angka_format; ?> </td>
                                         <td>
-                                            <a href="?p=proses_biayanonops&aksi=edit&id=<?= $row['id_bkk']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info">Lihat</button></span></a>
+                                            <a href="?p=lihat_bno&aksi=edit&id=<?= $row['id_bkk']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info">Lihat</button></span></a>
 
                                             <!-- <a target="_blank" href="cetak_jobreportvessel.php" class="btn btn-success"><i class="fa fa-print"></i> Cetak </a> -->
                                         </td>
-                            </tr>
-                    <?php
+                                    </tr>
+                            <?php
 
-                                        $no++;
-                                    endwhile;
-                                } ?>
+                                    $no++;
+                                endwhile;
+                            } ?>
                         </tbody>
                     </table>
                 </div>

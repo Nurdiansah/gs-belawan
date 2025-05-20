@@ -26,7 +26,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                             ON tp.id_anggaran = a.id_anggaran 
                                             JOIN divisi d
                                             ON tp.id_divisi = d.id_divisi
-                                            WHERE tp.id_manager = '$idUser' AND tp.status_pettycash = '5'                                                                                         
+                                            WHERE tp.id_manager = '$idUser' AND tp.status_pettycash = '5'
                                             ORDER BY tp.created_pettycash_on DESC   ");
 ?>
 <!-- Main content -->
@@ -54,24 +54,24 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($query)) {
-                                        while ($row = mysqli_fetch_assoc($query)) :
-                                    ?>
+                                <?php
+                                $no = 1;
+                                if (mysqli_num_rows($query)) {
+                                    while ($row = mysqli_fetch_assoc($query)) :
+                                ?>
+                                        <tr>
                                             <td> <?= $no; ?> </td>
                                             <td><?= $row['kd_pettycash']; ?></td>
                                             <td> <?= formatTanggal($row['created_pettycash_on']); ?> </td>
                                             <td> <?= $row['nm_divisi']; ?> </td>
                                             <td> <?= $row['nm_item'] . ' - [' . $row['kd_anggaran']; ?>]</td>
                                             <td> <?= $row['keterangan_pettycash']; ?> </td>
-                                            <td> <?= formatRupiah($row['grand_total_pettycash']); ?> </td>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    } ?>
+                                            <td> <?= formatRupiah($row['total_pettycash']); ?> </td>
+                                        </tr>
+                                <?php
+                                        $no++;
+                                    endwhile;
+                                } ?>
                             </tbody>
                         </table>
                     </div>

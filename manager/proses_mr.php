@@ -57,13 +57,13 @@ $query = mysqli_query($koneksi, "SELECT * FROM biaya_ops bo
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <?php
-                                $no = 1;
-                                if (mysqli_num_rows($query)) {
-                                    while ($row = mysqli_fetch_assoc($query)) :
+                            <?php
+                            $no = 1;
+                            if (mysqli_num_rows($query)) {
+                                while ($row = mysqli_fetch_assoc($query)) :
 
-                                ?>
+                            ?>
+                                    <tr>
                                         <td> <?= $no; ?> </td>
                                         <td> <?= $row['kd_transaksi']; ?> </td>
                                         <td> <?= $row['nm_divisi']; ?> </td>
@@ -84,12 +84,12 @@ $query = mysqli_query($koneksi, "SELECT * FROM biaya_ops bo
                                         <td>
                                             <a href="?p=proses_mr&aksi=lihat&id=<?= $row['kd_transaksi']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info">Lihat</button></span></a>
                                         </td>
-                            </tr>
-                    <?php
+                                    </tr>
+                            <?php
 
-                                        $no++;
-                                    endwhile;
-                                } ?>
+                                    $no++;
+                                endwhile;
+                            } ?>
                         </tbody>
                     </table>
                 </div>

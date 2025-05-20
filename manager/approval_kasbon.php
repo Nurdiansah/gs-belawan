@@ -19,11 +19,11 @@ if (isset($_GET['aksi']) && isset($_GET['id'])) {
 }
 
 $query = mysqli_query($koneksi, "SELECT * 
-                                            FROM kasbon k                                            
+                                            FROM kasbon k
                                             JOIN detail_biayaops dbo
                                             ON k.id_dbo = dbo.id
                                             JOIN divisi d
-                                            ON d.id_divisi = dbo.id_divisi                                            
+                                            ON d.id_divisi = dbo.id_divisi
                                             WHERE k.status_kasbon =1 AND from_user = '1' AND id_manager='$idUser'
                                             ");
 
@@ -62,13 +62,13 @@ $query = mysqli_query($koneksi, "SELECT *
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($query)) {
-                                        while ($row = mysqli_fetch_assoc($query)) :
+                                <?php
+                                $no = 1;
+                                if (mysqli_num_rows($query)) {
+                                    while ($row = mysqli_fetch_assoc($query)) :
 
-                                    ?>
+                                ?>
+                                        <tr>
                                             <td> <?= $no; ?> </td>
                                             <td> <?= $row['id_kasbon']; ?> </td>
                                             <td> <?= formatTanggal($row['tgl_kasbon']); ?> </td>
@@ -80,60 +80,60 @@ $query = mysqli_query($koneksi, "SELECT *
                                                     <button type="button" class="btn btn-danger modalTolak " data-toggle="modal" data-target="#tolakKasbon_<?= $row['id_kasbon']; ?>" data-id="<?= $row['id_kasbon']; ?>"><i class="fa fa-reply"></i> Reject </button></span></a>
                                                 <?php } ?>
                                             </td>
-                                </tr>
+                                        </tr>
 
-                                <!-- MODAL REMBO -->
-                                <!-- Modal Reject -->
-                                <div id="tolakKasbon_<?= $row['id_kasbon']; ?>" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
-                                        <!-- konten modal-->
-                                        <div class="modal-content">
-                                            <!-- heading modal -->
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Alasan Penolakan </h4>
-                                            </div>
-                                            <!-- body modal -->
-                                            <div class="modal-body">
-                                                <form method="post" enctype="multipart/form-data" action="tolak_kasbon.php" class="form-horizontal">
-                                                    <div class="box-body">
-                                                        <input type="hidden" name="id_kasbon" id="id_kasbon" value="<?= $row['id_kasbon']; ?>">
-                                                        <input type="hidden" name="url" id="url" value="approval_kasbon">
-                                                        <div class="mb-3">
-                                                            <label for="validationTextarea">Komentar</label>
-                                                            <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required>@<?php echo $Nama ?> : </textarea>
-                                                            <div class="invalid-feedback">
-                                                                Please enter a message in the textarea.
-                                                            </div>
-                                                        </div>
-                                                        <div class=" modal-footer">
-                                                            <button class="btn btn-success" type="submit" name="tolak">Kirim</button></span></a>
-                                                            &nbsp;
-                                                            <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal">
-                                                        </div>
+                                        <!-- MODAL REMBO -->
+                                        <!-- Modal Reject -->
+                                        <div id="tolakKasbon_<?= $row['id_kasbon']; ?>" class="modal fade" role="dialog">
+                                            <div class="modal-dialog">
+                                                <!-- konten modal-->
+                                                <div class="modal-content">
+                                                    <!-- heading modal -->
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Alasan Penolakan </h4>
                                                     </div>
-                                                </form>
+                                                    <!-- body modal -->
+                                                    <div class="modal-body">
+                                                        <form method="post" enctype="multipart/form-data" action="tolak_kasbon.php" class="form-horizontal">
+                                                            <div class="box-body">
+                                                                <input type="hidden" name="id_kasbon" id="id_kasbon" value="<?= $row['id_kasbon']; ?>">
+                                                                <input type="hidden" name="url" id="url" value="approval_kasbon">
+                                                                <div class="mb-3">
+                                                                    <label for="validationTextarea">Komentar</label>
+                                                                    <textarea rows="8" class="form-control is-invalid" name="komentar" id="validationTextarea" required>@<?php echo $Nama ?> : </textarea>
+                                                                    <div class="invalid-feedback">
+                                                                        Please enter a message in the textarea.
+                                                                    </div>
+                                                                </div>
+                                                                <div class=" modal-footer">
+                                                                    <button class="btn btn-success" type="submit" name="tolak">Kirim</button></span></a>
+                                                                    &nbsp;
+                                                                    <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Batal">
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <!--  -->
+                                        <!--  -->
 
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    }
+                                <?php
+                                        $no++;
+                                    endwhile;
+                                }
 
-                                    $jumlahData  = mysqli_num_rows($query);
+                                $jumlahData  = mysqli_num_rows($query);
 
-                                    if ($jumlahData == 0) {
-                                        echo
-                                        "<tr>
+                                if ($jumlahData == 0) {
+                                    echo
+                                    "<tr>
                                                 <td colspan='6'> Tidak Ada Data</td>
                                             </tr>
                                             ";
-                                    }
-                        ?>
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>

@@ -28,7 +28,7 @@ $query = mysqli_query($koneksi, "SELECT *
                                             JOIN detail_biayaops dbo
                                             ON p.id_dbo = dbo.id
                                             JOIN divisi d
-                                            ON d.id_divisi = bo.id_divisi                                            
+                                            ON d.id_divisi = bo.id_divisi
                                             WHERE status_po <=7 AND bo.id_manager = '$idUser'
                                             ORDER BY p.id_po DESC   ");
 
@@ -60,13 +60,13 @@ $query = mysqli_query($koneksi, "SELECT *
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($query)) {
-                                        while ($row = mysqli_fetch_assoc($query)) :
+                                <?php
+                                $no = 1;
+                                if (mysqli_num_rows($query)) {
+                                    while ($row = mysqli_fetch_assoc($query)) :
 
-                                    ?>
+                                ?>
+                                        <tr>
                                             <td> <?= $no; ?> </td>
                                             <td> <?= $row['po_number']; ?> </td>
                                             <td> <?= formatTanggal($row['tgl_po']); ?> </td>
@@ -92,11 +92,11 @@ $query = mysqli_query($koneksi, "SELECT *
                                             <td>
                                                 <a href="?p=po_proses&aksi=lihat&id=<?= $row['id_po']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-warning"><i class="fa fa-search-plus"></i></button></span></a>
                                             </td>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    } ?>
+                                        </tr>
+                                <?php
+                                        $no++;
+                                    endwhile;
+                                } ?>
                             </tbody>
                         </table>
                     </div>

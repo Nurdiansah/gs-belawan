@@ -48,7 +48,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        <table class="table text-center table table-striped table-hover" id=" ">
+                        <table class="table text-center table table-striped table-hover" id="material">
                             <thead>
                                 <tr style="background-color :#B0C4DE;">
                                     <th>No</th>
@@ -62,12 +62,12 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($query)) {
-                                        while ($row = mysqli_fetch_assoc($query)) :
-                                    ?>
+                                <?php
+                                $no = 1;
+                                if (mysqli_num_rows($query)) {
+                                    while ($row = mysqli_fetch_assoc($query)) :
+                                ?>
+                                        <tr>
                                             <td> <?= $no; ?> </td>
                                             <td><?= $row['kd_pettycash']; ?></td>
                                             <td> <?= formatTanggal($row['created_pettycash_on']); ?> </td>
@@ -78,11 +78,11 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                             <td>
                                                 <a href="?p=approval_pettycash&aksi=lihat&id=<?= $row['id_pettycash']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info"><i class="fa fa-search-plus"></i></button></span></a>
                                             </td>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    } ?>
+                                        </tr>
+                                <?php
+                                        $no++;
+                                    endwhile;
+                                } ?>
                             </tbody>
                         </table>
                     </div>

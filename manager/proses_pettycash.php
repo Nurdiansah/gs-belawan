@@ -55,12 +55,12 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <?php
-                                        $no = 1;
-                                        if (mysqli_num_rows($query)) {
-                                            while ($row = mysqli_fetch_assoc($query)) :
-                                        ?>
+                                    <?php
+                                    $no = 1;
+                                    if (mysqli_num_rows($query)) {
+                                        while ($row = mysqli_fetch_assoc($query)) :
+                                    ?>
+                                            <tr>
                                                 <td> <?= $no; ?> </td>
                                                 <td><?= $row['kd_pettycash']; ?></td>
                                                 <td> <?= formatTanggal($row['created_pettycash_on']); ?> </td>
@@ -75,11 +75,11 @@ $query = mysqli_query($koneksi, "SELECT * FROM transaksi_pettycash tp
                                                         <span class="label label-default">Verifikasi LPJ </span>
                                                     <?php  } ?>
                                                 </td>
-                                    </tr>
-                            <?php
-                                                $no++;
-                                            endwhile;
-                                        } ?>
+                                            </tr>
+                                    <?php
+                                            $no++;
+                                        endwhile;
+                                    } ?>
                                 </tbody>
                             </table>
                         </div>
