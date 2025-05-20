@@ -62,14 +62,14 @@ $jumlahData = mysqli_num_rows($query);
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <?php
-                                    $no = 1;
-                                    if (mysqli_num_rows($query)) {
-                                        while ($row = mysqli_fetch_assoc($query)) :
-                                            $angka_format = number_format($row['jml_bkk'], 0, ",", ".");
+                                <?php
+                                $no = 1;
+                                if (mysqli_num_rows($query)) {
+                                    while ($row = mysqli_fetch_assoc($query)) :
+                                        $angka_format = number_format($row['jml_bkk'], 0, ",", ".");
 
-                                    ?>
+                                ?>
+                                        <tr>
                                             <td> <?= $no; ?> </td>
                                             <td> <?= $row['kd_transaksi']; ?> </td>
                                             <td> <?= is_null($row['tgl_pengajuan']) ? '-' :  tanggal_indo($row['tgl_pengajuan']); ?> </td>
@@ -86,11 +86,11 @@ $jumlahData = mysqli_num_rows($query);
                                             <td>
                                                 <a href="?p=payment_kaskeluar&aksi=edit&id=<?= $row['id_bkk']; ?>"><span data-placement='top' data-toggle='tooltip' title='Lihat'><button class="btn btn-info">Lihat</button></span></a>
                                             </td>
-                                </tr>
-                        <?php
-                                            $no++;
-                                        endwhile;
-                                    } ?>
+                                        </tr>
+                                <?php
+                                        $no++;
+                                    endwhile;
+                                } ?>
                             </tbody>
                         </table>
                     </div>

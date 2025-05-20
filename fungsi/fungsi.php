@@ -5,11 +5,12 @@ include "koneksipusat.php";
 
 function host()
 {
+    $ssl = $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
     $srv = $_SERVER['SERVER_NAME'];
     $port = ":" .  $_SERVER['SERVER_PORT'];
 
     // $host = 'http://' . $srv .  '/sistem/gs-belawan/';
-    $host = 'http://' . $srv . '/gs-belawan/';
+    $host = $ssl . $srv . '/gs-belawan/';
 
     return $host;
 }

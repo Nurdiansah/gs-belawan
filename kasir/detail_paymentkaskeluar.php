@@ -235,6 +235,7 @@ $queryBkk = mysqli_query($koneksi, "SELECT *
                             <div class="form-group ">
                                 <div class="col-sm-4">
                                     <input type="hidden" value="<?= $row2['id_bkk']; ?>" class="form-control" name="id_bkk" readonly>
+                                    <input type="hidden" value="<?= $row2['programkerja_id']; ?>" class="form-control" name="id_programkerja" readonly>
                                     <input type="hidden" value="<?= $row2['id_anggaran']; ?>" class="form-control" name="id_anggaran" readonly>
                                     <input type="hidden" value="<?= $row2['jml_bkk']; ?>" class="form-control" name="jml_bkk" readonly>
                                     <input type="hidden" value="<?= $row2['kd_transaksi']; ?>" class="form-control" name="kd_transaksi" readonly>
