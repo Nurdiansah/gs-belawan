@@ -809,6 +809,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
         $('#bl_ui').text('Rp.' + bl_ui);
 
         // nilai pph untuk pajak progresive
+        var pph_nilai = parseInt(hilangkanTitik($("#pph_nilai").val()));
         var pph_nilai2 = parseInt($("#pph_nilai2").val())
         var pph_ui = tandaPemisahTitik(pph_nilai2);
         $('#pph_ui').text('Rp.' + pph_ui);
@@ -829,12 +830,13 @@ $totalReapp = mysqli_num_rows($queryReapp);
         document.form.ppn_nilai.value = ppn_nilaia;
 
         var jmla = (nilaiBarang + nilaiJasa + ppn_nilai + biayaLain) - (pph_nilai + pph_nilai2 + potongan);
+
         var jml = tandaPemisahTitik(jmla);
         $("#jml").attr("value", jml);
 
         document.form.jml.value = jml;
 
-        hitungTotal();
+        // hitungTotal();
     });
 
     function showPph(data) {

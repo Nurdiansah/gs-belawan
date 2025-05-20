@@ -433,6 +433,7 @@ $tanggal = date("Y-m-d H:i:s");
                         <form method="post" name="form" enctype="multipart/form-data" action="create_bkkpo.php" class="form-horizontal">
                             <div class="box-body">
                                 <input type="hidden" value="<?= $data2['id_po']; ?>" name="id_po">
+                                <input type="hidden" value="<?= $data2['programkerja_id']; ?>" name="id_programkerja" readonly>
                                 <input type="hidden" value="<?= $data2['id_tagihan']; ?>" name="id_tagihan">
                                 <input type="hidden" value="<?= $data2['id_anggaran']; ?>" name="id_anggaran">
                                 <input type="hidden" value="<?= $data2['id_supplier']; ?>" name="id_supplier">
