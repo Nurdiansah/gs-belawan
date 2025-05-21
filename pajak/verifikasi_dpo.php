@@ -821,7 +821,7 @@ $totalReapp = mysqli_num_rows($queryReapp);
 
         var checkBox = document.getElementById("myCheck");
         if (checkBox.checked == true) {
-            var ppn_nilai = Math.floor(setPpn * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(setPpn * getDpp());
         } else if (checkBox.checked == false) {
             var ppn_nilai = 0;
         }
@@ -1080,12 +1080,12 @@ $totalReapp = mysqli_num_rows($queryReapp);
         if (pembulatan == 'keatas') {
 
             // pembulatan ke atas
-            var ppn_nilai = Math.ceil(setPpn * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.ceil(setPpn * getDpp());
 
         } else if (pembulatan == 'kebawah') {
 
             // pembulatan ke bawah
-            var ppn_nilai = Math.floor(setPpn * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(setPpn * getDpp());
         }
 
         var ppn_nilaia = tandaPemisahTitik(ppn_nilai);
