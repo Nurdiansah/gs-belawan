@@ -408,12 +408,14 @@ $dataTolakBKM = mysqli_fetch_assoc($queryTolakBKM);
             </a>
           </li>
 
-          <li class="header">Master Data</li>
-          <li class="treeview">
-            <a href="index.php?p=rekening_bank">
-              <i class="fa fa-bank"></i> <span>Rekening Bank</span>
-            </a>
-          </li>
+          <?php if ($idDivisi == "1") { ?>
+            <li class="header">Master Data</li>
+            <li class="treeview">
+              <a href="index.php?p=rekening_bank">
+                <i class="fa fa-bank"></i> <span>Rekening Bank</span>
+              </a>
+            </li>
+          <?php } ?>
 
           <!-- KONDISI MENU BKM, HANYA DIVISI (ADMIN BILLING, KALIBARU, PAJAK, DIGUL, DAN MEDAN BILLING & KASIR ) -->
           <?php if ($idDivisi == "3" || $idDivisi == "9" || $idDivisi == "18" || $idDivisi == "1") { ?>

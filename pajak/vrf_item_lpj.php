@@ -15,14 +15,14 @@ if (isset($_POST['submit'])) {
 
     $status_kasbon = $_POST['status_kasbon'] == "808" ? "9" : "7";
 
-    $query = mysqli_query($koneksi, "UPDATE kasbon SET nilai_barang = '$nilai_barang',
-                                            nilai_jasa = '$nilai_jasa', 
-                                            biaya_lain = '$biaya_lain', 
-                                            nilai_ppn = '$nilai_ppn',
-                                            nilai_pph = '$nilai_pph', 
-                                            id_pph = '$id_pph',
-                                            harga_akhir = '$harga',
-                                            status_kasbon = '$status_kasbon'
+    $query = mysqli_query($koneksi, "UPDATE kasbon SET status_kasbon = '$status_kasbon'
+                                            -- nilai_barang = '$nilai_barang',
+                                            -- nilai_jasa = '$nilai_jasa', 
+                                            -- biaya_lain = '$biaya_lain', 
+                                            -- nilai_ppn = '$nilai_ppn',
+                                            -- nilai_pph = '$nilai_pph', 
+                                            -- id_pph = '$id_pph',
+                                            -- harga_akhir = '$harga',
                                             -- komentar = NULL
                                         WHERE id_kasbon ='$id_kasbon' ");
 
@@ -42,6 +42,7 @@ if (isset($_POST['submit'])) {
     $nilai_barang = $_POST['nilai_barang'];
     $nilai_jasa = $_POST['nilai_jasa'];
     $biaya_lain = $_POST['biaya_lain'];
+    $dpp_nilai_lain = penghilangTitik($_POST['dpp_nilai_lain']);
     $nilai_ppn = str_replace(".", "", $_POST['ppn_nilai']);
     $nilai_pph = $_POST['pph_nilai'] == 0 ? str_replace(".", "", $_POST['pph_nilai2']) :  str_replace(".", "", $_POST['pph_nilai']);
     $id_pph = $_POST['id_pph'];
@@ -50,6 +51,7 @@ if (isset($_POST['submit'])) {
     $query = mysqli_query($koneksi, "UPDATE kasbon SET nilai_barang = '$nilai_barang',
                                             nilai_jasa = '$nilai_jasa', 
                                             biaya_lain = '$biaya_lain', 
+                                            dpp_nilai_lain = '$dpp_nilai_lain',
                                             nilai_ppn = '$nilai_ppn',
                                             nilai_pph = '$nilai_pph', 
                                             id_pph = '$id_pph',

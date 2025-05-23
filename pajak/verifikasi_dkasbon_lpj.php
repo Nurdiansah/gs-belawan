@@ -299,9 +299,21 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
                                                     <i><span id="nj_ui"></span></i>
                                                 </div>
                                             </div>
+                                            <div id="bgn-dpp-lain">
+                                                <div class="form-group">
+                                                    <label id="tes" for="dpp_nilai_lain" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">DPP Nilai Lain</label>
+                                                    <div class="col-sm-5">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">Rp.</span>
+                                                            <input type="text" class="form-control " name="dpp_nilai_lain" id="dpp_nilai_lain" min="0" value="<?= formatRibuan($data['dpp_nilai_lain']); ?>" readonly />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                 <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN
                                                     <select name="pilih_ppn" id="setppn">
+                                                        <option value="0.12">12%</option>
                                                         <option value="0.11">11%</option>
                                                         <option value="0.10">10%</option>
                                                         <option value="0.011">1.1%</option>
@@ -329,6 +341,9 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
                                                     </div>
                                                     <div class=" col-sm-3">
                                                         <input type="radio" name="ppn_atas" value="jasa" id="jasa" onclick="checkPpnAtas()"> Hanya Jasa
+                                                    </div>
+                                                    <div class=" col-sm-3">
+                                                        <input type="radio" name="ppn_atas" value="dpp_lain" id="dpp_lain" onclick="checkPpnAtas()"> (11/12)
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -411,7 +426,7 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
                                                 <div class="col-sm-5">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">Rp.</span>
-                                                        <input type="text" required class="form-control" name="jml" value="<?= $data['nilai_akhir']; ?>" readonly />
+                                                        <input type="text" required class="form-control" name="jml" value="" readonly />
                                                     </div>
                                                 </div>
                                             </div>
@@ -545,6 +560,14 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
         });
     });
 
+    let dpp_nilai_lain = '<?= $data['dpp_nilai_lain'] ?>'
+    if (dpp_nilai_lain > 0) {
+        $("#bgn-dpp-lain").show();
+    } else {
+        $("#bgn-dpp-lain").hide();
+    }
+
+    ppn_atas = $("input[name='ppn_atas']:checked").val();
 
     // cek apakah ada nilai ppn
     var np = parseFloat("<?= round($data['nilai_ppn']) ?>");
@@ -667,7 +690,7 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
 
         var checkBox = document.getElementById("myCheck");
         if (checkBox.checked == true) {
-            var ppn_nilai = Math.floor(setPpn * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(setPpn * getDpp());
         } else if (checkBox.checked == false) {
             var ppn_nilai = 0;
         }
@@ -676,34 +699,28 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
         document.form.ppn_nilai.value = ppn_nilaia;
 
         var jmla = nilaiBarang + nilaiJasa + ppn_nilai - pph_nilai - pph_nilai2 + biayaLain;
+
         var jml = tandaPemisahTitik(jmla);
         $("#jml").attr("value", jml);
 
         document.form.jml.value = jml;
 
 
-
     });
-
-    function hilangkanTitik(data) {
-        var angka = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById(data).value))))); //input ke dalam angka tanpa titik
-
-        return angka;
-    }
 
     function showPph(data) {
 
         var nilai_barang = parseInt($("#nilai_barang").val())
-        var nilai_jasa = hilangkanTitik('nilai_jasa')
-        var ppn_nilai = hilangkanTitik('ppn_nilai')
-        var biaya_lain = hilangkanTitik('biaya_lain')
+        var nilai_jasa = parseInt($("#nilai_jasa").val()) // hilangkanTitik('nilai_jasa')
+        var ppn_nilai = hilangkanTitik($("#ppn_nilai").val()) // hilangkanTitik('ppn_nilai')
+        var biaya_lain = parseInt($("#biaya_lain").val()) // hilangkanTitik('biaya_lain')
 
 
         // var jml = hilangkanTitik('jml')
-        var pph_nilai = hilangkanTitik('pph_nilai')
+        var pph_nilai = hilangkanTitik($("#pph_nilai").val()) // hilangkanTitik('pph_nilai')
 
         // pph nilai 2 untuk tarif progresive
-        var pph_nilai2 = hilangkanTitik('pph_nilai2')
+        var pph_nilai2 = parseInt($("#pph_nilai2").val()) // hilangkanTitik('pph_nilai2')
 
 
         if (data == 'fixed') {
@@ -769,7 +786,7 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
 
         var checkBox = document.getElementById("myCheck");
         if (checkBox.checked == true) {
-            var ppn_nilai = Math.floor(angkaPpn * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(angkaPpn * getDpp());
         } else if (checkBox.checked == false) {
             var ppn_nilai = 0;
         }
@@ -797,6 +814,7 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
         } else if (checkBox.checked == false) {
 
             $("#bgn-pembulatan").hide();
+            $("#bgn-dpp-lain").hide();
 
             hitungCheckBox(setPpn);
 
@@ -831,11 +849,24 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
         // var nilaiDpp = 0;
 
         if (ppn_atas == 'all') {
+            $("#bgn-dpp-lain").hide();
             var nilaiDpp = getNilaiBarang() + getNilaiJasa();
+
         } else if (ppn_atas == 'barang') {
+            $("#bgn-dpp-lain").hide();
             var nilaiDpp = getNilaiBarang();
+
         } else if (ppn_atas == 'jasa') {
+            $("#bgn-dpp-lain").hide();
             var nilaiDpp = getNilaiJasa();
+
+        } else if (ppn_atas == 'dpp_lain') {
+            $("#bgn-dpp-lain").show();
+
+            dpp_lain = (11 / 12) * (getNilaiBarang() + getNilaiJasa());
+            $('#dpp_nilai_lain').val(tandaPemisahTitik(Math.round(dpp_lain)))
+
+            var nilaiDpp = getDPPNilaiLain();
         }
 
         return nilaiDpp;
@@ -861,12 +892,12 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
         if (pembulatan == 'keatas') {
 
             // pembulatan ke atas
-            var ppn_nilai = Math.ceil(setPpn * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.ceil(setPpn * getDpp());
 
         } else if (pembulatan == 'kebawah') {
 
             // pembulatan ke bawah
-            var ppn_nilai = Math.floor(setPpn * (nilaiBarang + nilaiJasa));
+            var ppn_nilai = Math.floor(setPpn * getDpp());
         }
 
         // if (pembulatan == 'keatas') {
@@ -889,6 +920,7 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
         var grandTotal = getNilaiBarang() + getNilaiJasa() + getPpnNilai() + getBiayaLain() - getPphNilai(); // - getPotongan();
 
         var jml = tandaPemisahTitik(grandTotal);
+
         document.form.jml.value = jml;
 
         return grandTotal;
@@ -900,15 +932,19 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
     }
 
     function getNilaiBarang() {
-        return hilangkanTitik('nilai_barang');
+        return parseInt($("#nilai_barang").val())
     }
 
     function getNilaiJasa() {
-        return hilangkanTitik('nilai_jasa');
+        return parseInt($("#nilai_jasa").val())
+    }
+
+    function getDPPNilaiLain() {
+        return parseInt(hilangkanTitik($("#dpp_nilai_lain").val()));
     }
 
     function getPpnNilai() {
-        return hilangkanTitik('ppn_nilai');
+        return parseInt(hilangkanTitik($("#ppn_nilai").val()));
     }
 
     function getPpnAtas() {
@@ -916,11 +952,7 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
     }
 
     function getBiayaLain() {
-        return hilangkanTitik('biaya_lain');
-    }
-
-    function getPotongan() {
-        return hilangkanTitik('potongan');
+        return parseInt($("#biaya_lain").val());
     }
 
     function getPphNilai() {
@@ -928,12 +960,12 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
         if (jenis == 'fixed') {
 
             // pph nilai 1 untuk tarif fix
-            var pph_nilai = hilangkanTitik('pph_nilai')
+            var pph_nilai = parseInt(hilangkanTitik($("#pph_nilai").val()));
 
         } else if (jenis == 'progresive') {
 
             // pph nilai 2 untuk tarif progresive
-            var pph_nilai = hilangkanTitik('pph_nilai2')
+            var pph_nilai = parseInt(hilangkanTitik($("#pph_nilai2").val()));
 
         } else {
             var pph_nilai = 0;
@@ -945,7 +977,7 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
     }
 
     function hilangkanTitik(idTag) {
-        var angka = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(document.getElementById(idTag).value))))); //input ke dalam angka tanpa titik
+        var angka = eval(bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(idTag))))); //input ke dalam angka tanpa titik
 
         return angka;
     }
