@@ -46,10 +46,16 @@ $querySbo =  mysqli_query($koneksi, "SELECT *
 
 $tanggalCargo = date("Y-m-d");
 
-if ($data['nilai_ppn'] > 0) {
-    $ppn_persen = $data['nilai_ppn'] / ($data['nilai_jasa'] + $data['nilai_barang']) * 100;
+// if ($data['nilai_ppn'] > 0) {
+//     $ppn_persen = $data['nilai_ppn'] / ($data['nilai_jasa'] + $data['nilai_barang']) * 100;
+// } else {
+//     $ppn_persen = "0";
+// }
+
+if ($data['dpp_nilai_lain'] > 0) {
+    $ppn_persen = round($data['nilai_ppn'] / $data['dpp_nilai_lain'] * 100, 2);
 } else {
-    $ppn_persen = "0";
+    $ppn_persen = $data['nilai_ppn'] > 0 ? round($data['nilai_ppn'] / ($data['nilai_jasa'] + $data['nilai_barang']) * 100, 2) : 0;
 }
 
 if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
@@ -313,10 +319,14 @@ if ($data['id_pph'] == 0 || $data['id_pph'] == 1) {
                                             <div class="form-group">
                                                 <label id="tes" for="nilai_ppn" class="col-sm-offset-1 col-sm-3 control-label" id="rupiah">PPN
                                                     <select name="pilih_ppn" id="setppn">
-                                                        <option value="0.12">12%</option>
-                                                        <option value="0.11">11%</option>
-                                                        <option value="0.10">10%</option>
-                                                        <option value="0.011">1.1%</option>
+                                                        <?php
+                                                        $queryPPN = mysqli_query($koneksi, "SELECT * FROM ppn WHERE status_aktif = '1' ORDER BY nm_ppn DESC");
+                                                        if (mysqli_num_rows($queryPPN)) {
+                                                            while ($rowPPN = mysqli_fetch_assoc($queryPPN)) :
+                                                        ?>
+                                                                <option value="<?= $rowPPN['nilai_ppn']; ?>" <?= $ppn_persen == $rowPPN['nm_ppn'] ? "selected" : ""; ?>><?= $rowPPN['nm_ppn'] ?>%</option>
+                                                        <?php endwhile;
+                                                        } ?>
                                                     </select>
                                                 </label>
                                                 <div class="col-sm-1">
